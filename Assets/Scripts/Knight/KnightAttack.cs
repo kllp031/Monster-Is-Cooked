@@ -28,8 +28,10 @@ public class KnightAttack : MonoBehaviour
         {
             // Enable an existing in-scene effect object
             if (attackEffect != null)
+            {
                 attackEffect.SetActive(true);
                 attackEffect.GetComponent<Animator>().SetTrigger("Attack");
+            }
         }
     }
 }

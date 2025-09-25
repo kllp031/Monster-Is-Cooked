@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class StoveInteract : MonoBehaviour
 {
-    [SerializeField] private stoveUI;
+    [SerializeField] private GameObject stoveUI;
     private GameObject interactableStove;
 
     public InputActionAsset actions;
