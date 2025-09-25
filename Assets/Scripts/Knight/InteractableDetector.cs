@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 /* This class is used by the player, it detects any object that has the "Interactable" script attached
@@ -11,14 +12,13 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Collider2D))]
 public class InteractableDetector : MonoBehaviour
 {
-    [SerializeField] Button interactButton;
+    private Interactable interactable;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Interactable obj = collision?.GetComponent<Interactable>();
         if (obj)
         {
-            interactButton?.onClick.RemoveAllListeners();
-            interactButton?.onClick.AddListener(obj.OnInteract);
+            interactable = obj;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -26,7 +26,14 @@ public class InteractableDetector : MonoBehaviour
         Interactable obj = collision?.GetComponent<Interactable>();
         if (obj)
         {
-            interactButton?.onClick.RemoveListener(obj.OnInteract);
+            if (interactable == obj) interactable = null;
+        }
+    }
+    public void OnInteract(InputAction.CallbackContext callbackContext)
+    {
+        if(callbackContext.started)
+        {
+            interactable?.OnInteract();
         }
     }
 }
