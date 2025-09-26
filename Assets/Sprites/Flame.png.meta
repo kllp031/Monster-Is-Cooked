@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: b07b731cfbbf62f4bba084b529fcfe71
+guid: 0fe321cc03a0de94d9ffca9134a22f6c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4036217807275846571
-    second: SFX401_05_0
-  - first:
-      213: -3108193072655967857
-    second: SFX401_05_1
-  - first:
-      213: 7062630121053172469
-    second: SFX401_05_2
-  - first:
-      213: -8030352831221957523
-    second: SFX401_05_3
+      213: 403208247147482157
+    second: Flame_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -118,30 +109,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SFX401_05_0
+      name: Flame_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 20
-        width: 6
-        height: 7
+        x: 1
+        y: 0
+        width: 14
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,74 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 55497310a497cf7c0800000000000000
-      internalID: -4036217807275846571
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SFX401_05_1
-      rect:
-        serializedVersion: 2
-        x: 8
-        y: 22
-        width: 13
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f89d20b4eda7dd4d0800000000000000
-      internalID: -3108193072655967857
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SFX401_05_2
-      rect:
-        serializedVersion: 2
-        x: 15
-        y: 9
-        width: 19
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5f23959fca0830260800000000000000
-      internalID: 7062630121053172469
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SFX401_05_3
-      rect:
-        serializedVersion: 2
-        x: 9
-        y: 10
-        width: 10
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d6c76f985a47e8090800000000000000
-      internalID: -8030352831221957523
+      spriteID: d2ccbb5b3cb789500800000000000000
+      internalID: 403208247147482157
       vertices: []
       indices: 
       edges: []
@@ -236,10 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      SFX401_05_0: -4036217807275846571
-      SFX401_05_1: -3108193072655967857
-      SFX401_05_2: 7062630121053172469
-      SFX401_05_3: -8030352831221957523
+      Flame_0: 403208247147482157
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
