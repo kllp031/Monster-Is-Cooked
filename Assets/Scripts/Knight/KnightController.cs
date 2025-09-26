@@ -3,14 +3,33 @@ using UnityEngine.InputSystem;
 
 public class KnightController : MonoBehaviour
 {
-    private Vector2 moveInput = Vector2.zero;
+    public InputActionAsset actions;
+    private InputAction moveAction;
+    private Vector2 moveInput;
+
 
     [SerializeField] private float moveSpeed = 5f;
 
-    // Update is called once per frame
-    public void OnMove(InputAction.CallbackContext context)
+
+    private void OnEnable()
     {
-        moveInput = context.ReadValue<Vector2>();
+        actions.FindActionMap("Player").Enable();
+    }
+
+    private void OnDisable()
+    {
+        actions.FindActionMap("Player").Disable();
+    }
+
+    void Start()
+    {
+        moveAction = InputSystem.actions.FindAction("Move");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        moveInput = moveAction.ReadValue<Vector2>();
     }
 
     private void FixedUpdate()

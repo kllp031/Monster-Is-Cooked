@@ -1,28 +1,37 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class KnightAttack : MonoBehaviour
 {
-    [SerializeField] private GameObject attackEffect;
-    [SerializeField] private float coolDownTime = 1.0f;
+    public InputActionAsset actions;
+    private InputAction attack;
 
-    private Coroutine coolDownCoroutine = null;
-    public void OnAttack(InputAction.CallbackContext context)
+    [SerializeField] private GameObject attackEffect;
+
+    private void OnEnable()
     {
-        if (context.started && coolDownCoroutine == null)
+        var map = actions?.FindActionMap("Player", throwIfNotFound: false);
+        attack = map?.FindAction("Attack", throwIfNotFound: false);
+        map?.Enable();
+        attack?.Enable();
+    }
+
+    private void OnDisable()
+    {
+        attack?.Disable();
+        actions?.FindActionMap("Player", throwIfNotFound: false)?.Disable();
+    }
+
+    private void Update()
+    {
+        if (attack != null && attack.WasPressedThisFrame())
         {
+            // Enable an existing in-scene effect object
             if (attackEffect != null)
             {
                 attackEffect.SetActive(true);
                 attackEffect.GetComponent<Animator>().SetTrigger("Attack");
-                coolDownCoroutine = StartCoroutine(CoolDownCoroutine());
             }
         }
-    }
-    IEnumerator CoolDownCoroutine()
-    {
-        yield return new WaitForSeconds(coolDownTime);
-        coolDownCoroutine = null;
     }
 }
