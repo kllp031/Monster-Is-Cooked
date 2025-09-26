@@ -2,15 +2,9 @@ using UnityEngine;
 
 public class Stove : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] GameObject StoveMenu;
+    public void OnInteract()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        StoveMenu?.SetActive(true);
     }
 }
