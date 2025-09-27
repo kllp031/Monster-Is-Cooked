@@ -260,7 +260,12 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      SFX401_04_0: 5188014107031199984
+      SFX401_04_1: -4641509960170328710
+      SFX401_04_2: 1349492592354666532
+      SFX401_04_3: -1935230450118975888
+      SFX401_04_4: 1878380754923665889
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
