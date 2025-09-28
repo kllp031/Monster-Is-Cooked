@@ -2,15 +2,8 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void OnInteract(GameObject obj)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        print("Interacting with NPC: " + gameObject.name);
     }
 }

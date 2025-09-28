@@ -8,8 +8,9 @@ public class AttackFX : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
+        print("AttackFX collided with: " + collision.name);
         if (collision.TryGetComponent<Enemy>(out Enemy enemy))
         {
             enemy.Die();
