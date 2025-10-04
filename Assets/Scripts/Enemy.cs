@@ -75,7 +75,7 @@ public class Enemy : MonoBehaviour
     private IEnumerator Attack()
     {
         yield return new WaitForSeconds(attackDelay);
-        Debug.Log($"{name} attacks {player.name}!");
+        //Debug.Log($"{name} attacks {player.name}!");
     }
 
     public void Die()

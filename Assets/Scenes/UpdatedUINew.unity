@@ -1120,7 +1120,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 947256733}
   m_HandleRect: {fileID: 947256732}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1857,6 +1857,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemToDrop: {fileID: 9004908710988102272, guid: 0b07192f04da55949ace72129b4d9e3f, type: 3}
+  moveSpeed: 3
+  attackRange: 0.5
+  attackCooldown: 1
+  attackDelay: 1
 --- !u!1 &477026225
 GameObject:
   m_ObjectHideFlags: 0
@@ -13264,8 +13268,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 404201393}
   m_HandleRect: {fileID: 404201392}
   m_Direction: 2
-  m_Value: 1.0000002
-  m_Size: 0.66825396
+  m_Value: 1.0000006
+  m_Size: 0.668254
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -13856,6 +13860,10 @@ PrefabInstance:
     - target: {fileID: 655225157361588048, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2248236681626196346, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3794178639290902241, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
       propertyPath: m_Name
