@@ -87,6 +87,12 @@ public class CookingManager : MonoBehaviour
     {
         currentRecipe = recipe;
 
+        if (recipe == null)
+        {
+            Debug.LogWarning("Cannot start recipe: No recipe selected.");
+            return false;
+        }
+
         if (!inventory.HasIngredients(recipe))
         {
             Debug.LogWarning("Cannot start recipe: Not enough ingredients.");
@@ -133,5 +139,10 @@ public class CookingManager : MonoBehaviour
         {
             Debug.LogError("Food component missing on the instantiated prefab!");
         }
+    }
+
+    private void OnDisable()
+    {
+        currentRecipe = null;
     }
 }
