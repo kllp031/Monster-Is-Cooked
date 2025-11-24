@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c6b18fd03a32014c98fe872c01e4f50, type: 3}
   m_Name: Wheat
   m_EditorClassIdentifier: 
-  ingredientName: 
-  icon: {fileID: 0}
+  ingredientName: Wheat
+  icon: {fileID: 6271399085124507442, guid: 3cb8491e73d39ea4ebf3e37c94041e73, type: 3}

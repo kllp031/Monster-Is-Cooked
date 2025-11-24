@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c6b18fd03a32014c98fe872c01e4f50, type: 3}
   m_Name: Kiwi
   m_EditorClassIdentifier: 
-  ingredientName: 
-  icon: {fileID: 0}
+  ingredientName: Kiwi
+  icon: {fileID: -4615756232869800164, guid: 7b2978ae3dbc2614abcc8a8cd1e78e5c, type: 3}

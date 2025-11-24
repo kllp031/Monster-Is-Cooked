@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c6b18fd03a32014c98fe872c01e4f50, type: 3}
   m_Name: Milk
   m_EditorClassIdentifier: 
-  ingredientName: 
-  icon: {fileID: 0}
+  ingredientName: Milk
+  icon: {fileID: -4635016379236437327, guid: b71599e61ae06904781efcbd2425c32a, type: 3}
