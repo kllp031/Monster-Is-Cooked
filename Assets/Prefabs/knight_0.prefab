@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 3245055706392833530}
   - component: {fileID: 3809481783102503530}
   - component: {fileID: 7476366904642641129}
-  - component: {fileID: 4812991923274574526}
   - component: {fileID: 655225157361588048}
   - component: {fileID: 4470273858900987813}
   - component: {fileID: 9049991607705208772}
@@ -204,22 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ff3e05ad5e4f2443ac8cc7fea676e31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   moveSpeed: 5
---- !u!114 &4812991923274574526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3794178639290902241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b02489ad7393b9048a828a4ab3bebcf7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  foodPivot: {fileID: 5515881201385432936}
-  actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!114 &655225157361588048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,8 +229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1307ac9f7a3cf37498ef469feeb98252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   attackEffect: {fileID: 8413855311076355617}
+  coolDownTime: 1
 --- !u!114 &9049991607705208772
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -77,4 +77,19 @@ public class CookingUIManager : MonoBehaviour
             slotUI.Setup(ingredient, ownedAmount, requiredAmount);
         }
     }
+
+    void OnDisable()
+    {
+        // Clear recipe image when UI is disabled
+        recipeImage.enabled = false;
+        ClearIngredientSlot();
+    }
+
+    void ClearIngredientSlot()
+    {
+        foreach (Transform child in ingredientSlotContainer)
+        {
+            Destroy(child.gameObject);
+        }
+    }
 }
