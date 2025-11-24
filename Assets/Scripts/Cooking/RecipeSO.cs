@@ -10,8 +10,4 @@ public class Recipe : ScriptableObject
     public int[] ingredientAmounts;  // Match indices
 
     public float cookTime = 2f; // How long slider moves
-
-    public GameObject result_Normal;
-    public GameObject result_Delicious;
-    public GameObject result_Suspicious;
 }

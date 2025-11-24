@@ -1,19 +1,57 @@
 ﻿using TMPro;
 using UnityEngine;
-using TMPro; // if using TextMeshPro
+using UnityEngine.UI;
 
 public class CookingManager : MonoBehaviour
 {
     public Inventory inventory;
     public Recipe currentRecipe;
     public CookingMinigame minigame;
-    public GameObject cookingUI;
 
     public TextMeshProUGUI cookButtonText;
+
+    [SerializeField] private GameObject foodTemplate;
     void Start()
     {
         minigame.OnCookFinished += OnCookDone;
     }
+
+    /// <summary>
+    /// CookingManager set up ui for selected recipe
+    /// </summary>
+
+    public void SelectRecipe(Recipe recipe)
+    {
+        currentRecipe = recipe;
+    }
+
+    /// <summary>
+    /// /// Called when cook button is pressed
+    /// </summary>
+
+    public void OnCookButtonPressed(CookingUIManager UIManager)
+    {
+        if (!minigame.IsCooking)
+        {
+            bool started = BeginRecipe(currentRecipe);
+            if (started)
+                cookButtonText.text = "Stop";
+            //temp fix
+            UIManager.UpdateUI(currentRecipe);
+            //UIManager.SetActiveCookingMinigame(true);
+        }
+        else
+        {
+            minigame.FinishCook();
+            cookButtonText.text = "Start";
+        }
+    }
+
+    /// <summary>
+    /// /// Starts the cooking process for the given recipe
+    /// </summary>
+    /// <param name="recipe"></param>
+    /// <returns></returns>
 
     public bool BeginRecipe(Recipe recipe)
     {
@@ -27,45 +65,29 @@ public class CookingManager : MonoBehaviour
 
         inventory.SpendIngredients(recipe);
 
-        // ACTIVATES UI + minigame script
-        cookingUI.SetActive(true);
-
         minigame.StartCooking();
+        print("Started cooking " + recipe.name);
         return true;
     }
 
     void OnCookDone(CookingMinigame.CookResult r)
     {
-        GameObject resultPrefab = r switch
+        // Only create the food object if the result is Normal
+        if (r == CookingMinigame.CookResult.Normal)
         {
-            CookingMinigame.CookResult.Delicious => currentRecipe.result_Delicious,
-            CookingMinigame.CookResult.Normal => currentRecipe.result_Normal,
-            _ => currentRecipe.result_Suspicious
-        };
+            GameObject foodObj = Instantiate(foodTemplate);
 
-        Instantiate(resultPrefab);
+            Food food = foodObj.GetComponent<Food>();
+            if (food == null)
+            {
+                Debug.LogError("Food component missing on foodTemplate prefab!");
+                return;
+            }
+
+            food.SetUp(currentRecipe);
+        }
+
         cookButtonText.text = "Start";
-
-        // HIDE UI
-        cookingUI.SetActive(false);
-
         Debug.Log("Cook result: " + r);
-    }
-    public void OnCookButtonPressed()
-    {
-        if (!minigame.IsCooking)
-        {
-            bool started = BeginRecipe(currentRecipe);
-            if (started)
-                cookButtonText.text = "Stop";
-        }
-        else
-        {
-            minigame.FinishCook();
-            cookButtonText.text = "Start";
-
-            // HIDE UI immediately
-            //cookingUI.SetActive(false);
-        }
     }
 }

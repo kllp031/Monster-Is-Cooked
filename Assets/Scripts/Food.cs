@@ -4,32 +4,19 @@ using UnityEngine;
 // This is a simple example of a food that will call the PickUpFood() function on the player's FoodHolder script
 public class Food : MonoBehaviour
 {
-    //public GameObject promptUI;  // assign the "PressE" Text in Inspector
+    private Recipe recipe;
+    private SpriteRenderer spriteRenderer;
 
-    //void Start()
-    //{
-    //    if (promptUI != null)
-    //        promptUI.SetActive(false); // Hide on start
-    //}
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
-    //void OnTriggerEnter2D(Collider2D other)
-    //{
-    //    if (other.CompareTag("Player")) // Make sure your Player has tag "Player"
-    //    {
-    //        if (promptUI != null)
-    //            promptUI.SetActive(true); // Show "E"
-    //    }
-    //}
-
-    //void OnTriggerExit2D(Collider2D other)
-    //{
-    //    if (other.CompareTag("Player"))
-    //    {
-    //        if (promptUI != null)
-    //            promptUI.SetActive(false); // Hide "E"
-    //    }
-    //}
-
+    public void SetUp(Recipe recipe)
+    {
+        this.recipe = recipe;
+        spriteRenderer.sprite = recipe.icon;
+    }
 
     public void OnInteract(GameObject player)
     {

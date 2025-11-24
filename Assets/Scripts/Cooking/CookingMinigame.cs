@@ -5,17 +5,21 @@ public class CookingMinigame : MonoBehaviour
 {
     public Slider slider;
     public RectTransform perfectZone;  // UI area for "orange zone"
+    public RectTransform handle;  // Assign the slider handle rect here
 
     public float speed = 1f;
     private bool movingRight = true;
     private bool cooking = false;
 
     public float perfectZoneWidth = 0.2f;   // 20% of slider width (adjust in inspector)
+    // Add this variable at the top with your other public variables
+    [Tooltip("How much leeway to give the player (0.05 = 5% extra space on both sides)")]
+    public float hitTolerance = 0.05f;
 
 
     public System.Action<CookResult> OnCookFinished;
 
-    public enum CookResult { Suspicious, Normal, Delicious }
+    public enum CookResult { Normal, Bad}
 
     void Update()
     {
@@ -33,15 +37,11 @@ public class CookingMinigame : MonoBehaviour
             slider.value -= range;
             if (slider.value <= 0f) movingRight = true;
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            FinishCook();
-        }
     }
 
     public void StartCooking()
     {
+        gameObject.SetActive(true);
         slider.value = 0;
         cooking = true;
         movingRight = true;
@@ -79,21 +79,18 @@ public class CookingMinigame : MonoBehaviour
 
         CookResult result;
 
-        if (pointerPos > zoneMin && pointerPos < zoneMax)
-        {
-            result = CookResult.Delicious;
-        }
-        else if (Mathf.Abs(pointerPos - zoneMin) < 0.1f ||
-                 Mathf.Abs(pointerPos - zoneMax) < 0.1f)
+        // LOGIC CHANGE: We subtract tolerance from min and add it to max
+        // This effectively widens the "win" area without changing the UI visuals
+        if (pointerPos > (zoneMin - hitTolerance) && pointerPos < (zoneMax + hitTolerance))
         {
             result = CookResult.Normal;
         }
         else
         {
-            result = CookResult.Suspicious;
+            result = CookResult.Bad;
         }
 
         OnCookFinished?.Invoke(result);
+        gameObject.SetActive(false);
     }
-
 }

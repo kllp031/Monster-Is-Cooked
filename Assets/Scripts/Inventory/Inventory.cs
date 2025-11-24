@@ -57,5 +57,16 @@ public class Inventory : MonoBehaviour
             items[recipe.ingredientsRequired[i]] -= recipe.ingredientAmounts[i];
         }
     }
+
+    public int GetAmount(Ingredient ing)
+    {
+        if (!items.ContainsKey(ing)) return 0;
+        return items[ing];
+    }
+
+    public Dictionary<Ingredient, int> GetAllItems()
+    {
+        return items;
+    }
 }
 
