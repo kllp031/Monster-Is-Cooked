@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [System.Serializable]
 public class InventoryEntry
@@ -14,6 +15,8 @@ public class Inventory : MonoBehaviour
     public List<InventoryEntry> startingItems = new List<InventoryEntry>();
 
     private Dictionary<Ingredient, int> items = new Dictionary<Ingredient, int>();
+
+    public event Action OnInventoryChanged;
 
     private void Awake()
     {
@@ -35,6 +38,9 @@ public class Inventory : MonoBehaviour
             items[ingredient] = 0;
 
         items[ingredient] += amount;
+
+        //Trigger the event whenever data changes
+        OnInventoryChanged?.Invoke();
     }
 
     public bool HasIngredients(Recipe recipe)
@@ -56,6 +62,9 @@ public class Inventory : MonoBehaviour
         {
             items[recipe.ingredientsRequired[i]] -= recipe.ingredientAmounts[i];
         }
+
+        //Trigger the event whenever data changes
+        OnInventoryChanged?.Invoke();
     }
 
     public int GetAmount(Ingredient ing)
