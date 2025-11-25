@@ -12,6 +12,7 @@ public class Gate : MonoBehaviour
         // 1. Move player to spawn point of target area
         Transform player = other.transform;
         player.position = targetArea.getSpawnPosition();
+        Debug.Log("tele to" + targetArea.getSpawnPosition());
 
         // 2. Get Main Camera and update its boundaries
         CameraFollow cam = Camera.main.GetComponent<CameraFollow>();
