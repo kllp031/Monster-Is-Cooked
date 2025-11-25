@@ -1,0 +1,145 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+/// <summary>
+/// EnemyBase-derived enemy class which walks in a direction until it hits a wall
+/// </summary>
+public class WalkingEnemy : EnemyBase
+{
+    [Header("Settings")]
+    public float chaseRange = 5f;
+    public float attackRange = 1.2f;
+
+    [Header("References")]
+    public Transform target;  // Player
+    public Rigidbody2D rb;
+
+    [Header("Attack")]
+    public EnemyAttackBase enemyAttack;
+
+    [Header("Patrol Settings")]
+    [SerializeField] private float _patrolSpeed = 2f;
+    [SerializeField] private float _minMoveTime = 2f;
+    [SerializeField] private float _maxMoveTime = 5f;
+    [SerializeField] private float _waitStayTime = 1.5f;
+    [SerializeField] private LayerMask _obstacleLayer; 
+    [SerializeField] private float _wallCheckDistance = 1f; 
+    private float _patrolTimer;       
+    private bool _isPatrolWaiting;
+    private Vector2 _moveDirection;
+
+    protected override void Setup()
+    {
+        base.Setup();
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        UpdateState();
+    }
+
+    void UpdateState()
+    {
+        float distance = Vector2.Distance(transform.position, target.position);
+
+        switch (currentEnemyState)
+        {
+            case EnemyState.Idle:
+                if (distance < chaseRange) currentEnemyState = EnemyState.Chase;
+                else currentEnemyState = EnemyState.Patrol;
+                break;
+
+            case EnemyState.Patrol:
+                HandlePatrol();
+                if (distance < chaseRange) currentEnemyState = EnemyState.Idle;
+                break;
+
+            case EnemyState.Chase:
+                if (distance >= chaseRange) currentEnemyState = EnemyState.Idle;
+                if (distance <= attackRange) currentEnemyState = EnemyState.Attack;
+                break;
+
+            case EnemyState.Attack:
+                enemyAttack.PerformAttack();
+
+                if (distance > attackRange) currentEnemyState = EnemyState.Idle;
+                break;
+
+            case EnemyState.Hurt:
+                //hurt
+                break;
+        }
+    }
+
+    protected override Vector3 GetMovement()
+    {
+        Flip(_moveDirection.x > 0 ? 1 : -1);
+        if (currentEnemyState == EnemyState.Chase)
+        {
+            Vector2 dir = (target.position - transform.position).normalized;
+            return dir * moveSpeed * Time.deltaTime;
+        }
+
+        //patrol
+        if (currentEnemyState == EnemyState.Patrol && !_isPatrolWaiting)
+        {
+            return _moveDirection * _patrolSpeed * Time.deltaTime;
+        }
+
+        return Vector3.zero;
+    }
+
+    private void HandlePatrol()
+    {
+        _patrolTimer -= Time.deltaTime;
+        if (_patrolTimer <= 0)
+        {
+            if (_isPatrolWaiting)
+            {
+                _isPatrolWaiting = false;
+                SetRandomPatrolTime();
+                PickRandomDirection();
+            }
+            else
+            {
+                _isPatrolWaiting = true;
+                _patrolTimer = _waitStayTime;
+                _moveDirection = Vector2.zero;
+            }
+        }
+
+        if (!_isPatrolWaiting && CheckWallOrLedge())
+        {
+            PickRandomDirection();
+            SetRandomPatrolTime();
+        }
+    }
+    private void SetRandomPatrolTime()
+    {
+        _patrolTimer = Random.Range(_minMoveTime, _maxMoveTime);
+    }
+    private void PickRandomDirection()
+    {
+        _moveDirection = Random.insideUnitCircle.normalized;
+
+        if (_moveDirection.x != 0)
+        {
+            Flip(_moveDirection.x > 0 ? 1 : -1);
+        }
+    }
+    private bool CheckWallOrLedge()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, _moveDirection, _wallCheckDistance, _obstacleLayer);
+
+        return hit.collider != null;
+    }
+    private void Flip(int direction)
+    {
+        Vector3 scale = transform.localScale;
+        scale.x = Mathf.Abs(scale.x) * direction;
+        transform.localScale = scale;
+    }
+}

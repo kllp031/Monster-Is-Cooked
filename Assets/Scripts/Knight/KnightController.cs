@@ -18,4 +18,9 @@ public class KnightController : MonoBehaviour
         Vector3 move = new Vector3(moveInput.x, moveInput.y, 0) * moveSpeed * Time.fixedDeltaTime;
         transform.Translate(move, Space.World);
     }
+
+    public Vector2 getMoveInput()
+    {
+        return moveInput;
+    }
 }
