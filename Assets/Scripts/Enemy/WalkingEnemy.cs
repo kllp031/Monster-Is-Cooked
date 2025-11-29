@@ -11,10 +11,6 @@ public class WalkingEnemy : EnemyBase
     public float chaseRange = 5f;
     public float attackRange = 1.2f;
 
-    [Header("References")]
-    public Transform target;  // Player
-    public Rigidbody2D rb;
-
     [Header("Attack")]
     public EnemyAttackBase enemyAttack;
 
@@ -28,6 +24,9 @@ public class WalkingEnemy : EnemyBase
     private float _patrolTimer;       
     private bool _isPatrolWaiting;
     private Vector2 _moveDirection;
+
+    [Header("Hurt Settings")]
+    [SerializeField] private float _hurtTime = 2f;
 
     protected override void Setup()
     {

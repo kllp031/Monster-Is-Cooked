@@ -175,10 +175,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d09656d9028761489961c7e4965fcef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackCooldown: 1.5
+  _attackCooldown: 0
   _damageObject: {fileID: 8155084390783578806}
   _hitboxActiveTime: 0.2
-  _startDelay: 0.1
+  _startDelay: 0
 --- !u!114 &5235283400494265017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,9 +291,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6122e9dcd5affed41b6611489d74a00f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamId: 0
+  teamId: 1
   damageAmount: 1
-  destroyAfterDamage: 1
+  destroyAfterDamage: 0
   dealDamageOnTriggerEnter: 1
   dealDamageOnTriggerStay: 0
   dealDamageOnCollision: 0

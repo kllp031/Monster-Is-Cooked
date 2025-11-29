@@ -24,9 +24,11 @@ public class Health : MonoBehaviour
     [Tooltip("Invulnerability duration, in seconds, after taking damage")]
     public float invincibilityTime = 3f;
 
+    private Rigidbody2D rb;
     void Start()
     {
         SetRespawnPoint(transform.position);
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -80,6 +82,19 @@ public class Health : MonoBehaviour
             CheckDeath();
         }
         //GameManager.UpdateUIElements();
+    }
+
+    public void Knockback(Vector2 dir, float knockbackForce)
+    {
+        rb.velocity = dir * knockbackForce;
+        StartCoroutine(StopMoveAfterTime(0.1f));
+    }
+
+    IEnumerator StopMoveAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        rb.velocity = Vector2.zero;
+        Debug.Log("stop knockback");
     }
 
     public void ReceiveHealing(int healingAmount)
