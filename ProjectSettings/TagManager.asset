@@ -2,8 +2,9 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
-  tags: []
+  serializedVersion: 3
+  tags:
+  - Customer
   layers:
   - Default
   - TransparentFX
@@ -11,7 +12,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Customer
   - 
   - 
   - 
@@ -41,3 +42,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Layer1
+    uniqueID: 316993435
+    locked: 0
+  - name: Layer2
+    uniqueID: 1276802351
+    locked: 0
+  m_RenderingLayers:
+  - Default

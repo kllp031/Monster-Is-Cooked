@@ -5,8 +5,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-/* This class is used by the player, it detects any object that has the "Interactable" script attached
-   When player hit the specified "Interact button", simply call the "Interact()" function on the interable object
+/* This class is used by the player, it detects any objects that have the "Interactable" script attached to them
+   When player hit the specified "Interact button", simply call the "Interact()" function on the interactable object
    That object will handle the logic, not the player*/
 
 [RequireComponent(typeof(Collider2D))]
