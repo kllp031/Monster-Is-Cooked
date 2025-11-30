@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fcbfc8cf9b643458e62727c45f6d86, type: 3}
+  m_Name: KiwiCake
+  m_EditorClassIdentifier: 
+  recipeName: KiwiCake
+  icon: {fileID: -6366649602521467861, guid: 4ba45e274222dce45ad51edfd6831e4d, type: 3}
+  ingredientsRequired:
+  - {fileID: 11400000, guid: 3a27712a5dfe50d4cb9d7ee1cdb44668, type: 2}
+  - {fileID: 11400000, guid: 40089bcb3a8aed942a3ed689560df249, type: 2}
+  - {fileID: 11400000, guid: 99700b262d38edf49924702f97578d3e, type: 2}
+  - {fileID: 11400000, guid: bd88917f0b7e6e847ae57212410ab123, type: 2}
+  ingredientAmounts: 01000000010000000100000001000000

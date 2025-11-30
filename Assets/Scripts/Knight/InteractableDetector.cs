@@ -19,6 +19,7 @@ public class InteractableDetector : MonoBehaviour
         if (obj)
         {
             interactable = obj;
+            print("Interactable detected: " + obj.name);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

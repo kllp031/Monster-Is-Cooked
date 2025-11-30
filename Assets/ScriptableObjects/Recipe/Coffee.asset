@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fcbfc8cf9b643458e62727c45f6d86, type: 3}
+  m_Name: Coffee
+  m_EditorClassIdentifier: 
+  recipeName: Coffee
+  icon: {fileID: 3371271238473578452, guid: 43e0013814e3e794f8649169780be3b6, type: 3}
+  ingredientsRequired:
+  - {fileID: 11400000, guid: 4dc4303d83b2a25458f1d3fccdc56820, type: 2}
+  ingredientAmounts: 03000000
