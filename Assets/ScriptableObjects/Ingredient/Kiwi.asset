@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c6b18fd03a32014c98fe872c01e4f50, type: 3}
+  m_Name: Kiwi
+  m_EditorClassIdentifier: 
+  ingredientName: Kiwi
+  icon: {fileID: -4615756232869800164, guid: 7b2978ae3dbc2614abcc8a8cd1e78e5c, type: 3}
