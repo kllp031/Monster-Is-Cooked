@@ -12,9 +12,12 @@ TagManager:
   - 
   - Water
   - UI
+  - Enemy
   - Customer
   - Player
   - PlayerDetector
+  - 
+  - 
   - 
   - 
   - 
