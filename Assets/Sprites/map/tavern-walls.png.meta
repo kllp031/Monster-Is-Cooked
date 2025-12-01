@@ -1,0 +1,1781 @@
+fileFormatVersion: 2
+guid: 10fa50e6492e5064191a3397418a1954
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1380362048889880385
+    second: tavern-walls_0
+  - first:
+      213: -7800017688602569435
+    second: tavern-walls_1
+  - first:
+      213: -4372787317282340332
+    second: tavern-walls_2
+  - first:
+      213: 4820523979581033744
+    second: tavern-walls_3
+  - first:
+      213: 5572682768986797021
+    second: tavern-walls_4
+  - first:
+      213: 5178619671021699092
+    second: tavern-walls_5
+  - first:
+      213: -6383844636657565041
+    second: tavern-walls_6
+  - first:
+      213: 5595525572578641605
+    second: tavern-walls_7
+  - first:
+      213: 3589666073061298995
+    second: tavern-walls_8
+  - first:
+      213: -6812098524286656170
+    second: tavern-walls_9
+  - first:
+      213: -7753271907442150795
+    second: tavern-walls_10
+  - first:
+      213: 6254813168054444958
+    second: tavern-walls_11
+  - first:
+      213: -6450390223444720732
+    second: tavern-walls_12
+  - first:
+      213: -6304975471885314137
+    second: tavern-walls_13
+  - first:
+      213: 2478619839402338280
+    second: tavern-walls_14
+  - first:
+      213: -6173866616414770564
+    second: tavern-walls_15
+  - first:
+      213: -5988046756110659628
+    second: tavern-walls_16
+  - first:
+      213: 7975425678012759902
+    second: tavern-walls_17
+  - first:
+      213: 740042131151081774
+    second: tavern-walls_18
+  - first:
+      213: 1062916705645918440
+    second: tavern-walls_19
+  - first:
+      213: -5935044414101851643
+    second: tavern-walls_20
+  - first:
+      213: -1581353256664909224
+    second: tavern-walls_21
+  - first:
+      213: 2156481982645590548
+    second: tavern-walls_22
+  - first:
+      213: 644671334623360961
+    second: tavern-walls_23
+  - first:
+      213: -789572502337543994
+    second: tavern-walls_24
+  - first:
+      213: 4694670709154474499
+    second: tavern-walls_25
+  - first:
+      213: -1842880224086916983
+    second: tavern-walls_26
+  - first:
+      213: 8332441284461607592
+    second: tavern-walls_27
+  - first:
+      213: 1839965968169493353
+    second: tavern-walls_28
+  - first:
+      213: 7860812367533749578
+    second: tavern-walls_29
+  - first:
+      213: -1896805019665393509
+    second: tavern-walls_30
+  - first:
+      213: -8744313962037610443
+    second: tavern-walls_31
+  - first:
+      213: -9146851833266708150
+    second: tavern-walls_32
+  - first:
+      213: -4447353733391833822
+    second: tavern-walls_33
+  - first:
+      213: -3385840621393932120
+    second: tavern-walls_34
+  - first:
+      213: 4042571182063940770
+    second: tavern-walls_35
+  - first:
+      213: 4325996027793640241
+    second: tavern-walls_36
+  - first:
+      213: 6534714461854962248
+    second: tavern-walls_37
+  - first:
+      213: 8414384640647263805
+    second: tavern-walls_38
+  - first:
+      213: 5742622301526646481
+    second: tavern-walls_39
+  - first:
+      213: 6520920740864892244
+    second: tavern-walls_40
+  - first:
+      213: -5453534528016573643
+    second: tavern-walls_41
+  - first:
+      213: 7227926534114898832
+    second: tavern-walls_42
+  - first:
+      213: -3330703756037985007
+    second: tavern-walls_43
+  - first:
+      213: 92334106466237472
+    second: tavern-walls_44
+  - first:
+      213: 5113865158927883632
+    second: tavern-walls_45
+  - first:
+      213: 5056656654608566191
+    second: tavern-walls_46
+  - first:
+      213: -3356168075949411155
+    second: tavern-walls_47
+  - first:
+      213: -7877237076320525302
+    second: tavern-walls_48
+  - first:
+      213: -2990306346158804516
+    second: tavern-walls_49
+  - first:
+      213: 3476797242002096823
+    second: tavern-walls_50
+  - first:
+      213: -1072749697963599443
+    second: tavern-walls_51
+  - first:
+      213: -4880711593842877387
+    second: tavern-walls_52
+  - first:
+      213: 5465805000967926327
+    second: tavern-walls_53
+  - first:
+      213: -7736851904869575568
+    second: tavern-walls_54
+  - first:
+      213: 6778037757167883141
+    second: tavern-walls_55
+  - first:
+      213: -2199615269917107401
+    second: tavern-walls_56
+  - first:
+      213: 227832534305817136
+    second: tavern-walls_57
+  - first:
+      213: 1320374156900682025
+    second: tavern-walls_58
+  - first:
+      213: 6127445576303389023
+    second: tavern-walls_59
+  - first:
+      213: 2191543288588496534
+    second: tavern-walls_60
+  - first:
+      213: -1535886948999218912
+    second: tavern-walls_61
+  - first:
+      213: -8823251011498842024
+    second: tavern-walls_62
+  - first:
+      213: -2503788260228732549
+    second: tavern-walls_63
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: tavern-walls_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 664
+        width: 26
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb00d7ea708f7dce0800000000000000
+      internalID: -1380362048889880385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_1
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 664
+        width: 26
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 525941d0d35c0c390800000000000000
+      internalID: -7800017688602569435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_2
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 664
+        width: 26
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4128d0b5a1db053c0800000000000000
+      internalID: -4372787317282340332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_3
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 666
+        width: 27
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01d0e2ae401f5e240800000000000000
+      internalID: 4820523979581033744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_4
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 666
+        width: 27
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd3f56bf375265d40800000000000000
+      internalID: 5572682768986797021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_5
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 666
+        width: 27
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 410491e37272ed740800000000000000
+      internalID: 5178619671021699092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_6
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 666
+        width: 27
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f824eb240270867a0800000000000000
+      internalID: -6383844636657565041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_7
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 659
+        width: 28
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c60a25acdc47ad40800000000000000
+      internalID: 5595525572578641605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_8
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 659
+        width: 28
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 333171b464e01d130800000000000000
+      internalID: 3589666073061298995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_9
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 659
+        width: 27
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6516ee4fb709671a0800000000000000
+      internalID: -6812098524286656170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 591
+        width: 32
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57235ed5748d66490800000000000000
+      internalID: -7753271907442150795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_11
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 532
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e93225adf6f8dc650800000000000000
+      internalID: 6254813168054444958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_12
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 591
+        width: 33
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a3cce4744c9b76a0800000000000000
+      internalID: -6450390223444720732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_13
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 532
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a799b8a63a3088a0800000000000000
+      internalID: -6304975471885314137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_14
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 591
+        width: 33
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e7efc49c93d56220800000000000000
+      internalID: 2478619839402338280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_15
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 532
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7a64fdd505025aa0800000000000000
+      internalID: -6173866616414770564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_16
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 591
+        width: 32
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4df089b833f26eca0800000000000000
+      internalID: -5988046756110659628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_17
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 532
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5fba7606676eae60800000000000000
+      internalID: 7975425678012759902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_18
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 532
+        width: 32
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e21551ab568254a00800000000000000
+      internalID: 740042131151081774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_19
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 591
+        width: 32
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e87ad9bc1d30ce00800000000000000
+      internalID: 1062916705645918440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_20
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 532
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 502fa43fc8c72ada0800000000000000
+      internalID: -5935044414101851643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_21
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 591
+        width: 32
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85ab4186797ed0ae0800000000000000
+      internalID: -1581353256664909224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_22
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 532
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41ade1c00fc5ded10800000000000000
+      internalID: 2156481982645590548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_23
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 593
+        width: 32
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c73a19c92552f800800000000000000
+      internalID: 644671334623360961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_24
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 532
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c021c11effda05f0800000000000000
+      internalID: -789572502337543994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_25
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 592
+        width: 32
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30a6594f222d62140800000000000000
+      internalID: 4694670709154474499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_26
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 532
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98005bf3336cc66e0800000000000000
+      internalID: -1842880224086916983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_27
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 593
+        width: 32
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8aa32287337c2a370800000000000000
+      internalID: 8332441284461607592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_28
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 532
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 963ec8bac4fd88910800000000000000
+      internalID: 1839965968169493353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_29
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 463
+        width: 22
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a45b8dc2337371d60800000000000000
+      internalID: 7860812367533749578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_30
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 463
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b989aa262e13da5e0800000000000000
+      internalID: -1896805019665393509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_31
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 463
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5387248e7c4f5a680800000000000000
+      internalID: -8744313962037610443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_32
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 410
+        width: 23
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a41e10148badf0180800000000000000
+      internalID: -9146851833266708150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_33
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 463
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2252ca2b753d742c0800000000000000
+      internalID: -4447353733391833822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_34
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 463
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a01abfc4e31301d0800000000000000
+      internalID: -3385840621393932120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_35
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 463
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a4f62652191a1830800000000000000
+      internalID: 4042571182063940770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_36
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 463
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13b04689776090c30800000000000000
+      internalID: 4325996027793640241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_37
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 463
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 842197f3e28ffaa50800000000000000
+      internalID: 6534714461854962248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_38
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 463
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d367845df36e5c470800000000000000
+      internalID: 8414384640647263805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_39
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 340
+        width: 23
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1de5bb9be84e1bf40800000000000000
+      internalID: 5742622301526646481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_40
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 404
+        width: 12
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45d9abf4dd6fe7a50800000000000000
+      internalID: 6520920740864892244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_41
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 404
+        width: 12
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53b9e37ad372154b0800000000000000
+      internalID: -5453534528016573643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_42
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 340
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 093f98833e0ce4460800000000000000
+      internalID: 7227926534114898832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_43
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 340
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11deb49a496f6c1d0800000000000000
+      internalID: -3330703756037985007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_44
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 340
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02cb2907169084100800000000000000
+      internalID: 92334106466237472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_45
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 340
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07d9423844918f640800000000000000
+      internalID: 5113865158927883632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_46
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 340
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa70f01af6adc2640800000000000000
+      internalID: 5056656654608566191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_47
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 340
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da4778aaaee7c61d0800000000000000
+      internalID: -3356168075949411155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_48
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 340
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a04e06e4d9e6ea290800000000000000
+      internalID: -7877237076320525302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_49
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 340
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd1bb93b83c4086d0800000000000000
+      internalID: -2990306346158804516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_50
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 340
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b2c795bba0104030800000000000000
+      internalID: 3476797242002096823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_51
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 212
+        width: 30
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da9d8f755d3dc11f0800000000000000
+      internalID: -1072749697963599443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_52
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 271
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53c5ddd1aaa344cb0800000000000000
+      internalID: -4880711593842877387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_53
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 216
+        width: 19
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7323f3670b07adb40800000000000000
+      internalID: 5465805000967926327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_54
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 271
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 074d1722f2e21a490800000000000000
+      internalID: -7736851904869575568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_55
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 216
+        width: 19
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5835d26bd6d601e50800000000000000
+      internalID: 6778037757167883141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_56
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 271
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73bd01ae0956971e0800000000000000
+      internalID: -2199615269917107401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_57
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 271
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 032439b9b7c692300800000000000000
+      internalID: 227832534305817136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_58
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 271
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 929cba0dc49e25210800000000000000
+      internalID: 1320374156900682025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_59
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 271
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f592a1c794f090550800000000000000
+      internalID: 6127445576303389023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_60
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 271
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69e653a720de96e10800000000000000
+      internalID: 2191543288588496534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_61
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 271
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0293eb515fe6faae0800000000000000
+      internalID: -1535886948999218912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_62
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 271
+        width: 23
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 858618fd3f38d8580800000000000000
+      internalID: -8823251011498842024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tavern-walls_63
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 271
+        width: 22
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b79e54cc7d1c04dd0800000000000000
+      internalID: -2503788260228732549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      tavern-walls_0: -1380362048889880385
+      tavern-walls_1: -7800017688602569435
+      tavern-walls_10: -7753271907442150795
+      tavern-walls_11: 6254813168054444958
+      tavern-walls_12: -6450390223444720732
+      tavern-walls_13: -6304975471885314137
+      tavern-walls_14: 2478619839402338280
+      tavern-walls_15: -6173866616414770564
+      tavern-walls_16: -5988046756110659628
+      tavern-walls_17: 7975425678012759902
+      tavern-walls_18: 740042131151081774
+      tavern-walls_19: 1062916705645918440
+      tavern-walls_2: -4372787317282340332
+      tavern-walls_20: -5935044414101851643
+      tavern-walls_21: -1581353256664909224
+      tavern-walls_22: 2156481982645590548
+      tavern-walls_23: 644671334623360961
+      tavern-walls_24: -789572502337543994
+      tavern-walls_25: 4694670709154474499
+      tavern-walls_26: -1842880224086916983
+      tavern-walls_27: 8332441284461607592
+      tavern-walls_28: 1839965968169493353
+      tavern-walls_29: 7860812367533749578
+      tavern-walls_3: 4820523979581033744
+      tavern-walls_30: -1896805019665393509
+      tavern-walls_31: -8744313962037610443
+      tavern-walls_32: -9146851833266708150
+      tavern-walls_33: -4447353733391833822
+      tavern-walls_34: -3385840621393932120
+      tavern-walls_35: 4042571182063940770
+      tavern-walls_36: 4325996027793640241
+      tavern-walls_37: 6534714461854962248
+      tavern-walls_38: 8414384640647263805
+      tavern-walls_39: 5742622301526646481
+      tavern-walls_4: 5572682768986797021
+      tavern-walls_40: 6520920740864892244
+      tavern-walls_41: -5453534528016573643
+      tavern-walls_42: 7227926534114898832
+      tavern-walls_43: -3330703756037985007
+      tavern-walls_44: 92334106466237472
+      tavern-walls_45: 5113865158927883632
+      tavern-walls_46: 5056656654608566191
+      tavern-walls_47: -3356168075949411155
+      tavern-walls_48: -7877237076320525302
+      tavern-walls_49: -2990306346158804516
+      tavern-walls_5: 5178619671021699092
+      tavern-walls_50: 3476797242002096823
+      tavern-walls_51: -1072749697963599443
+      tavern-walls_52: -4880711593842877387
+      tavern-walls_53: 5465805000967926327
+      tavern-walls_54: -7736851904869575568
+      tavern-walls_55: 6778037757167883141
+      tavern-walls_56: -2199615269917107401
+      tavern-walls_57: 227832534305817136
+      tavern-walls_58: 1320374156900682025
+      tavern-walls_59: 6127445576303389023
+      tavern-walls_6: -6383844636657565041
+      tavern-walls_60: 2191543288588496534
+      tavern-walls_61: -1535886948999218912
+      tavern-walls_62: -8823251011498842024
+      tavern-walls_63: -2503788260228732549
+      tavern-walls_7: 5595525572578641605
+      tavern-walls_8: 3589666073061298995
+      tavern-walls_9: -6812098524286656170
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

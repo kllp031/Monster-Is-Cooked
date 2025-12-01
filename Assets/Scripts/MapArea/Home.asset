@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   areaIndex: -1
   spawnPosition: {x: -8, y: 5}
-  topLeft: {x: -10, y: 5}
-  bottomRight: {x: 10, y: -5}
+  topLeft: {x: -11, y: 5}
+  bottomRight: {x: 11, y: -5}
