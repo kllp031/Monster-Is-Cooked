@@ -12,10 +12,11 @@ public class Food : MonoBehaviour
     [SerializeField] GameObject foodObject;
     [SerializeField] GameObject foodShadowObject;
     [SerializeField] Vector2 foodObjectPivot = new();
-    //[SerializeField] float verticalPosition = 0f; // Virtual vertical position
     [Header("Physics Settings")]
     [SerializeField] float gravityScale = 1.0f;
+    //[SerializeField] float minHeightToReceiveCollider = 0.5f;
 
+    public Recipe Recipe { get => recipe; }
     public float GravityScale { get => gravityScale; }
 
     private Vector2 foodPos;
@@ -115,7 +116,11 @@ public class Food : MonoBehaviour
     {
         // Prototype
         if (collider == null) return;
-        if (collider.tag == "Customer" && collider.GetComponent<IInteractable>() != null && !isPickedUp) collider.GetComponent<IInteractable>().OnInteract(this.gameObject);
+        if (collider.tag == "Customer" && collider.GetComponent<IInteractable>() != null && !isPickedUp)
+        {
+            //if (foodObject != null && foodObject.transform.localPosition.y <= minHeightToReceiveCollider)
+            //    collider.GetComponent<IInteractable>().OnInteract(this.gameObject);
+        }
     }
 
     public void OnInteract(GameObject player)

@@ -12,20 +12,20 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Collider2D))]
 public class InteractableDetector : MonoBehaviour
 {
-    private Interactable interactable;
+    private IInteractable interactable;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Interactable obj = collision?.GetComponent<Interactable>();
-        if (obj)
+        IInteractable obj = collision?.GetComponent<IInteractable>();
+        if (obj != null)
         {
             interactable = obj;
-            print("Interactable detected: " + obj.name);
+            print("Interactable detected: " + collision.name);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Interactable obj = collision?.GetComponent<Interactable>();
-        if (obj)
+        IInteractable obj = collision?.GetComponent<IInteractable>();
+        if (obj != null)
         {
             if (interactable == obj) interactable = null;
         }

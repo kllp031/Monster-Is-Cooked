@@ -174,8 +174,8 @@ public class FoodHolder : MonoBehaviour
     // These functions is called by the Input System
     public void OnThrowFood(InputAction.CallbackContext context)
     {
-        if (context.started) OnThrowFoodStarted(); // Should use animation trigger instead, if the animation is set successfully, it will call the OnThrowFoodStarted function
-        if (context.canceled) OnThrowFoodEnded(); // Should use animation trigger instead, if the animation is set successfully, it will call the OnThrowFoodEnded function
+        if (context.started) OnThrowFoodStarted(); // Should use animation trigger (or any kinds of state machine) instead, if the animation is set successfully, it will call the OnThrowFoodStarted function
+        if (context.canceled) OnThrowFoodEnded(); // Should use animation trigger (or any kinds of state machine) instead, if the animation is set successfully, it will call the OnThrowFoodEnded function
     }
     public void OnDropFood(InputAction.CallbackContext context)
     {
