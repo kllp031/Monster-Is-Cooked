@@ -24,11 +24,13 @@ public class Health : MonoBehaviour
     [Tooltip("Invulnerability duration, in seconds, after taking damage")]
     public float invincibilityTime = 3f;
 
+    private EnemyBase enemyBase;
     private Rigidbody2D rb;
     void Start()
     {
         SetRespawnPoint(transform.position);
         rb = GetComponent<Rigidbody2D>();
+        enemyBase = GetComponent<EnemyBase>();
     }
 
     void Update()
@@ -72,6 +74,8 @@ public class Health : MonoBehaviour
         }
         else
         {
+            if(gameObject.tag == "Enemy")   enemyBase.currentEnemyState = EnemyBase.EnemyState.Hurt;
+
             if (hitEffect != null)
             {
                 Instantiate(hitEffect, transform.position, transform.rotation, null);
@@ -126,6 +130,8 @@ public class Health : MonoBehaviour
 
     void Die()
     {
+        if (gameObject.tag == "Enemy") enemyBase.currentEnemyState = EnemyBase.EnemyState.Dead;
+
         if (deathEffect != null)
         {
             Instantiate(deathEffect, transform.position, transform.rotation, null);
