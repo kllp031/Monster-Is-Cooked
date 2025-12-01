@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3441307476891121901}
   - component: {fileID: 5370916520710431149}
   - component: {fileID: 989364987402034657}
+  - component: {fileID: 7508952235099122289}
   m_Layer: 0
   m_Name: Pig
   m_TagString: Enemy
@@ -153,6 +154,7 @@ MonoBehaviour:
   lastEnemyState: 0
   target: {fileID: 0}
   rb: {fileID: 0}
+  dropItem: {fileID: 0}
   chaseRange: 7
   attackRange: 5
   timeToIdle: 1
@@ -166,7 +168,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16
   _wallCheckDistance: 1
-  _hurtTime: 2
+  _hurtTime: 1
   isFlip: 1
 --- !u!114 &8687485351612802646
 MonoBehaviour:
@@ -275,3 +277,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &7508952235099122289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4386769147766901124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0709f8d5dacb034f99dc4f930e7feb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupPrefabs:
+  - {fileID: 8502819326897545693, guid: f8fb1d8a77aca114f9bef35459df02c0, type: 3}
+  - {fileID: 8502819326897545693, guid: bcdae6173daa9b14990e83bdf3df3582, type: 3}
+  scatterForce: 3

@@ -20,6 +20,7 @@ public abstract class EnemyBase : MonoBehaviour
     [Header("References")]
     public Transform target;  // Player
     public Rigidbody2D rb;
+    public DropItem dropItem;
 
     protected virtual void Start()
     {

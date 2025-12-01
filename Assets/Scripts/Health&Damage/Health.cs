@@ -130,6 +130,7 @@ public class Health : MonoBehaviour
 
     void Die()
     {
+        Debug.Log("Die");
         if (gameObject.tag == "Enemy") enemyBase.currentEnemyState = EnemyBase.EnemyState.Dead;
 
         if (deathEffect != null)

@@ -31,6 +31,7 @@ public class WalkingEnemy : EnemyBase
 
     [Header("Hurt Settings")]
     [SerializeField] private float _hurtTime = 2f;
+    private float hurtTimer;
 
     [Header("Sprite settings")]
     [SerializeField] private bool isFlip = false;
@@ -39,6 +40,7 @@ public class WalkingEnemy : EnemyBase
     {
         base.Setup();
         rb = GetComponent<Rigidbody2D>();
+        dropItem = GetComponent<DropItem>();
     }
 
     protected override void Update()
@@ -102,7 +104,19 @@ public class WalkingEnemy : EnemyBase
                 break;
 
             case EnemyState.Hurt:
-                //hurt
+                //hurt, health handle
+                if (hurtTimer >= _hurtTime)
+                {
+                    currentEnemyState = EnemyState.Idle;
+                    hurtTimer = 0;
+                }
+                else
+                {
+                    hurtTimer += Time.deltaTime;
+                }
+                break;
+            case EnemyState.Dead:
+                //dead, health handle
                 break;
         }
     }
@@ -178,5 +192,10 @@ public class WalkingEnemy : EnemyBase
         else
             scale.x = Mathf.Abs(scale.x) * direction;
         transform.localScale = scale;
+    }
+
+    public void OnDestroy()
+    {
+        Destroy(gameObject);
     }
 }
