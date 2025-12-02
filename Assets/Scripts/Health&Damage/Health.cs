@@ -23,6 +23,7 @@ public class Health : MonoBehaviour
     public int currentHealth = 1;
     [Tooltip("Invulnerability duration, in seconds, after taking damage")]
     public float invincibilityTime = 3f;
+    public bool isDeath = false;
 
     private EnemyBase enemyBase;
     private Rigidbody2D rb;
