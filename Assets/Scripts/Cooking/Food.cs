@@ -11,9 +11,13 @@ public class Food : MonoBehaviour
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] GameObject foodObject;
     [SerializeField] GameObject foodShadowObject;
-    [SerializeField] Vector2 foodObjectPivot = new();
+    [SerializeField] Vector2 foodObjectPivot = new(); // The distance between the food object and the virtual point on the ground
+
     [Header("Physics Settings")]
     [SerializeField] float gravityScale = 1.0f;
+    [SerializeField] Vector2 groundCollisionSize = new(1.0f, 0.5f); // The size of the virtual collision on the ground (used to check whether the customer is in range to receive food)
+    [SerializeField] Vector2 groundCollisionPivot = new(0, 0);
+    [SerializeField] Color groundCollisionColor = Color.green;
     //[SerializeField] float minHeightToReceiveCollider = 0.5f;
 
     public Recipe Recipe { get => recipe; }
@@ -120,6 +124,16 @@ public class Food : MonoBehaviour
         {
             //if (foodObject != null && foodObject.transform.localPosition.y <= minHeightToReceiveCollider)
             //    collider.GetComponent<IInteractable>().OnInteract(this.gameObject);
+
+            // Check if the customer is actually able to receive the food (within range)
+            var colliders = Physics2D.OverlapBoxAll(new Vector2(transform.position.x, transform.position.y), groundCollisionSize, 0f);
+            foreach(var col in colliders)
+            {
+                if (col.gameObject == collider.gameObject)
+                {
+                    collider.GetComponent<IInteractable>().OnInteract(this.gameObject);
+                }
+            }
         }
     }
 
@@ -129,5 +143,11 @@ public class Food : MonoBehaviour
         {
             player.GetComponent<FoodHolder>().PickUpFood(this);
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = groundCollisionColor;
+        Gizmos.DrawWireCube((Vector2)transform.position + groundCollisionPivot, groundCollisionSize);
     }
 }

@@ -407,7 +407,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 61d01e8616313344b978a6518fd86ed6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 31ce55c2474361d4fab07984f18f9145, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -632,12 +632,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c467f89f4837b74fb94e31bede6bcbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recipe: {fileID: 0}
+  recipe: {fileID: 11400000, guid: 414280bd65b5e1941b2032145bd79afd, type: 2}
   spriteRenderer: {fileID: 7000794780506846171}
   foodObject: {fileID: 7982362087195240976}
   foodShadowObject: {fileID: 5136191988377718565}
   foodObjectPivot: {x: 0, y: 0.5}
-  gravityScale: 1
+  gravityScale: 3
+  groundCollisionSize: {x: 1, y: 0.75}
+  groundCollisionPivot: {x: 0, y: 0}
+  groundCollisionColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!95 &8886457922852619435
 Animator:
   serializedVersion: 7
