@@ -8,6 +8,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     [SerializeField] private float smoothSpeed = 10f;
     [SerializeField] private Vector2 topLeft, bottomRight;
+    [SerializeField] private MapArea homeArea;
     private float heightCamera, widthCamera;
 
     private void Start()
@@ -15,6 +16,8 @@ public class CameraFollow : MonoBehaviour
         //get the height and width of the camera
         heightCamera = 2f * Camera.main.orthographicSize;
         widthCamera = heightCamera * Camera.main.aspect;
+
+        SetBoundaries(homeArea.getTopLeft(), homeArea.getBottomRight());
     }
     void Update()
     {
