@@ -91,14 +91,14 @@ public class Health : MonoBehaviour
 
     public void Knockback(Vector2 dir, float knockbackForce)
     {
-        rb.velocity = dir * knockbackForce;
+        rb.linearVelocity = dir * knockbackForce;
         StartCoroutine(StopMoveAfterTime(0.1f));
     }
 
     IEnumerator StopMoveAfterTime(float time)
     {
         yield return new WaitForSeconds(time);
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         Debug.Log("stop knockback");
     }
 
