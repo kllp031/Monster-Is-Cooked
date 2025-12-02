@@ -10,13 +10,11 @@ public class WalkingEnemy : EnemyBase
     [Header("Settings")]
     public float chaseRange = 5f;
     public float attackRange = 1.2f;
-
-    [Header("References")]
-    public Transform target;  // Player
-    public Rigidbody2D rb;
+    public float timeToIdle; //time to change state
 
     [Header("Attack")]
     public EnemyAttackBase enemyAttack;
+    public float timeToAttack; 
 
     [Header("Patrol Settings")]
     [SerializeField] private float _patrolSpeed = 2f;
@@ -28,11 +26,21 @@ public class WalkingEnemy : EnemyBase
     private float _patrolTimer;       
     private bool _isPatrolWaiting;
     private Vector2 _moveDirection;
+    private float idleTimer = 0f;
+    private float attackTimer = 0f;
+
+    [Header("Hurt Settings")]
+    [SerializeField] private float _hurtTime = 2f;
+    private float hurtTimer;
+
+    [Header("Sprite settings")]
+    [SerializeField] private bool isFlip = false;
 
     protected override void Setup()
     {
         base.Setup();
         rb = GetComponent<Rigidbody2D>();
+        dropItem = GetComponent<DropItem>();
     }
 
     protected override void Update()
@@ -48,8 +56,17 @@ public class WalkingEnemy : EnemyBase
         switch (currentEnemyState)
         {
             case EnemyState.Idle:
-                if (distance < chaseRange) currentEnemyState = EnemyState.Chase;
-                else currentEnemyState = EnemyState.Patrol;
+                if (idleTimer >= timeToIdle )
+                {
+                    if (distance < chaseRange) currentEnemyState = EnemyState.Chase;
+                    else currentEnemyState = EnemyState.Patrol;
+
+                    idleTimer = 0;
+                }
+                else
+                {
+                    idleTimer += Time.deltaTime;
+                }
                 break;
 
             case EnemyState.Patrol:
@@ -59,33 +76,64 @@ public class WalkingEnemy : EnemyBase
 
             case EnemyState.Chase:
                 if (distance >= chaseRange) currentEnemyState = EnemyState.Idle;
-                if (distance <= attackRange) currentEnemyState = EnemyState.Attack;
+                if (distance <= attackRange)
+                {
+                    currentEnemyState = EnemyState.Attack;
+                    if (target.transform.position.x > transform.position.x)
+                    {
+                        Flip(1);
+                    }
+                    else
+                        Flip(-1);
+                }
                 break;
 
             case EnemyState.Attack:
-                enemyAttack.PerformAttack();
+                //enemyAttack.PerformAttack();
+                //enemy will call attack in animation event
 
-                if (distance > attackRange) currentEnemyState = EnemyState.Idle;
+                if (attackTimer >= timeToAttack)
+                {
+                    if (distance > attackRange) currentEnemyState = EnemyState.Idle;
+                    attackTimer = 0;
+                }
+                else
+                {
+                    attackTimer += Time.deltaTime;
+                }
                 break;
 
             case EnemyState.Hurt:
-                //hurt
+                //hurt, health handle
+                if (hurtTimer >= _hurtTime)
+                {
+                    currentEnemyState = EnemyState.Idle;
+                    hurtTimer = 0;
+                }
+                else
+                {
+                    hurtTimer += Time.deltaTime;
+                }
+                break;
+            case EnemyState.Dead:
+                //dead, health handle
                 break;
         }
     }
 
     protected override Vector3 GetMovement()
     {
-        Flip(_moveDirection.x > 0 ? 1 : -1);
         if (currentEnemyState == EnemyState.Chase)
         {
             Vector2 dir = (target.position - transform.position).normalized;
+            Flip((target.position - transform.position).x > 0 ? 1 : -1);
             return dir * moveSpeed * Time.deltaTime;
         }
 
         //patrol
         if (currentEnemyState == EnemyState.Patrol && !_isPatrolWaiting)
         {
+            Flip(_moveDirection.x > 0 ? 1 : -1);
             return _moveDirection * _patrolSpeed * Time.deltaTime;
         }
 
@@ -133,13 +181,21 @@ public class WalkingEnemy : EnemyBase
     private bool CheckWallOrLedge()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, _moveDirection, _wallCheckDistance, _obstacleLayer);
-
+        if (hit.collider != null) Debug.Log("var");
         return hit.collider != null;
     }
     private void Flip(int direction)
     {
         Vector3 scale = transform.localScale;
-        scale.x = Mathf.Abs(scale.x) * direction;
+        if(isFlip)
+            scale.x = Mathf.Abs(scale.x) * -direction;
+        else
+            scale.x = Mathf.Abs(scale.x) * direction;
         transform.localScale = scale;
+    }
+
+    public void OnDestroy()
+    {
+        Destroy(gameObject);
     }
 }

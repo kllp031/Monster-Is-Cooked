@@ -17,6 +17,11 @@ public abstract class EnemyBase : MonoBehaviour
     public EnemyState currentEnemyState;
     public EnemyState lastEnemyState = EnemyState.Idle;
 
+    [Header("References")]
+    public Transform target;  // Player
+    public Rigidbody2D rb;
+    public DropItem dropItem;
+
     protected virtual void Start()
     {
         Setup();

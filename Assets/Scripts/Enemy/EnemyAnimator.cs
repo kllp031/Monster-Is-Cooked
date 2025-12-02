@@ -39,7 +39,7 @@ public class EnemyAnimator : MonoBehaviour
         var currentState = enemyComponent.currentEnemyState;
         var lastState = enemyComponent.lastEnemyState;
 
-        if (currentState == lastState)
+        if (currentState == lastState || lastState == EnemyBase.EnemyState.Dead)
             return;
 
         enemyComponent.lastEnemyState = currentState;

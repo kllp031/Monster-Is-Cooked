@@ -23,10 +23,15 @@ public class Health : MonoBehaviour
     public int currentHealth = 1;
     [Tooltip("Invulnerability duration, in seconds, after taking damage")]
     public float invincibilityTime = 3f;
+    public bool isDeath = false;
 
+    private EnemyBase enemyBase;
+    private Rigidbody2D rb;
     void Start()
     {
         SetRespawnPoint(transform.position);
+        rb = GetComponent<Rigidbody2D>();
+        enemyBase = GetComponent<EnemyBase>();
     }
 
     void Update()
@@ -70,6 +75,8 @@ public class Health : MonoBehaviour
         }
         else
         {
+            if(gameObject.tag == "Enemy")   enemyBase.currentEnemyState = EnemyBase.EnemyState.Hurt;
+
             if (hitEffect != null)
             {
                 Instantiate(hitEffect, transform.position, transform.rotation, null);
@@ -80,6 +87,19 @@ public class Health : MonoBehaviour
             CheckDeath();
         }
         //GameManager.UpdateUIElements();
+    }
+
+    public void Knockback(Vector2 dir, float knockbackForce)
+    {
+        rb.velocity = dir * knockbackForce;
+        StartCoroutine(StopMoveAfterTime(0.1f));
+    }
+
+    IEnumerator StopMoveAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        rb.velocity = Vector2.zero;
+        Debug.Log("stop knockback");
     }
 
     public void ReceiveHealing(int healingAmount)
@@ -111,6 +131,9 @@ public class Health : MonoBehaviour
 
     void Die()
     {
+        Debug.Log("Die");
+        if (gameObject.tag == "Enemy") enemyBase.currentEnemyState = EnemyBase.EnemyState.Dead;
+
         if (deathEffect != null)
         {
             Instantiate(deathEffect, transform.position, transform.rotation, null);
