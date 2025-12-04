@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Dungeon4
   m_EditorClassIdentifier: 
   areaIndex: 1
-  spawnPosition: {x: -25.5, y: 125}
+  spawnPosition: {x: -25.5, y: 126}
   topLeft: {x: -100, y: 144}
   bottomRight: {x: 100, y: 125}
