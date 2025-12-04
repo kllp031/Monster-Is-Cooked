@@ -21,7 +21,7 @@ public class FoodHolder : MonoBehaviour
     [SerializeField] float throwEndDistance = 10.0f;    
     [SerializeField] float throwAngle = 45f;
     [SerializeField] float throwHeightOffset = 1.0f;
-    [Header("Animations")]
+    [Header("Animator")]
     [SerializeField] string startHoldingFoodTrigger = "";
     [SerializeField] string stopHoldingFoodTrigger = "";
 

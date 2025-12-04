@@ -11,24 +11,37 @@ public class Customer : MonoBehaviour, IInteractable
         Angry,
         Embarrassed
     }
-
+    [Header("Customer Settings")]
     [SerializeField] Recipe requestFood; // Use for demo only
     [SerializeField] float waitingTime = 120f; // Use for demo only
     [SerializeField] Mood mood = Mood.Happy;
+    [SerializeField] Path tablePath;
     [SerializeField] CustomerTimer customerTimer;
+    [SerializeField] Animator customerAnimator;
+    [Header("Movement Settings")]
+    [SerializeField] float moveSpeed = 2.0f;
+    [SerializeField] float distanceToTarget = 0.1f; // If the distance between customer and the target is less than this value, customer will be considered has reached target
+    [SerializeField] string animatorHorizontalValue = "Horizontal";
+    [SerializeField] string animatorVerticalValue = "Vertical";
     [Header("UI")]
     [SerializeField] Sprite hiddenFoodSprite; // Use to hide the request food until player asks (Demo only)
     [SerializeField] Animator foodRequestBox; // Use for fade in / fade out effect (Demo only)
+    [SerializeField] string foodRequestBoxAnimatorBool = "IsOpen";
     [SerializeField] Animator foodRequestBoxBackground; // Use for bouncing effect (Demo only)
+    [SerializeField] string foodRequestBoxShowFoodTrigger = "Bounce";
     [SerializeField] Image foodIcon;
     [SerializeField] Animator moodIcon; //  Use to display current mood
 
     private CustomerDetail customerDetail = null;
     private bool isAsked = false;
-    private bool isLeft = false;
+    private bool isReadyToEat = false;
     private int seatNumer = 0;
 
     public int SeatNumber { get => seatNumer; set => seatNumer = value; }
+    public Path TablePath { get => tablePath; set => tablePath = value; }
+    public float MoveSpeed { get => moveSpeed; }
+    public Animator CustomerAnimator { get => customerAnimator; }
+    public bool IsReadyToEat { get => isReadyToEat; set => isReadyToEat = value; }
 
     private void OnValidate()
     {
@@ -38,18 +51,8 @@ public class Customer : MonoBehaviour, IInteractable
     private void OnEnable()
     {
         isAsked = false;
-        isLeft = false;
-        // Use for demo only
-        SetMood(Mood.Happy);
-        if (customerTimer != null)
-        {
-            customerTimer.gameObject.SetActive(true);
-            customerTimer.SetTimer(waitingTime);
-            customerTimer.ResetCounter();
-            customerTimer.StartTimer();
-        }
-        if (foodIcon != null && hiddenFoodSprite != null)
-            foodIcon.sprite = hiddenFoodSprite;
+        isReadyToEat = false;
+        if (customerTimer != null) customerTimer.gameObject.SetActive(false);
     }
     public void SetDetail(CustomerDetail detail)
     {
@@ -65,17 +68,17 @@ public class Customer : MonoBehaviour, IInteractable
     }
     public void OnInteract(GameObject obj)
     {
-        if (isLeft) return; // Ignore further interactions if customer has already left
+        if (!isReadyToEat) return; // Ignore any interactions if customer is not ready to eat
 
         if (obj.GetComponent<FoodHolder>() != null) //  Interact with player
         {
-            if (!isAsked) // Show the requested food if customer hasnt been asked yet
+            if (!isAsked) // Show the requested food if this customer hasnt been asked yet
             {
                 if (requestFood != null)
                 {
                     // Use for demo only
                     if (foodIcon != null) foodIcon.sprite = requestFood.icon;
-                    if (foodRequestBoxBackground != null) foodRequestBoxBackground.SetTrigger("Bounce");
+                    if (foodRequestBoxBackground != null) foodRequestBoxBackground.SetTrigger(foodRequestBoxShowFoodTrigger);
                     //if (foodIcon != null) foodIcon.sprite = customerDetail.FoodRequest.Recipe.icon;
                 }
                 isAsked = true;
@@ -97,17 +100,52 @@ public class Customer : MonoBehaviour, IInteractable
 
         }
     }
+    public void ReadyToEat()
+    {
+        isReadyToEat = true;
+        SetMood(Mood.Happy);
+
+        // Use for demo only
+        if (customerTimer != null)
+        {
+            customerTimer.gameObject.SetActive(true);
+            customerTimer.SetTimer(waitingTime);
+            customerTimer.ResetCounter();
+            customerTimer.StartTimer();
+        }
+        if (foodIcon != null && hiddenFoodSprite != null)
+            foodIcon.sprite = hiddenFoodSprite;
+    }
     public void ProcessFood(Food food)
     {
         Debug.Log("Process food");
         if (customerDetail == null) { Debug.LogWarning("This customer has no detail assigned!"); return; }
         if (customerDetail.FoodRequest == null) { Debug.LogWarning("This customer's detail has invalid food request!"); return; }
     }
+    public bool MoveToTarget(Vector2 target)
+    {
+        if (Vector2.Distance(transform.position, target) <= distanceToTarget) return true;
+        else
+        {
+            Vector2 direction = target - (Vector2)transform.position;
+            direction = direction.normalized;
+            Debug.Log(direction);
+            transform.Translate(direction * Time.fixedDeltaTime * moveSpeed);
+            if (customerAnimator != null)
+            {
+                customerAnimator.SetFloat(animatorHorizontalValue, direction.x);
+                customerAnimator.SetFloat(animatorVerticalValue, direction.y);
+            }
+            return false;
+        }
+
+    }
     public void OnLeave()
     {
         // This function will be called by the timer when the timer runs out or when the customer receives the food
         Debug.Log("Customer is leaving: " + mood.ToString());
-        isLeft = true;
+        isReadyToEat = false;
+        if (foodRequestBox != null) foodRequestBox.SetBool(foodRequestBoxAnimatorBool, false);
         if (customerTimer != null)
         {
             customerTimer.StopTimer();
@@ -118,11 +156,11 @@ public class Customer : MonoBehaviour, IInteractable
     // Use for UI
     public void OnPlayerEntered(Collider2D collider)
     {
-        if (foodRequestBox != null) foodRequestBox.SetTrigger("Open");
+        if (foodRequestBox != null && isReadyToEat) foodRequestBox.SetBool(foodRequestBoxAnimatorBool, true);
     }
     public void OnPlayerLeft(Collider2D collider)
     {
-        if (foodRequestBox != null) foodRequestBox.SetTrigger("Close");
+        if (foodRequestBox != null && isReadyToEat) foodRequestBox.SetBool(foodRequestBoxAnimatorBool, false);
     }
 
 }
