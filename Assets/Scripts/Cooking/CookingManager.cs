@@ -6,7 +6,7 @@ public class CookingManager : MonoBehaviour
 {
     [Header("Core Systems")]
     public Inventory inventory;
-    public CookingMinigame minigame;
+    public CurvedCookingMinigame minigame;
 
     [Header("UI References")]
     [SerializeField] private TextMeshProUGUI cookButtonText;
@@ -106,12 +106,12 @@ public class CookingManager : MonoBehaviour
         return true;
     }
 
-    private void HandleCookFinished(CookingMinigame.CookResult result)
+    private void HandleCookFinished(bool result)
     {
         Debug.Log($"Cook result: {result}");
 
         // Only create the food object if the result is Normal (Success)
-        if (result == CookingMinigame.CookResult.Normal)
+        if (result)
         {
             SpawnFood(currentRecipe);
         }

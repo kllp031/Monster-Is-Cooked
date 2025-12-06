@@ -52,7 +52,6 @@ public class AdjustGridLayoutCellSize : MonoBehaviour
         var count = grid.constraintCount;
         if (expand == Axis.X)
         {
-            print(count);
             float spacing = (count - 1) * grid.spacing.x;
             float contentSize = transform.rect.width - grid.padding.left - grid.padding.right - spacing;
             float sizePerCell = contentSize / count;
