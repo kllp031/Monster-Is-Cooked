@@ -2049,7 +2049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1920d84a04732498d303a52b67f9a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemToDrop: {fileID: 9004908710988102272, guid: 0b07192f04da55949ace72129b4d9e3f, type: 3}
+  itemToDrop: {fileID: 5289451020926221583, guid: 46a29dd242b855c488ab7b5d8860fc42, type: 3}
   moveSpeed: 3
   attackRange: 0.5
   attackCooldown: 1
