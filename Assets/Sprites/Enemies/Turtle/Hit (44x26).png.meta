@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: 69139471a25545840b5a0d45a9c49772
+guid: d5006613b81b54c45b98b9095cb7d237
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6500827390898742241
-    second: Particles (62x16)_0
+      213: -690390913815481905
+    second: Hit (44x26)_0
+  - first:
+      213: -6048292909186288232
+    second: Hit (44x26)_1
+  - first:
+      213: 6687715165202811587
+    second: Hit (44x26)_2
+  - first:
+      213: 4190697762771282234
+    second: Hit (44x26)_3
+  - first:
+      213: -5195487686032739884
+    second: Hit (44x26)_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +112,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Particles (62x16)_0
+      name: Hit (44x26)_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 4
         y: 0
-        width: 64
-        height: 16
+        width: 37
+        height: 17
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +127,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1e326a4b114973a50800000000000000
-      internalID: 6500827390898742241
+      spriteID: fc1fed92f1d3b66f0800000000000000
+      internalID: -690390913815481905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hit (44x26)_1
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 37
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 895ff62f4a5201ca0800000000000000
+      internalID: -6048292909186288232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hit (44x26)_2
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 0
+        width: 35
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ca08ec72898fcc50800000000000000
+      internalID: 6687715165202811587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hit (44x26)_3
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 0
+        width: 33
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a39a1077969582a30800000000000000
+      internalID: 4190697762771282234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hit (44x26)_4
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 0
+        width: 33
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d13a17f97be5e7b0800000000000000
+      internalID: -5195487686032739884
       vertices: []
       indices: 
       edges: []
@@ -135,7 +235,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Particles (62x16)_0: 6500827390898742241
+      Hit (44x26)_0: -690390913815481905
+      Hit (44x26)_1: -6048292909186288232
+      Hit (44x26)_2: 6687715165202811587
+      Hit (44x26)_3: 4190697762771282234
+      Hit (44x26)_4: -5195487686032739884
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
