@@ -65,7 +65,6 @@ public class WalkingEnemy : EnemyBase
                 }
                 else
                 {
-                    Debug.Log("idle time...");
                     idleTimer += Time.deltaTime;
                 }
                 break;

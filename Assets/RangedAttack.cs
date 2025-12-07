@@ -12,13 +12,13 @@ public class RangedAttack : EnemyAttackBase
     [Header("Ranged Specifics")]
     [SerializeField] private ShootType _shootType = ShootType.SingleToTarget;
     [SerializeField] private GameObject _bulletPrefab;
-    private Transform _firePoint;
+    [SerializeField] private Transform _firePoint;
 
     [Header("CircleSpread Settings")]
     [SerializeField] private int _bulletCount = 6;
     private void Start()
     {
-        _firePoint = transform;
+        if(_firePoint == null) _firePoint = transform;
     }
 
     public override void PerformAttack()
@@ -54,7 +54,7 @@ public class RangedAttack : EnemyAttackBase
 
     private void ShootBullet(Vector2 direction)
     {
-        GameObject bullet = Instantiate(_bulletPrefab, transform.position, Quaternion.identity);
+        GameObject bullet = Instantiate(_bulletPrefab, _firePoint.position, Quaternion.identity);
         bullet.GetComponent<BulletMove>().SetDirection(direction);
     }
 

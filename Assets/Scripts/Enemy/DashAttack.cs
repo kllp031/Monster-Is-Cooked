@@ -32,7 +32,6 @@ public class DashAttack : EnemyAttackBase
             direction = rb.linearVelocity.normalized;
         }
 
-        Debug.Log("dash direction x:" + direction.x + " y: " + direction.y);
         StartCoroutine(DashRoutine(direction));
         ResetCooldown();
     }
