@@ -78264,6 +78264,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 260958033048157149, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 655225157361588048, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -78330,11 +78334,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5593272464289720099, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.42
+      value: -4.87
       objectReference: {fileID: 0}
     - target: {fileID: 5593272464289720099, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.8
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 5593272464289720099, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -78380,6 +78384,10 @@ PrefabInstance:
       propertyPath: dashDuration
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 7476366904642641129, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
+      propertyPath: afterImagePrefab
+      value: 
+      objectReference: {fileID: 7569130793517090787, guid: c16da61d86253ad4e8b82545569331c0, type: 3}
     - target: {fileID: 8381907619977809111, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
       propertyPath: m_Sprite
       value: 

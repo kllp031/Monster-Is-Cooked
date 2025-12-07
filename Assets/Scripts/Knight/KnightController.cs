@@ -74,6 +74,9 @@ public class KnightController : MonoBehaviour
             Vector2 newPos = rb.position + dashDir * dashSpeed * Time.fixedDeltaTime;
             rb.MovePosition(newPos);
 
+            //Dash effect
+            CreateAfterImage();
+
             timer += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
@@ -99,5 +102,13 @@ public class KnightController : MonoBehaviour
     public Vector2 GetMoveInput()
     {
         return moveInput;
+    }
+
+    //Dash effect
+    [SerializeField] GameObject afterImagePrefab;
+    private void CreateAfterImage()
+    {
+        GameObject img = Instantiate(afterImagePrefab, transform.position, Quaternion.identity);
+        img.transform.localScale = transform.localScale; 
     }
 }
