@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb18e4988376f6e43b00f935d1b0fb2b, type: 3}
-  m_Name: Dungeon1
+  m_Name: Dungeon4
   m_EditorClassIdentifier: 
   areaIndex: 1
-  spawnPosition: {x: -25.5, y: 24}
-  topLeft: {x: -100, y: 42}
-  bottomRight: {x: 100, y: 23}
+  spawnPosition: {x: -25.5, y: 126}
+  topLeft: {x: -100, y: 144}
+  bottomRight: {x: 100, y: 125}

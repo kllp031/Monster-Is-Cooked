@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Entrance_Gate1
   m_EditorClassIdentifier: 
   areaIndex: 0
-  spawnPosition: {x: -29.5, y: 10}
+  spawnPosition: {x: -29.5, y: 10.5}
   topLeft: {x: -100, y: 100}
   bottomRight: {x: 100, y: -5}
