@@ -25,8 +25,12 @@ public class CookingUIManager : MonoBehaviour
 
     void Start()
     {
+        if (cookingManager == null)
+        {
+            Debug.LogError("CookingManager reference is missing in CookingUIManager.");
+        }
+
         GenerateRecipeList();
-        Debug.Log($"This script is attached to: {gameObject.name}");
     }
 
     private void GenerateRecipeList()
