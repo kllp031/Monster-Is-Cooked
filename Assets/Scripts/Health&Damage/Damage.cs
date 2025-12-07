@@ -14,6 +14,7 @@ public class Damage : MonoBehaviour
     [Header("Damage Settings")]
     [Tooltip("How much damage to deal")]
     public int damageAmount = 1;
+    public int knockbackForce = 50;
     [Tooltip("Whether or not to destroy the attached game object after dealing damage")]
     public bool destroyAfterDamage = true;
     [Tooltip("Whether or not to apply damage when triggers collide")]
@@ -26,9 +27,11 @@ public class Damage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("on trigger damage");
         if (dealDamageOnTriggerEnter)
         {
             DealDamage(collision.gameObject);
+            DealKnockback(collision.gameObject);
         }
     }
 
@@ -50,17 +53,33 @@ public class Damage : MonoBehaviour
 
     private void DealDamage(GameObject collisionGameObject)
     {
+        Debug.Log("deal damage");
         Health collidedHealth = collisionGameObject.GetComponent<Health>();
         if (collidedHealth != null)
         {
             if (collidedHealth.teamId != this.teamId)
             {
+                Debug.Log("take damage");
                 collidedHealth.TakeDamage(damageAmount);
                 if (destroyAfterDamage)
                 {
+                    Debug.Log("destroy bullet");
                     Destroy(this.gameObject);
                 }
             }
         }
     }
+
+    private void DealKnockback(GameObject collisionGameObject)
+    {
+        var dir = (collisionGameObject.transform.position - transform.position).normalized;
+        Health collidedHealth = collisionGameObject.GetComponent<Health>();
+        if (collidedHealth != null)
+        {
+            if (collidedHealth.teamId != this.teamId)
+            {
+                collidedHealth.Knockback(dir, knockbackForce);
+            }
+        }
+    }    
 }

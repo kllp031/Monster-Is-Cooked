@@ -22,6 +22,11 @@ public class Gate : MonoBehaviour
                 targetArea.getTopLeft(),
                 targetArea.getBottomRight()
             );
+            cam.transform.position = new Vector3(
+                player.position.x,
+                player.position.y,
+                cam.transform.position.z
+            );
         }
     }
 }

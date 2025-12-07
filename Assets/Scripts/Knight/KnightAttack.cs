@@ -9,7 +9,7 @@ public class KnightAttack : MonoBehaviour
     [SerializeField] private float coolDownTime = 0.5f;
     [SerializeField] private float lockAttackRange = 10.0f; //Player will lock on to the nearest enemy within this range, else attack forward
     [SerializeField] private LayerMask enemyLayer;
-    [SerializeField] private float distanceAttack = 1.0f; // Distance from player to spawn attack effect
+    [SerializeField] private float distanceAttack = 0.5f; // Distance from player to spawn attack effect
     private Vector2 attackDirection = Vector2.down;
     private Coroutine coolDownCoroutine = null;
     private KnightController knightController;
@@ -39,6 +39,8 @@ public class KnightAttack : MonoBehaviour
                 // Set position and rotation of attack effect
                 attackEffect.transform.position = transform.position + new Vector3(attackDirection.x, attackDirection.y, 0).normalized * distanceAttack;
                 attackEffect.transform.up = -attackDirection;
+                if (attackDirection == Vector2.zero)
+                    attackEffect.transform.position = transform.position + new Vector3(0, -0.5f, 0); // Attack a little bit down if no direction
 
                 // Flip the attack 
                 Vector3 scale = attackEffect.transform.localScale;
