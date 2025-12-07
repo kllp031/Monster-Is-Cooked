@@ -31,7 +31,7 @@ public class PickupItem : MonoBehaviour
         // 1. Check if the object colliding is the Player
         if (other.CompareTag("Player"))
         {
-            // 2. CHANGED: Look for the new "PlayerInventory" bridge script
+            // 2. Look for the new "PlayerInventory" bridge script
             PlayerInventory playerBridge = other.GetComponent<PlayerInventory>();
 
             if (playerBridge != null && playerBridge.inventoryData != null)

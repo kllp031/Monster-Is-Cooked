@@ -9,12 +9,6 @@ public class CookingManager : MonoBehaviour
     public InventorySO inventory;
     public CurvedCookingMinigame minigame;
 
-    //[Header("UI References")]
-    //[SerializeField] private TextMeshProUGUI cookButtonText;
-
-    [Header("Spawning Settings")]
-    [SerializeField] private GameObject foodPrefab;
-
     [Header("Runtime State")]
     public Recipe currentRecipe;
 
@@ -99,10 +93,9 @@ public class CookingManager : MonoBehaviour
 
     private void SpawnFood(Recipe recipe)
     {
-        if (foodPrefab == null) return;
+        Transform foodTransform = Instantiate(GameAssets.Instance.pfFood);
 
-        GameObject foodObj = Instantiate(foodPrefab);
-        if (foodObj.TryGetComponent(out Food foodComponent))
+        if (foodTransform.TryGetComponent(out Food foodComponent))
         {
             foodComponent.SetUp(recipe);
         }
