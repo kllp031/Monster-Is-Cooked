@@ -620,6 +620,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 318102110}
   m_CullTransparentMesh: 1
+--- !u!114 &424458539 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3008123092494844816, guid: a4f3c273778d2a047829aaae217bedf7, type: 3}
+  m_PrefabInstance: {fileID: 929621179}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aded641a2ce844b4a99c2f02ac9f30f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &486368779 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3794178639290902241, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
@@ -5222,9 +5233,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 185037289216935537, guid: a4f3c273778d2a047829aaae217bedf7, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 2109646265}
+    - target: {fileID: 185037289216935537, guid: a4f3c273778d2a047829aaae217bedf7, type: 3}
       propertyPath: enemyAttack
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 424458539}
     - target: {fileID: 2880792997536680067, guid: a4f3c273778d2a047829aaae217bedf7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.04
@@ -5268,10 +5283,6 @@ PrefabInstance:
     - target: {fileID: 4386769147766901124, guid: a4f3c273778d2a047829aaae217bedf7, type: 3}
       propertyPath: m_Name
       value: Slime
-      objectReference: {fileID: 0}
-    - target: {fileID: 4386769147766901124, guid: a4f3c273778d2a047829aaae217bedf7, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
