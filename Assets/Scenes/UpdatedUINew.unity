@@ -391,10 +391,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1828063998}
         m_TargetAssemblyTypeName: CookingManager, Assembly-CSharp
         m_MethodName: OnCookButtonPressed
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 875382664}
-          m_ObjectArgumentAssemblyTypeName: CookingUIManager, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -559,7 +559,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1828063999}
   - {fileID: 875382662}
   - {fileID: 1304812122}
   m_Father: {fileID: 591648676}
@@ -7455,7 +7454,6 @@ GameObject:
   m_Component:
   - component: {fileID: 875382662}
   - component: {fileID: 875382663}
-  - component: {fileID: 875382664}
   m_Layer: 5
   m_Name: StoveRecipe
   m_TagString: Untagged
@@ -7510,31 +7508,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &875382664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 875382661}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1554be2d1b27ec649acc239e6ffce917, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allRecipes:
-  - {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
-  - {fileID: 11400000, guid: 414280bd65b5e1941b2032145bd79afd, type: 2}
-  - {fileID: 11400000, guid: a0c5517d3397da84daf876550db22cfe, type: 2}
-  - {fileID: 11400000, guid: 85774cfdafbe05244a6dde7e483e7853, type: 2}
-  - {fileID: 11400000, guid: 07aad45731bd90d4fa061a56fe602c23, type: 2}
-  inventory: {fileID: 2109646301}
-  cookingManager: {fileID: 1828063998}
-  recipeImage: {fileID: 883518822}
-  recipeListContent: {fileID: 286364484}
-  ingredientSlotContainer: {fileID: 1174689898}
-  recipeButtonPrefab: {fileID: 1140786316758613476, guid: 14b6b43dd96115b4c920a4dd0ebe7798, type: 3}
-  ingredientSlotPrefab: {fileID: 382400929812419550, guid: a61e47f9b20439642bff5bde00a58f6c, type: 3}
 --- !u!1 &877858058
 GameObject:
   m_ObjectHideFlags: 0
@@ -8449,6 +8422,61 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1057174251}
   m_CullTransparentMesh: 1
+--- !u!1 &1083358385
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1083358387}
+  - component: {fileID: 1083358386}
+  m_Layer: 0
+  m_Name: CookingUIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1083358386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083358385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1554be2d1b27ec649acc239e6ffce917, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allRecipes:
+  - {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
+  - {fileID: 11400000, guid: 414280bd65b5e1941b2032145bd79afd, type: 2}
+  - {fileID: 11400000, guid: a0c5517d3397da84daf876550db22cfe, type: 2}
+  - {fileID: 11400000, guid: 85774cfdafbe05244a6dde7e483e7853, type: 2}
+  - {fileID: 11400000, guid: 07aad45731bd90d4fa061a56fe602c23, type: 2}
+  recipeImage: {fileID: 883518822}
+  recipeListContent: {fileID: 286364484}
+  ingredientSlotContainer: {fileID: 1174689898}
+  recipeButtonPrefab: {fileID: 1140786316758613476, guid: 14b6b43dd96115b4c920a4dd0ebe7798, type: 3}
+  ingredientSlotPrefab: {fileID: 382400929812419550, guid: a61e47f9b20439642bff5bde00a58f6c, type: 3}
+--- !u!4 &1083358387
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083358385}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1129774425
 GameObject:
   m_ObjectHideFlags: 0
@@ -8538,7 +8566,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1162454458}
   m_Layer: 5
-  m_Name: Bar_Wrapper
+  m_Name: CookingGameWrapper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10389,7 +10417,7 @@ GameObject:
   - component: {fileID: 1610958102}
   - component: {fileID: 1610958103}
   m_Layer: 5
-  m_Name: CurvedBar_Container
+  m_Name: CookingGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11067,11 +11095,11 @@ Transform:
   m_GameObject: {fileID: 1828063997}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -643.6661, y: -359.66245, z: -0.051573373}
-  m_LocalScale: {x: 0.6666667, y: 0.6666667, z: 0.6666667}
+  m_LocalPosition: {x: 203.50085, y: 0.50634766, z: -0.077360064}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 314477788}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1891151342
 GameObject:
@@ -12016,6 +12044,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 095c56b6-9b01-4963-8c07-c5f9925cb204
     m_ActionName: Player/DropFood
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 779d80ac-2810-48d8-b735-1acb631d74a5
+    m_ActionName: 'Player/Inventory[/Keyboard/i]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -12542,6 +12574,8 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 1129774428}
+  - {fileID: 1828063999}
+  - {fileID: 1083358387}
   - {fileID: 591648676}
   - {fileID: 1944528660}
   - {fileID: 6455266015340119239}
