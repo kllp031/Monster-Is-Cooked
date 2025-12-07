@@ -2049,7 +2049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1920d84a04732498d303a52b67f9a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemToDrop: {fileID: 9004908710988102272, guid: 0b07192f04da55949ace72129b4d9e3f, type: 3}
+  itemToDrop: {fileID: 5289451020926221583, guid: 46a29dd242b855c488ab7b5d8860fc42, type: 3}
   moveSpeed: 3
   attackRange: 0.5
   attackCooldown: 1
@@ -77825,6 +77825,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 095c56b6-9b01-4963-8c07-c5f9925cb204
     m_ActionName: Player/DropFood
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 779d80ac-2810-48d8-b735-1acb631d74a5
+    m_ActionName: 'Player/Inventory[/Keyboard/i]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e7bfad0d-0745-45a5-a0bf-9821e0a053c6
+    m_ActionName: 'Player/ThrowFood[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -77844,6 +77852,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodPivot: {fileID: 1446412135}
   dropFoodButton: {fileID: 983854534}
+  throwButton: {fileID: 0}
+  targetCircle: {fileID: 0}
+  targetCircleMovingTime: 1
+  playerGroundPosition: {fileID: 0}
+  throwDirection: {x: 1, y: 0}
+  throwStartDistance: 2
+  throwEndDistance: 10
+  throwAngle: 45
+  throwHeightOffset: 1
+  startHoldingFoodTrigger: 
+  stopHoldingFoodTrigger: 
 --- !u!1 &2112150334
 GameObject:
   m_ObjectHideFlags: 0
@@ -78287,11 +78306,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5593272464289720099, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.39
+      value: -4.42
       objectReference: {fileID: 0}
     - target: {fileID: 5593272464289720099, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.75
+      value: -0.8
       objectReference: {fileID: 0}
     - target: {fileID: 5593272464289720099, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -78325,6 +78344,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8381907619977809111, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -444827966, guid: 771ab0c1cda57f840bae2aa69993f41b, type: 3}
     - target: {fileID: 8413855311076355617, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
       propertyPath: m_IsActive
       value: 0
