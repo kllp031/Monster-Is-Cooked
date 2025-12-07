@@ -2,28 +2,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Inventory : MonoBehaviour
+[CreateAssetMenu(fileName = "New Player Inventory", menuName = "Systems/Inventory")]
+public class InventorySO : ScriptableObject
 {
-    [Header("Add items here in the Inspector")]
-    // Use the same global class here!
+    [Header("Config")]
+    [Tooltip("Items the player starts with every time the game begins.")]
     public List<IngredientAmount> startingItems = new List<IngredientAmount>();
 
+    // The runtime storage (Dictionary is faster than List)
     private Dictionary<Ingredient, int> items = new Dictionary<Ingredient, int>();
 
+    // Events to update UI
     public event Action OnInventoryChanged;
 
-    private void Awake()
+    /// <summary>
+    /// Call this when the game starts (e.g., from Player or GameManager) 
+    /// to reset the inventory to its default state.
+    /// </summary>
+    public void Initialize()
     {
+        items.Clear();
+
         foreach (var entry in startingItems)
         {
-            // Note the Capital I and A because we are using properties now
-            if (entry.Ingredient == null) continue;
-
-            if (!items.ContainsKey(entry.Ingredient))
-                items[entry.Ingredient] = 0;
-
-            items[entry.Ingredient] += entry.Amount;
+            if (entry.Ingredient != null)
+            {
+                Add(entry.Ingredient, entry.Amount);
+            }
         }
+
+        // Notify UI that we reset
+        OnInventoryChanged?.Invoke();
     }
 
     public void Add(Ingredient ingredient, int amount)
@@ -65,5 +74,11 @@ public class Inventory : MonoBehaviour
         return items.ContainsKey(ing) ? items[ing] : 0;
     }
 
-    public Dictionary<Ingredient, int> GetAllItems() => items;
+    /// <summary>
+    /// Returns a copy or reference to the current inventory for UI display.
+    /// </summary>
+    public Dictionary<Ingredient, int> GetAllItems()
+    {
+        return items;
+    }
 }

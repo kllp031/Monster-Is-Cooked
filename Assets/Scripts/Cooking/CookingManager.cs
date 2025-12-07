@@ -6,11 +6,11 @@ public class CookingManager : MonoBehaviour
     public static CookingManager Instance { get; private set; }
 
     [Header("Core Systems")]
-    public Inventory inventory;
+    public InventorySO inventory;
     public CurvedCookingMinigame minigame;
 
-    [Header("UI References")]
-    [SerializeField] private TextMeshProUGUI cookButtonText;
+    //[Header("UI References")]
+    //[SerializeField] private TextMeshProUGUI cookButtonText;
 
     [Header("Spawning Settings")]
     [SerializeField] private GameObject foodPrefab;

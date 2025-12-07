@@ -9,12 +9,17 @@ public class RecipeButtonUI : MonoBehaviour
     public void Setup(Recipe recipeData)
     {
         recipe = recipeData;
-        iconImage.sprite = recipe.icon;
+        iconImage.sprite = recipe.Icon;
     }
 
     public void OnRecipeButtonClicked()
     {
         // Direct Singleton access
         CookingManager.Instance.SelectRecipe(recipe);
+    }
+
+    public void OnHotBarSlotClicked()
+    {
+        return;
     }
 }

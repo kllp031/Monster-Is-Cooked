@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Coffee
   icon: {fileID: 3371271238473578452, guid: 43e0013814e3e794f8649169780be3b6, type: 3}
-  ingredientsRequired:
-  - {fileID: 11400000, guid: 4dc4303d83b2a25458f1d3fccdc56820, type: 2}
-  ingredientAmounts: 03000000
+  ingredients:
+  - ingredient: {fileID: 11400000, guid: 4dc4303d83b2a25458f1d3fccdc56820, type: 2}
+    amount: 3

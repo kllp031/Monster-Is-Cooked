@@ -14,10 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: FriedEgg
   icon: {fileID: -5209360753122014122, guid: 4c5564069ce93764fa081d980b4b0514, type: 3}
-  ingredientsRequired:
-  - {fileID: 11400000, guid: 3a27712a5dfe50d4cb9d7ee1cdb44668, type: 2}
-  ingredientAmounts: 01000000
-  cookTime: 2
-  result_Normal: {fileID: 2605240471778984195, guid: 3c4382a4343849040a0bcb48671ecba9, type: 3}
-  result_Delicious: {fileID: 2605240471778984195, guid: 3c4382a4343849040a0bcb48671ecba9, type: 3}
-  result_Suspicious: {fileID: 2605240471778984195, guid: 3c4382a4343849040a0bcb48671ecba9, type: 3}
+  ingredients:
+  - ingredient: {fileID: 11400000, guid: 3a27712a5dfe50d4cb9d7ee1cdb44668, type: 2}
+    amount: 1

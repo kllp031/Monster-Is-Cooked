@@ -14,10 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: ApplePie
   icon: {fileID: 21300000, guid: 849b5da8cd3dc0a428bc921c66b6f435, type: 3}
-  ingredientsRequired:
-  - {fileID: 11400000, guid: 20a67169fc0b67946abdf5f553d17625, type: 2}
-  ingredientAmounts: 01000000
-  cookTime: 2
-  result_Normal: {fileID: 2605240471778984195, guid: 4c5bd0e6abaafa4499a2fa7ff340c69a, type: 3}
-  result_Delicious: {fileID: 2605240471778984195, guid: 4c5bd0e6abaafa4499a2fa7ff340c69a, type: 3}
-  result_Suspicious: {fileID: 2605240471778984195, guid: 4c5bd0e6abaafa4499a2fa7ff340c69a, type: 3}
+  ingredients:
+  - ingredient: {fileID: 11400000, guid: 20a67169fc0b67946abdf5f553d17625, type: 2}
+    amount: 1

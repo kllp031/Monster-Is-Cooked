@@ -74,7 +74,7 @@ public class Customer : MonoBehaviour, IInteractable
                 if (requestFood != null)
                 {
                     // Use for demo only
-                    if (foodIcon != null) foodIcon.sprite = requestFood.icon;
+                    if (foodIcon != null) foodIcon.sprite = requestFood.Icon;
                     if (foodRequestBoxBackground != null) foodRequestBoxBackground.SetTrigger("Bounce");
                     //if (foodIcon != null) foodIcon.sprite = customerDetail.FoodRequest.Recipe.icon;
                 }

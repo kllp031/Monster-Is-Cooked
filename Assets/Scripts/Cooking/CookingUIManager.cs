@@ -8,6 +8,7 @@ public class CookingUIManager : MonoBehaviour
 
     [Header("Data & Config")]
     public Recipe[] allRecipes;
+    [SerializeField] InventorySO inventory;
 
     [Header("UI References")]
     public Image recipeImage;
@@ -64,7 +65,7 @@ public class CookingUIManager : MonoBehaviour
 
     void UpdateRecipeSlot(Recipe recipe)
     {
-        recipeImage.sprite = recipe.icon;
+        recipeImage.sprite = recipe.Icon;
         recipeImage.enabled = true;
     }
 
@@ -73,13 +74,15 @@ public class CookingUIManager : MonoBehaviour
         foreach (Transform child in ingredientSlotContainer) Destroy(child.gameObject);
 
         // Accessing Inventory via the CookingManager Singleton ensures we share state
-        Inventory inv = CookingManager.Instance.inventory;
+        //Inventory inv = CookingManager.Instance.inventory;
 
-        for (int i = 0; i < recipe.ingredientsRequired.Length; i++)
+        // Use the Recipe.IngredientRequirement list instead of ingredientsRequired/ingredientAmounts
+        var requirements = recipe.Ingredients;
+        for (int i = 0; i < requirements.Count; i++)
         {
-            Ingredient ingredient = recipe.ingredientsRequired[i];
-            int requiredAmount = recipe.ingredientAmounts[i];
-            int ownedAmount = inv.GetAmount(ingredient);
+            Ingredient ingredient = requirements[i].Ingredient;
+            int requiredAmount = requirements[i].Amount;
+            int ownedAmount = inventory.GetAmount(ingredient);
 
             GameObject slotObj = Instantiate(ingredientSlotPrefab, ingredientSlotContainer);
             slotObj.GetComponent<IngredientSlotUI>().Setup(ingredient, ownedAmount, requiredAmount);
