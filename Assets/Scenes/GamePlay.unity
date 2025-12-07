@@ -77833,6 +77833,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: e7bfad0d-0745-45a5-a0bf-9821e0a053c6
     m_ActionName: 'Player/ThrowFood[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2109646280}
+        m_TargetAssemblyTypeName: KnightController, Assembly-CSharp
+        m_MethodName: OnDash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d95235db-fccc-4d2b-b80d-372b8d75a01e
+    m_ActionName: 'Player/Dash[/Keyboard/k]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -78260,6 +78276,14 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3245055706392833530, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3245055706392833530, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3700671394287639787, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -78344,6 +78368,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7476366904642641129, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
+      propertyPath: dashSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7476366904642641129, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
+      propertyPath: dashCooldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7476366904642641129, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
+      propertyPath: dashDuration
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 8381907619977809111, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -78351,6 +78387,14 @@ PrefabInstance:
     - target: {fileID: 8413855311076355617, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8655917134045811377, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2.1875
+      objectReference: {fileID: 0}
+    - target: {fileID: 8655917134045811377, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.5625
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4812991923274574526, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
