@@ -7,6 +7,7 @@ public class MoveOut : CustomerState
     public override void Init()
     {
         state = CustomerStatesController.CustomerStates.MoveOut;
+        animatorBool = "IsMoving";
     }
     protected override void OnEnter()
     {

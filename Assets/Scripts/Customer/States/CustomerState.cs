@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class CustomerState : MonoBehaviour
 {
     [SerializeField] protected CustomerStatesController.CustomerStates state;
-    [SerializeField] protected string animatorTrigger;
+    [SerializeField] protected string animatorBool;
     protected Customer customer;
     protected Animator customerAnimator;
     protected CustomerStatesController controller;
@@ -31,7 +31,11 @@ public abstract class CustomerState : MonoBehaviour
     }
     public void OnExit(CustomerStatesController.CustomerStates state)
     {
-        if (this.state == state) OnExit();
+        if (this.state == state)
+        {
+            UnsetAnimator();
+            OnExit();
+        }
     }
 
     // These functions are to be implemented by the specific states
@@ -45,6 +49,12 @@ public abstract class CustomerState : MonoBehaviour
     {
         customerAnimator = customer.CustomerAnimator;
         if (customerAnimator == null) Debug.LogWarning("Customer doesn't have any animator assigned!");
-        else customerAnimator.SetTrigger(animatorTrigger);
+        //else customerAnimator.SetTrigger(animatorTrigger);
+        else if(!string.IsNullOrEmpty(animatorBool)) customerAnimator.SetBool(animatorBool, true);
+    }
+    protected void UnsetAnimator()
+    {
+        if (customerAnimator == null) Debug.LogWarning("Customer doesn't have any animator assigned!");
+        else if (!string.IsNullOrEmpty(animatorBool)) customerAnimator.SetBool(animatorBool, false);
     }
 }

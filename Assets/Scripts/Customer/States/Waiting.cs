@@ -5,6 +5,7 @@ public class Waiting : CustomerState
     public override void Init()
     {
         state = CustomerStatesController.CustomerStates.Waiting;
+        animatorBool = "IsWaiting";
     }
     protected override void OnEnter()
     {
