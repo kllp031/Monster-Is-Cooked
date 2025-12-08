@@ -3196,7 +3196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - {x: 8.03, y: -4.44}
+  - {x: 8.03, y: -9.51}
   - {x: 8.03, y: 2.98}
   - {x: 1.6099999, y: 2.98}
   - {x: 1.6099999, y: 2.56}
@@ -3724,7 +3724,7 @@ Transform:
   m_GameObject: {fileID: 581515946}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.42, y: -7, z: 0}
+  m_LocalPosition: {x: 4.42, y: -12.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11711,7 +11711,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1079923876
 Transform:
   m_ObjectHideFlags: 0
@@ -11830,6 +11830,7 @@ GameObject:
   - component: {fileID: 1086295458}
   - component: {fileID: 1086295459}
   - component: {fileID: 1086295460}
+  - component: {fileID: 1086295463}
   - component: {fileID: 1086295462}
   - component: {fileID: 1086295461}
   m_Layer: 0
@@ -11903,7 +11904,7 @@ Transform:
   m_GameObject: {fileID: 1086295449}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.34, y: -2.9, z: 0}
+  m_LocalPosition: {x: 11.44, y: -12.16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11924,12 +11925,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da34034290a3bc347abdfd45f6ac0c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requestFood: {fileID: 11400000, guid: 414280bd65b5e1941b2032145bd79afd, type: 2}
-  waitingTime: 10
+  foodRequest: {fileID: 0}
   mood: 3
   tablePath: {fileID: 526113945}
   customerTimer: {fileID: 13710317}
   customerAnimator: {fileID: 1086295455}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  detectRange: 2
+  detectPointOffset: {x: 0, y: 0}
+  detectRangeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   moveSpeed: 2
   distanceToTarget: 0.1
   animatorHorizontalValue: Horizontal
@@ -11941,6 +11947,10 @@ MonoBehaviour:
   foodRequestBoxShowFoodTrigger: Bounce
   foodIcon: {fileID: 121798942}
   moodIcon: {fileID: 1864542204}
+  customerDetail:
+    appearTime: 0
+    waitingTime: 0
+    foodRequest: {fileID: 0}
 --- !u!61 &1086295454
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12021,7 +12031,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 103edfd001cc5f148834e4a01f18fcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultState: 2
+  defaultState: 1
   currentState: 0
   customerStates: []
 --- !u!114 &1086295458
@@ -12066,6 +12076,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   animatorBool: 
+  onFinishMovingOut:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1086295449}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1086295461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12096,6 +12121,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Library: []
   m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 9f2da363edc872742845077fc915dac2, type: 3}
+--- !u!114 &1086295463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086295449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953f48d151cfbab4bba25938f7d87a44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  animatorBool: 
 --- !u!1 &1129774425
 GameObject:
   m_ObjectHideFlags: 0
@@ -16516,6 +16555,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1864542202}
   m_CullTransparentMesh: 1
+--- !u!1 &1874426464
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1874426466}
+  - component: {fileID: 1874426465}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1874426465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874426464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cba48a641e7263d448df21f15f8770d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1874426466
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874426464}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.31993, y: -0.69603, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1889180676
 GameObject:
   m_ObjectHideFlags: 0
@@ -19236,3 +19319,4 @@ SceneRoots:
   - {fileID: 2051852933}
   - {fileID: 1397552369}
   - {fileID: 526113946}
+  - {fileID: 1874426466}

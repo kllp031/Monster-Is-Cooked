@@ -11,6 +11,28 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
+
+    private static GameManager instance = null;
+    private float levelStartTime = 0;
+
+    public static GameManager Instance { get => instance; }
+    public float LevelStartTime { get => levelStartTime; }
+
+    private void Awake()
+    {
+        if (instance != null && instance != this) Destroy(instance);
+        instance = this;
+    }
+
+    private void OnEnable()
+    {
+        levelStartTime = Time.time; // Save the starting time of this level -> Customer spawner will later use this value
+    }
+
+    public void EndLevel()
+    {
+        Debug.Log("End level!");
+    }
     /*
     // The global instance for other scripts to reference
     public static GameManager instance = null;
