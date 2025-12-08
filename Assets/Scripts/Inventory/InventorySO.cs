@@ -35,6 +35,15 @@ public class InventorySO : ScriptableObject
         OnInventoryChanged?.Invoke();
     }
 
+    /// <summary>
+    /// Completely empties the inventory runtime storage.
+    /// </summary>
+    public void ClearInventory()
+    {
+        items.Clear();
+        OnInventoryChanged?.Invoke();
+    }
+
     public void Add(Ingredient ingredient, int amount)
     {
         if (!items.ContainsKey(ingredient))
@@ -81,4 +90,14 @@ public class InventorySO : ScriptableObject
     {
         return items;
     }
+
+    /// <summary>
+    /// Test methods
+    /// </summary>
+    //[ContextMenu("Clear Inventory")] // <--- Add this line
+    //public void TestClearInventory()
+    //{
+    //    ClearInventory();
+    //    Debug.Log("Inventory Cleared via Inspector!"); // Optional: visual confirmation
+    //}
 }

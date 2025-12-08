@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 366456951132376380}
   - component: {fileID: 4137712532145663371}
   - component: {fileID: 3986807555492809122}
-  - component: {fileID: 8202441189059520138}
+  - component: {fileID: 3098734880452305420}
   m_Layer: 5
   m_Name: HotBarSlotButton
   m_TagString: Untagged
@@ -122,9 +122,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8202441189059520138}
-        m_TargetAssemblyTypeName: RecipeButtonUI, Assembly-CSharp
-        m_MethodName: OnRecipeButtonClicked
+      - m_Target: {fileID: 3098734880452305420}
+        m_TargetAssemblyTypeName: HotbarSlotUI, Assembly-CSharp
+        m_MethodName: OnHotbarSlotClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -134,7 +134,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &8202441189059520138
+--- !u!114 &3098734880452305420
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,10 +143,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1140786316758613476}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a8fc9e02f2c8de469271b00e4bccbea, type: 3}
+  m_Script: {fileID: 11500000, guid: 5703d7eb71ae881458aea03c7f1189c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   iconImage: {fileID: 1644330466998945566}
+  selectionOutline: {fileID: 2014420126214207701}
 --- !u!1 &2096051272017103002
 GameObject:
   m_ObjectHideFlags: 0

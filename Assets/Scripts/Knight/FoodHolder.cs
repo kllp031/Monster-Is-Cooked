@@ -54,6 +54,15 @@ public class FoodHolder : MonoBehaviour
             if (throwButton != null) throwButton?.SetActive(false);
         }
     }
+
+    public void ClearHeldFood()
+    {
+        if (heldFood != null) {
+            Destroy(heldFood.gameObject);
+        }
+        heldFood = null;
+    }
+
     public void PickUpFood(Food food)
     {
         if(heldFood != null) DropHeldFood();
