@@ -47,14 +47,16 @@ public class HotbarUI : MonoBehaviour
 
     private void RefreshVisuals()
     {
+        if (HotbarManager.Instance == null) { Debug.LogWarning("Hotbar Manager is not found!"); return; }
         for (int i = 0; i < uiSlots.Length; i++)
         {
-            Recipe r = HotbarManager.Instance.GetRecipeAt(i);
+            //Recipe r = HotbarManager.Instance.GetRecipeAt(i);
+            Food food = HotbarManager.Instance.GetFoodAt(i);
 
             // Check if this specific slot is the selected one
             bool isSelected = (i == currentSelectionIndex);
 
-            uiSlots[i].Setup(i, r, isSelected);
+            uiSlots[i].Setup(i, food, isSelected);
         }
     }
 }

@@ -8,7 +8,7 @@ using static UnityEngine.GraphicsBuffer;
 // General Idea: When we interact with a food that is interactable, that food will tell this food holder to hold it by calling PickUpFood() function
 public class FoodHolder : MonoBehaviour
 {
-    private Food heldFood;
+    //private Food heldFood;
     [SerializeField] Transform foodPivot;
     [SerializeField] GameObject dropFoodButton;
     [SerializeField] GameObject throwButton;
@@ -27,6 +27,17 @@ public class FoodHolder : MonoBehaviour
 
     private Coroutine throwingCoroutine = null;
 
+    // Food holder will get the selected food directy from HotbarManager
+    public Food HeldFood
+    {
+        get
+        {
+            if (HotbarManager.Instance != null) 
+                return HotbarManager.Instance.CurrentFood;
+            return null;
+        }
+    }
+
     private void OnEnable()
     {
         if (targetCircle == null) Debug.LogWarning("Throw Food Circle is not assigned!");
@@ -41,12 +52,12 @@ public class FoodHolder : MonoBehaviour
 
     private void Update()
     {
-        if (heldFood != null)
+        if (HeldFood != null)
         {
             if (dropFoodButton != null) dropFoodButton.SetActive(true);
             if (throwButton != null) throwButton.SetActive(true);
 
-            heldFood.transform.position = foodPivot.position;
+            HeldFood.transform.position = foodPivot.position;
         }
         else
         {
@@ -55,29 +66,36 @@ public class FoodHolder : MonoBehaviour
         }
     }
 
-    public void ClearHeldFood()
-    {
-        if (heldFood != null) {
-            Destroy(heldFood.gameObject);
-        }
-        heldFood = null;
-    }
+    //public void ClearHeldFood()
+    //{
+    //    if (heldFood != null) {
+    //        Destroy(heldFood.gameObject);
+    //    }
+    //    heldFood = null;
+    //}
 
     public void PickUpFood(Food food)
     {
-        if(heldFood != null) DropHeldFood();
 
-        heldFood = food;
-        food.IsPickedUp();
-        heldFood.transform.localPosition = Vector3.zero; // Adjust as needed
+        if (HotbarManager.Instance != null)
+        {
+            HotbarManager.Instance.AddFoodToHotBar(food);
+        }
+        //if(heldFood != null) DropHeldFood();
+
+        //heldFood = food;
+        //food.IsPickedUp();
+        //heldFood.transform.localPosition = Vector3.zero; // Adjust as needed
+
     }
     private void DropHeldFood()
     {
-        if (heldFood == null) return;
+        if (HeldFood == null) return;
         // Drop the food
-        heldFood.transform.position = transform.position + transform.right; // Drop in front of player
-        heldFood.IsDropped();
-        heldFood = null;
+        HeldFood.transform.position = transform.position + transform.right; // Drop in front of player
+        //HeldFood.IsDropped();
+        //heldFood = null;
+        if (HotbarManager.Instance != null) HotbarManager.Instance.RemoveSelectedFood();
     }
     public void ServeFood()
     {
@@ -88,7 +106,7 @@ public class FoodHolder : MonoBehaviour
         // Check conditions
         if (targetCircle == null) return;
         if (playerGroundPosition == null) return;
-        if (heldFood == null) return;
+        if (HeldFood == null) return;
 
         // Start moving the target circle
         if (throwingCoroutine != null) StopCoroutine(throwingCoroutine);
@@ -141,27 +159,28 @@ public class FoodHolder : MonoBehaviour
         // Check conditions
         StopThrowFood();
 
-        if (targetCircle == null || heldFood == null || playerGroundPosition == null) return;
+        if (targetCircle == null || HeldFood == null || playerGroundPosition == null) return;
 
         Vector2 groundStartPoint = (Vector2)playerGroundPosition.position + throwDirection.normalized * throwStartDistance;
         Vector2 groundEndPoint = targetCircle.transform.position;
 
         // Calculate throw speed
-        float speed = CalculateThrowSpeed((groundEndPoint - groundStartPoint).magnitude, -throwHeightOffset, throwAngle, heldFood.GravityScale);
+        float speed = CalculateThrowSpeed((groundEndPoint - groundStartPoint).magnitude, -throwHeightOffset, throwAngle, HeldFood.GravityScale);
         if (speed > 0)
         {
             float groundSpeed = speed * Mathf.Cos(throwAngle * Mathf.Deg2Rad);
             Vector2 groundVelocity = (groundEndPoint - groundStartPoint).normalized * groundSpeed;
             float verticalVelocity = speed * Mathf.Sin(throwAngle * Mathf.Deg2Rad);
-            heldFood.ApplyVelocity(groundVelocity, verticalVelocity);
+            HeldFood.ApplyVelocity(groundVelocity, verticalVelocity);
 
         }
 
         // Adjust held food's position
-        heldFood.transform.position = groundStartPoint;
-        heldFood.SetHeight(throwHeightOffset);
-        heldFood.IsDropped();
-        heldFood = null;
+        HeldFood.transform.position = groundStartPoint;
+        HeldFood.SetHeight(throwHeightOffset);
+        //HeldFood.IsDropped();
+        HotbarManager.Instance.RemoveSelectedFood(); //  Tell Hotbar manager to remove the dropped food
+        //HeldFood = null;
     }
     private float CalculateThrowSpeed(float horizontalDistance, float verticalDistance, float angle, float gravityScale)
     {
@@ -180,7 +199,7 @@ public class FoodHolder : MonoBehaviour
         return Mathf.Sqrt(numerator / denominator);
     }
 
-    // These functions is called by the Input System
+    // These functions are called by the Input System
     public void OnThrowFood(InputAction.CallbackContext context)
     {
         if (context.started) OnThrowFoodStarted(); // Should use animation trigger (or any kinds of state machine) instead, if the animation is set successfully, it will call the OnThrowFoodStarted function
@@ -208,7 +227,7 @@ public class FoodHolder : MonoBehaviour
         float timeElapsed = 0;
         bool movingForward = true;
 
-        while (heldFood != null)
+        while (HeldFood != null)
         {
             // Recalculate the start and end positions each loop in case the throwing direction changed
             startPosition = (Vector2)playerGroundPosition.localPosition + throwDirection.normalized * throwStartDistance;

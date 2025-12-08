@@ -49,6 +49,11 @@ public class AdjustGridLayoutCellSize : MonoBehaviour
 
     void UpdateCellSize()
     {
+        if (grid == null)
+        {
+            Debug.LogWarning("GridLayoutGroup Component is missing!");
+            return;
+        }
         var count = grid.constraintCount;
         if (expand == Axis.X)
         {

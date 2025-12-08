@@ -89,9 +89,9 @@ public class CookingUIManager : MonoBehaviour
         }
     }
 
-    void OnDisable()
-    {
-        recipeImage.enabled = false;
-        foreach (Transform child in ingredientSlotContainer) Destroy(child.gameObject);
-    }
+    //void OnDisable()
+    //{
+    //    if (recipeImage != null) recipeImage.enabled = false;
+    //    foreach (Transform child in ingredientSlotContainer) Destroy(child.gameObject);
+    //}
 }
