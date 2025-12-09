@@ -22,6 +22,27 @@ public abstract class EnemyBase : MonoBehaviour
     protected Rigidbody2D rb;
     protected DropItem dropItem;
 
+    [Header("Audio Settings")]
+    [SerializeField] protected AudioClip attackSound;
+    [SerializeField] protected AudioClip hurtSound;
+    [SerializeField] protected AudioClip dieSound;
+
+    public void PlayAttackSound()
+    {
+        if(attackSound != null)
+            SoundManager.Instance.PlaySFX(attackSound);
+    }
+    public void PlayHurtSound()
+    {
+        if (hurtSound != null)
+            SoundManager.Instance.PlaySFX(hurtSound);
+    }
+    public void PlayDieSound()
+    {
+        if (dieSound != null)
+            SoundManager.Instance.PlaySFX(dieSound);
+    }
+
     public void SetTarget(Transform player)
     {
         target = player;

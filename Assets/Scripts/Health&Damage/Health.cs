@@ -15,8 +15,6 @@ public class Health : MonoBehaviour
     public int teamId = 0;
 
     [Header("Health Settings")]
-    [Tooltip("The default health value")]
-    public int defaultHealth = 1;
     [Tooltip("The maximum health value")]
     public int maximumHealth = 1;
     [Tooltip("The current in game health value")]
@@ -35,6 +33,11 @@ public class Health : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         enemyBase = GetComponent<EnemyBase>();
         animator = GetComponent<Animator>();
+
+        if (gameObject.CompareTag("Player"))
+            currentHealth = PlayerDataManager.Instance.MaxHealth;
+        else
+            currentHealth = maximumHealth;
     }
 
     void Update()
@@ -66,7 +69,11 @@ public class Health : MonoBehaviour
     void Respawn()
     {
         transform.position = respawnPosition;
-        currentHealth = defaultHealth;
+
+        if (gameObject.CompareTag("Player"))
+            currentHealth = PlayerDataManager.Instance.MaxHealth;
+        else
+            currentHealth = maximumHealth;
         //GameManager.UpdateUIElements();
     }
 
@@ -98,6 +105,9 @@ public class Health : MonoBehaviour
 
     public void Knockback(Vector2 dir, float knockbackForce)
     {
+        if (isDeath)
+            return;
+
         rb.linearVelocity = dir * knockbackForce;
         Debug.Log("dir knockback x: " + dir.x + "y: " + dir.y);
         StartCoroutine(StopMoveAfterTime(0.1f));
@@ -113,7 +123,15 @@ public class Health : MonoBehaviour
     public void ReceiveHealing(int healingAmount)
     {
         currentHealth += healingAmount;
-        if (currentHealth > maximumHealth)
+
+        if (this.gameObject.CompareTag("Player"))
+        {
+            if (currentHealth > PlayerDataManager.Instance.MaxHealth)
+            {
+                currentHealth = PlayerDataManager.Instance.MaxHealth;
+            }
+        }
+        else if (currentHealth > maximumHealth)
         {
             currentHealth = maximumHealth;
         }
@@ -150,6 +168,14 @@ public class Health : MonoBehaviour
         {
             Instantiate(deathEffect, transform.position, transform.rotation, null);
         }
+
+        if (gameObject.tag == "Player")
+        {
+            isDeath = true;
+            animator.SetTrigger("Death");
+            GameOver();
+        }
+
         //GameManager.UpdateUIElements();
     }
 
