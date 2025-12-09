@@ -10198,7 +10198,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 07aad45731bd90d4fa061a56fe602c23, type: 2}
   inventory: {fileID: 11400000, guid: 843c37a28d03efc458eb82274c251073, type: 2}
   recipeImage: {fileID: 883518822}
-  cookButtonText: {fileID: 753712701}
+  cookButtonText: {fileID: 0}
   recipeListContent: {fileID: 286364484}
   ingredientSlotContainer: {fileID: 1174689898}
   recipeButtonPrefab: {fileID: 1140786316758613476, guid: 14b6b43dd96115b4c920a4dd0ebe7798, type: 3}
