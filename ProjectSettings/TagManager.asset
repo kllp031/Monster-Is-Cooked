@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Customer
   - Enemy
+  - PlayerAttack
   layers:
   - Default
   - TransparentFX
@@ -17,9 +18,6 @@ TagManager:
   - Customer
   - Player
   - PlayerDetector
-  - 
-  - 
-  - 
   - 
   - 
   - 

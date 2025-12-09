@@ -15,4 +15,4 @@ MonoBehaviour:
   areaIndex: 0
   spawnPosition: {x: -25.5, y: 10.5}
   topLeft: {x: -100, y: 100}
-  bottomRight: {x: 100, y: -5}
+  bottomRight: {x: 100, y: 4}

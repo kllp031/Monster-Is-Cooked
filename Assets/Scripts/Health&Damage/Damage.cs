@@ -58,7 +58,12 @@ public class Damage : MonoBehaviour
             if (collidedHealth.teamId != this.teamId)
             {
                 Debug.Log("take damage");
-                collidedHealth.TakeDamage(damageAmount);
+
+                if (this.gameObject.CompareTag("PlayerAttack"))
+                    collidedHealth.TakeDamage(PlayerDataManager.Instance.Attack);
+                else
+                    collidedHealth.TakeDamage(damageAmount);
+
                 if (destroyAfterDamage)
                 {
                     Debug.Log("destroy bullet");

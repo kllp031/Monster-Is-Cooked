@@ -17,7 +17,8 @@ GameObject:
   - component: {fileID: 3512796365227055692}
   - component: {fileID: 123529094380018272}
   - component: {fileID: 1063999194062447462}
-  m_Layer: 0
+  - component: {fileID: 5563019302600892232}
+  m_Layer: 6
   m_Name: Skull
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -153,7 +154,6 @@ MonoBehaviour:
   currentEnemyState: 0
   lastEnemyState: 0
   target: {fileID: 0}
-  rb: {fileID: 0}
   chaseRange: 5
   attackRange: 1.2
   timeToIdle: 1
@@ -202,6 +202,7 @@ MonoBehaviour:
   maximumHealth: 3
   currentHealth: 3
   invincibilityTime: 0.2
+  isDeath: 0
   isInvincible: 0
   deathEffect: {fileID: 0}
   hitEffect: {fileID: 0}
@@ -278,6 +279,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &5563019302600892232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414997399478777626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0709f8d5dacb034f99dc4f930e7feb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupPrefabs:
+  - {fileID: 8502819326897545693, guid: f8fb1d8a77aca114f9bef35459df02c0, type: 3}
+  scatterForce: 3
 --- !u!1 &8291685978871655545
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,7 +305,7 @@ GameObject:
   - component: {fileID: 2370853445592661711}
   - component: {fileID: 4864203283963411376}
   - component: {fileID: 6965371212244634410}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SkullDamageArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -325,7 +341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamId: 1
   damageAmount: 1
-  knockbackForce: 5
+  knockbackForce: 10
   destroyAfterDamage: 0
   dealDamageOnTriggerEnter: 1
   dealDamageOnTriggerStay: 0
