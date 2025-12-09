@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Gate : MonoBehaviour
 {
     [SerializeField] private MapArea targetArea;
+    [SerializeField] UnityEvent onTeleport = new();
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -28,5 +30,7 @@ public class Gate : MonoBehaviour
                 cam.transform.position.z
             );
         }
+
+        onTeleport.Invoke();
     }
 }
