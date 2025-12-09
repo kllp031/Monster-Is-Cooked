@@ -140,10 +140,10 @@ TextureImporter:
       name: Male 07-3_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 95
-        width: 25
-        height: 33
+        x: 0
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,10 +162,10 @@ TextureImporter:
       name: Male 07-3_1
       rect:
         serializedVersion: 2
-        x: 5
-        y: 63
-        width: 23
-        height: 33
+        x: 32
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,10 +184,10 @@ TextureImporter:
       name: Male 07-3_2
       rect:
         serializedVersion: 2
-        x: 35
-        y: 0
-        width: 27
-        height: 128
+        x: 64
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -206,10 +206,10 @@ TextureImporter:
       name: Male 07-3_3
       rect:
         serializedVersion: 2
-        x: 68
-        y: 95
-        width: 25
-        height: 33
+        x: 0
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -228,10 +228,10 @@ TextureImporter:
       name: Male 07-3_4
       rect:
         serializedVersion: 2
-        x: 69
-        y: 63
-        width: 24
-        height: 33
+        x: 32
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,10 +250,10 @@ TextureImporter:
       name: Male 07-3_5
       rect:
         serializedVersion: 2
-        x: 4
-        y: 31
-        width: 24
-        height: 33
+        x: 64
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -272,9 +272,9 @@ TextureImporter:
       name: Male 07-3_6
       rect:
         serializedVersion: 2
-        x: 4
-        y: 0
-        width: 26
+        x: 0
+        y: 32
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -294,9 +294,9 @@ TextureImporter:
       name: Male 07-3_7
       rect:
         serializedVersion: 2
-        x: 67
-        y: 0
-        width: 26
+        x: 32
+        y: 32
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -316,10 +316,10 @@ TextureImporter:
       name: Male 07-3_8
       rect:
         serializedVersion: 2
-        x: 69
-        y: 31
-        width: 23
-        height: 33
+        x: 64
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -334,11 +334,77 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Male 07-3_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bafdcbff48b805b439de3ad6d075b05f
+      internalID: -1201750143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Male 07-3_10
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38ea3fbcfb992ac499104cc0d826947c
+      internalID: 908226464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Male 07-3_11
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 940c278a1a48682429457d49427f6116
+      internalID: -2067395782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 11a4653d0632f9c449fd1d51875dbc97
     internalID: 0
     vertices: []
     indices: 
@@ -346,10 +412,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Male 07-3_0: 9121007511468029648
       Male 07-3_1: -1724809586419009380
+      Male 07-3_10: 908226464
+      Male 07-3_11: -2067395782
       Male 07-3_2: 6284062335284311428
       Male 07-3_3: -9012338073155914283
       Male 07-3_4: 7987422688440442974
@@ -357,6 +427,7 @@ TextureImporter:
       Male 07-3_6: 7692874815335214233
       Male 07-3_7: 6427536177249441512
       Male 07-3_8: 1513189966738877724
+      Male 07-3_9: -1201750143
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -16,6 +16,21 @@ public class TablesManager : MonoBehaviour
         instance = this;
     }
 
+    private void OnEnable()
+    {
+        LoadTablesPath();
+    }
+
+    private void LoadTablesPath()
+    {
+        tablesList.Clear();
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            Path path = transform.GetChild(i).GetComponent<Path>();
+            if (path == null) continue;
+            tablesList.Add(new TableDetail(path));
+        }
+    }
     // Customers will return their assigned table when moving out
     public void ReturnTable(Customer customer)
     {
@@ -45,6 +60,11 @@ public class TableDetail
 {
     [SerializeField] Path pathToTable;
     [SerializeField] private Customer assignedCustomer;
+
+    public TableDetail(Path path)
+    {
+        pathToTable = path;
+    }
 
     public Path PathToTable { get => pathToTable; }
     public Customer AssignedCustomer { get => assignedCustomer; set => assignedCustomer = value; }

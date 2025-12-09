@@ -7,14 +7,11 @@ public class CustomersSpawner : MonoBehaviour
 {
     private static CustomersSpawner instance = null;
     [SerializeField] Customer customerPrefab;
-    [SerializeField] List<SpriteLibraryAsset> customerSkins = new();
-    [SerializeField] List<CustomerDetail> customerDetails = new();
-    [Tooltip("The customer will appear 'appear time' seconds after the start of the level")]
-    [SerializeField] List<float> appearTime = new();
     [SerializeField] UnityEvent updateTimeBeforeGameStart = new();
-    [SerializeField] UnityEvent onGameStarted = new();
+    [SerializeField] UnityEvent onCustomerStarted = new();
 
-    private bool gameStarted = false;
+    private bool customerStarted = false;
+    private List<SpriteLibraryAsset> customersSkins = new();
     private List<CustomerDetail> tempCustomerDetails = new();  // A copy of customer details
     private List<float> tempAppearTime = new(); // A copy of appear time
     [SerializeField] private List<Customer> spawnedCustomer = new(); // All spawned customers
@@ -30,23 +27,26 @@ public class CustomersSpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        gameStarted = false;
-        tempCustomerDetails = new List<CustomerDetail>(customerDetails);
-        tempAppearTime = new List<float>(appearTime);
+        if (GameManager.Instance != null) GameManager.Instance.OnLevelStart.AddListener(OnLevelStart);
+    }
+
+    public void OnLevelStart()
+    {
+        customerStarted = false;
+        customersSkins = new List<SpriteLibraryAsset>(GameManager.Instance.GetCurrentLevelDetail().CustomersSkins);
+        tempCustomerDetails = new List<CustomerDetail>(GameManager.Instance.GetCurrentLevelDetail().CustomerDetails);
+        tempAppearTime = new List<float>(GameManager.Instance.GetCurrentLevelDetail().AppearTime);
         spawnedCustomer.Clear();
         activeCustomers.Clear();
     }
 
-    private void OnValidate()
-    {
-        if (customerDetails.Count != appearTime.Count) Debug.LogWarning("List of Customer Details and List of Appear Time must have the same count!");
-    }
-
     private void Update()
     {
-        if (customerSkins.Count == 0) { Debug.LogWarning("Please assign some customerSkins to spawn Customer!"); }
-
         if (GameManager.Instance == null) { Debug.LogWarning("GameManager is not found in this scene!"); return; }
+        else if (!GameManager.Instance.LevelStarted || !GameManager.Instance.GameStarted) return;
+
+        if (customersSkins.Count == 0) { Debug.LogWarning("Please assign some customerSkins to spawn Customer!"); }
+
         float elapsedTime = Time.time - GameManager.Instance.LevelStartTime;
 
         // All the customers have been spawned
@@ -63,10 +63,10 @@ public class CustomersSpawner : MonoBehaviour
             TableDetail table = TablesManager.Instance.GetAvailableTable();
             if (table == null) return; // There are no unoccupied tables
 
-            if (!gameStarted)
+            if (!customerStarted)
             {
-                onGameStarted.Invoke();
-                gameStarted = true;
+                onCustomerStarted.Invoke();
+                customerStarted = true;
             }
 
             // Spawn Customer
@@ -92,7 +92,7 @@ public class CustomersSpawner : MonoBehaviour
             SpriteLibraryAsset newSkin = null;
 
             // Get customer skin
-            if (customerSkins.Count > 0) newSkin = customerSkins[Random.Range(0, customerSkins.Count)];
+            if (customersSkins.Count > 0) newSkin = customersSkins[Random.Range(0, customersSkins.Count)];
 
             // Assign all necessary information
             table.AssignedCustomer = newCustomer; // Assign that table to the customer
