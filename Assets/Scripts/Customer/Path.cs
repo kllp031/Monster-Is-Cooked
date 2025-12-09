@@ -5,14 +5,33 @@ public class Path : MonoBehaviour
 {
     [SerializeField] List<Vector2> points = new();
 
+    public List<Vector2> Points { get => points; }
+
     [ContextMenu("Load Points From Children")]
     public void LoadPointsFromChildren()
     {
         points.Clear();
         foreach (Transform child in transform)
         {
-            points.Add(child.localPosition);
+            points.Add(child.position);
         }
+    }
+
+    public void PrintPath()
+    {
+        string res = string.Empty;
+        foreach (var point in points)
+        {
+            if (point != null)
+            {
+                if (res != string.Empty)
+                {
+                    res += " -> ";
+                }
+                res += point.ToString();
+            }
+        }
+        Debug.Log("Path: " + res);
     }
 
     public void OnDrawGizmos()
@@ -30,7 +49,7 @@ public class Path : MonoBehaviour
             {
                 continue;
             }
-            Gizmos.DrawLine(points[previousPointIndex] + (Vector2)transform.position, points[i] + (Vector2)transform.position);
+            Gizmos.DrawLine(points[previousPointIndex], points[i]);
             previousPointIndex = i;
         }
     }
