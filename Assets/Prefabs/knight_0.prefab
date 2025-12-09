@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 655225157361588048}
   - component: {fileID: 4470273858900987813}
   - component: {fileID: 9049991607705208772}
+  - component: {fileID: 7246481824930776523}
+  - component: {fileID: 5893742004296064385}
   m_Layer: 0
   m_Name: knight_0
   m_TagString: Player
@@ -190,7 +192,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &7476366904642641129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,6 +252,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 9004908710988102272, guid: 0b07192f04da55949ace72129b4d9e3f, type: 3}
   spawnPoint: {fileID: 5593272464289720099}
+--- !u!114 &7246481824930776523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3794178639290902241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33ae5c5c45d48e54bb387269b8c1f4dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stoveUI: {fileID: 0}
+  actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+--- !u!114 &5893742004296064385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3794178639290902241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd127b36b1c82f4da6b98d59c6f16f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamId: 0
+  defaultHealth: 10
+  maximumHealth: 10
+  currentHealth: 10
+  invincibilityTime: 0
+  isDeath: 0
+  isInvincible: 0
+  deathEffect: {fileID: 0}
+  hitEffect: {fileID: 0}
 --- !u!1 &8170305792849158777
 GameObject:
   m_ObjectHideFlags: 0
