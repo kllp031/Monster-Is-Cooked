@@ -8,9 +8,10 @@ public class BulletMove : MonoBehaviour
     private void Update()
     {
         transform.Translate(direction * speed * Time.deltaTime);
+        //Debug.Log("direction x:" + direction.x + " , y:" + direction.y);
     }
     public void SetDirection(Vector2 dir)
     {
-        direction = dir;
+        direction = dir.normalized;
     }    
 }

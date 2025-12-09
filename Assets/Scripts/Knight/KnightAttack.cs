@@ -34,7 +34,7 @@ public class KnightAttack : MonoBehaviour
                 // Determine attack direction
                 Transform enemyTransform = FindNearestEnemy();
                 if(enemyTransform == null)
-                    attackDirection = knightController.getMoveInput();
+                    attackDirection = knightController.GetMoveInput();
                 else
                     attackDirection = (enemyTransform.position - transform.position).normalized;
 
