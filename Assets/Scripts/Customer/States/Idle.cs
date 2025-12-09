@@ -10,6 +10,13 @@ public class Idle : CustomerState
     }
     protected override void OnEnter()
     {
+        if(customer.TablePath != null)
+        {
+            if (customer.TablePath.Points.Count > 0)
+            {
+                customer.transform.position = customer.TablePath.Points[0];
+            }
+        }
     }
 
     protected override void UpdateState()

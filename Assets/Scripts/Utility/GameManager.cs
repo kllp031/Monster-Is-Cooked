@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -11,12 +12,19 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-
+    [SerializeField] int targetMoney = 0;
+    [SerializeField] UnityEvent onLevelEnd = new();
+    [SerializeField] UnityEvent onEarnedMoneyChanged = new();
     private static GameManager instance = null;
     private float levelStartTime = 0;
+    private bool levelStarted = false;
+    [SerializeField] private int earnedMoney = 0;
 
     public static GameManager Instance { get => instance; }
+    public int TargetMoney { get => targetMoney; }
+    public int EarnedMoney { get => earnedMoney; set { earnedMoney = value; onEarnedMoneyChanged.Invoke(); } } 
     public float LevelStartTime { get => levelStartTime; }
+    public bool LevelStarted { get => levelStarted; }
 
     private void Awake()
     {
@@ -27,12 +35,23 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         levelStartTime = Time.time; // Save the starting time of this level -> Customer spawner will later use this value
+        levelStarted = true;
+        Debug.Log($"Level started: {levelStarted}, start time: {levelStartTime}");
     }
 
+    private void Start()
+    {
+        EarnedMoney = 0;
+    }
     public void EndLevel()
     {
+        if (!levelStarted) return;
+        levelStarted = false;
         Debug.Log("End level!");
+        onLevelEnd.Invoke();
+        // End Game
     }
+
     /*
     // The global instance for other scripts to reference
     public static GameManager instance = null;

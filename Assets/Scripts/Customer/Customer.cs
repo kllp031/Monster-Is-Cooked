@@ -1,6 +1,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.U2D.Animation;
 using UnityEngine.UI;
 
 public class Customer : MonoBehaviour, IInteractable
@@ -12,6 +13,7 @@ public class Customer : MonoBehaviour, IInteractable
         Embarrassed
     }
     [Header("Customer Settings")]
+    [SerializeField] SpriteLibrary spriteLibrary; // Use for displaying different skins
     [SerializeField] Recipe foodRequest; // Use for demo only
     //[SerializeField] float waitingTime = 120f; // Use for demo only
     [SerializeField] Mood mood = Mood.Happy;
@@ -44,10 +46,8 @@ public class Customer : MonoBehaviour, IInteractable
     private bool isActivated = false;
     private bool isAsked = false;
     private bool isReadyToEat = false;
-    private int seatNumer = 0;
 
-    public int SeatNumber { get => seatNumer; set => seatNumer = value; }
-    public Path TablePath { get => tablePath; set => tablePath = value; }
+    public Path TablePath { get => tablePath; }
     public float MoveSpeed { get => moveSpeed; }
     public Animator CustomerAnimator { get => customerAnimator; }
     public bool IsReadyToEat { get => isReadyToEat; set => isReadyToEat = value; }
@@ -57,6 +57,7 @@ public class Customer : MonoBehaviour, IInteractable
     {
         if (foodRequestBox == null) Debug.LogWarning("This customer has no food request box assigned!");
         if (foodIcon == null) Debug.LogWarning("This customer has no food icon assigned!");
+        if (spriteLibrary == null) Debug.LogWarning("Please assign a sprite library to display different skins!");
     }
     private void OnEnable()
     {
@@ -65,17 +66,24 @@ public class Customer : MonoBehaviour, IInteractable
         isReadyToEat = false;
         if (customerTimer != null) customerTimer.gameObject.SetActive(false);
 
-        // Demo
-        customerDetail = new(0, 15, foodRequest);
     }
     private void FixedUpdate()
     {
         CheckForPlayer();
     }
+    
     public void SetDetail(CustomerDetail detail)
     {
         customerDetail = detail;
+        customerTimer.SetTimer(customerDetail.WaitingTime);
     }
+    public void SetTablePath(Path tablePath) { this.tablePath = tablePath; }
+    public void SetSkin(SpriteLibraryAsset skin)
+    {
+        if (spriteLibrary == null || skin == null) return;
+        spriteLibrary.spriteLibraryAsset = skin;
+    }
+    
     public void SetMood(Mood mood)
     {
         this.mood = mood;
@@ -105,14 +113,14 @@ public class Customer : MonoBehaviour, IInteractable
             else
             {
                 // Take the food from FoodHolder
-                // Process the food
+                ProcessFood(null);
                 OnLeave();
             }
         }
         else if (obj.GetComponent<Food>() != null)
         {
             {
-                // Process the food
+                ProcessFood(null);
                 OnLeave();
             }
 
@@ -148,7 +156,7 @@ public class Customer : MonoBehaviour, IInteractable
         Recipe foodRequest = customerDetail.FoodRequest;
         // Compare food and foodRequest
         // Change mood based on the result
-        // Update earned money according to the result
+        if (GameManager.Instance != null) GameManager.Instance.EarnedMoney += 10;
     }
     public bool MoveToTarget(Vector2 target)
     {
@@ -157,7 +165,6 @@ public class Customer : MonoBehaviour, IInteractable
         {
             Vector2 direction = target - (Vector2)transform.position;
             direction = direction.normalized;
-            Debug.Log(direction);
             transform.Translate(direction * Time.fixedDeltaTime * moveSpeed);
             if (customerAnimator != null)
             {
@@ -178,6 +185,11 @@ public class Customer : MonoBehaviour, IInteractable
             customerTimer.StopTimer();
             customerTimer.gameObject.SetActive(false);
         }
+        if (TablesManager.Instance != null) TablesManager.Instance.ReturnTable(this);
+        if (CustomersSpawner.Instance != null) CustomersSpawner.Instance.OnCustomerLeft(this);
+
+        //Demo
+        if (GameManager.Instance != null) GameManager.Instance.EarnedMoney += 10;
     }
 
     // Use for UI
@@ -214,18 +226,15 @@ public class Customer : MonoBehaviour, IInteractable
 [Serializable]
 public class CustomerDetail
 {
-    [SerializeField] float appearTime;
     [SerializeField] float waitingTime;
     [SerializeField] Recipe foodRequest;
 
     public CustomerDetail(float appearTime, float waitingTime, Recipe foodRequest)
     {
-        this.appearTime = appearTime;
         this.waitingTime = waitingTime;
         this.foodRequest = foodRequest;
     }
 
-    public float AppearTime { get => appearTime; }
     public float WaitingTime { get => waitingTime; }
     public Recipe FoodRequest { get => foodRequest; }
 }
