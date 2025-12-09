@@ -34,33 +34,50 @@ public class KnightAttack : MonoBehaviour
 
         if (context.started && coolDownCoroutine == null)
         {
-            if (attackEffect != null)
-            {
-                // Determine attack direction
-                Transform enemyTransform = FindNearestEnemy();
-                if(enemyTransform == null)
-                    attackDirection = knightController.GetMoveInput();
-                else
-                    attackDirection = (enemyTransform.position - transform.position).normalized;
-
-                // Set position and rotation of attack effect
-                attackEffect.transform.position = transform.position + new Vector3(attackDirection.x, attackDirection.y, 0).normalized * distanceAttack;
-                attackEffect.transform.up = -attackDirection;
-                if (attackDirection == Vector2.zero)
-                    attackEffect.transform.position = transform.position + new Vector3(0, -1f, 0); // Attack a little bit down if no direction
-
-                // Flip the attack 
-                Vector3 scale = attackEffect.transform.localScale;
-                scale.x = -scale.x;
-                attackEffect.transform.localScale = scale;
-
-                // Attack
-                animator.SetTrigger("Attack");
-                attackEffect.SetActive(true);
-                coolDownCoroutine = StartCoroutine(CoolDownCoroutine());
-            }
+            TryAttack();
         }
     }
+
+    public void OnButtonAttack()
+    {
+        if (health.isDeath)
+            return;
+
+        if (coolDownCoroutine == null)
+        {
+            TryAttack();
+        }
+    }
+
+    public void TryAttack()
+    {
+        if (attackEffect != null)
+        {
+            // Determine attack direction
+            Transform enemyTransform = FindNearestEnemy();
+            if (enemyTransform == null)
+                attackDirection = knightController.GetMoveInput();
+            else
+                attackDirection = (enemyTransform.position - transform.position).normalized;
+
+            // Set position and rotation of attack effect
+            attackEffect.transform.position = transform.position + new Vector3(attackDirection.x, attackDirection.y, 0).normalized * distanceAttack;
+            attackEffect.transform.up = -attackDirection;
+            if (attackDirection == Vector2.zero)
+                attackEffect.transform.position = transform.position + new Vector3(0, -1f, 0); // Attack a little bit down if no direction
+
+            // Flip the attack 
+            Vector3 scale = attackEffect.transform.localScale;
+            scale.x = -scale.x;
+            attackEffect.transform.localScale = scale;
+
+            // Attack
+            animator.SetTrigger("Attack");
+            attackEffect.SetActive(true);
+            coolDownCoroutine = StartCoroutine(CoolDownCoroutine());
+        }
+    }
+
     IEnumerator CoolDownCoroutine()
     {
         yield return new WaitForSeconds(coolDownTime);

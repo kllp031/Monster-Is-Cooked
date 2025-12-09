@@ -70,6 +70,17 @@ public class KnightController : MonoBehaviour
         }
     }
 
+    public void OnDashButton()
+    {
+        if (health.isDeath)
+            return;
+
+        if (canDash && moveInput != Vector2.zero)
+        {
+            StartCoroutine(DashRoutine());
+        }
+    }
+
     // -------------------------
     // DASH USING MovePosition
     // -------------------------
