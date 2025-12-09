@@ -77,5 +77,14 @@ public class PlayerDataManager : MonoBehaviour
     public void Save()
     {
         PlayerPrefs.Save();
+
+        Debug.Log(
+        $"[PlayerDataManager Save]\n" +
+        $"MaxHealth: {MaxHealth}\n" +
+        $"Speed: {Speed}\n" +
+        $"Attack: {Attack}\n" +
+        $"Level: {Level}\n" +
+        $"EarnMoney: {EarnMoney}"
+        );
     }
 }

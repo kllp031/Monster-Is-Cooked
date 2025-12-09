@@ -8841,9 +8841,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0001e822dfcd2604ea685cd731974330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMaxHealth: 100
+  defaultMaxHealth: 2
   defaultSpeed: 5
-  defaultAttack: 10
+  defaultAttack: 0
   defaultLevel: 1
   defaultEarnMoney: 0
 --- !u!4 &1652094320
@@ -87495,7 +87495,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamId: 0
-  defaultHealth: 5
   maximumHealth: 5
   currentHealth: 5
   invincibilityTime: 3

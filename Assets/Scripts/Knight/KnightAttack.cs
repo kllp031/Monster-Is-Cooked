@@ -14,6 +14,7 @@ public class KnightAttack : MonoBehaviour
     private Coroutine coolDownCoroutine = null;
     private KnightController knightController;
     private Animator animator;
+    private Health health;
 
     private void Awake()
     {
@@ -23,10 +24,14 @@ public class KnightAttack : MonoBehaviour
             Debug.LogError("KnightController null");
         }
         animator = GetComponent<Animator>();
+        health = GetComponent<Health>();
     }
 
     public void OnAttack(InputAction.CallbackContext context)
     {
+        if (health.isDeath)
+            return;
+
         if (context.started && coolDownCoroutine == null)
         {
             if (attackEffect != null)

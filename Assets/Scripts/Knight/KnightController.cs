@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using System.Threading;
+using Unity.VisualScripting;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class KnightController : MonoBehaviour
@@ -23,6 +24,7 @@ public class KnightController : MonoBehaviour
 
     private Rigidbody2D rb;
     private Animator animator;
+    private Health health;
 
     private void Awake()
     {
@@ -32,6 +34,7 @@ public class KnightController : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
+        health = GetComponent<Health>();
     }
 
     // -------------------------
@@ -39,6 +42,9 @@ public class KnightController : MonoBehaviour
     // -------------------------
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (health.isDeath)
+            return;
+
         moveInput = context.ReadValue<Vector2>();
 
         animator.SetBool("isRunning", moveInput != Vector2.zero);
@@ -55,6 +61,9 @@ public class KnightController : MonoBehaviour
     // -------------------------
     public void OnDash(InputAction.CallbackContext context)
     {
+        if (health.isDeath)
+            return;
+
         if (context.started && canDash && moveInput != Vector2.zero)
         {
             StartCoroutine(DashRoutine());
@@ -96,6 +105,9 @@ public class KnightController : MonoBehaviour
     // -------------------------
     private void FixedUpdate()
     {
+        if (health.isDeath)
+            return;
+
         if (isDashing) return;
 
         if (isHurting)
