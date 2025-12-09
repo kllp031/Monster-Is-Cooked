@@ -7626,7 +7626,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1414997399478777626, guid: 4e747b4dee23d15439d30f119b7628b8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3512796365227055692, guid: 4e747b4dee23d15439d30f119b7628b8, type: 3}
       propertyPath: currentHealth
@@ -7854,6 +7854,10 @@ PrefabInstance:
       propertyPath: _hurtTime
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 185037289216935537, guid: c8903949835c5e0449ab50e3c8f525cc, type: 3}
+      propertyPath: timeToAttack
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2880792997536680067, guid: c8903949835c5e0449ab50e3c8f525cc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.53
@@ -7912,7 +7916,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4386769147766901124, guid: c8903949835c5e0449ab50e3c8f525cc, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7114076021368841609, guid: c8903949835c5e0449ab50e3c8f525cc, type: 3}
       propertyPath: m_Enabled
