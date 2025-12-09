@@ -14,7 +14,7 @@ public class CustomerTimer : MonoBehaviour
     [SerializeField] UnityEvent receiveTimeUpStatus;
     private bool isRunning = false;
     private float previousCounterValue = 0f;
-    private float timer = 0f;
+    [SerializeField] private float timer = 0f;
     private float counter = 0f;
     private void OnEnable()
     {

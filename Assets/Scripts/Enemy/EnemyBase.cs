@@ -22,6 +22,11 @@ public abstract class EnemyBase : MonoBehaviour
     protected Rigidbody2D rb;
     protected DropItem dropItem;
 
+    public void SetTarget(Transform player)
+    {
+        target = player;
+    }
+
     protected virtual void Start()
     {
         Setup();
