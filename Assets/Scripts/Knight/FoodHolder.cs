@@ -110,6 +110,7 @@ public class FoodHolder : MonoBehaviour
         if (HeldFood == null) return;
 
         // Start moving the target circle
+        throwDirection = (transform.lossyScale.x <= 0) ? Vector2.left : Vector2.right;
         if (throwingCoroutine != null) StopCoroutine(throwingCoroutine);
         throwingCoroutine = StartCoroutine(ThrowingCoroutine());
     }
@@ -161,7 +162,7 @@ public class FoodHolder : MonoBehaviour
         StopThrowFood();
 
         if (targetCircle == null || HeldFood == null || playerGroundPosition == null) return;
-
+        
         Vector2 groundStartPoint = (Vector2)playerGroundPosition.position + throwDirection.normalized * throwStartDistance;
         Vector2 groundEndPoint = targetCircle.transform.position;
 

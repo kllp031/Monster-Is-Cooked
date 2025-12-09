@@ -34,12 +34,38 @@ public class EndStartUI : MonoBehaviour
         endUI.anchoredPosition = _endUiOrigin + offScreenOffset;
     }
 
+    private void OnEnable()
+    {
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("EndStartUI: GameManager instance not found!");
+            return;
+        }
+        
+        GameManager.Instance.OnLevelEnd.AddListener((bool isWin) =>
+        {
+            // Show appropriate end UI
+            if (isWin)
+            {
+                ToggleWinUI();
+            }
+            else
+            {
+                ToggleFailUI();
+            }
+            // Immediate toggle for showing the end screen
+            ToggleEndScreen(true);
+        });
+
+    }
+
     // --- BUTTON EVENTS ---
 
     public void OnStartClicked()
     {
         // Immediate toggle for starting the game
         ToggleStartScreen(false);
+        GameManager.Instance.StartCurrentLevel();
     }
 
     public void OnRetryClicked()
@@ -47,6 +73,14 @@ public class EndStartUI : MonoBehaviour
         // Start the sequence instead of immediate function calls
         if (_sequenceRoutine != null) StopCoroutine(_sequenceRoutine);
         _sequenceRoutine = StartCoroutine(ReturnToStartSequence());
+        //if (GameManager.Instance != null)
+        //{
+        //    GameManager.Instance.RetryLevel();
+        //}
+        //else
+        //{
+        //    Debug.LogError("EndStartUI: GameManager instance not found!");
+        //}
     }
 
     public void OnNextClicked()
@@ -54,6 +88,14 @@ public class EndStartUI : MonoBehaviour
         // Start the sequence instead of immediate function calls
         if (_sequenceRoutine != null) StopCoroutine(_sequenceRoutine);
         _sequenceRoutine = StartCoroutine(ReturnToStartSequence());
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.NextLevel();
+        }
+        else
+        {
+            Debug.LogError("EndStartUI: GameManager instance not found!");
+        }
     }
 
     // --- THE NEW SEQUENCE ---

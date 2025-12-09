@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     private static GameManager instance = null;
     private int levelNumber; // Store Level Number
     private bool gameStarted = false;
-    private bool levelStarted = false;
+    [SerializeField] private bool levelStarted = false;
     private float levelStartTime = 0;
     [SerializeField] private int earnedMoney = 0; // Total money earned throughout the game
     [SerializeField] private int collectedMoney = 0; // Money collected in a day
