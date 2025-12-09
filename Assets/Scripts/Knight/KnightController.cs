@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using System.Threading;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class KnightController : MonoBehaviour
@@ -16,6 +17,9 @@ public class KnightController : MonoBehaviour
     [SerializeField] private float dashCooldown = 1f;
 
     private bool isDashing = false;
+    private bool isHurting = false;
+    [SerializeField] private float hurtingTime = 0.5f;
+    private float hurtingTimer = 0f;
     private bool canDash = true;
 
     private Rigidbody2D rb;
@@ -95,6 +99,20 @@ public class KnightController : MonoBehaviour
     {
         if (isDashing) return;
 
+        if (isHurting)
+        {
+            hurtingTimer += Time.deltaTime;
+            if (hurtingTimer >= hurtingTime)
+            {
+                isHurting = false;
+                hurtingTimer = 0f;
+            }
+            else
+            {
+                return;
+            }
+        }
+
         Vector2 move = moveInput * moveSpeed * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + move);
     }
@@ -110,5 +128,10 @@ public class KnightController : MonoBehaviour
     {
         GameObject img = Instantiate(afterImagePrefab, transform.position, Quaternion.identity);
         img.transform.localScale = transform.localScale; 
+    }
+
+    public void SetIsHurting(bool isHurting)
+    {
+        this.isHurting = isHurting;
     }
 }

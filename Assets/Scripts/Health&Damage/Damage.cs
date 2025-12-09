@@ -76,6 +76,12 @@ public class Damage : MonoBehaviour
         {
             if (collidedHealth.teamId != this.teamId)
             {
+                KnightController knightController = null;
+                if (collisionGameObject.CompareTag("Player"))
+                {
+                    knightController = collisionGameObject.GetComponent<KnightController>();
+                    knightController.SetIsHurting(true);
+                }
                 collidedHealth.Knockback(dir, knockbackForce);
             }
         }

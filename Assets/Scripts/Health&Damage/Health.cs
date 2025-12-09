@@ -27,11 +27,13 @@ public class Health : MonoBehaviour
 
     private EnemyBase enemyBase;
     private Rigidbody2D rb;
+    private Animator animator;
     void Start()
     {
         SetRespawnPoint(transform.position);
         rb = GetComponent<Rigidbody2D>();
         enemyBase = GetComponent<EnemyBase>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -75,7 +77,11 @@ public class Health : MonoBehaviour
         }
         else
         {
-            if(gameObject.tag == "Enemy")   enemyBase.currentEnemyState = EnemyBase.EnemyState.Hurt;
+            if(gameObject.tag == "Enemy") 
+                enemyBase.currentEnemyState = EnemyBase.EnemyState.Hurt;
+
+            if (gameObject.tag == "Player")
+                animator.SetTrigger("Hurt");
 
             if (hitEffect != null)
             {
@@ -92,6 +98,7 @@ public class Health : MonoBehaviour
     public void Knockback(Vector2 dir, float knockbackForce)
     {
         rb.linearVelocity = dir * knockbackForce;
+        Debug.Log("dir knockback x: " + dir.x + "y: " + dir.y);
         StartCoroutine(StopMoveAfterTime(0.1f));
     }
 
