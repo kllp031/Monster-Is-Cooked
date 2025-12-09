@@ -15651,6 +15651,9 @@ MonoBehaviour:
   onEarnedMoneyChanged:
     m_PersistentCalls:
       m_Calls: []
+  onCollectedMoneyChanged:
+    m_PersistentCalls:
+      m_Calls: []
   earnedMoney: 0
   collectedMoney: 0
 --- !u!4 &1874426466
