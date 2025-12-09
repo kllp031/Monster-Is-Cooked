@@ -9,7 +9,6 @@ public class KnightController : MonoBehaviour
     private Vector2 moveInput = Vector2.zero;
 
     [Header("Movement")]
-    [SerializeField] private float moveSpeed = 5f;
 
     [Header("Dash Settings")]
     [SerializeField] private float dashSpeed = 10f;
@@ -113,7 +112,7 @@ public class KnightController : MonoBehaviour
             }
         }
 
-        Vector2 move = moveInput * moveSpeed * Time.fixedDeltaTime;
+        Vector2 move = moveInput * PlayerDataManager.Instance.Speed * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + move);
     }
 

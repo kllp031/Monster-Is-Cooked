@@ -88111,6 +88111,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8413855311076355617, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
+      propertyPath: m_TagString
+      value: PlayerAttack
+      objectReference: {fileID: 0}
     - target: {fileID: 8655917134045811377, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 2.1875

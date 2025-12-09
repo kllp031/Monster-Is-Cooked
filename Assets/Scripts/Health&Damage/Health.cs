@@ -113,7 +113,15 @@ public class Health : MonoBehaviour
     public void ReceiveHealing(int healingAmount)
     {
         currentHealth += healingAmount;
-        if (currentHealth > maximumHealth)
+
+        if (this.gameObject.CompareTag("Player"))
+        {
+            if (currentHealth > PlayerDataManager.Instance.MaxHealth)
+            {
+                currentHealth = PlayerDataManager.Instance.MaxHealth;
+            }
+        }
+        else if (currentHealth > maximumHealth)
         {
             currentHealth = maximumHealth;
         }
