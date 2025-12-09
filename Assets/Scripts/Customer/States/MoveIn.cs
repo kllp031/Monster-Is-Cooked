@@ -15,6 +15,10 @@ public class MoveIn : CustomerState
         assignedPath = customer.TablePath;
         if (assignedPath == null) Debug.LogWarning("Customer doesn't have any table path assigned!");
         currentPathPointIndex = 0;
+        if (assignedPath.Points.Count > 0)
+        {
+            customer.transform.position = assignedPath.Points[0];
+        }
     }
 
     protected override void UpdateState()

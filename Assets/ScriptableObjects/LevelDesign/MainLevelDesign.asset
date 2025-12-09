@@ -38,7 +38,7 @@ MonoBehaviour:
     - {fileID: 7108339969198208228, guid: 01926dcd5beac0e40b7cb9558d0f6f3b, type: 3}
     - {fileID: 7108339969198208228, guid: 16c4606e140328749b2e3820125ba5ae, type: 3}
     customerDetails:
-    - waitingTime: 5
+    - waitingTime: 60
       foodRequest: {fileID: 11400000, guid: 414280bd65b5e1941b2032145bd79afd, type: 2}
     - waitingTime: 5
       foodRequest: {fileID: 11400000, guid: 414280bd65b5e1941b2032145bd79afd, type: 2}
