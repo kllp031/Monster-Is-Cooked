@@ -1,17 +1,18 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CookingUIManager : MonoBehaviour
 {
+    public static CookingUIManager Instance { get; private set; }
+
     [Header("Data & Config")]
     public Recipe[] allRecipes;
-    public Inventory inventory;
-
-    [Header("External Dependencies")]
-    public CookingManager cookingManager;
+    [SerializeField] InventorySO inventory;
 
     [Header("UI References")]
     public Image recipeImage;
+    [SerializeField] private TextMeshProUGUI cookButtonText;
     [SerializeField] private Transform recipeListContent;
     [SerializeField] private Transform ingredientSlotContainer;
 
@@ -19,14 +20,20 @@ public class CookingUIManager : MonoBehaviour
     [SerializeField] private GameObject recipeButtonPrefab;
     [SerializeField] private GameObject ingredientSlotPrefab;
 
-    // ---------------------------------------------------------
-    // Initialization
-    // ---------------------------------------------------------
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
 
     void Start()
     {
         GenerateRecipeList();
-        Debug.Log($"This script is attached to: {gameObject.name}");
+        UpdateCookButtonState(false);
     }
 
     private void GenerateRecipeList()
@@ -34,15 +41,10 @@ public class CookingUIManager : MonoBehaviour
         foreach (var recipe in allRecipes)
         {
             GameObject buttonObj = Instantiate(recipeButtonPrefab, recipeListContent, false);
-            RecipeButtonUI buttonUI = buttonObj.GetComponent<RecipeButtonUI>();
-
-            buttonUI.Setup(recipe, cookingManager, this);
+            // No longer need to pass Managers to the button
+            buttonObj.GetComponent<RecipeButtonUI>().Setup(recipe);
         }
     }
-
-    // ---------------------------------------------------------
-    // UI Updates
-    // ---------------------------------------------------------
 
     public void UpdateUI(Recipe recipe)
     {
@@ -50,46 +52,46 @@ public class CookingUIManager : MonoBehaviour
         UpdateIngredientSlots(recipe);
     }
 
+    /// <summary>
+    /// Updates the text of the main action button based on the cooking state.
+    /// </summary>
+    public void UpdateCookButtonState(bool isCooking)
+    {
+        if (cookButtonText != null)
+        {
+            cookButtonText.text = isCooking ? "Stop" : "Start";
+        }
+    }
+
     void UpdateRecipeSlot(Recipe recipe)
     {
-        recipeImage.sprite = recipe.icon;
+        recipeImage.sprite = recipe.Icon;
         recipeImage.enabled = true;
     }
 
     void UpdateIngredientSlots(Recipe recipe)
     {
-        // Clear existing slots
-        foreach (Transform child in ingredientSlotContainer)
-        {
-            Destroy(child.gameObject);
-        }
+        foreach (Transform child in ingredientSlotContainer) Destroy(child.gameObject);
 
-        // Create new slots based on recipe requirements
-        for (int i = 0; i < recipe.ingredientsRequired.Length; i++)
+        // Accessing Inventory via the CookingManager Singleton ensures we share state
+        //Inventory inv = CookingManager.Instance.inventory;
+
+        // Use the Recipe.IngredientRequirement list instead of ingredientsRequired/ingredientAmounts
+        var requirements = recipe.Ingredients;
+        for (int i = 0; i < requirements.Count; i++)
         {
-            Ingredient ingredient = recipe.ingredientsRequired[i];
-            int requiredAmount = recipe.ingredientAmounts[i];
+            Ingredient ingredient = requirements[i].Ingredient;
+            int requiredAmount = requirements[i].Amount;
             int ownedAmount = inventory.GetAmount(ingredient);
 
             GameObject slotObj = Instantiate(ingredientSlotPrefab, ingredientSlotContainer);
-            IngredientSlotUI slotUI = slotObj.GetComponent<IngredientSlotUI>();
-
-            slotUI.Setup(ingredient, ownedAmount, requiredAmount);
+            slotObj.GetComponent<IngredientSlotUI>().Setup(ingredient, ownedAmount, requiredAmount);
         }
     }
 
-    void OnDisable()
-    {
-        // Clear recipe image when UI is disabled
-        recipeImage.enabled = false;
-        ClearIngredientSlot();
-    }
-
-    void ClearIngredientSlot()
-    {
-        foreach (Transform child in ingredientSlotContainer)
-        {
-            Destroy(child.gameObject);
-        }
-    }
+    //void OnDisable()
+    //{
+    //    if (recipeImage != null) recipeImage.enabled = false;
+    //    foreach (Transform child in ingredientSlotContainer) Destroy(child.gameObject);
+    //}
 }

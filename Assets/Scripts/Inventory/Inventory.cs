@@ -2,17 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[System.Serializable]
-public class InventoryEntry
-{
-    public Ingredient ingredient;
-    public int amount;
-}
-
 public class Inventory : MonoBehaviour
 {
     [Header("Add items here in the Inspector")]
-    public List<InventoryEntry> startingItems = new List<InventoryEntry>();
+    // Use the same global class here!
+    public List<IngredientAmount> startingItems = new List<IngredientAmount>();
 
     private Dictionary<Ingredient, int> items = new Dictionary<Ingredient, int>();
 
@@ -20,15 +14,15 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
-        // Convert startingItems list to the dictionary
         foreach (var entry in startingItems)
         {
-            if (entry.ingredient == null) continue;
+            // Note the Capital I and A because we are using properties now
+            if (entry.Ingredient == null) continue;
 
-            if (!items.ContainsKey(entry.ingredient))
-                items[entry.ingredient] = 0;
+            if (!items.ContainsKey(entry.Ingredient))
+                items[entry.Ingredient] = 0;
 
-            items[entry.ingredient] += entry.amount;
+            items[entry.Ingredient] += entry.Amount;
         }
     }
 
@@ -38,17 +32,15 @@ public class Inventory : MonoBehaviour
             items[ingredient] = 0;
 
         items[ingredient] += amount;
-
-        //Trigger the event whenever data changes
         OnInventoryChanged?.Invoke();
     }
 
     public bool HasIngredients(Recipe recipe)
     {
-        for (int i = 0; i < recipe.ingredientsRequired.Length; i++)
+        foreach (var req in recipe.Ingredients)
         {
-            Ingredient ing = recipe.ingredientsRequired[i];
-            int needed = recipe.ingredientAmounts[i];
+            Ingredient ing = req.Ingredient;
+            int needed = req.Amount;
 
             if (!items.ContainsKey(ing) || items[ing] < needed)
                 return false;
@@ -58,24 +50,20 @@ public class Inventory : MonoBehaviour
 
     public void SpendIngredients(Recipe recipe)
     {
-        for (int i = 0; i < recipe.ingredientsRequired.Length; i++)
+        foreach (var req in recipe.Ingredients)
         {
-            items[recipe.ingredientsRequired[i]] -= recipe.ingredientAmounts[i];
+            if (items.ContainsKey(req.Ingredient))
+            {
+                items[req.Ingredient] -= req.Amount;
+            }
         }
-
-        //Trigger the event whenever data changes
         OnInventoryChanged?.Invoke();
     }
 
     public int GetAmount(Ingredient ing)
     {
-        if (!items.ContainsKey(ing)) return 0;
-        return items[ing];
+        return items.ContainsKey(ing) ? items[ing] : 0;
     }
 
-    public Dictionary<Ingredient, int> GetAllItems()
-    {
-        return items;
-    }
+    public Dictionary<Ingredient, int> GetAllItems() => items;
 }
-

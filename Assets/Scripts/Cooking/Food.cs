@@ -49,7 +49,7 @@ public class Food : MonoBehaviour
         Debug.Log("Set up: " + recipe + "for " + spriteRenderer);
         if (recipe == null) { Debug.LogWarning("This recipe is invalid!"); return; }
         this.recipe = recipe;
-        if (spriteRenderer != null) spriteRenderer.sprite = this.recipe.icon;
+        if (spriteRenderer != null) spriteRenderer.sprite = this.recipe.Icon;
     }
 
     public void SetHeight(float height)

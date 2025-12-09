@@ -4,45 +4,59 @@ using UnityEngine;
 public class InventoryUI : MonoBehaviour
 {
     [Header("Dependencies")]
-    public Inventory inventory;
+    [Tooltip("Drag the PlayerInventory ScriptableObject here")]
+    [SerializeField] InventorySO inventory;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject slotPrefab;
 
     [Header("Container")]
-    [Tooltip("The GameObject with the GridLayoutGroup component")]
     [SerializeField] private Transform itemsParent;
 
-    private void Start()
-    {
-        // Subscribe to the event
-        if (inventory != null)
-            inventory.OnInventoryChanged += RefreshInventoryUI;
+    // ---------------------------------------------------------
+    // Event Subscriptions
+    // ---------------------------------------------------------
 
-        RefreshInventoryUI();
-    }
-
-    // Optional: Update UI whenever this object is turned on
     private void OnEnable()
     {
-        RefreshInventoryUI();
+        if (inventory != null)
+        {
+            // Subscribe to changes
+            inventory.OnInventoryChanged += RefreshInventoryUI;
+
+            // Force an update immediately so the UI is correct the moment it opens
+            RefreshInventoryUI();
+        }
     }
+
+    private void OnDisable()
+    {
+        if (inventory != null)
+        {
+            // Always unsubscribe when the UI closes to prevent memory leaks
+            inventory.OnInventoryChanged -= RefreshInventoryUI;
+        }
+    }
+
+    // ---------------------------------------------------------
+    // UI Logic
+    // ---------------------------------------------------------
 
     public void RefreshInventoryUI()
     {
-        // 1. Clear existing items to avoid duplicates
+        // 1. Clear existing slots (Destroying children is simple and effective)
         foreach (Transform child in itemsParent)
         {
             Destroy(child.gameObject);
         }
 
-        // 2. Get the raw data from your Inventory script
+        // 2. Get the data from the Scriptable Object
         Dictionary<Ingredient, int> allItems = inventory.GetAllItems();
 
-        // 3. Loop through the dictionary
+        // 3. Create new slots
         foreach (KeyValuePair<Ingredient, int> entry in allItems)
         {
-            // Only show items if amount is greater than 0
+            // Only show if we actually have the item
             if (entry.Value > 0)
             {
                 CreateSlot(entry.Key, entry.Value);
@@ -53,18 +67,13 @@ public class InventoryUI : MonoBehaviour
     private void CreateSlot(Ingredient ingredient, int amount)
     {
         GameObject newSlot = Instantiate(slotPrefab, itemsParent);
+
+        // Ensure your slot prefab has this script attached!
         InventorySlotUI slotUI = newSlot.GetComponent<InventorySlotUI>();
 
         if (slotUI != null)
         {
             slotUI.SetItem(ingredient, amount);
         }
-    }
-
-    private void OnDestroy()
-    {
-        // Unsubscribe to prevent errors
-        if (inventory != null)
-            inventory.OnInventoryChanged -= RefreshInventoryUI;
     }
 }

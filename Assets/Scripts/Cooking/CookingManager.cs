@@ -1,78 +1,68 @@
 ﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CookingManager : MonoBehaviour
 {
+    public static CookingManager Instance { get; private set; }
+
     [Header("Core Systems")]
-    public Inventory inventory;
-    public CookingMinigame minigame;
-
-    [Header("UI References")]
-    [SerializeField] private TextMeshProUGUI cookButtonText;
-
-    [Header("Spawning Settings")]
-    [SerializeField] private GameObject foodPrefab;
+    public InventorySO inventory;
+    public CurvedCookingMinigame minigame;
 
     [Header("Runtime State")]
     public Recipe currentRecipe;
 
-    // ---------------------------------------------------------
-    // Initialization
-    // ---------------------------------------------------------
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
 
     void Start()
     {
         if (minigame != null)
-        {
             minigame.OnCookFinished += HandleCookFinished;
-        }
     }
 
     private void OnDestroy()
     {
-        // Good practice to unsubscribe from events to prevent memory leaks
         if (minigame != null)
-        {
             minigame.OnCookFinished -= HandleCookFinished;
-        }
     }
 
     // ---------------------------------------------------------
     // Public Interactions
     // ---------------------------------------------------------
 
-    /// <summary>
-    /// Sets the current recipe to be cooked.
-    /// </summary>
     public void SelectRecipe(Recipe recipe)
     {
         currentRecipe = recipe;
+        // Auto-update UI when recipe is selected
+        CookingUIManager.Instance.UpdateUI(currentRecipe);
     }
 
     /// <summary>
     /// Called via UI Button to toggle cooking state.
     /// </summary>
-    public void OnCookButtonPressed(CookingUIManager uiManager)
+    public void OnCookButtonPressed()
     {
         // If we are NOT cooking, try to start
         if (!minigame.IsCooking)
         {
-            bool hasStarted = AttemptStartRecipe(currentRecipe);
-
-            if (hasStarted)
+            if (AttemptStartRecipe(currentRecipe))
             {
-                cookButtonText.text = "Stop";
-
-                // Refresh UI to show updated ingredient counts immediately
-                uiManager.UpdateUI(currentRecipe);
+                CookingUIManager.Instance.UpdateCookButtonState(true);
+                CookingUIManager.Instance.UpdateUI(currentRecipe);
             }
         }
         // If we ARE cooking, finish the minigame
         else
         {
             minigame.FinishCook();
-            cookButtonText.text = "Start";
         }
     }
 
@@ -80,64 +70,34 @@ public class CookingManager : MonoBehaviour
     // Internal Logic
     // ---------------------------------------------------------
 
-    /// <summary>
-    /// Validates ingredients and starts the minigame.
-    /// </summary>
     private bool AttemptStartRecipe(Recipe recipe)
     {
-        currentRecipe = recipe;
-
-        if (recipe == null)
-        {
-            Debug.LogWarning("Cannot start recipe: No recipe selected.");
-            return false;
-        }
-
-        if (!inventory.HasIngredients(recipe))
-        {
-            Debug.LogWarning("Cannot start recipe: Not enough ingredients.");
-            return false;
-        }
+        if (recipe == null) return false;
+        if (!inventory.HasIngredients(recipe)) return false;
 
         inventory.SpendIngredients(recipe);
         minigame.StartCooking();
 
-        Debug.Log($"Started cooking: {recipe.name}");
         return true;
     }
 
-    private void HandleCookFinished(CookingMinigame.CookResult result)
+    private void HandleCookFinished(bool result)
     {
-        Debug.Log($"Cook result: {result}");
-
-        // Only create the food object if the result is Normal (Success)
-        if (result == CookingMinigame.CookResult.Normal)
+        if (result)
         {
             SpawnFood(currentRecipe);
         }
 
-        // Reset UI text
-        cookButtonText.text = "Start";
+        CookingUIManager.Instance.UpdateCookButtonState(false);
     }
 
     private void SpawnFood(Recipe recipe)
     {
-        if (foodPrefab == null)
-        {
-            Debug.LogError("Food Prefab is not assigned in CookingManager!");
-            return;
-        }
+        Transform foodTransform = Instantiate(GameAssets.Instance.pfFood);
 
-        GameObject foodObj = Instantiate(foodPrefab);
-        Food foodComponent = foodObj.GetComponent<Food>();
-
-        if (foodComponent != null)
+        if (foodTransform.TryGetComponent(out Food foodComponent))
         {
             foodComponent.SetUp(recipe);
-        }
-        else
-        {
-            Debug.LogError("Food component missing on the instantiated prefab!");
         }
     }
 
