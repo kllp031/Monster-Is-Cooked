@@ -26,6 +26,7 @@ public class Health : MonoBehaviour
     public bool isDeath = false;
 
     private EnemyBase enemyBase;
+    private EnemySpawner mySpawner; //for enemies
     private Rigidbody2D rb;
     void Start()
     {
@@ -132,7 +133,11 @@ public class Health : MonoBehaviour
     void Die()
     {
         Debug.Log("Die");
-        if (gameObject.tag == "Enemy") enemyBase.currentEnemyState = EnemyBase.EnemyState.Dead;
+        if (gameObject.tag == "Enemy")
+        {
+            enemyBase.currentEnemyState = EnemyBase.EnemyState.Dead;
+            if (mySpawner != null) mySpawner.OnEnemyDeath();
+        }
 
         if (deathEffect != null)
         {
@@ -147,5 +152,10 @@ public class Health : MonoBehaviour
         {
             GameManager.instance.GameOver();
         }*/
+    }
+    public void SetupSpawner(EnemySpawner spawner)
+    {
+        if (gameObject.tag == "Enemy")
+                mySpawner = spawner;
     }
 }
