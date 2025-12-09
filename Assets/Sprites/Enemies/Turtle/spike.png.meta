@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f5eb0c67ab45c444eb14f342f6ae239b
+guid: dae6ab9e25f9f9b4d86f4584d486436f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7578684187708522560
-    second: knightchief_0
+      213: -1929834416523346238
+    second: spike_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: knightchief_0
+      name: spike_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 0
-        width: 24
-        height: 32
+        x: 3
+        y: 5
+        width: 9
+        height: 10
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0408c397d15ec2960800000000000000
-      internalID: 7578684187708522560
+      spriteID: 2ce7dc7a2d9d735e0800000000000000
+      internalID: -1929834416523346238
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      knightchief_0: 7578684187708522560
+      spike_0: -1929834416523346238
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

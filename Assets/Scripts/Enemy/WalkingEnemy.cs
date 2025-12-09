@@ -94,7 +94,8 @@ public class WalkingEnemy : EnemyBase
 
                 if (attackTimer >= timeToAttack)
                 {
-                    if (distance > attackRange) currentEnemyState = EnemyState.Idle;
+                    currentEnemyState = EnemyState.Idle;
+                    Debug.Log("attack over: " + currentEnemyState);
                     attackTimer = 0;
                 }
                 else

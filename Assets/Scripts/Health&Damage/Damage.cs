@@ -27,7 +27,6 @@ public class Damage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("on trigger damage");
         if (dealDamageOnTriggerEnter)
         {
             DealDamage(collision.gameObject);
@@ -53,7 +52,6 @@ public class Damage : MonoBehaviour
 
     private void DealDamage(GameObject collisionGameObject)
     {
-        Debug.Log("deal damage");
         Health collidedHealth = collisionGameObject.GetComponent<Health>();
         if (collidedHealth != null)
         {
@@ -78,6 +76,12 @@ public class Damage : MonoBehaviour
         {
             if (collidedHealth.teamId != this.teamId)
             {
+                KnightController knightController = null;
+                if (collisionGameObject.CompareTag("Player"))
+                {
+                    knightController = collisionGameObject.GetComponent<KnightController>();
+                    knightController.SetIsHurting(true);
+                }
                 collidedHealth.Knockback(dir, knockbackForce);
             }
         }
