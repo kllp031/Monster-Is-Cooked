@@ -8843,7 +8843,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultMaxHealth: 2
   defaultSpeed: 5
-  defaultAttack: 0
+  defaultAttack: 1
   defaultLevel: 1
   defaultEarnMoney: 0
 --- !u!4 &1652094320
