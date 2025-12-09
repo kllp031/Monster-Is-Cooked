@@ -8,14 +8,6 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource musicSource; 
     [SerializeField] private AudioSource sfxSource;
 
-    [Header("Music")]
-    //[SerializeField] public float pitchVar;
-    [SerializeField] public AudioClip homeMusic;
-    [SerializeField] public AudioClip battleMusic;
-
-    [Header("Sound")]
-    [SerializeField] public AudioClip playerAttackSound;
-
     private void Awake()
     {
         if (Instance == null)
