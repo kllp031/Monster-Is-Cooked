@@ -140,10 +140,10 @@ TextureImporter:
       name: Male 04-1_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 95
-        width: 29
-        height: 33
+        x: 0
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,10 +162,10 @@ TextureImporter:
       name: Male 04-1_1
       rect:
         serializedVersion: 2
-        x: 2
-        y: 63
-        width: 29
-        height: 33
+        x: 32
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,10 +184,10 @@ TextureImporter:
       name: Male 04-1_2
       rect:
         serializedVersion: 2
-        x: 34
-        y: 0
-        width: 29
-        height: 128
+        x: 64
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -206,10 +206,10 @@ TextureImporter:
       name: Male 04-1_3
       rect:
         serializedVersion: 2
-        x: 66
-        y: 95
-        width: 29
-        height: 33
+        x: 0
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -228,10 +228,10 @@ TextureImporter:
       name: Male 04-1_4
       rect:
         serializedVersion: 2
-        x: 66
-        y: 63
-        width: 29
-        height: 33
+        x: 32
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,10 +250,10 @@ TextureImporter:
       name: Male 04-1_5
       rect:
         serializedVersion: 2
-        x: 2
-        y: 31
-        width: 29
-        height: 33
+        x: 64
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -272,9 +272,9 @@ TextureImporter:
       name: Male 04-1_6
       rect:
         serializedVersion: 2
-        x: 2
-        y: 0
-        width: 29
+        x: 0
+        y: 32
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -294,10 +294,10 @@ TextureImporter:
       name: Male 04-1_7
       rect:
         serializedVersion: 2
-        x: 66
-        y: 31
-        width: 29
-        height: 33
+        x: 32
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -316,9 +316,9 @@ TextureImporter:
       name: Male 04-1_8
       rect:
         serializedVersion: 2
-        x: 66
-        y: 0
-        width: 29
+        x: 64
+        y: 32
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -334,11 +334,77 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Male 04-1_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cb106fdf54ca9a4e9f2b5fb0625ea22
+      internalID: -623658297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Male 04-1_10
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ca5ff95dce694944a480cb20ba4da65
+      internalID: 32991804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Male 04-1_11
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ce82a9bd3e3e0347b311449399f3034
+      internalID: -1169635715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: eb38499f0784d4f4696aae741cd5720c
     internalID: 0
     vertices: []
     indices: 
@@ -346,10 +412,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Male 04-1_0: -1172529645945143371
       Male 04-1_1: 5654291048116975724
+      Male 04-1_10: 32991804
+      Male 04-1_11: -1169635715
       Male 04-1_2: 8713799429600099861
       Male 04-1_3: -5270755016145706769
       Male 04-1_4: -5548111253939795991
@@ -357,6 +427,7 @@ TextureImporter:
       Male 04-1_6: -4439871350210312674
       Male 04-1_7: -5397871420196709335
       Male 04-1_8: 3791702170053097777
+      Male 04-1_9: -623658297
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

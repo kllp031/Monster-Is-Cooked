@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
@@ -14,10 +15,16 @@ public class Customer : MonoBehaviour, IInteractable
     }
     [Header("Customer Settings")]
     [SerializeField] SpriteLibrary spriteLibrary; // Use for displaying different skins
-    [SerializeField] Recipe foodRequest; // Use for demo only
-    //[SerializeField] float waitingTime = 120f; // Use for demo only
+    [SerializeField]
+    List<CoinEarnPercentagePerMood> coinEarnPercentages = new List<CoinEarnPercentagePerMood>()
+    {
+        new CoinEarnPercentagePerMood(Mood.Happy, 1.0f),
+        new CoinEarnPercentagePerMood(Mood.Neutral, 0.5f),
+        new CoinEarnPercentagePerMood(Mood.Angry, 0.1f),
+        new CoinEarnPercentagePerMood(Mood.Embarrassed, 0.0f)
+    };
     [SerializeField] Mood mood = Mood.Happy;
-    [SerializeField] Path tablePath;
+    [SerializeField] float throwFoodBonus = 0.5f;
     [SerializeField] CustomerTimer customerTimer;
     [SerializeField] Animator customerAnimator;
 
@@ -41,11 +48,13 @@ public class Customer : MonoBehaviour, IInteractable
     [SerializeField] string foodRequestBoxShowFoodTrigger = "Bounce";
     [SerializeField] Image foodIcon;
     [SerializeField] Animator moodIcon; //  Use to display current mood
+    [SerializeField] ParticleSystem coinParticle; // Play when customer pays for the food
 
     [SerializeField] private CustomerDetail customerDetail = null;
     private bool isActivated = false;
     private bool isAsked = false;
     private bool isReadyToEat = false;
+    private Path tablePath;
 
     public Path TablePath { get => tablePath; }
     public float MoveSpeed { get => moveSpeed; }
@@ -104,32 +113,42 @@ public class Customer : MonoBehaviour, IInteractable
             {
                 if (customerDetail.FoodRequest != null)
                 {
-                    // Uncomment this after applying the new Recipe
-                    //if (foodIcon != null) foodIcon.sprite = customerDetail.FoodRequest.Recipe.Icon;
+                    if (foodIcon != null) foodIcon.sprite = customerDetail.FoodRequest.Icon;
                     if (foodRequestBoxBackground != null) foodRequestBoxBackground.SetTrigger(foodRequestBoxShowFoodTrigger);
                 }
                 isAsked = true;
             }
             else
             {
-                // Take the food from FoodHolder
-                ProcessFood(null);
-                OnLeave();
+                Food receivedFood = obj.GetComponent<FoodHolder>().HeldFood;
+                if (receivedFood != null)
+                {
+                    if (!ProcessFood(receivedFood.Recipe)) SetMood(Mood.Angry);
+                    obj.GetComponent<FoodHolder>().ServeFood();
+                    float percentage = GetCoinEarnPercentage(mood);
+                    if (GameManager.Instance != null) GameManager.Instance.CollectedMoney += (int)(percentage * (float)customerDetail.FoodRequest.Price);
+                    if (percentage != 0 && coinParticle != null) coinParticle.Play();
+                    OnLeave();
+                }
             }
         }
         else if (obj.GetComponent<Food>() != null)
         {
             {
-                ProcessFood(null);
+                if (!ProcessFood(obj.GetComponent<Food>().Recipe)) SetMood(Mood.Embarrassed);
+                obj.SetActive(false);
+                float percentage = GetCoinEarnPercentage(mood);
+                if (mood != Mood.Embarrassed) percentage += throwFoodBonus;
+                if (GameManager.Instance != null) GameManager.Instance.CollectedMoney += (int)(percentage * (float)customerDetail.FoodRequest.Price);
+                if (percentage != 0 && coinParticle != null) coinParticle.Play();
                 OnLeave();
             }
 
         }
     }
-    [ContextMenu("Activate")]
     public void Activate()
     {
-        if (customerDetail == null) { Debug.LogWarning("This customer doesn't havve any customer detail to bbe activated!"); return; }
+        if (customerDetail == null) { Debug.LogWarning("This customer doesn't have any customer detail to be activated!"); return; }
         isActivated = true;
     }
     public void ReadyToEat()
@@ -148,15 +167,15 @@ public class Customer : MonoBehaviour, IInteractable
         if (foodIcon != null && hiddenFoodSprite != null)
             foodIcon.sprite = hiddenFoodSprite;
     }
-    public void ProcessFood(Recipe food)
+    public bool ProcessFood(Recipe food)
     {
-        if (customerDetail == null) { Debug.LogWarning("This customer has no detail assigned!"); return; }
-        if (customerDetail.FoodRequest == null) { Debug.LogWarning("This customer's detail has invalid food request!"); return; }
+        if (customerDetail == null) { Debug.LogWarning("This customer has no detail assigned!"); return false; }
+        if (customerDetail.FoodRequest == null) { Debug.LogWarning("This customer's detail has invalid food request!"); return false; }
 
         Recipe foodRequest = customerDetail.FoodRequest;
-        // Compare food and foodRequest
-        // Change mood based on the result
-        if (GameManager.Instance != null) GameManager.Instance.EarnedMoney += 10;
+        if (food == foodRequest) return true;
+        return false;
+        
     }
     public bool MoveToTarget(Vector2 target)
     {
@@ -186,21 +205,16 @@ public class Customer : MonoBehaviour, IInteractable
             customerTimer.gameObject.SetActive(false);
         }
         if (TablesManager.Instance != null) TablesManager.Instance.ReturnTable(this);
-        if (CustomersSpawner.Instance != null) CustomersSpawner.Instance.OnCustomerLeft(this);
-
-        //Demo
-        if (GameManager.Instance != null) GameManager.Instance.EarnedMoney += 10;
     }
-
-    // Use for UI
-    //public void OnPlayerEntered(Collider2D collider)
-    //{
-    //    if (foodRequestBox != null && isReadyToEat) foodRequestBox.SetBool(foodRequestBoxAnimatorBool, true);
-    //}
-    //public void OnPlayerLeft(Collider2D collider)
-    //{
-    //    if (foodRequestBox != null && isReadyToEat) foodRequestBox.SetBool(foodRequestBoxAnimatorBool, false);
-    //}
+    public float GetCoinEarnPercentage(Mood mood)
+    {
+        float res = 0.0f;
+        foreach (var item in coinEarnPercentages)
+        {
+            if (item.Mood == mood) { res = item.EarnPercentage; break; }
+        }
+        return res;
+    }
 
     private void CheckForPlayer()
     {
@@ -224,9 +238,25 @@ public class Customer : MonoBehaviour, IInteractable
 }
 
 [Serializable]
+public class CoinEarnPercentagePerMood
+{
+    [SerializeField] Customer.Mood mood;
+    [SerializeField] float earnPercentage = 1.0f;
+
+    public Customer.Mood Mood { get => mood; }
+    public float EarnPercentage { get => earnPercentage; }
+
+    public CoinEarnPercentagePerMood(Customer.Mood mood, float earnPercentage)
+    {
+        this.mood = mood;
+        this.earnPercentage = earnPercentage;
+    }
+}
+
+[Serializable]
 public class CustomerDetail
 {
-    [SerializeField] float waitingTime;
+    [SerializeField] float waitingTime = 5;
     [SerializeField] Recipe foodRequest;
 
     public CustomerDetail(float appearTime, float waitingTime, Recipe foodRequest)

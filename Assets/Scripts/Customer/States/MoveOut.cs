@@ -39,7 +39,13 @@ public class MoveOut : CustomerState
     {
         if (finishedMovingOut) return;
 
-        if (currentPathPointIndex < 0) { finishedMovingOut = true; onFinishMovingOut.Invoke() ; return; }
+        if (currentPathPointIndex < 0) 
+        { 
+            finishedMovingOut = true; 
+            onFinishMovingOut.Invoke(); 
+            if (CustomersSpawner.Instance != null) CustomersSpawner.Instance.OnCustomerLeft(customer) ; 
+            return; 
+        }
 
         if (customer.MoveToTarget(assignedPath.Points[currentPathPointIndex])) currentPathPointIndex --;
     }

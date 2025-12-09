@@ -452,7 +452,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.45}
+  m_Offset: {x: 0, y: -0.2915718}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -462,7 +462,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 0.1}
+  m_Size: {x: 1, y: 0.41685644}
   m_EdgeRadius: 0
 --- !u!50 &3094203236071386785
 Rigidbody2D:
@@ -632,7 +632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c467f89f4837b74fb94e31bede6bcbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recipe: {fileID: 11400000, guid: 414280bd65b5e1941b2032145bd79afd, type: 2}
+  recipe: {fileID: 11400000, guid: a0c5517d3397da84daf876550db22cfe, type: 2}
   spriteRenderer: {fileID: 7000794780506846171}
   foodObject: {fileID: 7982362087195240976}
   foodShadowObject: {fileID: 5136191988377718565}

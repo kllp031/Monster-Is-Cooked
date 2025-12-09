@@ -99,7 +99,8 @@ public class FoodHolder : MonoBehaviour
     }
     public void ServeFood()
     {
-        Debug.Log("Do nothing");
+        if (HeldFood != null) HeldFood.gameObject.SetActive(false);
+        if (HotbarManager.Instance != null) HotbarManager.Instance.RemoveSelectedFood();
     }
     public void OnThrowFoodStarted()
     {
