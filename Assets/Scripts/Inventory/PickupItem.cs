@@ -20,8 +20,6 @@ public class PickupItem : MonoBehaviour
 
     private void Start()
     {
-        // Automatically set the sprite based on the Ingredient data
-        // This saves you from manually setting sprites for every object
         if (autoUpdateSprite && ingredient != null)
         {
             spriteRenderer.sprite = ingredient.icon;
@@ -33,39 +31,42 @@ public class PickupItem : MonoBehaviour
         // 1. Check if the object colliding is the Player
         if (other.CompareTag("Player"))
         {
-            // 2. Try to find the Inventory script on the player
-            Inventory playerInventory = other.GetComponent<Inventory>();
+            // 2. Look for the new "PlayerInventory" bridge script
+            PlayerInventory playerBridge = other.GetComponent<PlayerInventory>();
 
-            if (playerInventory != null)
+            if (playerBridge != null && playerBridge.inventoryData != null)
             {
-                Collect(playerInventory);
+                // 3. Pass the ScriptableObject data to the collect function
+                Collect(playerBridge.inventoryData);
             }
             else
             {
-                Debug.LogWarning("Player detected, but no Inventory script found on the GameObject!");
+                Debug.LogWarning("Player detected, but PlayerInventory script (or the Asset reference) is missing!");
             }
         }
     }
 
-    private void Collect(Inventory inventory)
+    private void Collect(InventorySO inventory)
     {
-        // 3. Add to inventory
+        // 4. Add to the ScriptableObject directly
         inventory.Add(ingredient, amount);
 
         Debug.Log($"Picked up {amount} {ingredient.ingredientName}");
 
-        // 4. (Optional) Spawn a sound effect or particle here
+        // 5. (Optional) Play sound/particles here
 
-        // 5. Remove object from scene
+        // 6. Remove object from scene
         Destroy(gameObject);
     }
 
-    // This runs in the Editor whenever you change a value
+    // This runs in the Editor to update the sprite immediately when you drag an ingredient in
     private void OnValidate()
     {
         if (autoUpdateSprite && ingredient != null)
         {
-            GetComponent<SpriteRenderer>().sprite = ingredient.icon;
+            // Simple check to avoid errors if SpriteRenderer isn't attached yet in Editor
+            if (GetComponent<SpriteRenderer>() != null)
+                GetComponent<SpriteRenderer>().sprite = ingredient.icon;
         }
     }
 }
