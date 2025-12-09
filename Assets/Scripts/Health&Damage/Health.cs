@@ -181,11 +181,13 @@ public class Health : MonoBehaviour
 
     public void GameOver()
     {
-        /*if (GameManager.instance != null && gameObject.tag == "Player")
+        Debug.Log("game over");
+        if (GameManager.Instance != null && gameObject.tag == "Player")
         {
-            GameManager.instance.GameOver();
-        }*/
+            GameManager.Instance.EndLevel();
+        }
     }
+
     public void SetupSpawner(EnemySpawner spawner)
     {
         if (gameObject.tag == "Enemy")

@@ -17,7 +17,7 @@ public class CameraFollow : MonoBehaviour
         heightCamera = 2f * Camera.main.orthographicSize;
         widthCamera = heightCamera * Camera.main.aspect;
 
-        SetBoundaries(homeArea.getTopLeft(), homeArea.getBottomRight());
+        BackHome();
     }
     void Update()
     {
@@ -38,5 +38,13 @@ public class CameraFollow : MonoBehaviour
     {
         this.bottomRight = bottomRight;
         this.topLeft = topLeft;
+    }
+
+    public void BackHome()
+    {
+        SetBoundaries(
+                homeArea.getTopLeft(),
+                homeArea.getBottomRight()
+            );
     }
 }

@@ -15,8 +15,9 @@ public class KnightController : MonoBehaviour
     [SerializeField] private float dashSpeed = 10f;
     [SerializeField] private float dashDuration = 0.05f;
     [SerializeField] private float dashCooldown = 1f;
+    [SerializeField] private Transform spawnPosition;
 
-    private bool isDashing = false;
+    private bool isDashing = false; 
     private bool isHurting = false;
     [SerializeField] private float hurtingTime = 0.5f;
     private float hurtingTimer = 0f;
@@ -155,5 +156,13 @@ public class KnightController : MonoBehaviour
     public void SetIsHurting(bool isHurting)
     {
         this.isHurting = isHurting;
+    }
+
+    public void Respawn()
+    {
+        health.isDeath = false;
+        health.ReceiveHealing(1000000);
+        transform.position = spawnPosition.position;
+        animator.SetTrigger("Revive");
     }
 }
