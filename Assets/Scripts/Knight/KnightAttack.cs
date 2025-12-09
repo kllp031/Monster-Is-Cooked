@@ -13,6 +13,7 @@ public class KnightAttack : MonoBehaviour
     private Vector2 attackDirection = Vector2.down;
     private Coroutine coolDownCoroutine = null;
     private KnightController knightController;
+    private Animator animator;
 
     private void Awake()
     {
@@ -21,6 +22,7 @@ public class KnightAttack : MonoBehaviour
         {
             Debug.LogError("KnightController null");
         }
+        animator = GetComponent<Animator>();
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -32,7 +34,7 @@ public class KnightAttack : MonoBehaviour
                 // Determine attack direction
                 Transform enemyTransform = FindNearestEnemy();
                 if(enemyTransform == null)
-                    attackDirection = knightController.getMoveInput();
+                    attackDirection = knightController.GetMoveInput();
                 else
                     attackDirection = (enemyTransform.position - transform.position).normalized;
 
@@ -40,7 +42,7 @@ public class KnightAttack : MonoBehaviour
                 attackEffect.transform.position = transform.position + new Vector3(attackDirection.x, attackDirection.y, 0).normalized * distanceAttack;
                 attackEffect.transform.up = -attackDirection;
                 if (attackDirection == Vector2.zero)
-                    attackEffect.transform.position = transform.position + new Vector3(0, -0.5f, 0); // Attack a little bit down if no direction
+                    attackEffect.transform.position = transform.position + new Vector3(0, -1f, 0); // Attack a little bit down if no direction
 
                 // Flip the attack 
                 Vector3 scale = attackEffect.transform.localScale;
@@ -48,8 +50,8 @@ public class KnightAttack : MonoBehaviour
                 attackEffect.transform.localScale = scale;
 
                 // Attack
+                animator.SetTrigger("Attack");
                 attackEffect.SetActive(true);
-                attackEffect.GetComponent<Animator>().SetTrigger("Attack");
                 coolDownCoroutine = StartCoroutine(CoolDownCoroutine());
             }
         }
