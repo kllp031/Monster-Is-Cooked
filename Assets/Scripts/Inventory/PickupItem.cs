@@ -10,6 +10,7 @@ public class PickupItem : MonoBehaviour
 
     [Header("Visuals")]
     [SerializeField] private bool autoUpdateSprite = true;
+    [SerializeField] private GameObject itemEffect;
 
     private SpriteRenderer spriteRenderer;
 
@@ -52,7 +53,7 @@ public class PickupItem : MonoBehaviour
         inventory.Add(ingredient, amount);
 
         Debug.Log($"Picked up {amount} {ingredient.ingredientName}");
-
+        if(itemEffect != null)  Instantiate(itemEffect, transform.position, Quaternion.identity);
         // 5. (Optional) Play sound/particles here
 
         // 6. Remove object from scene
