@@ -53,12 +53,13 @@ public class HotbarManager : MonoBehaviour
     private void Start()
     {
         SelectSlot(selectedSlotIndex);
-    }
-
-    private void OnEnable()
-    {
         GameManager.Instance.OnLevelEnd.AddListener(DestroyAllFood);
     }
+
+    //private void sta()
+    //{
+    //    GameManager.Instance.OnLevelEnd.AddListener(DestroyAllFood);
+    //}
 
     // ---------------------------------------------------------
     //  Selection Logic

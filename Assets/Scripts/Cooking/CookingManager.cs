@@ -94,7 +94,9 @@ public class CookingManager : MonoBehaviour
 
     private void SpawnFood(Recipe recipe)
     {
-        Transform foodTransform = Instantiate(GameAssets.Instance.pfFood, spawnFoodPosition);
+        Transform foodTransform = Instantiate(GameAssets.Instance.pfFood);
+
+        foodTransform.position = spawnFoodPosition.position;
 
         if (foodTransform.TryGetComponent(out Food foodComponent))
         {
