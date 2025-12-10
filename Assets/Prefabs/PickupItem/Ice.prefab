@@ -141,6 +141,7 @@ MonoBehaviour:
   ingredient: {fileID: 11400000, guid: b5a1b0941cb988749b52aa281e07edbf, type: 2}
   amount: 1
   autoUpdateSprite: 1
+  itemEffect: {fileID: 1257857300690399873, guid: 647b4b1208f6a334fb2fa0512baa6cae, type: 3}
 --- !u!50 &740712456553281173
 Rigidbody2D:
   serializedVersion: 5

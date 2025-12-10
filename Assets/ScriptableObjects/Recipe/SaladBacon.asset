@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39fcbfc8cf9b643458e62727c45f6d86, type: 3}
+  m_Name: SaladBacon
+  m_EditorClassIdentifier: 
+  recipeName: MeatBall
+  icon: {fileID: -2086510259, guid: 1ebee072aef9aca47b28a26f5558ad14, type: 3}
+  price: 55
+  ingredients:
+  - ingredient: {fileID: 11400000, guid: f09d945c4fd0ee84a9f5926b25d8f78b, type: 2}
+    amount: 1
+  - ingredient: {fileID: 11400000, guid: 876d2632d1cf5324585ddc0ec5305560, type: 2}
+    amount: 2

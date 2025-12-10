@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 909051274668725431}
   - component: {fileID: 740712456553281173}
   m_Layer: 0
-  m_Name: Apple
+  m_Name: Slime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,7 +116,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 61d01e8616313344b978a6518fd86ed6, type: 3}
+  m_Sprite: {fileID: 2208865305060610565, guid: 60a08897fc9afef42957240f79c6896f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8390d52bd3de319468ceac112796813c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ingredient: {fileID: 11400000, guid: 20a67169fc0b67946abdf5f553d17625, type: 2}
+  ingredient: {fileID: 11400000, guid: 034e53fb025bbe9468b3516b00f0f835, type: 2}
   amount: 1
   autoUpdateSprite: 1
   itemEffect: {fileID: 1257857300690399873, guid: 647b4b1208f6a334fb2fa0512baa6cae, type: 3}

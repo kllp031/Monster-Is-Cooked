@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
     }
     public void EndLevel()
     {
+        Debug.Log("Endlevel");
         if (!levelStarted || !gameStarted) return;
 
         earnedMoney += collectedMoney;
