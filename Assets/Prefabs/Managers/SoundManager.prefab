@@ -48,6 +48,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 6957208869011929784}
   sfxSource: {fileID: 6689183926630160961}
+  cookingMusic: {fileID: 8300000, guid: 5c5c4188c2fe99c4bb7b187cd93dafbe, type: 3}
+  battleMusic: {fileID: 8300000, guid: 17b7c1ce24c068243bb642ec26a30c50, type: 3}
+  playerAttack: {fileID: 0}
+  playerDash: {fileID: 0}
+  playerCollect: {fileID: 0}
+  playerThrow: {fileID: 0}
+  playerHurt: {fileID: 0}
+  playerDie: {fileID: 0}
+  customerAppear: {fileID: 0}
+  customerHappy: {fileID: 0}
+  customerSad: {fileID: 0}
+  stoveOpen: {fileID: 0}
+  startCooking: {fileID: 0}
+  cookingSuccess: {fileID: 0}
+  cookingFailure: {fileID: 0}
+  buttonClick: {fileID: 0}
 --- !u!82 &6957208869011929784
 AudioSource:
   m_ObjectHideFlags: 0
