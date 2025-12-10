@@ -11,16 +11,16 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Obstacle
   - Water
   - UI
   - Enemy
   - Customer
   - Player
   - PlayerDetector
-  - 
-  - 
-  - 
+  - Food
+  - KitchenBoundary
+  - FoodObject
   - 
   - 
   - 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7685408421413124061}
   - component: {fileID: 887931265223422632}
   - component: {fileID: 3056199635786233583}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8539202371518177814}
   - component: {fileID: 1108988712194790069}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 6257907695033403016}
   - component: {fileID: 4015338126193000650}
   - component: {fileID: 8823703519167745113}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -341,7 +341,7 @@ GameObject:
   - component: {fileID: 3094203236071386785}
   - component: {fileID: 1949589648236464106}
   - component: {fileID: 7932759219108085245}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: FoodObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -530,14 +530,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3236be68d64e0b245869da28def327c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useOverlap: 0
+  overlapMask:
+    serializedVersion: 2
+    m_Bits: 0
+  overlapRange: 0
+  overlapOffset: {x: 0, y: 0}
   detectTrigger: 1
   detectCollision: 0
+  onOverlapDetected:
+    m_PersistentCalls:
+      m_Calls: []
   onTriggerEnter:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7661201346074483919}
         m_TargetAssemblyTypeName: Food, Assembly-CSharp
-        m_MethodName: ReceiveCollider
+        m_MethodName: ReceiveColliderEnter
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -547,6 +556,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onTriggerStay:
+    m_PersistentCalls:
+      m_Calls: []
   onTriggerExit:
     m_PersistentCalls:
       m_Calls: []
@@ -568,7 +580,8 @@ GameObject:
   - component: {fileID: 4427586515178249322}
   - component: {fileID: 7661201346074483919}
   - component: {fileID: 8886457922852619435}
-  m_Layer: 0
+  - component: {fileID: 8138015342935751421}
+  m_Layer: 10
   m_Name: TemplateFoodInteractable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -639,8 +652,13 @@ MonoBehaviour:
   foodObjectPivot: {x: 0, y: 0.5}
   gravityScale: 3
   groundCollisionSize: {x: 1, y: 0.75}
-  groundCollisionPivot: {x: 0, y: 0}
+  groundCollisionPivot: {x: 0, y: 0.28}
   groundCollisionColor: {r: 0, g: 1, b: 0, a: 1}
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  isGrounded: 1
+  riseUpSpeed: 2
 --- !u!95 &8886457922852619435
 Animator:
   serializedVersion: 7
@@ -663,3 +681,49 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!61 &8138015342935751421
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9004908710988102272}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0.20240009}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 0.5951998}
+  m_EdgeRadius: 0
