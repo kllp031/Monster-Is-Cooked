@@ -20,13 +20,17 @@ MonoBehaviour:
     - {fileID: 7108339969198208228, guid: 16c4606e140328749b2e3820125ba5ae, type: 3}
     customerDetails:
     - waitingTime: 5
-      foodRequest: {fileID: 11400000, guid: a0c5517d3397da84daf876550db22cfe, type: 2}
+      foodRequest: {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
     - waitingTime: 5
-      foodRequest: {fileID: 11400000, guid: a0c5517d3397da84daf876550db22cfe, type: 2}
+      foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
     - waitingTime: 5
-      foodRequest: {fileID: 11400000, guid: a0c5517d3397da84daf876550db22cfe, type: 2}
+      foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
     - waitingTime: 5
-      foodRequest: {fileID: 11400000, guid: a0c5517d3397da84daf876550db22cfe, type: 2}
+      foodRequest: {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
+    - waitingTime: 5
+      foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
+    - waitingTime: 5
+      foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
     appearTime:
     - 5
     - 5
