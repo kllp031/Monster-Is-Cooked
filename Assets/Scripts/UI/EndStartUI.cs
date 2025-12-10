@@ -1,14 +1,25 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using TMPro;
 
 public class EndStartUI : MonoBehaviour
 {
     [Header("UI References")]
     [SerializeField] RectTransform startUI;
     [SerializeField] RectTransform endUI;
-    [SerializeField] RectTransform endFailUI;
-    [SerializeField] RectTransform endWinUI;
+    //[SerializeField] RectTransform endFailUI;
+    //[SerializeField] RectTransform endWinUI;
+
+    [SerializeField] RectTransform retryBtn;
+    [SerializeField] RectTransform nextBtn;
+
+    [SerializeField] TMP_Text startUICustomersText;
+    [SerializeField] TMP_Text startUIGoalText;
+
+    [SerializeField] TMP_Text endUICustomerText;
+    [SerializeField] TMP_Text endUICoinTxt;
+
     [SerializeField] Image BGImage;
 
     [Header("Settings")]
@@ -32,6 +43,11 @@ public class EndStartUI : MonoBehaviour
 
         // Initialize positions
         endUI.anchoredPosition = _endUiOrigin + offScreenOffset;
+        startUI.anchoredPosition = _startUiOrigin + offScreenOffset;
+
+        // Start with Start UI visible
+        SetUpStartUI();
+        ToggleStartScreen(true);
     }
 
     private void OnEnable()
@@ -41,24 +57,105 @@ public class EndStartUI : MonoBehaviour
             Debug.LogError("EndStartUI: GameManager instance not found!");
             return;
         }
-        
-        GameManager.Instance.OnLevelEnd.AddListener((bool isWin) =>
-        {
-            // Show appropriate end UI
-            if (isWin)
-            {
-                ToggleWinUI();
-            }
-            else
-            {
-                ToggleFailUI();
-            }
-            // Immediate toggle for showing the end screen
-            ToggleEndScreen(true);
-        });
 
+        GameManager.Instance.OnLevelEnd.AddListener(OnLevelEnd);
+        GameManager.Instance.OnCollectedMoneyChanged.AddListener(OnUpdateCoinChange);
     }
 
+    private void OnDisable()
+    {
+        if (GameManager.Instance == null) return;
+
+        GameManager.Instance.OnLevelEnd.RemoveListener(OnLevelEnd);
+        GameManager.Instance.OnCollectedMoneyChanged.RemoveListener(OnUpdateCoinChange);
+    }
+
+    private void SetUpStartUI()
+    {
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("EndStartUI: GameManager instance not found!");
+            return;
+        }
+
+        if (startUI == null)
+        {
+            Debug.LogError("EndStartUI: Start UI reference is missing!");
+            return;
+        }
+
+        LevelDetail currentLevel = GameManager.Instance.GetCurrentLevelDetail();
+
+        if (currentLevel == null)
+        {
+            Debug.LogError("EndStartUI: Current level detail is missing!");
+            return;
+        }
+
+        int targetMoney = currentLevel.TargetMoney;
+        int customerCount = currentLevel != null && currentLevel.CustomerDetails != null
+            ? currentLevel.CustomerDetails.Count
+            : 0;
+
+        startUICustomersText.text = customerCount.ToString();
+        startUIGoalText.text = "0/" + targetMoney.ToString();
+    }
+
+    private void SetUpEndUI()
+    {
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("EndStartUI: GameManager instance not found!");
+            return;
+        }
+
+        if (endUI == null)
+        {
+            Debug.LogError("EndStartUI: Start UI reference is missing!");
+            return;
+        }
+
+        LevelDetail currentLevel = GameManager.Instance.GetCurrentLevelDetail();
+
+        if (currentLevel == null)
+        {
+            Debug.LogError("EndStartUI: Current level detail is missing!");
+            return;
+        }
+
+        int targetMoney = currentLevel.TargetMoney;
+        int collectedMoney = GameManager.Instance.CollectedMoney;
+        int customerCount = currentLevel != null && currentLevel.CustomerDetails != null
+            ? currentLevel.CustomerDetails.Count
+            : 0;
+
+        //endUICoinTxt.text = collectedMoney.ToString();
+        endUICustomerText.text = customerCount.ToString() + "/" + customerCount.ToString();
+    }
+
+    private void OnUpdateCoinChange()
+    {
+        UpdateEndUICoins(GameManager.Instance.CollectedMoney);
+    }
+
+    private void OnLevelEnd(bool isWin)
+    {
+        // 1. Show appropriate end UI (Logic moved from OnEnable)
+        if (isWin)
+        {
+            ToggleWinUI();
+        }
+        else
+        {
+            ToggleFailUI();
+        }
+
+        // 2. Show the end screen
+        ToggleEndScreen(true);
+
+        // 3. Update the coin text (Logic preserved from your old method)
+        OnUpdateCoinChange();
+    }
     // --- BUTTON EVENTS ---
 
     public void OnStartClicked()
@@ -109,8 +206,10 @@ public class EndStartUI : MonoBehaviour
         yield return new WaitForSeconds(animationDuration);
 
         // 3. Optional: Clean up Win/Fail objects so they are fresh for next time
-        if (endWinUI) endWinUI.gameObject.SetActive(false);
-        if (endFailUI) endFailUI.gameObject.SetActive(false);
+        //if (endWinUI) endWinUI.gameObject.SetActive(false);
+        //if (endFailUI) endFailUI.gameObject.SetActive(false);
+        if (nextBtn) nextBtn.gameObject.SetActive(false);
+        if (retryBtn) retryBtn.gameObject.SetActive(false);
 
         // 4. Now that End UI is gone, bring in the Start UI
         ToggleStartScreen(true);
@@ -133,6 +232,7 @@ public class EndStartUI : MonoBehaviour
         // If hiding End Screen (going back to start), the Start Screen logic will pick up the BG later.
         // However, if we simply want the BG to fade out with the End Screen, pass true.
         _endRoutine = StartCoroutine(AnimateUI(endUI, _endUiOrigin, show));
+        SetUpEndUI();
     }
 
     private IEnumerator AnimateUI(RectTransform targetUI, Vector2 originalPos, bool show, bool animateBG = true)
@@ -170,14 +270,22 @@ public class EndStartUI : MonoBehaviour
 
     public void ToggleWinUI()
     {
-        endFailUI.gameObject.SetActive(false);
-        endWinUI.gameObject.SetActive(true);
+        retryBtn.gameObject.SetActive(false);
+        nextBtn.gameObject.SetActive(true);
     }
 
     public void ToggleFailUI()
     {
-        endWinUI.gameObject.SetActive(false);
-        endFailUI.gameObject.SetActive(true);
+        nextBtn.gameObject.SetActive(false);
+        retryBtn.gameObject.SetActive(true);
+    }
+
+    public void UpdateEndUICoins(int coinCount)
+    {
+        if (endUICoinTxt != null)
+        {
+            endUICoinTxt.text = coinCount.ToString();
+        }
     }
 
     [ContextMenu("Test Toggle Start UI")]
@@ -216,9 +324,9 @@ public class EndStartUI : MonoBehaviour
     private void TestToggleCancelUI()
 
     {
-        if (endWinUI == null || endFailUI == null) return;
+        if (nextBtn == null || retryBtn == null) return;
 
-        bool isWinActive = endWinUI.gameObject.activeSelf;
+        bool isWinActive = nextBtn.gameObject.activeSelf;
 
         if (isWinActive)
         {
