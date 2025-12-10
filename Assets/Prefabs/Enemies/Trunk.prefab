@@ -174,6 +174,9 @@ MonoBehaviour:
   currentEnemyState: 0
   lastEnemyState: 0
   target: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: cc32f35297dc72d4790e9896cbd2bdfc, type: 3}
+  hurtSound: {fileID: 8300000, guid: 012f3638f7305ae40a79c6e8de0059fb, type: 3}
+  dieSound: {fileID: 8300000, guid: 401af216556d96d40bdd833a0b1f0d4c, type: 3}
   chaseRange: 10
   attackRange: 8
   timeToIdle: 0.5
@@ -202,7 +205,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamId: 1
-  defaultHealth: 3
   maximumHealth: 3
   currentHealth: 3
   invincibilityTime: 0
@@ -296,7 +298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupPrefabs:
-  - {fileID: 8502819326897545693, guid: bcdae6173daa9b14990e83bdf3df3582, type: 3}
+  - {fileID: 8502819326897545693, guid: ab43acff9b144f04dad1e0489280e381, type: 3}
   scatterForce: 3
 --- !u!114 &3295086131417113482
 MonoBehaviour:
