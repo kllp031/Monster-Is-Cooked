@@ -121,6 +121,7 @@ public class HotbarUI : MonoBehaviour
     private void RefreshVisuals()
     {
         if (HotbarManager.Instance == null) { Debug.LogWarning("Hotbar Manager is not found!"); return; }
+        if (uiSlots == null) { Debug.Log("Error"); return; }
         for (int i = 0; i < uiSlots.Length; i++)
         {
             //Food food = HotbarManager.Instance.GetFoodAt(i); // Uncommented for context
