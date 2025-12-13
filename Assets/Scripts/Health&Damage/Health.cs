@@ -89,7 +89,10 @@ public class Health : MonoBehaviour
                 enemyBase.currentEnemyState = EnemyBase.EnemyState.Hurt;
 
             if (gameObject.tag == "Player")
+            {
+                SoundManager.Instance.PlaySFX(SoundManager.Instance.playerHurt);
                 animator.SetTrigger("Hurt");
+            }    
 
             if (hitEffect != null)
             {
@@ -171,6 +174,8 @@ public class Health : MonoBehaviour
 
         if (gameObject.tag == "Player")
         {
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.playerDie);
+
             isDeath = true;
             animator.SetTrigger("Death");
             GameOver();

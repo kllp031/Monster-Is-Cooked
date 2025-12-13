@@ -101,6 +101,11 @@ public class CurvedCookingMinigame : MonoBehaviour
         // Check the result
         bool success = CheckWinCondition();
 
+        if (success)
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.cookingSuccess);
+        else
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.cookingFailure);
+
         // Trigger Event (You can subscribe to this in your Stove script)
         OnCookFinished?.Invoke(success);
 

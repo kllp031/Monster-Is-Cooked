@@ -8,6 +8,7 @@ public class CookingManager : MonoBehaviour
     [Header("Core Systems")]
     public InventorySO inventory;
     public CurvedCookingMinigame minigame;
+    public Transform spawnFoodPosition;
 
     [Header("Runtime State")]
     public Recipe currentRecipe;
@@ -94,6 +95,8 @@ public class CookingManager : MonoBehaviour
     private void SpawnFood(Recipe recipe)
     {
         Transform foodTransform = Instantiate(GameAssets.Instance.pfFood);
+
+        foodTransform.position = spawnFoodPosition.position;
 
         if (foodTransform.TryGetComponent(out Food foodComponent))
         {

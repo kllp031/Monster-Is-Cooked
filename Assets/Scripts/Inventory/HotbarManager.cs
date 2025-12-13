@@ -53,7 +53,13 @@ public class HotbarManager : MonoBehaviour
     private void Start()
     {
         SelectSlot(selectedSlotIndex);
+        GameManager.Instance.OnLevelEnd.AddListener(DestroyAllFood);
     }
+
+    //private void sta()
+    //{
+    //    GameManager.Instance.OnLevelEnd.AddListener(DestroyAllFood);
+    //}
 
     // ---------------------------------------------------------
     //  Selection Logic
@@ -176,7 +182,13 @@ public class HotbarManager : MonoBehaviour
         }
 
         // Drop the food -> Set the specified slot to empty -> Update hot bar
-        if (hotbarSlots[index] != null) hotbarSlots[index].IsDropped();
+        if (hotbarSlots[index] == null)
+        {
+            Debug.LogWarning("No food to remove at index: " + index);
+            return;
+        }
+        
+        hotbarSlots[index].IsDropped();
         hotbarSlots[index] = null;
         OnHotbarUpdated?.Invoke();
 
@@ -190,6 +202,18 @@ public class HotbarManager : MonoBehaviour
         for (int i = 0; i < maxSlots; i++)
         {
             Debug.Log("hotbar slot " + i + ": " + (hotbarSlots[i] != null ? hotbarSlots[i].name : "Empty"));
+        }
+    }
+
+    private void DestroyAllFood(bool bruh)
+    {
+        for (int i = 0; i < maxSlots; i++)
+        {
+            if (hotbarSlots[i] != null)
+            {
+                Destroy(hotbarSlots[i].gameObject);
+                RemoveFood(i);
+            }
         }
     }
 

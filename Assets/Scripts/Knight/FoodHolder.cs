@@ -212,6 +212,7 @@ public class FoodHolder : MonoBehaviour
         float timeElapsed = 0;
         bool movingForward = true;
 
+        SoundManager.Instance.PlaySFX(SoundManager.Instance.playerThrow);
         while (HeldFood != null)
         {
             throwDirection = (transform.localScale.x <= 0) ? Vector2.right : Vector2.left;

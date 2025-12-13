@@ -7,12 +7,12 @@ public class BlockGate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (GameManager.Instance != null)
+        if (PlayerDataManager.Instance != null)
         {
-            if (GameManager.Instance. >= levelUnlock)
+            if (PlayerDataManager.Instance.Level >= levelUnlock)
             {
                 Destroy(gameObject);
             }
-        }*/
+        }
     }
 }

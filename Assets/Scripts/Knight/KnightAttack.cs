@@ -53,6 +53,7 @@ public class KnightAttack : MonoBehaviour
     {
         if (attackEffect != null)
         {
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.playerAttack);
             // Determine attack direction
             Transform enemyTransform = FindNearestEnemy();
             if (enemyTransform == null)

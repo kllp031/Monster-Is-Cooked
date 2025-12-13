@@ -60,7 +60,10 @@ public class Damage : MonoBehaviour
                 Debug.Log("take damage");
 
                 if (this.gameObject.CompareTag("PlayerAttack"))
+                {
+                    SoundManager.Instance.PlaySFX(SoundManager.Instance.metalHit);
                     collidedHealth.TakeDamage(PlayerDataManager.Instance.Attack);
+                }    
                 else
                     collidedHealth.TakeDamage(damageAmount);
 

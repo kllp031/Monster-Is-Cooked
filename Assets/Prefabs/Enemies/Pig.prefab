@@ -153,8 +153,9 @@ MonoBehaviour:
   currentEnemyState: 0
   lastEnemyState: 0
   target: {fileID: 0}
-  rb: {fileID: 0}
-  dropItem: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: 901a08e2be56d8c45829ca2660b1285d, type: 3}
+  hurtSound: {fileID: 8300000, guid: 6ac2501423b9d7742bb0606547d8f034, type: 3}
+  dieSound: {fileID: 8300000, guid: 1bf2f9d5c309a314b8dcb3a4596f9f9f, type: 3}
   chaseRange: 7
   attackRange: 5
   timeToIdle: 1
@@ -183,7 +184,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackCooldown: 1.5
+  _shootType: 0
   _bulletPrefab: {fileID: 6506497644204188378, guid: b104a5658fa909b41b1f31dcd3225b56, type: 3}
+  _firePoint: {fileID: 0}
+  _bulletCount: 6
 --- !u!114 &3441307476891121901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,10 +201,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamId: 1
-  defaultHealth: 3
   maximumHealth: 3
   currentHealth: 3
   invincibilityTime: 0
+  isDeath: 0
   isInvincible: 0
   deathEffect: {fileID: 0}
   hitEffect: {fileID: 0}
@@ -258,7 +262,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4386769147766901124}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -290,6 +294,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupPrefabs:
-  - {fileID: 8502819326897545693, guid: f8fb1d8a77aca114f9bef35459df02c0, type: 3}
-  - {fileID: 8502819326897545693, guid: bcdae6173daa9b14990e83bdf3df3582, type: 3}
+  - {fileID: 8502819326897545693, guid: 8e2e84af8b564e842b644a83281b939c, type: 3}
   scatterForce: 3

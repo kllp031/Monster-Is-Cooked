@@ -8,6 +8,36 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource musicSource; 
     [SerializeField] private AudioSource sfxSource;
 
+    [Header("Audio Clip")]
+    [Header("Theme music")]
+    public AudioClip cookingMusic;
+    public AudioClip battleMusic;
+
+
+    [Header("Player")]
+    public AudioClip playerAttack;
+    public AudioClip metalHit;
+    public AudioClip playerDash;
+    public AudioClip playerCollect;
+    public AudioClip playerThrow;
+    public AudioClip playerHurt;
+    public AudioClip playerDie;
+
+    [Header("Customer")]
+    public AudioClip customerAppear;
+    public AudioClip customerHappy;
+    public AudioClip customerSad;
+
+
+    [Header("Stove")]
+    public AudioClip stoveOpen;
+    public AudioClip startCooking;
+    public AudioClip cookingSuccess;
+    public AudioClip cookingFailure;
+
+    [Header("UI")]
+    public AudioClip buttonClick;
+
     private void Awake()
     {
         if (Instance == null)
