@@ -21,6 +21,7 @@ public class FoodHolder : MonoBehaviour
     [SerializeField] float throwEndDistance = 10.0f;    
     [SerializeField] float throwAngle = 45f;
     [SerializeField] float throwHeightOffset = 1.0f;
+    [SerializeField] LayerMask obstacleLayer;
     [Header("Animator")]
     [SerializeField] string startHoldingFoodTrigger = "";
     [SerializeField] string stopHoldingFoodTrigger = "";
@@ -66,40 +67,23 @@ public class FoodHolder : MonoBehaviour
         }
     }
 
-    //public void ClearHeldFood()
-    //{
-    //    if (heldFood != null) {
-    //        Destroy(heldFood.gameObject);
-    //    }
-    //    heldFood = null;
-    //}
-
     public void PickUpFood(Food food)
     {
-
         if (HotbarManager.Instance != null)
         {
             HotbarManager.Instance.AddFoodToHotBar(food);
         }
-        //if(heldFood != null) DropHeldFood();
-
-        //heldFood = food;
-        //food.IsPickedUp();
-        //heldFood.transform.localPosition = Vector3.zero; // Adjust as needed
-
     }
     private void DropHeldFood()
     {
         if (HeldFood == null) return;
         // Drop the food
         HeldFood.transform.position = transform.position + transform.right; // Drop in front of player
-        //HeldFood.IsDropped();
-        //heldFood = null;
         if (HotbarManager.Instance != null) HotbarManager.Instance.RemoveSelectedFood();
     }
     public void ServeFood()
     {
-        if (HeldFood != null) HeldFood.gameObject.SetActive(false);
+        if (HeldFood != null) Destroy(HeldFood.gameObject);
         if (HotbarManager.Instance != null) HotbarManager.Instance.RemoveSelectedFood();
     }
     public void OnThrowFoodStarted()
@@ -110,7 +94,6 @@ public class FoodHolder : MonoBehaviour
         if (HeldFood == null) return;
 
         // Start moving the target circle
-        throwDirection = (transform.lossyScale.x <= 0) ? Vector2.left : Vector2.right;
         if (throwingCoroutine != null) StopCoroutine(throwingCoroutine);
         throwingCoroutine = StartCoroutine(ThrowingCoroutine());
     }
@@ -155,10 +138,12 @@ public class FoodHolder : MonoBehaviour
     {
         if (targetCircle != null) targetCircle.SetActive(false);
         if (throwingCoroutine != null) StopCoroutine(throwingCoroutine);
+        throwingCoroutine = null;
     }
     public void OnThrowFoodEnded()
     {
         // Check conditions
+        if (throwingCoroutine == null) return;
         StopThrowFood();
 
         if (targetCircle == null || HeldFood == null || playerGroundPosition == null) return;
@@ -180,9 +165,7 @@ public class FoodHolder : MonoBehaviour
         // Adjust held food's position
         HeldFood.transform.position = groundStartPoint;
         HeldFood.SetHeight(throwHeightOffset);
-        //HeldFood.IsDropped();
         HotbarManager.Instance.RemoveSelectedFood(); //  Tell Hotbar manager to remove the dropped food
-        //HeldFood = null;
     }
     private float CalculateThrowSpeed(float horizontalDistance, float verticalDistance, float angle, float gravityScale)
     {
@@ -232,9 +215,13 @@ public class FoodHolder : MonoBehaviour
         SoundManager.Instance.PlaySFX(SoundManager.Instance.playerThrow);
         while (HeldFood != null)
         {
+            throwDirection = (transform.localScale.x <= 0) ? Vector2.right : Vector2.left;
+            var checkCollider = Physics2D.Raycast(transform.position, throwDirection, throwStartDistance, obstacleLayer);
+            if (checkCollider.collider != null) { StopThrowFood(); yield break; }
             // Recalculate the start and end positions each loop in case the throwing direction changed
-            startPosition = (Vector2)playerGroundPosition.localPosition + throwDirection.normalized * throwStartDistance;
-            endPosition = (Vector2)playerGroundPosition.localPosition + throwDirection.normalized * throwEndDistance;
+            startPosition = (Vector2)playerGroundPosition.position + throwDirection.normalized * throwStartDistance;
+            endPosition = (Vector2)playerGroundPosition.position + throwDirection.normalized * throwEndDistance;
+            Debug.Log($"Direction: {throwDirection}, start position: {startPosition}, end position: {endPosition}");
 
             timeElapsed += Time.deltaTime;
             if (timeElapsed >= targetCircleMovingTime)
@@ -249,7 +236,7 @@ public class FoodHolder : MonoBehaviour
                 :
                 Vector2.Lerp(endPosition, startPosition, timeElapsed / targetCircleMovingTime);
 
-            targetCircle.transform.localPosition = targetPos;
+            targetCircle.transform.position = targetPos;
 
             yield return null;
         }

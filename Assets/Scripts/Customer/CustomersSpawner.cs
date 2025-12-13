@@ -25,9 +25,13 @@ public class CustomersSpawner : MonoBehaviour
         instance = this;
     }
 
-    private void OnEnable()
+    private void Start()
     {
-        if (GameManager.Instance != null) GameManager.Instance.OnLevelStart.AddListener(OnLevelStart);
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.OnLevelStart.AddListener(OnLevelStart);
+            GameManager.Instance.OnLevelEnd.AddListener(OnLevelEnd);
+        }
     }
 
     public void OnLevelStart()
@@ -36,6 +40,16 @@ public class CustomersSpawner : MonoBehaviour
         customersSkins = new List<SpriteLibraryAsset>(GameManager.Instance.GetCurrentLevelDetail().CustomersSkins);
         tempCustomerDetails = new List<CustomerDetail>(GameManager.Instance.GetCurrentLevelDetail().CustomerDetails);
         tempAppearTime = new List<float>(GameManager.Instance.GetCurrentLevelDetail().AppearTime);
+        spawnedCustomer.Clear();
+        activeCustomers.Clear();
+    }
+
+    public void OnLevelEnd(bool bruh)
+    {
+        foreach(var customer in spawnedCustomer)
+        {
+            if (customer != null) Destroy(customer.gameObject);
+        }
         spawnedCustomer.Clear();
         activeCustomers.Clear();
     }
@@ -105,6 +119,11 @@ public class CustomersSpawner : MonoBehaviour
             activeCustomers.Add(newCustomer);
             tempAppearTime.RemoveAt(0);
         }
+    }
+
+    private void OnDisable()
+    {
+        if (GameManager.Instance != null) GameManager.Instance.OnLevelStart.RemoveListener(OnLevelStart);
     }
 
     // This function is called by the customer to remove itself from the active customers list

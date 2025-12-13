@@ -1,3 +1,4 @@
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -18,6 +19,9 @@ public class Food : MonoBehaviour
     [SerializeField] Vector2 groundCollisionSize = new(1.0f, 0.5f); // The size of the virtual collision on the ground (used to check whether the customer is in range to receive food)
     [SerializeField] Vector2 groundCollisionPivot = new(0, 0);
     [SerializeField] Color groundCollisionColor = Color.green;
+    [SerializeField] LayerMask obstacleLayer; // Detect obstacle and rise up
+    [SerializeField] bool isGrounded = true;
+    [SerializeField] float riseUpSpeed = 2.0f; // Used to rise the food if it's stuck in something
     //[SerializeField] float minHeightToReceiveCollider = 0.5f;
 
     public Recipe Recipe { get => recipe; }
@@ -37,11 +41,19 @@ public class Food : MonoBehaviour
         if (foodObject == null) Debug.LogWarning("Please assign a food object to handle physics!");
         else { foodRb = foodObject.GetComponent<Rigidbody2D>(); }
     }
+    private void OnEnable()
+    {
+        isGrounded = true;
+    }
 
     private void Update()
     {
         HandleFallingPhysics();
         CorrectFoodObjectPosition();
+    }
+    private void FixedUpdate()
+    {
+        DetectOverlap();
     }
 
     public void SetUp(Recipe recipe)
@@ -74,12 +86,14 @@ public class Food : MonoBehaviour
         foodRb.linearVelocityX = 0; // Make sure the food object only moves vertically
         if (foodPos.y <= transform.position.y + foodObjectPivot.y && foodRb.linearVelocityY <= 0) // If the food object is below the ground point and it's moving downward
         {
-            rb.linearVelocity = Vector2.zero;
+            isGrounded = true;
+            rb.linearVelocityX = 0;
             foodRb.linearVelocityY = 0;
             foodRb.gravityScale = 0;
         }
         else
         {
+            isGrounded = false;
             foodRb.gravityScale = gravityScale;
         }
     }
@@ -116,15 +130,11 @@ public class Food : MonoBehaviour
         isPickedUp = false;
         if (foodShadowObject != null) foodShadowObject.SetActive(true);
     }
-    public void ReceiveCollider(Collider2D collider)
+    public void ReceiveColliderEnter(Collider2D collider)
     {
-        // Prototype
         if (collider == null) return;
         if (collider.tag == "Customer" && collider.GetComponent<IInteractable>() != null && !isPickedUp)
         {
-            //if (foodObject != null && foodObject.transform.localPosition.y <= minHeightToReceiveCollider)
-            //    collider.GetComponent<IInteractable>().OnInteract(this.gameObject);
-
             // Check if the customer is actually able to receive the food (within range)
             var colliders = Physics2D.OverlapBoxAll(new Vector2(transform.position.x, transform.position.y), groundCollisionSize, 0f);
             foreach(var col in colliders)
@@ -133,6 +143,23 @@ public class Food : MonoBehaviour
                 {
                     collider.GetComponent<IInteractable>().OnInteract(this.gameObject);
                 }
+            }
+        }
+    }
+
+    public void DetectOverlap()
+    {
+        var collider = Physics2D.OverlapBoxAll((Vector2)transform.position + groundCollisionPivot, groundCollisionSize, 0f, obstacleLayer);     
+        if (collider == null || collider.Length == 0)
+        {
+            rb.linearVelocityY = 0;
+        }
+        else
+        {
+            if (isGrounded)
+            {
+                Debug.Log(rb.linearVelocityY);
+                rb.linearVelocityY = riseUpSpeed;
             }
         }
     }
