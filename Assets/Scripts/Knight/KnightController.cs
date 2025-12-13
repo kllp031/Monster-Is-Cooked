@@ -67,6 +67,7 @@ public class KnightController : MonoBehaviour
 
         if (context.started && canDash && moveInput != Vector2.zero)
         {
+            SoundManager.Instance.PlaySFX(SoundManager.Instance.playerDash);
             StartCoroutine(DashRoutine());
         }
     }

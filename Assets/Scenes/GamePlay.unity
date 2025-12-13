@@ -13422,18 +13422,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundManager
       objectReference: {fileID: 0}
-    - target: {fileID: 6957208869011929784, guid: 33c75ae82a45b24488b5875e68789c0d, type: 3}
-      propertyPath: m_Resource
-      value: 
-      objectReference: {fileID: 8300000, guid: 5c5c4188c2fe99c4bb7b187cd93dafbe, type: 3}
-    - target: {fileID: 6957208869011929784, guid: 33c75ae82a45b24488b5875e68789c0d, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 5c5c4188c2fe99c4bb7b187cd93dafbe, type: 3}
     - target: {fileID: 7495860112887956471, guid: 33c75ae82a45b24488b5875e68789c0d, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: metalHit
+      value: 
+      objectReference: {fileID: 8300000, guid: 13a4ced3ca692db43b38816c67ac0f41, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

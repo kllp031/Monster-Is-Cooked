@@ -50,20 +50,20 @@ MonoBehaviour:
   sfxSource: {fileID: 6689183926630160961}
   cookingMusic: {fileID: 8300000, guid: 5c5c4188c2fe99c4bb7b187cd93dafbe, type: 3}
   battleMusic: {fileID: 8300000, guid: 17b7c1ce24c068243bb642ec26a30c50, type: 3}
-  playerAttack: {fileID: 0}
-  playerDash: {fileID: 0}
-  playerCollect: {fileID: 0}
-  playerThrow: {fileID: 0}
-  playerHurt: {fileID: 0}
-  playerDie: {fileID: 0}
-  customerAppear: {fileID: 0}
-  customerHappy: {fileID: 0}
-  customerSad: {fileID: 0}
-  stoveOpen: {fileID: 0}
-  startCooking: {fileID: 0}
-  cookingSuccess: {fileID: 0}
-  cookingFailure: {fileID: 0}
-  buttonClick: {fileID: 0}
+  playerAttack: {fileID: 8300000, guid: f903b95072a2885408c782060b373431, type: 3}
+  playerDash: {fileID: 8300000, guid: 15cd52de734c77544b959e2da3ed3b58, type: 3}
+  playerCollect: {fileID: 8300000, guid: e00e603b5c8ad1b47b3c1b4e0907c257, type: 3}
+  playerThrow: {fileID: 8300000, guid: 7df0eec486cfc464cb62aaa1434a8eef, type: 3}
+  playerHurt: {fileID: 8300000, guid: c9cfafaa74a0ddc4ca5dfc82f205598d, type: 3}
+  playerDie: {fileID: 8300000, guid: 5e9a1e57d3e86e341b09d8c619014eac, type: 3}
+  customerAppear: {fileID: 8300000, guid: 56190124ca4086f4ea77cffa5e175139, type: 3}
+  customerHappy: {fileID: 8300000, guid: 2c72b80e7f7785248805b21a764187af, type: 3}
+  customerSad: {fileID: 8300000, guid: 9ed7354074abc8a4fa691a4388c3b2db, type: 3}
+  stoveOpen: {fileID: 8300000, guid: 4370f9ffd3c265443b04b5e4d9742359, type: 3}
+  startCooking: {fileID: 8300000, guid: 7158208cbd2fe20468d48fcd99043770, type: 3}
+  cookingSuccess: {fileID: 8300000, guid: 6f2caf068201b3d438b7df7bf9bcf475, type: 3}
+  cookingFailure: {fileID: 8300000, guid: 82e1f2564944d4149a89a649e277f8a5, type: 3}
+  buttonClick: {fileID: 8300000, guid: 7158208cbd2fe20468d48fcd99043770, type: 3}
 --- !u!82 &6957208869011929784
 AudioSource:
   m_ObjectHideFlags: 0
@@ -74,8 +74,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 5c5c4188c2fe99c4bb7b187cd93dafbe, type: 3}
+  m_Resource: {fileID: 8300000, guid: 5c5c4188c2fe99c4bb7b187cd93dafbe, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

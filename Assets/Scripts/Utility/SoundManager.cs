@@ -16,6 +16,7 @@ public class SoundManager : MonoBehaviour
 
     [Header("Player")]
     public AudioClip playerAttack;
+    public AudioClip metalHit;
     public AudioClip playerDash;
     public AudioClip playerCollect;
     public AudioClip playerThrow;

@@ -229,6 +229,7 @@ public class FoodHolder : MonoBehaviour
         float timeElapsed = 0;
         bool movingForward = true;
 
+        SoundManager.Instance.PlaySFX(SoundManager.Instance.playerThrow);
         while (HeldFood != null)
         {
             // Recalculate the start and end positions each loop in case the throwing direction changed

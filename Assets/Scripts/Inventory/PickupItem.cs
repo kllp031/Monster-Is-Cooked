@@ -37,6 +37,7 @@ public class PickupItem : MonoBehaviour
 
             if (playerBridge != null && playerBridge.inventoryData != null)
             {
+                SoundManager.Instance.PlaySFX(SoundManager.Instance.playerCollect);
                 // 3. Pass the ScriptableObject data to the collect function
                 Collect(playerBridge.inventoryData);
             }
