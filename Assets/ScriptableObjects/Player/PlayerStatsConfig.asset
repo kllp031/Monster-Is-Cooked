@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f742178e6f5b77479d53c6626aac47e, type: 3}
+  m_Name: PlayerStatsConfig
+  m_EditorClassIdentifier: 
+  maxLevel: 10
+  levels:
+  - health: 1
+    healthCost: 1
+    speed: 1
+    speedCost: 1
+    attack: 1
+    attackCost: 1
+    moneyMultiplier: 1
+    moneyMulCost: 1
+  - health: 2
+    healthCost: 2
+    speed: 2
+    speedCost: 2
+    attack: 2
+    attackCost: 2
+    moneyMultiplier: 2
+    moneyMulCost: 2
+  - health: 3
+    healthCost: 3
+    speed: 3
+    speedCost: 3
+    attack: 3
+    attackCost: 3
+    moneyMultiplier: 3
+    moneyMulCost: 3
+  - health: 1
+    healthCost: 1
+    speed: 1
+    speedCost: 1
+    attack: 1
+    attackCost: 1
+    moneyMultiplier: 1
+    moneyMulCost: 1
+  - health: 0
+    healthCost: 0
+    speed: 0
+    speedCost: 0
+    attack: 0
+    attackCost: 0
+    moneyMultiplier: 0
+    moneyMulCost: 0
+  - health: 0
+    healthCost: 0
+    speed: 0
+    speedCost: 0
+    attack: 0
+    attackCost: 0
+    moneyMultiplier: 0
+    moneyMulCost: 0
+  - health: 0
+    healthCost: 0
+    speed: 0
+    speedCost: 0
+    attack: 0
+    attackCost: 0
+    moneyMultiplier: 0
+    moneyMulCost: 0
+  - health: 0
+    healthCost: 0
+    speed: 0
+    speedCost: 0
+    attack: 0
+    attackCost: 0
+    moneyMultiplier: 0
+    moneyMulCost: 0
+  - health: 0
+    healthCost: 0
+    speed: 0
+    speedCost: 0
+    attack: 0
+    attackCost: 0
+    moneyMultiplier: 0
+    moneyMulCost: 0
+  - health: 0
+    healthCost: 0
+    speed: 0
+    speedCost: 0
+    attack: 0
+    attackCost: 0
+    moneyMultiplier: 0
+    moneyMulCost: 0
