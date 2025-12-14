@@ -62,7 +62,7 @@ public class Damage : MonoBehaviour
                 if (this.gameObject.CompareTag("PlayerAttack"))
                 {
                     SoundManager.Instance.PlaySFX(SoundManager.Instance.metalHit);
-                    collidedHealth.TakeDamage(PlayerDataManager.Instance.Attack);
+                    collidedHealth.TakeDamage(PlayerDataManager.Instance.CurrentAttack);
                 }    
                 else
                     collidedHealth.TakeDamage(damageAmount);

@@ -35,7 +35,7 @@ public class Health : MonoBehaviour
         animator = GetComponent<Animator>();
 
         if (gameObject.CompareTag("Player"))
-            currentHealth = PlayerDataManager.Instance.MaxHealth;
+            currentHealth = PlayerDataManager.Instance.CurrentMaxHealth;
         else
             currentHealth = maximumHealth;
     }
@@ -71,7 +71,7 @@ public class Health : MonoBehaviour
         transform.position = respawnPosition;
 
         if (gameObject.CompareTag("Player"))
-            currentHealth = PlayerDataManager.Instance.MaxHealth;
+            currentHealth = PlayerDataManager.Instance.CurrentMaxHealth;
         else
             currentHealth = maximumHealth;
         //GameManager.UpdateUIElements();
@@ -129,9 +129,9 @@ public class Health : MonoBehaviour
 
         if (this.gameObject.CompareTag("Player"))
         {
-            if (currentHealth > PlayerDataManager.Instance.MaxHealth)
+            if (currentHealth > PlayerDataManager.Instance.CurrentMaxHealth)
             {
-                currentHealth = PlayerDataManager.Instance.MaxHealth;
+                currentHealth = PlayerDataManager.Instance.CurrentMaxHealth;
             }
         }
         else if (currentHealth > maximumHealth)

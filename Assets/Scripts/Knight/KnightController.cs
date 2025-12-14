@@ -137,7 +137,7 @@ public class KnightController : MonoBehaviour
             }
         }
 
-        Vector2 move = moveInput * PlayerDataManager.Instance.Speed * Time.fixedDeltaTime;
+        Vector2 move = moveInput * PlayerDataManager.Instance.CurrentSpeed * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + move);
     }
 
