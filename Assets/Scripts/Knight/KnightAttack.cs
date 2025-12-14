@@ -32,6 +32,9 @@ public class KnightAttack : MonoBehaviour
         if (health.isDeath)
             return;
 
+        if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Hurt"))
+            return;
+
         if (context.started && coolDownCoroutine == null)
         {
             TryAttack();
@@ -41,6 +44,9 @@ public class KnightAttack : MonoBehaviour
     public void OnButtonAttack()
     {
         if (health.isDeath)
+            return;
+
+        if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Hurt"))
             return;
 
         if (coolDownCoroutine == null)
