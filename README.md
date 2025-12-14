@@ -12,7 +12,7 @@
 
 - Quan Chí Khánh An - anqck@uit.edu.vn
 
-**Description**: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+**Description**: Monster is Cooked is a fast-paced management game where you play as a combat chef. Your mission is to serve hungry diners and meet a daily profit quota to advance. When your pantry runs dry, you must venture into wild zones to hunt monsters for fresh ingredients. But be careful—falling in battle ends your workday instantly, jeopardizing your chances of hitting the required quota. You must balance chaotic kitchen management with dangerous dungeon crawling. Between shifts, use your earnings to upgrade your damage and speed, eventually unlocking complex recipes and new hunting grounds.
 
 **How to use**:
 1. **Prerequisites**
