@@ -82,7 +82,7 @@
                     "name": "Sprint",
                     "type": "Button",
                     "id": "641cd816-40e6-41b4-8c3d-04687c349290",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -479,6 +479,17 @@
                 },
                 {
                     "name": "",
+                    "id": "55368aa9-5c6c-4d42-8651-a1125cffde2b",
+                    "path": "<Keyboard>/q",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DropFood",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "fd3fa58e-0156-4199-9d6c-fbe4b0aaf588",
                     "path": "<Keyboard>/i",
                     "interactions": "",
@@ -513,8 +524,8 @@
                 {
                     "name": "",
                     "id": "b4bffef3-1fd2-42ab-8949-8e09abb94c0a",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
+                    "path": "<Keyboard>/q",
+                    "interactions": "Hold",
                     "processors": "",
                     "groups": "",
                     "action": "ThrowFood",

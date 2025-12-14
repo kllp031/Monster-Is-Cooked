@@ -78,7 +78,7 @@ public class FoodHolder : MonoBehaviour
     {
         if (HeldFood == null) return;
         // Drop the food
-        HeldFood.transform.position = transform.position + transform.right; // Drop in front of player
+        HeldFood.transform.position = transform.position + (transform.lossyScale.x <= 0 ? Vector3.right : Vector3.left);
         if (HotbarManager.Instance != null) HotbarManager.Instance.RemoveSelectedFood();
     }
     public void ServeFood()
@@ -165,7 +165,15 @@ public class FoodHolder : MonoBehaviour
         // Adjust held food's position
         HeldFood.transform.position = groundStartPoint;
         HeldFood.SetHeight(throwHeightOffset);
+
         HotbarManager.Instance.RemoveSelectedFood(); //  Tell Hotbar manager to remove the dropped food
+        
+        if (SoundManager.Instance == null)
+        {
+            Debug.LogWarning("Sound Manager is not found!");
+            return;
+        }
+        SoundManager.Instance.PlaySFX(SoundManager.Instance.playerThrow);
     }
     private float CalculateThrowSpeed(float horizontalDistance, float verticalDistance, float angle, float gravityScale)
     {
@@ -187,12 +195,12 @@ public class FoodHolder : MonoBehaviour
     // These functions are called by the Input System
     public void OnThrowFood(InputAction.CallbackContext context)
     {
-        if (context.started) OnThrowFoodStarted(); // Should use animation trigger (or any kinds of state machine) instead, if the animation is set successfully, it will call the OnThrowFoodStarted function
+        if (context.performed) OnThrowFoodStarted(); // Should use animation trigger (or any kinds of state machine) instead, if the animation is set successfully, it will call the OnThrowFoodStarted function
         if (context.canceled) OnThrowFoodEnded(); // Should use animation trigger (or any kinds of state machine) instead, if the animation is set successfully, it will call the OnThrowFoodEnded function
     }
     public void OnDropFood(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.performed)
         {
             DropHeldFood();
         }
@@ -212,7 +220,6 @@ public class FoodHolder : MonoBehaviour
         float timeElapsed = 0;
         bool movingForward = true;
 
-        SoundManager.Instance.PlaySFX(SoundManager.Instance.playerThrow);
         while (HeldFood != null)
         {
             throwDirection = (transform.localScale.x <= 0) ? Vector2.right : Vector2.left;
