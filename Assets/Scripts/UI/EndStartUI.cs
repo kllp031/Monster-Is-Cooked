@@ -38,6 +38,15 @@ public class EndStartUI : MonoBehaviour
 
     private void Start()
     {
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("EndStartUI: GameManager instance not found!");
+            return;
+        }
+
+        GameManager.Instance.OnLevelEnd.AddListener(OnLevelEnd);
+        GameManager.Instance.OnCollectedMoneyChanged.AddListener(OnUpdateCoinChange);
+
         if (startUI) _startUiOrigin = startUI.anchoredPosition;
         if (endUI) _endUiOrigin = endUI.anchoredPosition;
 
@@ -48,18 +57,6 @@ public class EndStartUI : MonoBehaviour
         // Start with Start UI visible
         SetUpStartUI();
         ToggleStartScreen(true);
-    }
-
-    private void OnEnable()
-    {
-        if (GameManager.Instance == null)
-        {
-            Debug.LogError("EndStartUI: GameManager instance not found!");
-            return;
-        }
-
-        GameManager.Instance.OnLevelEnd.AddListener(OnLevelEnd);
-        GameManager.Instance.OnCollectedMoneyChanged.AddListener(OnUpdateCoinChange);
     }
 
     private void OnDisable()

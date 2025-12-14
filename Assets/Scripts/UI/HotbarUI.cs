@@ -1,5 +1,8 @@
+using NUnit.Framework;
 using System.Collections; // Required for Coroutines
 using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
 
 public class HotbarUI : MonoBehaviour
 {
@@ -8,7 +11,7 @@ public class HotbarUI : MonoBehaviour
     [Header("Animation Settings")]
     [SerializeField] private float slideDuration = 0.5f; // How fast it moves
 
-    private HotbarSlotUI[] uiSlots;
+    public List<HotbarSlotUI> uiSlots;
 
     private Vector2 onscreenPosition;
     private Vector2 offscreenPosition;
@@ -43,7 +46,7 @@ public class HotbarUI : MonoBehaviour
             return;
         }
 
-        uiSlots = hotbarPanel.GetComponentsInChildren<HotbarSlotUI>();
+        uiSlots = hotbarPanel.GetComponentsInChildren<HotbarSlotUI>().ToList();
 
         HotbarManager.Instance.OnHotbarUpdated += RefreshVisuals;
         HotbarManager.Instance.OnSelectionChanged += HandleSelectionChange;
@@ -121,7 +124,7 @@ public class HotbarUI : MonoBehaviour
     private void RefreshVisuals()
     {
         if (HotbarManager.Instance == null) { Debug.LogWarning("Hotbar Manager is not found!"); return; }
-        for (int i = 0; i < uiSlots.Length; i++)
+        for (int i = 0; i < uiSlots.Count; i++)
         {
             //Food food = HotbarManager.Instance.GetFoodAt(i); // Uncommented for context
             Food food = HotbarManager.Instance.GetFoodAt(i);
@@ -130,7 +133,7 @@ public class HotbarUI : MonoBehaviour
             uiSlots[i].Setup(i, food, isSelected);
         }
     }
-
+    
     [ContextMenu("Debug Toggle Panel")]
     private void DebugTogglePanel()
     {
