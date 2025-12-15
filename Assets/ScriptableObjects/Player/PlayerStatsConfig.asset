@@ -16,11 +16,11 @@ MonoBehaviour:
   levels:
   - health: 1
     healthCost: 1
-    speed: 1
+    speed: 3.5
     speedCost: 1
     attack: 1
     attackCost: 1
-    moneyMultiplier: 1
+    moneyMultiplier: 0.05
     moneyMulCost: 1
   - health: 2
     healthCost: 2
@@ -28,7 +28,7 @@ MonoBehaviour:
     speedCost: 2
     attack: 2
     attackCost: 2
-    moneyMultiplier: 2
+    moneyMultiplier: 0.1
     moneyMulCost: 2
   - health: 3
     healthCost: 3
@@ -36,61 +36,61 @@ MonoBehaviour:
     speedCost: 3
     attack: 3
     attackCost: 3
-    moneyMultiplier: 3
+    moneyMultiplier: 0.15
     moneyMulCost: 3
-  - health: 1
-    healthCost: 1
-    speed: 1
-    speedCost: 1
-    attack: 1
-    attackCost: 1
-    moneyMultiplier: 1
-    moneyMulCost: 1
-  - health: 0
-    healthCost: 0
-    speed: 0
-    speedCost: 0
-    attack: 0
-    attackCost: 0
+  - health: 4
+    healthCost: 4
+    speed: 4
+    speedCost: 4
+    attack: 4
+    attackCost: 4
+    moneyMultiplier: 4
+    moneyMulCost: 4
+  - health: 5
+    healthCost: 5
+    speed: 5
+    speedCost: 5
+    attack: 5
+    attackCost: 5
+    moneyMultiplier: 5
+    moneyMulCost: 5
+  - health: 6
+    healthCost: 6
+    speed: 6
+    speedCost: 6
+    attack: 6
+    attackCost: 6
     moneyMultiplier: 0
-    moneyMulCost: 0
-  - health: 0
-    healthCost: 0
-    speed: 0
-    speedCost: 0
-    attack: 0
-    attackCost: 0
-    moneyMultiplier: 0
-    moneyMulCost: 0
-  - health: 0
-    healthCost: 0
-    speed: 0
-    speedCost: 0
-    attack: 0
-    attackCost: 0
-    moneyMultiplier: 0
-    moneyMulCost: 0
-  - health: 0
-    healthCost: 0
-    speed: 0
-    speedCost: 0
-    attack: 0
-    attackCost: 0
-    moneyMultiplier: 0
-    moneyMulCost: 0
-  - health: 0
-    healthCost: 0
-    speed: 0
-    speedCost: 0
-    attack: 0
-    attackCost: 0
-    moneyMultiplier: 0
-    moneyMulCost: 0
-  - health: 0
-    healthCost: 0
-    speed: 0
-    speedCost: 0
-    attack: 0
-    attackCost: 0
-    moneyMultiplier: 0
-    moneyMulCost: 0
+    moneyMulCost: 6
+  - health: 7
+    healthCost: 7
+    speed: 7
+    speedCost: 7
+    attack: 7
+    attackCost: 7
+    moneyMultiplier: 7
+    moneyMulCost: 7
+  - health: 8
+    healthCost: 8
+    speed: 8
+    speedCost: 8
+    attack: 8
+    attackCost: 8
+    moneyMultiplier: 8
+    moneyMulCost: 8
+  - health: 9
+    healthCost: 9
+    speed: 9
+    speedCost: 9
+    attack: 9
+    attackCost: 9
+    moneyMultiplier: 9
+    moneyMulCost: 9
+  - health: 10
+    healthCost: 10
+    speed: 10
+    speedCost: 10
+    attack: 10
+    attackCost: 10
+    moneyMultiplier: 10
+    moneyMulCost: 10

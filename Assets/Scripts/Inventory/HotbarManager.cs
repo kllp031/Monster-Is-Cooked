@@ -53,7 +53,25 @@ public class HotbarManager : MonoBehaviour
     private void Start()
     {
         SelectSlot(selectedSlotIndex);
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("HotbarManager: GameManager instance not found!");
+            return;
+        }
         GameManager.Instance.OnLevelEnd.AddListener(DestroyAllFood);
+
+        if (CookingManager.Instance == null)
+        {
+            Debug.LogError("HotbarManager: CookingManager instance not found!");
+            return;
+        }
+        CookingManager.Instance.OnFoodSpawned.AddListener(OnFoodSpawned);
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.OnLevelEnd.RemoveListener(DestroyAllFood);
+        CookingManager.Instance.OnFoodSpawned.RemoveListener(OnFoodSpawned);
     }
 
     //private void sta()
@@ -64,6 +82,11 @@ public class HotbarManager : MonoBehaviour
     // ---------------------------------------------------------
     //  Selection Logic
     // ---------------------------------------------------------
+
+    private void OnFoodSpawned(Food food)
+    {
+        AddFoodToHotBar(food);
+    }
 
     public void SelectSlot(int index)
     {
@@ -237,6 +260,16 @@ public class HotbarManager : MonoBehaviour
     }
 
     private bool IsValidIndex(int index) => index >= 0 && index < maxSlots;
+
+    public bool IsHotbarFull()
+    {
+        for (int i = 0; i < maxSlots; i++)
+        {
+            if (hotbarSlots[i] == null)
+                return false;
+        }
+        return true;
+    }
 
     // =========================================================
     //  DEBUG / TESTING SECTION

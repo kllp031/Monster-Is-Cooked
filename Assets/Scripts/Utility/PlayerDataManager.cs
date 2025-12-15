@@ -99,8 +99,9 @@ public class PlayerDataManager : MonoBehaviour
 
     public void EarnMoney(int baseAmount)
     {
-        int finalAmount = Mathf.RoundToInt(baseAmount * CurrentMoneyMul);
-        TotalMoney += finalAmount;
+        //int finalAmount = Mathf.RoundToInt(baseAmount * CurrentMoneyMul);
+        //TotalMoney += finalAmount;
+        TotalMoney += baseAmount;
 
         PlayerPrefs.SetInt("Wallet_Money", TotalMoney);
 
@@ -160,7 +161,7 @@ public class PlayerDataManager : MonoBehaviour
 
     // ... GetCurrentLevel, GetCostForLevelIndex, ApplyUpgrade helper methods remain the same ...
     // (Included for completeness of the script if you copy-paste)
-    private int GetCurrentLevel(StatType type)
+    public int GetCurrentLevel(StatType type)
     {
         switch (type)
         {
