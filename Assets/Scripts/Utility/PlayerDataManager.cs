@@ -114,7 +114,7 @@ public class PlayerDataManager : MonoBehaviour
     private void LoadAll()
     {
         HealthLevel = PlayerPrefs.GetInt("Level_Health", 1);
-        SpeedLevel = PlayerPrefs.GetInt("Level_Speed", 3);
+        SpeedLevel = PlayerPrefs.GetInt("Level_Speed", 1);
         AttackLevel = PlayerPrefs.GetInt("Level_Attack", 1);
         MoneyMulLevel = PlayerPrefs.GetInt("Level_MoneyMul", 1);
         TotalMoney = PlayerPrefs.GetInt("Wallet_Money", 0);
