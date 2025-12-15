@@ -1,6 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
-
+using UnityEngine.Events;
 public class CookingManager : MonoBehaviour
 {
     public static CookingManager Instance { get; private set; }
@@ -12,6 +12,10 @@ public class CookingManager : MonoBehaviour
 
     [Header("Runtime State")]
     public Recipe currentRecipe;
+
+    [Header("Events")]
+    public UnityEvent<Food> OnFoodSpawned; //Send signal with food data when cooking is finished
+
 
     private void Awake()
     {
@@ -54,6 +58,12 @@ public class CookingManager : MonoBehaviour
         // If we are NOT cooking, try to start
         if (!minigame.IsCooking)
         {
+            if (HotbarManager.Instance == null || HotbarManager.Instance.IsHotbarFull())
+            {
+                print("Cannot start cooking: Hotbar is full or HotbarManager missing.");
+                return;
+            }
+
             if (AttemptStartRecipe(currentRecipe))
             {
                 CookingUIManager.Instance.UpdateCookButtonState(true);
@@ -101,6 +111,7 @@ public class CookingManager : MonoBehaviour
         if (foodTransform.TryGetComponent(out Food foodComponent))
         {
             foodComponent.SetUp(recipe);
+            OnFoodSpawned?.Invoke(foodComponent);
         }
     }
 
