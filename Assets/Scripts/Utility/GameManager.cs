@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get => instance; }
     public LevelsDesign LevelsDesign { get => levelDesign; }
-    public int EarnedMoney { get => earnedMoney; set { earnedMoney = value; onEarnedMoneyChanged.Invoke(); } } 
+    //public int EarnedMoney { get => earnedMoney; set { earnedMoney = value; onEarnedMoneyChanged.Invoke(); } } 
     public int CollectedMoney { get => collectedMoney; set { collectedMoney = value; onCollectedMoneyChanged.Invoke(); } }
     public float LevelStartTime { get => levelStartTime; }
     public bool LevelStarted { get => levelStarted; }
@@ -82,11 +82,17 @@ public class GameManager : MonoBehaviour
         Debug.Log("Endlevel");
         if (!levelStarted || !gameStarted) return;
 
-        earnedMoney += collectedMoney;
+        //earnedMoney += collectedMoney;
+
+        // Give money to player data manager
+        if (PlayerDataManager.Instance != null)
+        {
+            PlayerDataManager.Instance.EarnMoney(collectedMoney);
+        }
 
         levelStarted = false;
 
-        bool win = earnedMoney >= GetCurrentLevelDetail().TargetMoney;
+        bool win = collectedMoney >= GetCurrentLevelDetail().TargetMoney;
 
         Debug.Log($"End level, win: {win}");
 
