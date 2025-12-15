@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 5370916520710431149}
   - component: {fileID: 989364987402034657}
   - component: {fileID: 7508952235099122289}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pig
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -262,12 +262,12 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4386769147766901124}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.0001
-  m_LinearDamping: 0
+  m_LinearDamping: 10
   m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}

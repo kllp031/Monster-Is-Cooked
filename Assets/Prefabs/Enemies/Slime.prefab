@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 7508952235099122289}
   - component: {fileID: 3008123092494844816}
   - component: {fileID: 7478317011471170885}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Slime
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -288,12 +288,12 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4386769147766901124}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.0001
-  m_LinearDamping: 0
+  m_LinearDamping: 20
   m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -335,8 +335,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackCooldown: 1.5
-  dashSpeed: 10
-  dashDuration: 0.3
+  dashSpeed: 40
+  dashDuration: 0.5
   damageAreaPrefab: {fileID: 4015110710272122483}
 --- !u!58 &7478317011471170885
 CircleCollider2D:

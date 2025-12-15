@@ -20,9 +20,9 @@ GameObject:
   - component: {fileID: 3070312616819003423}
   - component: {fileID: 3295086131417113482}
   - component: {fileID: 8395950838598475222}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Trunk
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -266,12 +266,12 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 483601699737180059}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.0001
-  m_LinearDamping: 0
+  m_LinearDamping: 30
   m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}

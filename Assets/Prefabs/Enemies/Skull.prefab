@@ -262,12 +262,12 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1414997399478777626}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.0001
-  m_LinearDamping: 0
+  m_LinearDamping: 10
   m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 2370853445592661711}
   - component: {fileID: 4864203283963411376}
   - component: {fileID: 6965371212244634410}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: SkullDamageArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}

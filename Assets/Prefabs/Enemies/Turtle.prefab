@@ -18,9 +18,9 @@ GameObject:
   - component: {fileID: 8031024437997283880}
   - component: {fileID: 8258047156857433848}
   - component: {fileID: 3070312616819003423}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Turtle
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackCooldown: 1.5
-  _shootType: 0
+  _shootType: 1
   _bulletPrefab: {fileID: 4398427068401593626, guid: 7316a418cc54c7a4fa5359de18df2ea6, type: 3}
   _firePoint: {fileID: 0}
   _bulletCount: 6
@@ -174,10 +174,10 @@ MonoBehaviour:
   hurtSound: {fileID: 8300000, guid: 4220e2ff94b02024ba9730a6dd83dda2, type: 3}
   dieSound: {fileID: 8300000, guid: 410abd23352033a419bb46a27210ef6d, type: 3}
   chaseRange: 10
-  attackRange: 10
+  attackRange: 3
   timeToIdle: 0
   enemyAttack: {fileID: 8929811139552048039}
-  timeToAttack: 0
+  timeToAttack: 2
   _patrolSpeed: 2
   _minMoveTime: 2
   _maxMoveTime: 5
@@ -262,12 +262,12 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 483601699737180059}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.0001
-  m_LinearDamping: 0
+  m_LinearDamping: 20
   m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
