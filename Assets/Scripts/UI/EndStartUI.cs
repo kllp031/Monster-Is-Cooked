@@ -17,7 +17,7 @@ public class EndStartUI : MonoBehaviour
     [SerializeField] TMP_Text startUICustomersText;
     [SerializeField] TMP_Text startUIGoalText;
 
-    [SerializeField] TMP_Text endUICustomerText;
+    [SerializeField] TMP_Text endUITargetText;
     [SerializeField] TMP_Text endUICoinTxt;
 
     [SerializeField] Image BGImage;
@@ -44,8 +44,14 @@ public class EndStartUI : MonoBehaviour
             return;
         }
 
+        if (PlayerDataManager.Instance == null)
+        {
+            Debug.LogError("EndStartUI: PlayerDataManager instance not found!");
+            return;
+        }
+
         GameManager.Instance.OnLevelEnd.AddListener(OnLevelEnd);
-        GameManager.Instance.OnCollectedMoneyChanged.AddListener(OnUpdateCoinChange);
+        PlayerDataManager.Instance.onMoneyChanged.AddListener(OnUpdateCoinChange);
 
         if (startUI) _startUiOrigin = startUI.anchoredPosition;
         if (endUI) _endUiOrigin = endUI.anchoredPosition;
@@ -120,19 +126,18 @@ public class EndStartUI : MonoBehaviour
             return;
         }
 
-        int targetMoney = currentLevel.TargetMoney;
         int collectedMoney = GameManager.Instance.CollectedMoney;
-        int customerCount = currentLevel != null && currentLevel.CustomerDetails != null
-            ? currentLevel.CustomerDetails.Count
-            : 0;
+        int targetMoney = currentLevel.TargetMoney;
+        int totalMoney = PlayerDataManager.Instance.TotalMoney;
 
         //endUICoinTxt.text = collectedMoney.ToString();
-        endUICustomerText.text = customerCount.ToString() + "/" + customerCount.ToString();
+        endUITargetText.text = collectedMoney.ToString() + "/" + targetMoney.ToString();
+        endUICoinTxt.text = totalMoney.ToString();
     }
 
     private void OnUpdateCoinChange()
     {
-        UpdateEndUICoins(GameManager.Instance.CollectedMoney);
+        UpdateEndUICoins(PlayerDataManager.Instance.TotalMoney);
     }
 
     private void OnLevelEnd(bool isWin)
