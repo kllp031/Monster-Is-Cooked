@@ -16,11 +16,11 @@ MonoBehaviour:
   levels:
   - health: 1
     healthCost: 1
-    speed: 1
+    speed: 3.5
     speedCost: 1
     attack: 1
     attackCost: 1
-    moneyMultiplier: 1
+    moneyMultiplier: 0.05
     moneyMulCost: 1
   - health: 2
     healthCost: 2
@@ -28,7 +28,7 @@ MonoBehaviour:
     speedCost: 2
     attack: 2
     attackCost: 2
-    moneyMultiplier: 2
+    moneyMultiplier: 0.1
     moneyMulCost: 2
   - health: 3
     healthCost: 3
@@ -36,7 +36,7 @@ MonoBehaviour:
     speedCost: 3
     attack: 3
     attackCost: 3
-    moneyMultiplier: 3
+    moneyMultiplier: 0.15
     moneyMulCost: 3
   - health: 4
     healthCost: 4

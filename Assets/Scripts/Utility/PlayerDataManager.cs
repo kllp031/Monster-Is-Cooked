@@ -99,8 +99,9 @@ public class PlayerDataManager : MonoBehaviour
 
     public void EarnMoney(int baseAmount)
     {
-        int finalAmount = Mathf.RoundToInt(baseAmount * CurrentMoneyMul);
-        TotalMoney += finalAmount;
+        //int finalAmount = Mathf.RoundToInt(baseAmount * CurrentMoneyMul);
+        //TotalMoney += finalAmount;
+        TotalMoney += baseAmount;
 
         PlayerPrefs.SetInt("Wallet_Money", TotalMoney);
 

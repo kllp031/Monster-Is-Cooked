@@ -97453,6 +97453,9 @@ MonoBehaviour:
   minigame: {fileID: 3671001638722245108}
   spawnFoodPosition: {fileID: 106280755}
   currentRecipe: {fileID: 0}
+  OnFoodSpawned:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1998743214859518295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99703,7 +99706,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: -1347519038, guid: 771ab0c1cda57f840bae2aa69993f41b, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -109884,7 +109887,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
+    m_Left: 20
     m_Right: 0
     m_Top: 0
     m_Bottom: 0

@@ -64,7 +64,8 @@ public class GameManager : MonoBehaviour
         if (!gameStarted) { Debug.LogWarning("Can't start level because the game hasn't started!"); return; }
         if (levelStarted) { Debug.LogWarning("Level has already started!"); return; }
 
-        collectedMoney = 0;
+        //collectedMoney = 0;
+        CollectedMoney = (int)(collectedMoney * PlayerDataManager.Instance.CurrentMoneyMul); // Apply money multiplier
         levelStartTime = Time.time; // Save the starting time of this level -> Customer spawner will later use this value
         levelStarted = true;
         onLevelStart.Invoke();
