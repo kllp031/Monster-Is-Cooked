@@ -160,7 +160,7 @@ public class PlayerDataManager : MonoBehaviour
 
     // ... GetCurrentLevel, GetCostForLevelIndex, ApplyUpgrade helper methods remain the same ...
     // (Included for completeness of the script if you copy-paste)
-    private int GetCurrentLevel(StatType type)
+    public int GetCurrentLevel(StatType type)
     {
         switch (type)
         {
