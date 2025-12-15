@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using System.Threading;
 using Unity.VisualScripting;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class KnightController : MonoBehaviour
@@ -26,6 +27,8 @@ public class KnightController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private Health health;
+
+    [SerializeField] private Image dashCooldownEffect;
 
     private void Awake()
     {
@@ -91,6 +94,9 @@ public class KnightController : MonoBehaviour
         isDashing = true;
         canDash = false;
 
+        // Set dash cooldown UI
+        dashCooldownEffect.fillAmount = 1;
+
         Vector2 dashDir = moveInput.normalized;
         float timer = 0f;
 
@@ -141,6 +147,18 @@ public class KnightController : MonoBehaviour
         rb.MovePosition(rb.position + move);
     }
 
+    private void Update()
+    {
+       //Update dash cooldown UI
+       if (!canDash)
+          {
+                dashCooldownEffect.fillAmount -= 1f / dashCooldown * Time.deltaTime;
+                if (dashCooldownEffect.fillAmount < 0)
+                 dashCooldownEffect.fillAmount = 0;
+          }
+
+    }
+
     public Vector2 GetMoveInput()
     {
         return moveInput;
@@ -151,7 +169,7 @@ public class KnightController : MonoBehaviour
     private void CreateAfterImage()
     {
         GameObject img = Instantiate(afterImagePrefab, transform.position, Quaternion.identity);
-        img.transform.localScale = transform.localScale; 
+        img.transform.localScale = transform.localScale;
     }
 
     public void SetIsHurting(bool isHurting)
