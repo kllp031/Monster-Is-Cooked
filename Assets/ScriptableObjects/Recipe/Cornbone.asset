@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: CornBone
   icon: {fileID: -1635626175, guid: 1ebee072aef9aca47b28a26f5558ad14, type: 3}
-  price: 60
+  price: 70
   ingredients:
   - ingredient: {fileID: 11400000, guid: b0680b07817b00248bb2090c7f044d33, type: 2}
     amount: 1

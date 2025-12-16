@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: MeatBall
   icon: {fileID: -2086510259, guid: 1ebee072aef9aca47b28a26f5558ad14, type: 3}
-  price: 55
+  price: 30
   ingredients:
   - ingredient: {fileID: 11400000, guid: f09d945c4fd0ee84a9f5926b25d8f78b, type: 2}
     amount: 1
   - ingredient: {fileID: 11400000, guid: 876d2632d1cf5324585ddc0ec5305560, type: 2}
-    amount: 2
+    amount: 1

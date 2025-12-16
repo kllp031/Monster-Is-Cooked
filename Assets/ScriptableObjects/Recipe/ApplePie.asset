@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: ApplePie
   icon: {fileID: 21300000, guid: 849b5da8cd3dc0a428bc921c66b6f435, type: 3}
-  price: 45
+  price: 10
   ingredients:
   - ingredient: {fileID: 11400000, guid: 20a67169fc0b67946abdf5f553d17625, type: 2}
     amount: 1
