@@ -988,11 +988,6 @@ MonoBehaviour:
   topLeft: {x: -1000, y: 500}
   bottomRight: {x: 1000, y: -500}
   homeArea: {fileID: 11400000, guid: fe6aa0b7439f0254fa0205be600358d0, type: 2}
-  dashButton: {fileID: 0}
-  throwButton: {fileID: 0}
-  attackButton: {fileID: 0}
-  interacteButton: {fileID: 0}
-  hotBar: {fileID: 0}
 --- !u!1 &521247227
 GameObject:
   m_ObjectHideFlags: 0
@@ -3311,6 +3306,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tablesList: []
+--- !u!4 &803730730 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8143193333294019506, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
+  m_PrefabInstance: {fileID: 6455266015340119239}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &806217790 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 968539877847139341, guid: 7c661b4d40042dd4cb12911fb8def45f, type: 3}
@@ -4519,11 +4519,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8135886326569738822, guid: 56fae09712773584fb63896d473a98ee, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 550.6871
+      value: 400.0005
       objectReference: {fileID: 0}
     - target: {fileID: 8135886326569738822, guid: 56fae09712773584fb63896d473a98ee, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 510
+      value: 463.4778
       objectReference: {fileID: 0}
     - target: {fileID: 8135886326569738822, guid: 56fae09712773584fb63896d473a98ee, type: 3}
       propertyPath: m_LocalPosition.x
@@ -91553,7 +91553,7 @@ PrefabInstance:
     - target: {fileID: 4606237362701928719, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
       propertyPath: playerGroundPosition
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 803730730}
     - target: {fileID: 5593272464289720099, guid: f2adf79ac891aaf44b79f5fabf41483e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.63
