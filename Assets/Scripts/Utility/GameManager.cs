@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     public float LevelStartTime { get => levelStartTime; }
     public bool LevelStarted { get => levelStarted; }
     public bool GameStarted { get => gameStarted; }
+    public int LevelNumber { get => levelNumber; set => levelNumber = value; }
 
     private void Awake()
     {

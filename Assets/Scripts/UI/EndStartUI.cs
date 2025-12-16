@@ -16,6 +16,7 @@ public class EndStartUI : MonoBehaviour
 
     [SerializeField] TMP_Text startUICustomersText;
     [SerializeField] TMP_Text startUIGoalText;
+    [SerializeField] TMP_Text startUIDayText;
 
     [SerializeField] TMP_Text endUITargetText;
     [SerializeField] TMP_Text endUICoinTxt;
@@ -99,9 +100,11 @@ public class EndStartUI : MonoBehaviour
         int customerCount = currentLevel != null && currentLevel.CustomerDetails != null
             ? currentLevel.CustomerDetails.Count
             : 0;
+        int currentDay = GameManager.Instance.LevelNumber + 1;
 
         startUICustomersText.text = customerCount.ToString();
         startUIGoalText.text = "0/" + targetMoney.ToString();
+        startUIDayText.text = "Day " + currentDay.ToString();
     }
 
     private void SetUpEndUI()
@@ -225,6 +228,7 @@ public class EndStartUI : MonoBehaviour
         // If we are showing the Start Screen, we definitely want the BG (true).
         // If we are hiding it, we let the animation handle the fade out.
         _startRoutine = StartCoroutine(AnimateUI(startUI, _startUiOrigin, show));
+        SetUpStartUI();
     }
 
     public void ToggleEndScreen(bool show)
