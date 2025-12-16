@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Bacon
   m_EditorClassIdentifier: 
   ingredientName: Bacon
-  icon: {fileID: 1076573605, guid: 1ebee072aef9aca47b28a26f5558ad14, type: 3}
+  icon: {fileID: 866639033, guid: 1ebee072aef9aca47b28a26f5558ad14, type: 3}
