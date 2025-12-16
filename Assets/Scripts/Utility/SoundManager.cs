@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
@@ -10,6 +11,7 @@ public class SoundManager : MonoBehaviour
 
     [Header("Audio Clip")]
     [Header("Theme music")]
+    public float fadeDuration = 2.0f;
     public AudioClip cookingMusic;
     public AudioClip battleMusic;
 
@@ -57,7 +59,10 @@ public class SoundManager : MonoBehaviour
 
         musicSource.clip = clip;
         musicSource.loop = true;
+
+        musicSource.volume = 0f;
         musicSource.Play();
+        StartCoroutine(FadeIn());
     }
 
     public void PlaySFX(AudioClip clip, float volume = 1f)
@@ -67,4 +72,17 @@ public class SoundManager : MonoBehaviour
         sfxSource.PlayOneShot(clip, volume);
     }
 
+    IEnumerator FadeIn()
+    {
+        float currentTime = 0;
+
+        while (currentTime < fadeDuration)
+        {
+            currentTime += Time.deltaTime;
+            musicSource.volume = Mathf.Lerp(0f, 1f, currentTime / fadeDuration);
+            yield return null; 
+        }
+
+        musicSource.volume = 1f;
+    }
 }

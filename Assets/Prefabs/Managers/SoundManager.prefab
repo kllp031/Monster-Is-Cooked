@@ -48,9 +48,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 6957208869011929784}
   sfxSource: {fileID: 6689183926630160961}
+  fadeDuration: 3
   cookingMusic: {fileID: 8300000, guid: 5c5c4188c2fe99c4bb7b187cd93dafbe, type: 3}
   battleMusic: {fileID: 8300000, guid: 17b7c1ce24c068243bb642ec26a30c50, type: 3}
   playerAttack: {fileID: 8300000, guid: f903b95072a2885408c782060b373431, type: 3}
+  metalHit: {fileID: 8300000, guid: 13a4ced3ca692db43b38816c67ac0f41, type: 3}
   playerDash: {fileID: 8300000, guid: 15cd52de734c77544b959e2da3ed3b58, type: 3}
   playerCollect: {fileID: 8300000, guid: e00e603b5c8ad1b47b3c1b4e0907c257, type: 3}
   playerThrow: {fileID: 8300000, guid: 7df0eec486cfc464cb62aaa1434a8eef, type: 3}
