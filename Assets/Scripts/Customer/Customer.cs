@@ -11,6 +11,7 @@ public class Customer : MonoBehaviour, IInteractable
         Happy,
         Neutral,
         Angry,
+        Hate,
         Embarrassed
     }
     [Header("Customer Settings")]
@@ -21,6 +22,7 @@ public class Customer : MonoBehaviour, IInteractable
         new CoinEarnPercentagePerMood(Mood.Happy, 1.0f),
         new CoinEarnPercentagePerMood(Mood.Neutral, 0.5f),
         new CoinEarnPercentagePerMood(Mood.Angry, 0.1f),
+        new CoinEarnPercentagePerMood(Mood.Hate, 0.0f),
         new CoinEarnPercentagePerMood(Mood.Embarrassed, 0.0f)
     };
     [SerializeField] Mood mood = Mood.Happy;
@@ -123,7 +125,7 @@ public class Customer : MonoBehaviour, IInteractable
                 Food receivedFood = obj.GetComponent<FoodHolder>().HeldFood;
                 if (receivedFood != null)
                 {
-                    if (!ProcessFood(receivedFood.Recipe)) SetMood(Mood.Angry);
+                    if (!ProcessFood(receivedFood.Recipe)) SetMood(Mood.Hate);
                     obj.GetComponent<FoodHolder>().ServeFood();
                     float percentage = GetCoinEarnPercentage(mood);
                     if (GameManager.Instance != null) GameManager.Instance.CollectedMoney += (int)(percentage * (float)customerDetail.FoodRequest.Price);
