@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using System.Threading;
@@ -30,6 +30,11 @@ public class KnightController : MonoBehaviour
 
     [SerializeField] private Image dashCooldownEffect;
 
+    [SerializeField] private Joystick dynamicJoystick; // Joystick Pack
+    [SerializeField] private float deadZone = 0.05f;
+    private Vector2 inputFromJoystick;
+    private bool isUsingJoystick = false;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -46,18 +51,10 @@ public class KnightController : MonoBehaviour
     // -------------------------
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (health.isDeath)
+        if (health.isDeath || isUsingJoystick)
             return;
 
         moveInput = context.ReadValue<Vector2>();
-
-        animator.SetBool("isRunning", moveInput != Vector2.zero);
-
-        // Flip
-        if (moveInput.x > 0)
-            transform.localScale = new Vector3(-1, 1, 1);
-        else if (moveInput.x < 0)
-            transform.localScale = new Vector3(1, 1, 1);
     }
 
     // -------------------------
@@ -143,6 +140,7 @@ public class KnightController : MonoBehaviour
             }
         }
 
+        Debug.Log("input move" + moveInput);
         Vector2 move = moveInput * PlayerDataManager.Instance.CurrentSpeed * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + move);
     }
@@ -156,6 +154,42 @@ public class KnightController : MonoBehaviour
                 if (dashCooldownEffect.fillAmount < 0)
                  dashCooldownEffect.fillAmount = 0;
           }
+
+        // Input từ joystick UI
+        if (dynamicJoystick != null)
+        {
+            inputFromJoystick = new Vector2(
+                dynamicJoystick.Horizontal,
+                dynamicJoystick.Vertical
+            );
+
+            if (inputFromJoystick.magnitude > deadZone)
+            {
+                isUsingJoystick = true;
+                moveInput = inputFromJoystick;
+            }
+            else if (isUsingJoystick)
+            {
+                // vừa thả joystick
+                isUsingJoystick = false;
+                moveInput = Vector2.zero;
+            }
+
+            Debug.Log("dynamicJoystick" + inputFromJoystick);
+        }
+
+       
+
+        Debug.Log("input move after check joystick" + moveInput);
+
+        // Animator
+        animator.SetBool("isRunning", moveInput != Vector2.zero);
+
+        // Flip
+        if (moveInput.x > 0)
+            transform.localScale = new Vector3(-1, 1, 1);
+        else if (moveInput.x < 0)
+            transform.localScale = new Vector3(1, 1, 1);
 
     }
 
