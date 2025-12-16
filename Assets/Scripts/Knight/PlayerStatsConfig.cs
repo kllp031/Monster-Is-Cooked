@@ -24,9 +24,9 @@ public class PlayerStatsConfig : ScriptableObject
         public int attackCost;
 
         // ============ MONEY MULTIPLIER ============
-        [Header("Money Multiplier")]
-        public float moneyMultiplier;
-        public int moneyMulCost;
+        [Header("Bonus Money")]
+        public int bonusMoney;
+        public int bonusMoneyCost;
     }
 
     [Header("Configuration")]

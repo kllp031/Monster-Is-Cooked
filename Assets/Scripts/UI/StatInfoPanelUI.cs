@@ -37,7 +37,7 @@ public class StatInfoPanelUI : MonoBehaviour
         if (PlayerDataManager.Instance == null) return;
         atkText.text = "ATK: " + PlayerDataManager.Instance.CurrentAttack.ToString();
         speedText.text = "SPD: " + PlayerDataManager.Instance.CurrentSpeed.ToString("F1");
-        healthText.text = "HEALTH " + PlayerDataManager.Instance.CurrentMaxHealth.ToString();
-        moneyMulText.text = "BONUS MONEY: " + PlayerDataManager.Instance.CurrentMoneyMul.ToString("F1") + "x";
+        healthText.text = "HEALTH: " + PlayerDataManager.Instance.CurrentMaxHealth.ToString();
+        moneyMulText.text = "BONUS MONEY: " + PlayerDataManager.Instance.BonusMoneyLevel.ToString();
     }
 }

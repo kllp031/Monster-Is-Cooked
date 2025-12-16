@@ -14,83 +14,83 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLevel: 10
   levels:
-  - health: 1
+  - health: 5
     healthCost: 1
-    speed: 3.5
-    speedCost: 1
-    attack: 1
-    attackCost: 1
-    moneyMultiplier: 0.05
-    moneyMulCost: 1
-  - health: 2
-    healthCost: 2
     speed: 2
+    speedCost: 3
+    attack: 5
+    attackCost: 1
+    bonusMoney: 0
+    bonusMoneyCost: 0
+  - health: 7
+    healthCost: 2
+    speed: 2.5
     speedCost: 2
-    attack: 2
+    attack: 8
     attackCost: 2
-    moneyMultiplier: 0.1
-    moneyMulCost: 2
-  - health: 3
+    bonusMoney: 0
+    bonusMoneyCost: 0
+  - health: 9
     healthCost: 3
     speed: 3
     speedCost: 3
-    attack: 3
+    attack: 11
     attackCost: 3
-    moneyMultiplier: 0.15
-    moneyMulCost: 3
-  - health: 4
+    bonusMoney: 0
+    bonusMoneyCost: 0
+  - health: 11
     healthCost: 4
-    speed: 4
+    speed: 4.5
     speedCost: 4
-    attack: 4
+    attack: 14
     attackCost: 4
-    moneyMultiplier: 4
-    moneyMulCost: 4
-  - health: 5
+    bonusMoney: 0
+    bonusMoneyCost: 0
+  - health: 13
     healthCost: 5
     speed: 5
     speedCost: 5
-    attack: 5
+    attack: 17
     attackCost: 5
-    moneyMultiplier: 5
-    moneyMulCost: 5
-  - health: 6
+    bonusMoney: 0
+    bonusMoneyCost: 0
+  - health: 15
     healthCost: 6
-    speed: 6
+    speed: 5.5
     speedCost: 6
-    attack: 6
+    attack: 20
     attackCost: 6
-    moneyMultiplier: 0
-    moneyMulCost: 6
-  - health: 7
+    bonusMoney: 0
+    bonusMoneyCost: 0
+  - health: 17
     healthCost: 7
-    speed: 7
+    speed: 6
     speedCost: 7
-    attack: 7
+    attack: 23
     attackCost: 7
-    moneyMultiplier: 7
-    moneyMulCost: 7
-  - health: 8
+    bonusMoney: 0
+    bonusMoneyCost: 0
+  - health: 19
     healthCost: 8
-    speed: 8
+    speed: 6.5
     speedCost: 8
-    attack: 8
+    attack: 26
     attackCost: 8
-    moneyMultiplier: 8
-    moneyMulCost: 8
-  - health: 9
+    bonusMoney: 0
+    bonusMoneyCost: 0
+  - health: 21
     healthCost: 9
-    speed: 9
+    speed: 7
     speedCost: 9
-    attack: 9
+    attack: 29
     attackCost: 9
-    moneyMultiplier: 9
-    moneyMulCost: 9
-  - health: 10
+    bonusMoney: 0
+    bonusMoneyCost: 0
+  - health: 23
     healthCost: 10
-    speed: 10
+    speed: 7.5
     speedCost: 10
-    attack: 10
+    attack: 32
     attackCost: 10
-    moneyMultiplier: 10
-    moneyMulCost: 10
+    bonusMoney: 0
+    bonusMoneyCost: 0

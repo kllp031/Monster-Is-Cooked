@@ -8,7 +8,7 @@ public class PlayerDataManager : MonoBehaviour
         Health,
         Speed,
         Attack,
-        MoneyMul
+        BonusMoney
     }
 
     public static PlayerDataManager Instance { get; private set; }
@@ -31,7 +31,7 @@ public class PlayerDataManager : MonoBehaviour
     public int CurrentMaxHealth { get; private set; }
     public float CurrentSpeed { get; private set; }
     public int CurrentAttack { get; private set; }
-    public float CurrentMoneyMul { get; private set; }
+    public int CurrentBonusMoney { get; private set; }
 
     public int TotalMoney { get; private set; }
     public int Level { get; private set; }
@@ -40,7 +40,7 @@ public class PlayerDataManager : MonoBehaviour
     public int HealthLevel { get; private set; }
     public int SpeedLevel { get; private set; }
     public int AttackLevel { get; private set; }
-    public int MoneyMulLevel { get; private set; }
+    public int BonusMoneyLevel { get; private set; }
 
     private void Awake()
     {
@@ -116,7 +116,7 @@ public class PlayerDataManager : MonoBehaviour
         HealthLevel = PlayerPrefs.GetInt("Level_Health", 1);
         SpeedLevel = PlayerPrefs.GetInt("Level_Speed", 1);
         AttackLevel = PlayerPrefs.GetInt("Level_Attack", 1);
-        MoneyMulLevel = PlayerPrefs.GetInt("Level_MoneyMul", 1);
+        BonusMoneyLevel = PlayerPrefs.GetInt("Level_MoneyMul", 1);
         TotalMoney = PlayerPrefs.GetInt("Wallet_Money", 0);
         Level = PlayerPrefs.GetInt("Level_Reached", 1);
 
@@ -137,7 +137,7 @@ public class PlayerDataManager : MonoBehaviour
         CurrentMaxHealth = levels[Mathf.Clamp(HealthLevel - 1, 0, maxIndex)].health;
         CurrentSpeed = levels[Mathf.Clamp(SpeedLevel - 1, 0, maxIndex)].speed;
         CurrentAttack = levels[Mathf.Clamp(AttackLevel - 1, 0, maxIndex)].attack;
-        CurrentMoneyMul = levels[Mathf.Clamp(MoneyMulLevel - 1, 0, maxIndex)].moneyMultiplier;
+        CurrentBonusMoney = levels[Mathf.Clamp(BonusMoneyLevel - 1, 0, maxIndex)].bonusMoney;
 
         // 2. Trigger Events
         // If specificType is null, we fire ALL events (happens on Load)
@@ -152,7 +152,7 @@ public class PlayerDataManager : MonoBehaviour
         if (specificType == null || specificType == StatType.Attack)
             onAttackUpgrade.Invoke();
 
-        if (specificType == null || specificType == StatType.MoneyMul)
+        if (specificType == null || specificType == StatType.BonusMoney)
             onMoneyMulUpgrade.Invoke();
 
         if (specificType == null)
@@ -168,7 +168,7 @@ public class PlayerDataManager : MonoBehaviour
             case StatType.Health: return HealthLevel;
             case StatType.Speed: return SpeedLevel;
             case StatType.Attack: return AttackLevel;
-            case StatType.MoneyMul: return MoneyMulLevel;
+            case StatType.BonusMoney: return BonusMoneyLevel;
             default: return 1;
         }
     }
@@ -181,7 +181,7 @@ public class PlayerDataManager : MonoBehaviour
             case StatType.Health: return statsConfig.levels[index].healthCost;
             case StatType.Speed: return statsConfig.levels[index].speedCost;
             case StatType.Attack: return statsConfig.levels[index].attackCost;
-            case StatType.MoneyMul: return statsConfig.levels[index].moneyMulCost;
+            case StatType.BonusMoney: return statsConfig.levels[index].bonusMoney;
             default: return 0;
         }
     }
@@ -193,7 +193,7 @@ public class PlayerDataManager : MonoBehaviour
             case StatType.Health: HealthLevel = newLevel; PlayerPrefs.SetInt("Level_Health", HealthLevel); break;
             case StatType.Speed: SpeedLevel = newLevel; PlayerPrefs.SetInt("Level_Speed", SpeedLevel); break;
             case StatType.Attack: AttackLevel = newLevel; PlayerPrefs.SetInt("Level_Attack", AttackLevel); break;
-            case StatType.MoneyMul: MoneyMulLevel = newLevel; PlayerPrefs.SetInt("Level_MoneyMul", MoneyMulLevel); break;
+            case StatType.BonusMoney: BonusMoneyLevel = newLevel; PlayerPrefs.SetInt("Level_MoneyMul", BonusMoneyLevel); break;
         }
     }
 

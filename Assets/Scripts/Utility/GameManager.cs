@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] UnityEvent onCollectedMoneyChanged = new();
 
     private static GameManager instance = null;
-    private int levelNumber; // Store Level Number
+    [SerializeField] private int levelNumber; // Store Level Number
     private bool gameStarted = false;
     [SerializeField] private bool levelStarted = false;
     private float levelStartTime = 0;
@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
         if (levelStarted) { Debug.LogWarning("Level has already started!"); return; }
 
         //collectedMoney = 0;
-        CollectedMoney = (int)(collectedMoney * PlayerDataManager.Instance.CurrentMoneyMul); // Apply money multiplier
+        CollectedMoney = PlayerDataManager.Instance.CurrentBonusMoney;
         levelStartTime = Time.time; // Save the starting time of this level -> Customer spawner will later use this value
         levelStarted = true;
         onLevelStart.Invoke();
