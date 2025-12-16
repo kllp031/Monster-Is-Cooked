@@ -54,7 +54,7 @@ public class KnightController : MonoBehaviour
         if (health.isDeath || isUsingJoystick)
             return;
 
-        moveInput = context.ReadValue<Vector2>();
+        moveInput = context.ReadValue<Vector2>().normalized;
     }
 
     // -------------------------
@@ -160,7 +160,7 @@ public class KnightController : MonoBehaviour
             inputFromJoystick = new Vector2(
                 dynamicJoystick.Horizontal,
                 dynamicJoystick.Vertical
-            );
+            ).normalized;
 
             if (inputFromJoystick.magnitude > deadZone)
             {

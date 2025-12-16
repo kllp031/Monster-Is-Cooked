@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: KiwiCake
   icon: {fileID: -6366649602521467861, guid: 4ba45e274222dce45ad51edfd6831e4d, type: 3}
-  price: 55
+  price: 15
   ingredients:
   - ingredient: {fileID: 11400000, guid: bd88917f0b7e6e847ae57212410ab123, type: 2}
     amount: 1

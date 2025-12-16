@@ -65,6 +65,11 @@ public class SoundManager : MonoBehaviour
         StartCoroutine(FadeIn());
     }
 
+    public void PlayeBattleMusic()
+    {
+        PlayMusic(battleMusic);
+    }    
+
     public void PlaySFX(AudioClip clip, float volume = 1f)
     {
         /*float randomPitch = 1f + Random.Range(-pitchVar, pitchVar);

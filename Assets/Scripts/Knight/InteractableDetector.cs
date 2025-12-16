@@ -36,4 +36,9 @@ public class InteractableDetector : MonoBehaviour
             interactable?.OnInteract(this.gameObject);
         }
     }
+
+    public void OnInteract()
+    {
+        interactable?.OnInteract(this.gameObject);
+    }    
 }
