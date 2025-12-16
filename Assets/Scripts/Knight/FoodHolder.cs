@@ -10,6 +10,7 @@ public class FoodHolder : MonoBehaviour
 {
     //private Food heldFood;
     [SerializeField] Transform foodPivot;
+    [SerializeField] SpriteRenderer foodPlaceHolder;
     [SerializeField] GameObject dropFoodButton;
     [SerializeField] GameObject throwButton;
     [SerializeField] GameObject targetCircle;
@@ -58,10 +59,20 @@ public class FoodHolder : MonoBehaviour
             if (dropFoodButton != null) dropFoodButton.SetActive(true);
             if (throwButton != null) throwButton.SetActive(true);
 
-            HeldFood.transform.position = foodPivot.position;
+            //HeldFood.transform.position = foodPivot.position;
+            if (foodPlaceHolder != null)
+            {
+                foodPlaceHolder.gameObject.SetActive(true);
+                foodPlaceHolder.sprite = HeldFood.Recipe.Icon;
+            }
         }
         else
         {
+            if (foodPlaceHolder != null)
+            {
+                foodPlaceHolder.gameObject.SetActive(false);
+            }
+
             if (dropFoodButton != null) dropFoodButton?.SetActive(false);
             if (throwButton != null) throwButton?.SetActive(false);
         }
@@ -78,6 +89,7 @@ public class FoodHolder : MonoBehaviour
     {
         if (HeldFood == null) return;
         // Drop the food
+        HeldFood.gameObject.SetActive(true);
         HeldFood.transform.position = transform.position + (transform.lossyScale.x <= 0 ? Vector3.right : Vector3.left);
         if (HotbarManager.Instance != null) HotbarManager.Instance.RemoveSelectedFood();
     }
@@ -147,7 +159,9 @@ public class FoodHolder : MonoBehaviour
         StopThrowFood();
 
         if (targetCircle == null || HeldFood == null || playerGroundPosition == null) return;
-        
+
+        HeldFood.gameObject.SetActive(true);
+
         Vector2 groundStartPoint = (Vector2)playerGroundPosition.position + throwDirection.normalized * throwStartDistance;
         Vector2 groundEndPoint = targetCircle.transform.position;
 

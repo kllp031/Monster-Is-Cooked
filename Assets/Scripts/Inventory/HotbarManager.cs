@@ -99,8 +99,8 @@ public class HotbarManager : MonoBehaviour
         }
         // Activate the selected slot
         selectedSlotIndex = index;
-        if (hotbarSlots[selectedSlotIndex] != null)
-            hotbarSlots[selectedSlotIndex].gameObject.SetActive(true);
+        //if (hotbarSlots[selectedSlotIndex] != null)
+        //    hotbarSlots[selectedSlotIndex].gameObject.SetActive(true);
         OnSelectionChanged?.Invoke(selectedSlotIndex);
 
         //Recipe r = hotbarSlots[index];
