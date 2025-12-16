@@ -84852,7 +84852,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2907375016737820029, guid: ae7e55c46f96c7b4eb115a6112379a00, type: 3}
       propertyPath: onTeleport.m_PersistentCalls.m_Calls.Array.data[5].m_Mode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2907375016737820029, guid: ae7e55c46f96c7b4eb115a6112379a00, type: 3}
       propertyPath: onExitHome.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -84936,7 +84936,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2907375016737820029, guid: ae7e55c46f96c7b4eb115a6112379a00, type: 3}
       propertyPath: onTeleport.m_PersistentCalls.m_Calls.Array.data[5].m_MethodName
-      value: PlayMusic
+      value: PlayeBattleMusic
       objectReference: {fileID: 0}
     - target: {fileID: 2907375016737820029, guid: ae7e55c46f96c7b4eb115a6112379a00, type: 3}
       propertyPath: onExitHome.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -84981,7 +84981,7 @@ PrefabInstance:
     - target: {fileID: 2907375016737820029, guid: ae7e55c46f96c7b4eb115a6112379a00, type: 3}
       propertyPath: onTeleport.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 8300000, guid: 17b7c1ce24c068243bb642ec26a30c50, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 2907375016737820029, guid: ae7e55c46f96c7b4eb115a6112379a00, type: 3}
       propertyPath: onExitHome.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
@@ -85008,7 +85008,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2907375016737820029, guid: ae7e55c46f96c7b4eb115a6112379a00, type: 3}
       propertyPath: onTeleport.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.AudioClip, UnityEngine
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3130219600225271424, guid: ae7e55c46f96c7b4eb115a6112379a00, type: 3}
       propertyPath: m_LocalScale.x
