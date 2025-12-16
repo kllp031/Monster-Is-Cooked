@@ -892,6 +892,7 @@ MonoBehaviour:
   onCollectedMoneyChanged:
     m_PersistentCalls:
       m_Calls: []
+  levelNumber: 0
   levelStarted: 0
   earnedMoney: 0
   collectedMoney: 0
@@ -85988,6 +85989,34 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1675368945275937184, guid: 7c661b4d40042dd4cb12911fb8def45f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675368945275937184, guid: 7c661b4d40042dd4cb12911fb8def45f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675368945275937184, guid: 7c661b4d40042dd4cb12911fb8def45f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1583106172}
+    - target: {fileID: 1675368945275937184, guid: 7c661b4d40042dd4cb12911fb8def45f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675368945275937184, guid: 7c661b4d40042dd4cb12911fb8def45f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Home
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675368945275937184, guid: 7c661b4d40042dd4cb12911fb8def45f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseGame, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675368945275937184, guid: 7c661b4d40042dd4cb12911fb8def45f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1856075298969445292, guid: 7c661b4d40042dd4cb12911fb8def45f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -87239,6 +87268,34 @@ PrefabInstance:
     - target: {fileID: 8930069003618498497, guid: 7c661b4d40042dd4cb12911fb8def45f, type: 3}
       propertyPath: m_TextWrappingMode
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937204936088839294, guid: 7c661b4d40042dd4cb12911fb8def45f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937204936088839294, guid: 7c661b4d40042dd4cb12911fb8def45f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937204936088839294, guid: 7c661b4d40042dd4cb12911fb8def45f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1583106172}
+    - target: {fileID: 8937204936088839294, guid: 7c661b4d40042dd4cb12911fb8def45f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937204936088839294, guid: 7c661b4d40042dd4cb12911fb8def45f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Home
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937204936088839294, guid: 7c661b4d40042dd4cb12911fb8def45f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseGame, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937204936088839294, guid: 7c661b4d40042dd4cb12911fb8def45f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8940563984889474461, guid: 7c661b4d40042dd4cb12911fb8def45f, type: 3}
       propertyPath: m_AnchorMax.y

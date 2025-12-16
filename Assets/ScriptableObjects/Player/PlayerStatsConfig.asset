@@ -16,81 +16,81 @@ MonoBehaviour:
   levels:
   - health: 5
     healthCost: 1
-    speed: 2
+    speed: 3
     speedCost: 3
     attack: 5
     attackCost: 1
-    bonusMoney: 0
-    bonusMoneyCost: 0
+    bonusMoney: 1
+    bonusMoneyCost: 1
   - health: 7
     healthCost: 2
-    speed: 2.5
+    speed: 3.3
     speedCost: 2
     attack: 8
     attackCost: 2
-    bonusMoney: 0
-    bonusMoneyCost: 0
+    bonusMoney: 2
+    bonusMoneyCost: 1
   - health: 9
     healthCost: 3
-    speed: 3
+    speed: 3.6
     speedCost: 3
     attack: 11
     attackCost: 3
-    bonusMoney: 0
-    bonusMoneyCost: 0
+    bonusMoney: 3
+    bonusMoneyCost: 1
   - health: 11
     healthCost: 4
-    speed: 4.5
+    speed: 3.9
     speedCost: 4
     attack: 14
     attackCost: 4
-    bonusMoney: 0
-    bonusMoneyCost: 0
+    bonusMoney: 4
+    bonusMoneyCost: 1
   - health: 13
     healthCost: 5
-    speed: 5
+    speed: 4.2
     speedCost: 5
     attack: 17
     attackCost: 5
-    bonusMoney: 0
-    bonusMoneyCost: 0
+    bonusMoney: 5
+    bonusMoneyCost: 1
   - health: 15
     healthCost: 6
-    speed: 5.5
+    speed: 4.5
     speedCost: 6
     attack: 20
     attackCost: 6
-    bonusMoney: 0
-    bonusMoneyCost: 0
+    bonusMoney: 6
+    bonusMoneyCost: 1
   - health: 17
     healthCost: 7
-    speed: 6
+    speed: 4.8
     speedCost: 7
     attack: 23
     attackCost: 7
-    bonusMoney: 0
-    bonusMoneyCost: 0
+    bonusMoney: 7
+    bonusMoneyCost: 1
   - health: 19
     healthCost: 8
-    speed: 6.5
+    speed: 5.1
     speedCost: 8
     attack: 26
     attackCost: 8
-    bonusMoney: 0
-    bonusMoneyCost: 0
+    bonusMoney: 8
+    bonusMoneyCost: 1
   - health: 21
     healthCost: 9
-    speed: 7
+    speed: 5.4
     speedCost: 9
     attack: 29
     attackCost: 9
-    bonusMoney: 0
-    bonusMoneyCost: 0
+    bonusMoney: 9
+    bonusMoneyCost: 1
   - health: 23
     healthCost: 10
-    speed: 7.5
+    speed: 5.7
     speedCost: 10
     attack: 32
     attackCost: 10
-    bonusMoney: 0
-    bonusMoneyCost: 0
+    bonusMoney: 10
+    bonusMoneyCost: 1
