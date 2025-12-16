@@ -4693,7 +4693,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4315606021845614079, guid: 2406277beacb95244ad4bf98067ad9ee, type: 3}
       propertyPath: _maxItems
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4315606021845614079, guid: 2406277beacb95244ad4bf98067ad9ee, type: 3}
       propertyPath: _itemPrefab
@@ -5313,6 +5313,10 @@ PrefabInstance:
     - target: {fileID: 4148927677689903238, guid: 2406277beacb95244ad4bf98067ad9ee, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4315606021845614079, guid: 2406277beacb95244ad4bf98067ad9ee, type: 3}
+      propertyPath: _maxItems
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4315606021845614079, guid: 2406277beacb95244ad4bf98067ad9ee, type: 3}
       propertyPath: _itemPrefab
@@ -83816,6 +83820,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4315606021845614079, guid: 2406277beacb95244ad4bf98067ad9ee, type: 3}
+      propertyPath: _maxItems
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4315606021845614079, guid: 2406277beacb95244ad4bf98067ad9ee, type: 3}
       propertyPath: _itemPrefab
       value: 
       objectReference: {fileID: 8502819326897545693, guid: e1632be3b9feeb043ac92cee3ea4ad91, type: 3}
@@ -84629,6 +84637,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4315606021845614079, guid: 2406277beacb95244ad4bf98067ad9ee, type: 3}
+      propertyPath: _maxItems
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4315606021845614079, guid: 2406277beacb95244ad4bf98067ad9ee, type: 3}
       propertyPath: _itemPrefab
       value: 
       objectReference: {fileID: 8502819326897545693, guid: f21a7374e8ec6af4daa37c89e0a2ea2b, type: 3}
@@ -84722,7 +84734,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4315606021845614079, guid: 2406277beacb95244ad4bf98067ad9ee, type: 3}
       propertyPath: _maxItems
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4315606021845614079, guid: 2406277beacb95244ad4bf98067ad9ee, type: 3}
       propertyPath: _itemPrefab
