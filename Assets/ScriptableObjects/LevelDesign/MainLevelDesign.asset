@@ -13,20 +13,66 @@ MonoBehaviour:
   m_Name: MainLevelDesign
   m_EditorClassIdentifier: 
   levelsDetails:
-  - targetMoney: 1
+  - targetMoney: 50
     customerSkins:
     - {fileID: 7108339969198208228, guid: 9f2da363edc872742845077fc915dac2, type: 3}
     - {fileID: 7108339969198208228, guid: 01926dcd5beac0e40b7cb9558d0f6f3b, type: 3}
     - {fileID: 7108339969198208228, guid: 16c4606e140328749b2e3820125ba5ae, type: 3}
+    - {fileID: 7108339969198208228, guid: e11a9a187166ec548971fde08342bcb7, type: 3}
+    - {fileID: 7108339969198208228, guid: 76312ef53c7d3064c8b5a6c7bc9ad788, type: 3}
+    - {fileID: 7108339969198208228, guid: 9066bbc9e2ae2854b8a7962d26bfd2a7, type: 3}
+    - {fileID: 7108339969198208228, guid: 0e01d0c32f9e2bb48abcff98e236ee24, type: 3}
+    - {fileID: 7108339969198208228, guid: b9034ab267793a54c96d527e8c43a3e8, type: 3}
+    - {fileID: 7108339969198208228, guid: 29e57a32801e06f41aa01a61a6ea310f, type: 3}
+    - {fileID: 7108339969198208228, guid: ea19e94c3c499e1408386114a7bbaced, type: 3}
+    - {fileID: 7108339969198208228, guid: 973dc419ada0fc640860c87534e3239c, type: 3}
     customerDetails:
     - waitingTime: 180
       foodRequest: {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
     - waitingTime: 180
       foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
     - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
+    - waitingTime: 180
       foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
+    appearTime:
+    - 5
+    - 10
+    - 20
+    - 20
+    - 30
+    - 35
+    - 40
+    - 40
+    - 50
+    - 50
+    - 60
+    - 60
+    - 70
+    - 85
+    - 95
+  - targetMoney: 100
+    customerSkins:
+    - {fileID: 7108339969198208228, guid: 9f2da363edc872742845077fc915dac2, type: 3}
+    - {fileID: 7108339969198208228, guid: 01926dcd5beac0e40b7cb9558d0f6f3b, type: 3}
+    - {fileID: 7108339969198208228, guid: 16c4606e140328749b2e3820125ba5ae, type: 3}
+    - {fileID: 7108339969198208228, guid: e11a9a187166ec548971fde08342bcb7, type: 3}
+    - {fileID: 7108339969198208228, guid: 76312ef53c7d3064c8b5a6c7bc9ad788, type: 3}
+    - {fileID: 7108339969198208228, guid: 9066bbc9e2ae2854b8a7962d26bfd2a7, type: 3}
+    - {fileID: 7108339969198208228, guid: 0e01d0c32f9e2bb48abcff98e236ee24, type: 3}
+    - {fileID: 7108339969198208228, guid: b9034ab267793a54c96d527e8c43a3e8, type: 3}
+    - {fileID: 7108339969198208228, guid: 29e57a32801e06f41aa01a61a6ea310f, type: 3}
+    - {fileID: 7108339969198208228, guid: ea19e94c3c499e1408386114a7bbaced, type: 3}
+    - {fileID: 7108339969198208228, guid: 973dc419ada0fc640860c87534e3239c, type: 3}
+    customerDetails:
     - waitingTime: 180
       foodRequest: {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
     - waitingTime: 180
       foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
     - waitingTime: 180
@@ -35,25 +81,435 @@ MonoBehaviour:
     - 5
     - 5
     - 10
-    - 10
-    - 10
-    - 10
-  - targetMoney: 1
+    - 20
+    - 30
+    - 35
+    - 40
+    - 40
+    - 50
+    - 50
+    - 60
+    - 60
+    - 70
+    - 85
+    - 95
+  - targetMoney: 150
     customerSkins:
     - {fileID: 7108339969198208228, guid: 9f2da363edc872742845077fc915dac2, type: 3}
     - {fileID: 7108339969198208228, guid: 01926dcd5beac0e40b7cb9558d0f6f3b, type: 3}
     - {fileID: 7108339969198208228, guid: 16c4606e140328749b2e3820125ba5ae, type: 3}
+    - {fileID: 7108339969198208228, guid: e11a9a187166ec548971fde08342bcb7, type: 3}
+    - {fileID: 7108339969198208228, guid: 76312ef53c7d3064c8b5a6c7bc9ad788, type: 3}
+    - {fileID: 7108339969198208228, guid: 9066bbc9e2ae2854b8a7962d26bfd2a7, type: 3}
+    - {fileID: 7108339969198208228, guid: 0e01d0c32f9e2bb48abcff98e236ee24, type: 3}
+    - {fileID: 7108339969198208228, guid: b9034ab267793a54c96d527e8c43a3e8, type: 3}
+    - {fileID: 7108339969198208228, guid: 29e57a32801e06f41aa01a61a6ea310f, type: 3}
+    - {fileID: 7108339969198208228, guid: ea19e94c3c499e1408386114a7bbaced, type: 3}
+    - {fileID: 7108339969198208228, guid: 973dc419ada0fc640860c87534e3239c, type: 3}
     customerDetails:
-    - waitingTime: 60
-      foodRequest: {fileID: 11400000, guid: 414280bd65b5e1941b2032145bd79afd, type: 2}
-    - waitingTime: 5
-      foodRequest: {fileID: 11400000, guid: 414280bd65b5e1941b2032145bd79afd, type: 2}
-    - waitingTime: 5
-      foodRequest: {fileID: 11400000, guid: 414280bd65b5e1941b2032145bd79afd, type: 2}
-    - waitingTime: 5
-      foodRequest: {fileID: 11400000, guid: 414280bd65b5e1941b2032145bd79afd, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 387cfaa81707b9d48b1280f8aab56d03, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 07aad45731bd90d4fa061a56fe602c23, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 07aad45731bd90d4fa061a56fe602c23, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 07aad45731bd90d4fa061a56fe602c23, type: 2}
     appearTime:
     - 5
     - 5
+    - 10
+    - 20
+    - 30
+    - 35
+    - 40
+    - 40
+    - 50
+    - 50
+    - 60
+    - 60
+    - 70
+    - 85
+    - 95
+  - targetMoney: 200
+    customerSkins:
+    - {fileID: 7108339969198208228, guid: 9f2da363edc872742845077fc915dac2, type: 3}
+    - {fileID: 7108339969198208228, guid: 01926dcd5beac0e40b7cb9558d0f6f3b, type: 3}
+    - {fileID: 7108339969198208228, guid: 16c4606e140328749b2e3820125ba5ae, type: 3}
+    - {fileID: 7108339969198208228, guid: e11a9a187166ec548971fde08342bcb7, type: 3}
+    - {fileID: 7108339969198208228, guid: 76312ef53c7d3064c8b5a6c7bc9ad788, type: 3}
+    - {fileID: 7108339969198208228, guid: 9066bbc9e2ae2854b8a7962d26bfd2a7, type: 3}
+    - {fileID: 7108339969198208228, guid: 0e01d0c32f9e2bb48abcff98e236ee24, type: 3}
+    - {fileID: 7108339969198208228, guid: b9034ab267793a54c96d527e8c43a3e8, type: 3}
+    - {fileID: 7108339969198208228, guid: 29e57a32801e06f41aa01a61a6ea310f, type: 3}
+    - {fileID: 7108339969198208228, guid: ea19e94c3c499e1408386114a7bbaced, type: 3}
+    - {fileID: 7108339969198208228, guid: 973dc419ada0fc640860c87534e3239c, type: 3}
+    customerDetails:
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 387cfaa81707b9d48b1280f8aab56d03, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 387cfaa81707b9d48b1280f8aab56d03, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 07aad45731bd90d4fa061a56fe602c23, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 07aad45731bd90d4fa061a56fe602c23, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 07aad45731bd90d4fa061a56fe602c23, type: 2}
+    appearTime:
+    - 5
+    - 10
+    - 20
+    - 20
+    - 30
+    - 35
+    - 40
+    - 40
+    - 50
+    - 50
+    - 60
+    - 60
+    - 70
+    - 85
+    - 95
+  - targetMoney: 300
+    customerSkins:
+    - {fileID: 7108339969198208228, guid: 9f2da363edc872742845077fc915dac2, type: 3}
+    - {fileID: 7108339969198208228, guid: 01926dcd5beac0e40b7cb9558d0f6f3b, type: 3}
+    - {fileID: 7108339969198208228, guid: 16c4606e140328749b2e3820125ba5ae, type: 3}
+    - {fileID: 7108339969198208228, guid: e11a9a187166ec548971fde08342bcb7, type: 3}
+    - {fileID: 7108339969198208228, guid: 76312ef53c7d3064c8b5a6c7bc9ad788, type: 3}
+    - {fileID: 7108339969198208228, guid: 9066bbc9e2ae2854b8a7962d26bfd2a7, type: 3}
+    - {fileID: 7108339969198208228, guid: 0e01d0c32f9e2bb48abcff98e236ee24, type: 3}
+    - {fileID: 7108339969198208228, guid: b9034ab267793a54c96d527e8c43a3e8, type: 3}
+    - {fileID: 7108339969198208228, guid: 29e57a32801e06f41aa01a61a6ea310f, type: 3}
+    - {fileID: 7108339969198208228, guid: ea19e94c3c499e1408386114a7bbaced, type: 3}
+    - {fileID: 7108339969198208228, guid: 973dc419ada0fc640860c87534e3239c, type: 3}
+    customerDetails:
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 85774cfdafbe05244a6dde7e483e7853, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 07aad45731bd90d4fa061a56fe602c23, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 387cfaa81707b9d48b1280f8aab56d03, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 85774cfdafbe05244a6dde7e483e7853, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 85774cfdafbe05244a6dde7e483e7853, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 85774cfdafbe05244a6dde7e483e7853, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 85774cfdafbe05244a6dde7e483e7853, type: 2}
+    appearTime:
+    - 5
+    - 5
+    - 10
     - 10
     - 30
+    - 35
+    - 40
+    - 45
+    - 50
+    - 50
+    - 60
+    - 60
+    - 70
+    - 85
+    - 95
+  - targetMoney: 400
+    customerSkins:
+    - {fileID: 7108339969198208228, guid: 9f2da363edc872742845077fc915dac2, type: 3}
+    - {fileID: 7108339969198208228, guid: 01926dcd5beac0e40b7cb9558d0f6f3b, type: 3}
+    - {fileID: 7108339969198208228, guid: 16c4606e140328749b2e3820125ba5ae, type: 3}
+    - {fileID: 7108339969198208228, guid: e11a9a187166ec548971fde08342bcb7, type: 3}
+    - {fileID: 7108339969198208228, guid: 76312ef53c7d3064c8b5a6c7bc9ad788, type: 3}
+    - {fileID: 7108339969198208228, guid: 9066bbc9e2ae2854b8a7962d26bfd2a7, type: 3}
+    - {fileID: 7108339969198208228, guid: 0e01d0c32f9e2bb48abcff98e236ee24, type: 3}
+    - {fileID: 7108339969198208228, guid: b9034ab267793a54c96d527e8c43a3e8, type: 3}
+    - {fileID: 7108339969198208228, guid: 29e57a32801e06f41aa01a61a6ea310f, type: 3}
+    - {fileID: 7108339969198208228, guid: ea19e94c3c499e1408386114a7bbaced, type: 3}
+    - {fileID: 7108339969198208228, guid: 973dc419ada0fc640860c87534e3239c, type: 3}
+    customerDetails:
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 07aad45731bd90d4fa061a56fe602c23, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 387cfaa81707b9d48b1280f8aab56d03, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 2bfdc6fb920eb194490c4f2d7593659d, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 85774cfdafbe05244a6dde7e483e7853, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 85774cfdafbe05244a6dde7e483e7853, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 85774cfdafbe05244a6dde7e483e7853, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 2bfdc6fb920eb194490c4f2d7593659d, type: 2}
+    appearTime:
+    - 5
+    - 5
+    - 10
+    - 10
+    - 30
+    - 35
+    - 40
+    - 45
+    - 50
+    - 50
+    - 60
+    - 60
+    - 70
+    - 85
+    - 95
+  - targetMoney: 500
+    customerSkins:
+    - {fileID: 7108339969198208228, guid: 9f2da363edc872742845077fc915dac2, type: 3}
+    - {fileID: 7108339969198208228, guid: 01926dcd5beac0e40b7cb9558d0f6f3b, type: 3}
+    - {fileID: 7108339969198208228, guid: 16c4606e140328749b2e3820125ba5ae, type: 3}
+    - {fileID: 7108339969198208228, guid: e11a9a187166ec548971fde08342bcb7, type: 3}
+    - {fileID: 7108339969198208228, guid: 76312ef53c7d3064c8b5a6c7bc9ad788, type: 3}
+    - {fileID: 7108339969198208228, guid: 9066bbc9e2ae2854b8a7962d26bfd2a7, type: 3}
+    - {fileID: 7108339969198208228, guid: 0e01d0c32f9e2bb48abcff98e236ee24, type: 3}
+    - {fileID: 7108339969198208228, guid: b9034ab267793a54c96d527e8c43a3e8, type: 3}
+    - {fileID: 7108339969198208228, guid: 29e57a32801e06f41aa01a61a6ea310f, type: 3}
+    - {fileID: 7108339969198208228, guid: ea19e94c3c499e1408386114a7bbaced, type: 3}
+    - {fileID: 7108339969198208228, guid: 973dc419ada0fc640860c87534e3239c, type: 3}
+    customerDetails:
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 07aad45731bd90d4fa061a56fe602c23, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 2bfdc6fb920eb194490c4f2d7593659d, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: f775470d7d8fca74594bde2ffed24483, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 85774cfdafbe05244a6dde7e483e7853, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 2bfdc6fb920eb194490c4f2d7593659d, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: f775470d7d8fca74594bde2ffed24483, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: f775470d7d8fca74594bde2ffed24483, type: 2}
+    appearTime:
+    - 5
+    - 5
+    - 10
+    - 10
+    - 30
+    - 35
+    - 40
+    - 45
+    - 50
+    - 50
+    - 60
+    - 60
+    - 70
+    - 85
+    - 95
+  - targetMoney: 600
+    customerSkins:
+    - {fileID: 7108339969198208228, guid: 9f2da363edc872742845077fc915dac2, type: 3}
+    - {fileID: 7108339969198208228, guid: 01926dcd5beac0e40b7cb9558d0f6f3b, type: 3}
+    - {fileID: 7108339969198208228, guid: 16c4606e140328749b2e3820125ba5ae, type: 3}
+    - {fileID: 7108339969198208228, guid: e11a9a187166ec548971fde08342bcb7, type: 3}
+    - {fileID: 7108339969198208228, guid: 76312ef53c7d3064c8b5a6c7bc9ad788, type: 3}
+    - {fileID: 7108339969198208228, guid: 9066bbc9e2ae2854b8a7962d26bfd2a7, type: 3}
+    - {fileID: 7108339969198208228, guid: 0e01d0c32f9e2bb48abcff98e236ee24, type: 3}
+    - {fileID: 7108339969198208228, guid: b9034ab267793a54c96d527e8c43a3e8, type: 3}
+    - {fileID: 7108339969198208228, guid: 29e57a32801e06f41aa01a61a6ea310f, type: 3}
+    - {fileID: 7108339969198208228, guid: ea19e94c3c499e1408386114a7bbaced, type: 3}
+    - {fileID: 7108339969198208228, guid: 973dc419ada0fc640860c87534e3239c, type: 3}
+    customerDetails:
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0e691eec7787fe040b8ebc3faa720446, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 07aad45731bd90d4fa061a56fe602c23, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0e691eec7787fe040b8ebc3faa720446, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: f775470d7d8fca74594bde2ffed24483, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 85774cfdafbe05244a6dde7e483e7853, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 2bfdc6fb920eb194490c4f2d7593659d, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: f775470d7d8fca74594bde2ffed24483, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0e691eec7787fe040b8ebc3faa720446, type: 2}
+    appearTime:
+    - 5
+    - 5
+    - 10
+    - 10
+    - 30
+    - 35
+    - 40
+    - 45
+    - 50
+    - 50
+    - 60
+    - 60
+    - 70
+    - 85
+    - 95
+  - targetMoney: 800
+    customerSkins:
+    - {fileID: 7108339969198208228, guid: 9f2da363edc872742845077fc915dac2, type: 3}
+    - {fileID: 7108339969198208228, guid: 01926dcd5beac0e40b7cb9558d0f6f3b, type: 3}
+    - {fileID: 7108339969198208228, guid: 16c4606e140328749b2e3820125ba5ae, type: 3}
+    - {fileID: 7108339969198208228, guid: e11a9a187166ec548971fde08342bcb7, type: 3}
+    - {fileID: 7108339969198208228, guid: 76312ef53c7d3064c8b5a6c7bc9ad788, type: 3}
+    - {fileID: 7108339969198208228, guid: 9066bbc9e2ae2854b8a7962d26bfd2a7, type: 3}
+    - {fileID: 7108339969198208228, guid: 0e01d0c32f9e2bb48abcff98e236ee24, type: 3}
+    - {fileID: 7108339969198208228, guid: b9034ab267793a54c96d527e8c43a3e8, type: 3}
+    - {fileID: 7108339969198208228, guid: 29e57a32801e06f41aa01a61a6ea310f, type: 3}
+    - {fileID: 7108339969198208228, guid: ea19e94c3c499e1408386114a7bbaced, type: 3}
+    - {fileID: 7108339969198208228, guid: 973dc419ada0fc640860c87534e3239c, type: 3}
+    customerDetails:
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0e691eec7787fe040b8ebc3faa720446, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 07aad45731bd90d4fa061a56fe602c23, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 411eac25f4603a641a43262a0f201f28, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0e691eec7787fe040b8ebc3faa720446, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 85774cfdafbe05244a6dde7e483e7853, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 2bfdc6fb920eb194490c4f2d7593659d, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0e691eec7787fe040b8ebc3faa720446, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 411eac25f4603a641a43262a0f201f28, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 411eac25f4603a641a43262a0f201f28, type: 2}
+    appearTime:
+    - 5
+    - 5
+    - 10
+    - 10
+    - 30
+    - 35
+    - 40
+    - 45
+    - 50
+    - 50
+    - 60
+    - 60
+    - 70
+    - 85
+    - 95
+  - targetMoney: 1000
+    customerSkins:
+    - {fileID: 7108339969198208228, guid: 9f2da363edc872742845077fc915dac2, type: 3}
+    - {fileID: 7108339969198208228, guid: 01926dcd5beac0e40b7cb9558d0f6f3b, type: 3}
+    - {fileID: 7108339969198208228, guid: 16c4606e140328749b2e3820125ba5ae, type: 3}
+    - {fileID: 7108339969198208228, guid: e11a9a187166ec548971fde08342bcb7, type: 3}
+    - {fileID: 7108339969198208228, guid: 76312ef53c7d3064c8b5a6c7bc9ad788, type: 3}
+    - {fileID: 7108339969198208228, guid: 9066bbc9e2ae2854b8a7962d26bfd2a7, type: 3}
+    - {fileID: 7108339969198208228, guid: 0e01d0c32f9e2bb48abcff98e236ee24, type: 3}
+    - {fileID: 7108339969198208228, guid: b9034ab267793a54c96d527e8c43a3e8, type: 3}
+    - {fileID: 7108339969198208228, guid: 29e57a32801e06f41aa01a61a6ea310f, type: 3}
+    - {fileID: 7108339969198208228, guid: ea19e94c3c499e1408386114a7bbaced, type: 3}
+    - {fileID: 7108339969198208228, guid: 973dc419ada0fc640860c87534e3239c, type: 3}
+    customerDetails:
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0e691eec7787fe040b8ebc3faa720446, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 0960f5110db30264793face9d1a6aad4, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 07aad45731bd90d4fa061a56fe602c23, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 411eac25f4603a641a43262a0f201f28, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 9f8e602fc0602f74596a15a4808cfc7c, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 85774cfdafbe05244a6dde7e483e7853, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 2bfdc6fb920eb194490c4f2d7593659d, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 442a55d027be7c848841d981d4322786, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 9f8e602fc0602f74596a15a4808cfc7c, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 411eac25f4603a641a43262a0f201f28, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 411eac25f4603a641a43262a0f201f28, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 9f8e602fc0602f74596a15a4808cfc7c, type: 2}
+    - waitingTime: 180
+      foodRequest: {fileID: 11400000, guid: 411eac25f4603a641a43262a0f201f28, type: 2}
+    appearTime:
+    - 5
+    - 5
+    - 10
+    - 10
+    - 30
+    - 35
+    - 40
+    - 45
+    - 50
+    - 50
+    - 60
+    - 60
+    - 70
+    - 85
+    - 95

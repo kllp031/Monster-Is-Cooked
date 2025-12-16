@@ -14,9 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: StrawberryIceCream
   icon: {fileID: 4395217807078166193, guid: 8c473611ad460fc4eb0f4ca8d5e508ed, type: 3}
-  price: 60
+  price: 25
   ingredients:
   - ingredient: {fileID: 11400000, guid: 2805a9c5b0bab6d4d8c042693aa3f974, type: 2}
-    amount: 1
-  - ingredient: {fileID: 11400000, guid: b5a1b0941cb988749b52aa281e07edbf, type: 2}
-    amount: 1
+    amount: 2

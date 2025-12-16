@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: CarrotSoup
   icon: {fileID: 1162284152, guid: 1ebee072aef9aca47b28a26f5558ad14, type: 3}
-  price: 65
+  price: 80
   ingredients:
   - ingredient: {fileID: 11400000, guid: 2dcfa4b5d9b478c459ee8ce1aea80ccb, type: 2}
     amount: 2
