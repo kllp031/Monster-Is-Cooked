@@ -140,7 +140,6 @@ public class KnightController : MonoBehaviour
             }
         }
 
-        Debug.Log("input move" + moveInput);
         Vector2 move = moveInput * PlayerDataManager.Instance.CurrentSpeed * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + move);
     }
@@ -175,12 +174,9 @@ public class KnightController : MonoBehaviour
                 moveInput = Vector2.zero;
             }
 
-            Debug.Log("dynamicJoystick" + inputFromJoystick);
         }
 
        
-
-        Debug.Log("input move after check joystick" + moveInput);
 
         // Animator
         animator.SetBool("isRunning", moveInput != Vector2.zero);
@@ -217,5 +213,6 @@ public class KnightController : MonoBehaviour
         health.ReceiveHealing(1000000);
         transform.position = spawnPosition.position;
         animator.SetTrigger("Revive");
+        Camera.main.GetComponent<CameraFollow>().BackHome();
     }
 }
