@@ -11,6 +11,7 @@ public class TrashCan : MonoBehaviour, IInteractable
         var heldFood = obj.GetComponent<FoodHolder>().HeldFood;
         obj.GetComponent<FoodHolder>().DropHeldFood();
         Destroy(heldFood.gameObject);
+        if (animator != null) animator.SetTrigger(eatAnimationTrigger);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
