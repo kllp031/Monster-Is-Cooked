@@ -170,7 +170,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16
   _wallCheckDistance: 1
-  _hurtTime: 2
+  _hurtTime: 0.3
   isFlip: 0
 --- !u!114 &2732949147617335508
 MonoBehaviour:
@@ -201,8 +201,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamId: 1
-  maximumHealth: 4
-  currentHealth: 4
+  maximumHealth: 12
+  currentHealth: 12
   invincibilityTime: 0.2
   isDeath: 0
   isInvincible: 0

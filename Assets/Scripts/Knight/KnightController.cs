@@ -215,6 +215,7 @@ public class KnightController : MonoBehaviour
         animator.SetTrigger("Revive");
         Camera.main.GetComponent<CameraFollow>().BackHome();
 
+        moveInput = Vector2.zero;
         SoundManager.Instance.PlayMusic(SoundManager.Instance.cookingMusic);
     }
 }
