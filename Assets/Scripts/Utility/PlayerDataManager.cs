@@ -181,7 +181,7 @@ public class PlayerDataManager : MonoBehaviour
             case StatType.Health: return statsConfig.levels[index].healthCost;
             case StatType.Speed: return statsConfig.levels[index].speedCost;
             case StatType.Attack: return statsConfig.levels[index].attackCost;
-            case StatType.BonusMoney: return statsConfig.levels[index].bonusMoney;
+            case StatType.BonusMoney: return statsConfig.levels[index].bonusMoneyCost;
             default: return 0;
         }
     }
