@@ -20,7 +20,7 @@ MonoBehaviour:
     speedCost: 3
     attack: 5
     attackCost: 1
-    bonusMoney: 1
+    bonusMoney: 0
     bonusMoneyCost: 1
   - health: 7
     healthCost: 2
