@@ -201,8 +201,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamId: 1
-  maximumHealth: 3
-  currentHealth: 3
+  maximumHealth: 7
+  currentHealth: 7
   invincibilityTime: 0
   isDeath: 0
   isInvincible: 0
