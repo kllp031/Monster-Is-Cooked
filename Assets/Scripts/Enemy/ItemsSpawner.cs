@@ -62,6 +62,7 @@ public class ItemsSpawner : MonoBehaviour
         Vector2 spawnPos = GetRandomPositionInBounds();
 
         GameObject newItem = Instantiate(_itemPrefab, spawnPos, Quaternion.identity);
+        newItem.GetComponent<PickupItem>().SetupItemSpawner(this);
 
         if (newItem.TryGetComponent(out PickupItem itemScript))
         {

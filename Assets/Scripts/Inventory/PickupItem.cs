@@ -13,6 +13,7 @@ public class PickupItem : MonoBehaviour
     [SerializeField] private GameObject itemEffect;
 
     private SpriteRenderer spriteRenderer;
+    private ItemsSpawner itemSpawner;
 
     private void Awake()
     {
@@ -38,6 +39,10 @@ public class PickupItem : MonoBehaviour
             if (playerBridge != null && playerBridge.inventoryData != null)
             {
                 SoundManager.Instance.PlaySFX(SoundManager.Instance.playerCollect);
+
+                if(itemSpawner != null)
+                    itemSpawner.OnItemCollected();
+
                 // 3. Pass the ScriptableObject data to the collect function
                 Collect(playerBridge.inventoryData);
             }
@@ -70,5 +75,10 @@ public class PickupItem : MonoBehaviour
             if (GetComponent<SpriteRenderer>() != null)
                 GetComponent<SpriteRenderer>().sprite = ingredient.icon;
         }
+    }
+    public void SetupItemSpawner(ItemsSpawner spawner)
+    {
+        if(spawner != null)
+            itemSpawner = spawner;
     }
 }
