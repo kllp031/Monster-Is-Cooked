@@ -472,7 +472,7 @@
                     "path": "<Keyboard>/q",
                     "interactions": "Tap",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
                     "action": "DropFood",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -505,7 +505,7 @@
                     "path": "<Keyboard>/q",
                     "interactions": "Hold",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
                     "action": "ThrowFood",
                     "isComposite": false,
                     "isPartOfComposite": false
