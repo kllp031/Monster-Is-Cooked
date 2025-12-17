@@ -468,17 +468,6 @@
                 },
                 {
                     "name": "",
-                    "id": "a9787a1d-7e2a-4874-95d5-704ae98008ff",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "DropFood",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "55368aa9-5c6c-4d42-8651-a1125cffde2b",
                     "path": "<Keyboard>/q",
                     "interactions": "Tap",
@@ -507,17 +496,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Inventory",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0a23a92e-f2a0-4533-a603-2bb41000f4f1",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ThrowFood",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
