@@ -15,17 +15,7 @@ MonoBehaviour:
   startingItems:
   - ingredient: {fileID: 11400000, guid: 20a67169fc0b67946abdf5f553d17625, type: 2}
     amount: 5
-  - ingredient: {fileID: 11400000, guid: 3a27712a5dfe50d4cb9d7ee1cdb44668, type: 2}
-    amount: 5
-  - ingredient: {fileID: 11400000, guid: 4dc4303d83b2a25458f1d3fccdc56820, type: 2}
-    amount: 15
-  - ingredient: {fileID: 11400000, guid: b5a1b0941cb988749b52aa281e07edbf, type: 2}
-    amount: 3
   - ingredient: {fileID: 11400000, guid: 2805a9c5b0bab6d4d8c042693aa3f974, type: 2}
     amount: 1
-  - ingredient: {fileID: 11400000, guid: 40089bcb3a8aed942a3ed689560df249, type: 2}
-    amount: 1
   - ingredient: {fileID: 11400000, guid: bd88917f0b7e6e847ae57212410ab123, type: 2}
-    amount: 2
-  - ingredient: {fileID: 11400000, guid: 99700b262d38edf49924702f97578d3e, type: 2}
     amount: 2
