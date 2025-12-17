@@ -85,7 +85,7 @@ public class FoodHolder : MonoBehaviour
             HotbarManager.Instance.AddFoodToHotBar(food);
         }
     }
-    private void DropHeldFood()
+    public void DropHeldFood()
     {
         if (HeldFood == null) return;
         // Drop the food
