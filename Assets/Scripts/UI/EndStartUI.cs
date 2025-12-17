@@ -229,6 +229,10 @@ public class EndStartUI : MonoBehaviour
         // If we are hiding it, we let the animation handle the fade out.
         _startRoutine = StartCoroutine(AnimateUI(startUI, _startUiOrigin, show));
         SetUpStartUI();
+        if (BGImage != null)
+        {
+            BGImage.raycastTarget = show;
+        }
     }
 
     public void ToggleEndScreen(bool show)
@@ -239,6 +243,10 @@ public class EndStartUI : MonoBehaviour
         // However, if we simply want the BG to fade out with the End Screen, pass true.
         _endRoutine = StartCoroutine(AnimateUI(endUI, _endUiOrigin, show));
         SetUpEndUI();
+        if (BGImage != null)
+        {
+            BGImage.raycastTarget = show;
+        }
     }
 
     private IEnumerator AnimateUI(RectTransform targetUI, Vector2 originalPos, bool show, bool animateBG = true)
