@@ -45,6 +45,11 @@ public class CookingManager : MonoBehaviour
 
     public void SelectRecipe(Recipe recipe)
     {
+        if (minigame.IsCooking)
+        {
+            print("Cannot change recipe while cooking!");
+            return;
+        }
         currentRecipe = recipe;
         // Auto-update UI when recipe is selected
         CookingUIManager.Instance.UpdateUI(currentRecipe);
