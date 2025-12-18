@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
+[DefaultExecutionOrder(-100)]
 public class PlayerDataManager : MonoBehaviour
 {
     public enum StatType
@@ -21,7 +22,7 @@ public class PlayerDataManager : MonoBehaviour
     public UnityEvent onHealthUpgrade = new UnityEvent();
     public UnityEvent onSpeedUpgrade = new UnityEvent();
     public UnityEvent onAttackUpgrade = new UnityEvent();
-    public UnityEvent onMoneyMulUpgrade = new UnityEvent();
+    public UnityEvent onMoneyBonusUpgrade = new UnityEvent();
     public UnityEvent onMoneyChanged = new UnityEvent();
     public UnityEvent onLevelChanged = new UnityEvent();
 
@@ -109,6 +110,15 @@ public class PlayerDataManager : MonoBehaviour
         onMoneyChanged.Invoke();
     }
 
+    public void UpdateLevelProgress(int newLevel)
+    {
+        //if (newLevel <= Level) return; // Only allow increasing level
+        Level = newLevel;
+        PlayerPrefs.SetInt("Level_Reached", Level);
+        onLevelChanged.Invoke();
+        print("PlayerDataManager: Level updated to " + Level);
+    }
+
     // ==================== INTERNAL UPDATES ====================
 
     private void LoadAll()
@@ -118,7 +128,7 @@ public class PlayerDataManager : MonoBehaviour
         AttackLevel = PlayerPrefs.GetInt("Level_Attack", 1);
         BonusMoneyLevel = PlayerPrefs.GetInt("Level_MoneyMul", 1);
         TotalMoney = PlayerPrefs.GetInt("Wallet_Money", 0);
-        Level = PlayerPrefs.GetInt("Level_Reached", 1);
+        Level = PlayerPrefs.GetInt("Level_Reached", 0); //Since level setting scriptable object is zero-based, i also make this zero-based to reduce confusion
 
         // Update ALL stats at start so UI is correct
         UpdateRuntimeValues(null);
@@ -153,7 +163,7 @@ public class PlayerDataManager : MonoBehaviour
             onAttackUpgrade.Invoke();
 
         if (specificType == null || specificType == StatType.BonusMoney)
-            onMoneyMulUpgrade.Invoke();
+            onMoneyBonusUpgrade.Invoke();
 
         if (specificType == null)
             onMoneyChanged.Invoke();

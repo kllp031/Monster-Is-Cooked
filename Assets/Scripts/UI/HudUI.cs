@@ -22,7 +22,7 @@ public class HudUI : MonoBehaviour
 
     private void UpdateCoinText(int amount)
     {
-        print("UI updated");
+        //print("UI updated");
         coinTxt.text = amount.ToString();
     }
 }

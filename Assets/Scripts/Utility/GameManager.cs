@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
+[DefaultExecutionOrder(-50)]
 public class GameManager : MonoBehaviour
 {
     [Header("Level Design")]
@@ -45,9 +46,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        //levelNumber = -1; -> Load from save file
         if (levelDesign == null) { Debug.LogWarning("Game can't start without a level design assigned!");  return; }
         if (!levelDesign.CheckValidLevel(levelNumber)) { Debug.LogWarning("Cannot load current level"); return; }
+        if (PlayerDataManager.Instance == null) { Debug.LogWarning("Game can't start without a PlayerDataManager in the scene!"); return; }
+        levelNumber = PlayerDataManager.Instance.Level;
 
         gameStarted = true;
         onGameStart.Invoke();
@@ -78,6 +80,8 @@ public class GameManager : MonoBehaviour
     {
         if (levelStarted) { Debug.LogWarning("Level has already started!"); return; }
         levelNumber++;
+
+        PlayerDataManager.Instance.UpdateLevelProgress(levelNumber);
     }
     public void EndLevel()
     {

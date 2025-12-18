@@ -29,7 +29,7 @@ public class HotbarUI : MonoBehaviour
         // Calculate the hidden position: convert height to negative Y movement
         // (This assumes your anchor is at the bottom. If centered, math might vary slightly)
         offscreenPosition = new Vector2(onscreenPosition.x, -onscreenPosition.y);
-        print(onscreenPosition + " " + offscreenPosition);
+        //print(onscreenPosition + " " + offscreenPosition);
     }
 
     private void Start()

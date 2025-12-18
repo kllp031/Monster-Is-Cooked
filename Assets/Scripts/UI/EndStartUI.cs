@@ -61,8 +61,6 @@ public class EndStartUI : MonoBehaviour
         endUI.anchoredPosition = _endUiOrigin + offScreenOffset;
         startUI.anchoredPosition = _startUiOrigin + offScreenOffset;
 
-        // Start with Start UI visible
-        SetUpStartUI();
         ToggleStartScreen(true);
     }
 

@@ -6,7 +6,7 @@ public class StatInfoPanelUI : MonoBehaviour
     [SerializeField] private TMP_Text atkText;
     [SerializeField] private TMP_Text speedText;
     [SerializeField] private TMP_Text healthText;
-    [SerializeField] private TMP_Text moneyMulText;
+    [SerializeField] private TMP_Text moneyBonusText;
 
     private void Start()
     {
@@ -18,7 +18,7 @@ public class StatInfoPanelUI : MonoBehaviour
         PlayerDataManager.Instance.onHealthUpgrade.AddListener(UpdateStatInfo);
         PlayerDataManager.Instance.onSpeedUpgrade.AddListener(UpdateStatInfo);
         PlayerDataManager.Instance.onAttackUpgrade.AddListener(UpdateStatInfo);
-        PlayerDataManager.Instance.onMoneyMulUpgrade.AddListener(UpdateStatInfo);
+        PlayerDataManager.Instance.onMoneyBonusUpgrade.AddListener(UpdateStatInfo);
 
         UpdateStatInfo();
     }
@@ -29,7 +29,7 @@ public class StatInfoPanelUI : MonoBehaviour
         PlayerDataManager.Instance.onHealthUpgrade.RemoveListener(UpdateStatInfo);
         PlayerDataManager.Instance.onSpeedUpgrade.RemoveListener(UpdateStatInfo);
         PlayerDataManager.Instance.onAttackUpgrade.RemoveListener(UpdateStatInfo);
-        PlayerDataManager.Instance.onMoneyMulUpgrade.RemoveListener(UpdateStatInfo);
+        PlayerDataManager.Instance.onMoneyBonusUpgrade.RemoveListener(UpdateStatInfo);
     }
 
     private void UpdateStatInfo()
@@ -38,6 +38,6 @@ public class StatInfoPanelUI : MonoBehaviour
         atkText.text = "ATK: " + PlayerDataManager.Instance.CurrentAttack.ToString();
         speedText.text = "SPD: " + PlayerDataManager.Instance.CurrentSpeed.ToString("F1");
         healthText.text = "HEALTH: " + PlayerDataManager.Instance.CurrentMaxHealth.ToString();
-        moneyMulText.text = "BONUS MONEY: " + PlayerDataManager.Instance.BonusMoneyLevel.ToString();
+        moneyBonusText.text = "BONUS MONEY: " + PlayerDataManager.Instance.CurrentBonusMoney.ToString();
     }
 }
