@@ -158,7 +158,7 @@ MonoBehaviour:
   onAttackUpgrade:
     m_PersistentCalls:
       m_Calls: []
-  onMoneyMulUpgrade:
+  onMoneyBonusUpgrade:
     m_PersistentCalls:
       m_Calls: []
   onMoneyChanged:
