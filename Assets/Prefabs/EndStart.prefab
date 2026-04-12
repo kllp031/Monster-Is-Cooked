@@ -4795,11 +4795,15 @@ MonoBehaviour:
   endUI: {fileID: 2174459965414793464}
   retryBtn: {fileID: 2024936444861077242}
   nextBtn: {fileID: 5339209574524060377}
+  menuBtn: {fileID: 8297321647441236357}
+  endWinPanel: {fileID: 8940563984889474461}
   startUICustomersText: {fileID: 3983723863937123129}
   startUIGoalText: {fileID: 2026995846829941073}
   endUITargetText: {fileID: 4980987640613074599}
   endUICoinTxt: {fileID: 2283027855885984615}
   BGImage: {fileID: 6898780013602919752}
+  endPanelBackgroundImage: {fileID: 7302213721436437789}
+  endTitleBackgroundImage: {fileID: 7881051951992212471}
   animationDuration: 2
   offScreenOffset: {x: 0, y: 1000}
   bgMaxAlpha: 0.6

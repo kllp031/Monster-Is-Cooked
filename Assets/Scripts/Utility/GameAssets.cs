@@ -43,6 +43,14 @@ public class GameAssets : MonoBehaviour
     [Tooltip("The generic Food shell that holds Recipe data")]
     public Transform pfFood;
 
+    [Header("Sprites")]
+    public Sprite PanelWoodBG;
+    public Sprite TitleWoodBG;
+    public Sprite ButtonWoodBG;
+    public Sprite PanelStoneBG;
+    public Sprite TitleStoneBG;
+    public Sprite ButtonStoneBG;
+
     //[Header("VFX")]
     //public Transform pfSmokeParticle;
     //public Transform pfSuccessPopup;

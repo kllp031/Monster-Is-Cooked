@@ -83,10 +83,16 @@ public class GameManager : MonoBehaviour
 
         PlayerDataManager.Instance.UpdateLevelProgress(levelNumber);
     }
+
+    [ContextMenu("End current level (testing)")]
     public void EndLevel()
     {
         Debug.Log("Endlevel");
-        if (!levelStarted || !gameStarted) return;
+        if (!levelStarted || !gameStarted)
+        {
+            Debug.LogWarning("GameManager.EndLevel: no level in progress (game not started or day not started).");
+            return;
+        }
 
         //earnedMoney += collectedMoney;
 
@@ -125,5 +131,11 @@ public class GameManager : MonoBehaviour
     {
         if (levelDesign == null) return null;
         return levelDesign.GetLevelDetail(levelNumber);
+    }
+
+    [ContextMenu("Add 100 Daily Money (testing)")]
+    public void AddTestDailyMoney()
+    {
+        CollectedMoney += 100;
     }
 }
