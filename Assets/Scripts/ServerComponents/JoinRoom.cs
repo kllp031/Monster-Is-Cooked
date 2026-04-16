@@ -11,6 +11,8 @@ public class JoinRoom : MonoBehaviour
 
     public async void OnJoinRoom()
     {
+        if (NetworkManager.Instance == null || NetworkManager.Instance.NetworkRunner != null) return;
+
         if(roomIdInput == null) { Debug.LogError("Room ID input field is not assigned."); return; }
         if(usernameInput != null) NetworkManager.Instance.Username = usernameInput.text;
 

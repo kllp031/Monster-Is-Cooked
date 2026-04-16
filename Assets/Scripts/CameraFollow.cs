@@ -11,6 +11,8 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private MapArea homeArea;
     private float heightCamera, widthCamera;
 
+    public Transform PlayerTransform { get => playerTransform; set => playerTransform = value; }
+
     private void Start()
     {
         //get the height and width of the camera
@@ -22,6 +24,8 @@ public class CameraFollow : MonoBehaviour
     void Update()
     {
         //transform.position = new Vector3(playerTransform.position.x, playerTransform.position.y, transform.position.z);
+
+        if (playerTransform == null) return;
 
         // Smoothly follow the player
         Vector3 targetPosition = new Vector3( playerTransform.position.x, playerTransform.position.y, transform.position.z);

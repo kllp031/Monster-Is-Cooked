@@ -1,12 +1,12 @@
-﻿using UnityEngine;
-using UnityEngine.InputSystem;
+﻿using Fusion;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class KnightController : MonoBehaviour
+public class KnightControllerOnline : NetworkBehaviour
 {
-    private Vector2 moveInput = Vector2.zero;
+    [Networked] private Vector2 moveInput { get; set; }
 
     [Header("Movement")]
 
@@ -16,7 +16,7 @@ public class KnightController : MonoBehaviour
     [SerializeField] private float dashCooldown = 1f;
     [SerializeField] private Transform spawnPosition;
 
-    private bool isDashing = false; 
+    private bool isDashing = false;
     private bool isHurting = false;
     [SerializeField] private float hurtingTime = 0.5f;
     private float hurtingTimer = 0f;
@@ -38,22 +38,56 @@ public class KnightController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Start()
+    public override void Spawned()
     {
         animator = GetComponent<Animator>();
         health = GetComponent<Health>();
+
+        if (Object.HasInputAuthority)
+        {
+            if (Camera.main != null)
+            {
+                CameraFollow camFollow = Camera.main.GetComponent<CameraFollow>();
+                if (camFollow != null) camFollow.PlayerTransform = transform;
+            }
+        }
+    }
+
+    public override void FixedUpdateNetwork()
+    {
+        if (GetInput(out InputData inputData))
+        {
+            moveInput = inputData.MovementInput;
+        }
+        else moveInput = Vector2.zero;
+
+        if (health.isDeath)
+            return;
+
+        if (isDashing) return;
+
+        if (isHurting)
+        {
+            hurtingTimer += Time.deltaTime;
+            if (hurtingTimer >= hurtingTime)
+            {
+                isHurting = false;
+                hurtingTimer = 0f;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        Vector2 move = moveInput * PlayerDataManager.Instance.CurrentSpeed * Runner.DeltaTime;
+        //rb.MovePosition(rb.position + move);
+        transform.position = (Vector2)transform.position + move;
     }
 
     // -------------------------
     // MOVEMENT INPUT
     // -------------------------
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        if (health.isDeath || isUsingJoystick)
-            return;
-
-        moveInput = context.ReadValue<Vector2>().normalized;
-    }
 
     // -------------------------
     // DASH INPUT
@@ -117,40 +151,40 @@ public class KnightController : MonoBehaviour
     // -------------------------
     // FIXED UPDATE MOVEMENT
     // -------------------------
-    private void FixedUpdate()
-    {
-        if (health.isDeath)
-            return;
+    //private void FixedUpdate()
+    //{
+    //    if (health.isDeath)
+    //        return;
 
-        if (isDashing) return;
+    //    if (isDashing) return;
 
-        if (isHurting)
-        {
-            hurtingTimer += Time.deltaTime;
-            if (hurtingTimer >= hurtingTime)
-            {
-                isHurting = false;
-                hurtingTimer = 0f;
-            }
-            else
-            {
-                return;
-            }
-        }
+    //    if (isHurting)
+    //    {
+    //        hurtingTimer += Time.deltaTime;
+    //        if (hurtingTimer >= hurtingTime)
+    //        {
+    //            isHurting = false;
+    //            hurtingTimer = 0f;
+    //        }
+    //        else
+    //        {
+    //            return;
+    //        }
+    //    }
 
-        Vector2 move = moveInput * PlayerDataManager.Instance.CurrentSpeed * Time.fixedDeltaTime;
-        rb.MovePosition(rb.position + move);
-    }
+    //    Vector2 move = moveInput * PlayerDataManager.Instance.CurrentSpeed * Time.fixedDeltaTime;
+    //    rb.MovePosition(rb.position + move);
+    //}
 
     private void Update()
     {
-       //Update dash cooldown UI
-       if (!canDash)
-          {
-                dashCooldownEffect.fillAmount -= 1f / dashCooldown * Time.deltaTime;
-                if (dashCooldownEffect.fillAmount < 0)
-                 dashCooldownEffect.fillAmount = 0;
-          }
+        //Update dash cooldown UI
+        if (!canDash)
+        {
+            dashCooldownEffect.fillAmount -= 1f / dashCooldown * Time.deltaTime;
+            if (dashCooldownEffect.fillAmount < 0)
+                dashCooldownEffect.fillAmount = 0;
+        }
 
         // Input từ joystick UI
         if (dynamicJoystick != null)
@@ -174,7 +208,7 @@ public class KnightController : MonoBehaviour
 
         }
 
-       
+
 
         // Animator
         animator.SetBool("isRunning", moveInput != Vector2.zero);

@@ -21,10 +21,10 @@ public class Lobby : NetworkBehaviour
     [Networked]
     TickTimer startGameTimer { get; set; }
 
-    [Networked]
-    int readyPlayerCount { get; set; }
+    //[Networked]
+    //int readyPlayerCount { get; set; }
 
-    private Dictionary<int, bool> readyPlayers = new();
+    //private Dictionary<int, bool> readyPlayers = new();
 
     private void OnDisable()
     {
@@ -37,10 +37,10 @@ public class Lobby : NetworkBehaviour
 
     public override void Render()
     {
-        if (readyPlayerCountText != null)
-        {
-            readyPlayerCountText.text = $"{readyPlayerCount} / {NetworkManager.Instance.NetworkRunner.ActivePlayers.Count()} players are ready";
-        }
+        //if (readyPlayerCountText != null)
+        //{
+        //    readyPlayerCountText.text = $"{readyPlayerCount} / {NetworkManager.Instance.NetworkRunner.ActivePlayers.Count()} players are ready";
+        //}
 
         if (startGameTimerText != null)
         {
@@ -52,7 +52,6 @@ public class Lobby : NetworkBehaviour
 
                 startGameTimerText.text = $"Game starts in: {minutes : 00} : {seconds : 00}";
             }
-            else startGameTimerText.text = "Not enough players ready to start the game!";
         }
 
         base.Render();
@@ -63,15 +62,19 @@ public class Lobby : NetworkBehaviour
         base.FixedUpdateNetwork();
         if (NetworkManager.Instance != null && NetworkManager.Instance.NetworkRunner.IsSharedModeMasterClient)
         {
-            if (startGameTimer.Expired(NetworkManager.Instance.NetworkRunner)) NetworkManager.Instance.NetworkRunner.LoadScene(mainGameSceneName);
+            if (startGameTimer.Expired(NetworkManager.Instance.NetworkRunner))
+            {
+                NetworkManager.Instance.NetworkRunner.SessionInfo.IsOpen = false;
+                NetworkManager.Instance.NetworkRunner.SessionInfo.IsVisible = false;
+                NetworkManager.Instance.NetworkRunner.LoadScene(mainGameSceneName);
+            }
         }
     }
 
     public override void Spawned()
     {
-        Debug.Log(NetworkManager.Instance);
-
         if (NetworkManager.Instance == null) return;
+
         if (usernameField != null)
         {
             usernameField.text = NetworkManager.Instance.Username;
@@ -83,6 +86,12 @@ public class Lobby : NetworkBehaviour
 
         NetworkManager.Instance.OnPlayerJoinedEvent.AddListener(OnPlayerJoined);
         NetworkManager.Instance.OnPlayerLeftEvent.AddListener(OnPlayerLeft);
+
+        if (NetworkManager.Instance.NetworkRunner.IsSharedModeMasterClient)
+        {
+            NetworkManager.Instance.NetworkRunner.SessionInfo.IsOpen = true;
+            NetworkManager.Instance.NetworkRunner.SessionInfo.IsVisible = true;
+        }
 
         var playersInRoom = NetworkManager.Instance.NetworkRunner.ActivePlayers;
         foreach(var playerInRoomButton in playerInRoomButtons)
@@ -114,10 +123,25 @@ public class Lobby : NetworkBehaviour
         RPC_AskToLeave(PlayerRef.FromIndex(id));
     }
 
-    public void AnnounceReady()
+    //public void AnnounceReady()
+    //{
+    //    if (NetworkManager.Instance == null) return;
+    //    RPC_AnnounceReady(NetworkManager.Instance.NetworkRunner.LocalPlayer);
+    //}
+
+    public void StartGame()
     {
         if (NetworkManager.Instance == null) return;
-        RPC_AnnounceReady(NetworkManager.Instance.NetworkRunner.LocalPlayer);
+        if (!NetworkManager.Instance.NetworkRunner.IsSharedModeMasterClient)
+        {
+            Debug.LogWarning("You cannot perform this action!"); return;
+        }
+        if (!startGameTimer.IsRunning)
+        {
+            startGameTimer = TickTimer.CreateFromSeconds(NetworkManager.Instance.NetworkRunner, startGameTime);
+            NetworkManager.Instance.NetworkRunner.SessionInfo.IsOpen = false;
+            NetworkManager.Instance.NetworkRunner.SessionInfo.IsVisible = false;
+        }
     }
 
     private void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
@@ -135,7 +159,7 @@ public class Lobby : NetworkBehaviour
             }
         }
         RPC_AskForUsername(player, NetworkManager.Instance.NetworkRunner.LocalPlayer);
-        CheckPlayersReady();
+        //CheckPlayersReady();
     }
 
     private void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
@@ -150,37 +174,37 @@ public class Lobby : NetworkBehaviour
             }
         }
 
-        if (NetworkManager.Instance == null) return;
-        if (NetworkManager.Instance.NetworkRunner.IsSharedModeMasterClient)
-        {
-            if (readyPlayers.ContainsKey(player.PlayerId)) readyPlayers.Remove(player.PlayerId);
-            CheckPlayersReady();
-        }
+        //if (NetworkManager.Instance == null) return;
+        //if (NetworkManager.Instance.NetworkRunner.IsSharedModeMasterClient)
+        //{
+        //    if (readyPlayers.ContainsKey(player.PlayerId)) readyPlayers.Remove(player.PlayerId);
+        //    CheckPlayersReady();
+        //}
     }
 
-    private void CheckPlayersReady()
-    {
-        if(NetworkManager.Instance == null) return;
-        readyPlayerCount = 0;
-        foreach (var player in readyPlayers)
-        {
-            if (player.Value == true) readyPlayerCount++;
-        }
+    //private void CheckPlayersReady()
+    //{
+    //    if(NetworkManager.Instance == null) return;
+    //    readyPlayerCount = 0;
+    //    foreach (var player in readyPlayers)
+    //    {
+    //        if (player.Value == true) readyPlayerCount++;
+    //    }
 
-        if (readyPlayerCount >= Mathf.CeilToInt((float)NetworkManager.Instance.NetworkRunner.ActivePlayers.Count() * minimumReadyPercentage))
-        {
-            Debug.Log("Enough player!");
-            if (!startGameTimer.IsRunning)
-            {
-                startGameTimer = TickTimer.CreateFromSeconds(NetworkManager.Instance.NetworkRunner, startGameTime);
-            }
-        }
-        else if (startGameTimer.IsRunning)
-        {
-            Debug.Log("Not enough player!");
-            startGameTimer = TickTimer.None;
-        }
-    }
+    //    if (readyPlayerCount >= Mathf.CeilToInt((float)NetworkManager.Instance.NetworkRunner.ActivePlayers.Count() * minimumReadyPercentage))
+    //    {
+    //        Debug.Log("Enough player!");
+    //        if (!startGameTimer.IsRunning)
+    //        {
+    //            startGameTimer = TickTimer.CreateFromSeconds(NetworkManager.Instance.NetworkRunner, startGameTime);
+    //        }
+    //    }
+    //    else if (startGameTimer.IsRunning)
+    //    {
+    //        Debug.Log("Not enough player!");
+    //        startGameTimer = TickTimer.None;
+    //    }
+    //}
     
     [Rpc(RpcSources.All, RpcTargets.All)]
     private void RPC_AskForUsername([RpcTarget] PlayerRef target, PlayerRef requester)
@@ -204,25 +228,25 @@ public class Lobby : NetworkBehaviour
             }
         }
     }
-    [Rpc(RpcSources.All, RpcTargets.All)]
-    private void RPC_AnnounceReady(PlayerRef player)
-    {
-        if (NetworkManager.Instance == null) return;
-        if (NetworkManager.Instance.NetworkRunner.IsSharedModeMasterClient)
-        {
-            Debug.Log($"Player: {player.PlayerId} is ready!");
-            if (!readyPlayers.ContainsKey(player.PlayerId))
-            {
-                readyPlayers.Add(player.PlayerId, true);
-                CheckPlayersReady();
-            }
-            else if (readyPlayers[player.PlayerId] == false)
-            {
-                readyPlayers[player.PlayerId] = true;
-                CheckPlayersReady();
-            }
-        }
-    }
+    //[Rpc(RpcSources.All, RpcTargets.All)]
+    //private void RPC_AnnounceReady(PlayerRef player)
+    //{
+    //    if (NetworkManager.Instance == null) return;
+    //    if (NetworkManager.Instance.NetworkRunner.IsSharedModeMasterClient)
+    //    {
+    //        Debug.Log($"Player: {player.PlayerId} is ready!");
+    //        if (!readyPlayers.ContainsKey(player.PlayerId))
+    //        {
+    //            readyPlayers.Add(player.PlayerId, true);
+    //            CheckPlayersReady();
+    //        }
+    //        else if (readyPlayers[player.PlayerId] == false)
+    //        {
+    //            readyPlayers[player.PlayerId] = true;
+    //            CheckPlayersReady();
+    //        }
+    //    }
+    //}
     [Rpc(RpcSources.All, RpcTargets.All)]
     public void RPC_AskToLeave([RpcTarget] PlayerRef targetPlayer)
     {
