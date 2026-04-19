@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using Fusion;
 
 public class Gate : MonoBehaviour
 {
@@ -11,10 +12,29 @@ public class Gate : MonoBehaviour
         if (!other.CompareTag("Player"))
             return;
 
-        // 1. Move player to spawn point of target area
+        var networkObject = other.GetComponent<NetworkObject>();
+        if (networkObject == null)
+            return;
+
+        if (!networkObject.HasStateAuthority)
+            return;
+
+        // 1. Move player to spawn point of target area.
+        //    Dùng NetworkTransform.Teleport để Fusion cập nhật state buffer,
+        //    tránh việc resimulation đè vị trí mới trở lại vị trí cũ.
         Transform player = other.transform;
-        player.position = targetArea.getSpawnPosition();
-        Debug.Log("tele to" + targetArea.getSpawnPosition());
+        Vector3 targetPos = targetArea.getSpawnPosition();
+
+        var netTransform = other.GetComponent<NetworkTransform>();
+        if (netTransform != null)
+        {
+            netTransform.Teleport(targetPos);
+        }
+        else
+        {
+            player.position = targetPos;
+        }
+        Debug.Log("tele to" + targetPos);
 
         // 2. Get Main Camera and update its boundaries
         CameraFollow cam = Camera.main.GetComponent<CameraFollow>();

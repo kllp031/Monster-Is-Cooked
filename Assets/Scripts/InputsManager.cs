@@ -66,7 +66,7 @@ public class PlayerInputsReceiver : MainInput.IPlayerActions
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        Debug.Log("OnMove: " + context.ReadValue<Vector2>().normalized);
+        //Debug.Log("OnMove: " + context.ReadValue<Vector2>().normalized);
         movementInput = context.ReadValue<Vector2>().normalized;
     }
 

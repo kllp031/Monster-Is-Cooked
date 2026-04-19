@@ -64,6 +64,10 @@ public class Lobby : NetworkBehaviour
         {
             if (startGameTimer.Expired(NetworkManager.Instance.NetworkRunner))
             {
+                // Reset timer ngay để Expired() không trả về true ở các tick sau,
+                // tránh việc LoadScene bị gọi lặp lại mỗi tick gây reload scene liên tục.
+                startGameTimer = TickTimer.None;
+
                 NetworkManager.Instance.NetworkRunner.SessionInfo.IsOpen = false;
                 NetworkManager.Instance.NetworkRunner.SessionInfo.IsVisible = false;
                 NetworkManager.Instance.NetworkRunner.LoadScene(mainGameSceneName);
