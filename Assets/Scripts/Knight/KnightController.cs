@@ -213,6 +213,7 @@ public class KnightController : MonoBehaviour
         health.ReceiveHealing(1000000);
         transform.position = spawnPosition.position;
         animator.SetTrigger("Revive");
+        animator.SetBool("isDead", false);
         Camera.main.GetComponent<CameraFollow>().BackHome();
 
         moveInput = Vector2.zero;
