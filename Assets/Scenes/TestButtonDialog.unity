@@ -7345,10 +7345,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 306213983321460268, guid: 5bc448496f35ded42b9baffb608621ff, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1095931561078951690, guid: 5bc448496f35ded42b9baffb608621ff, type: 3}
       propertyPath: m_Name
       value: Customer
@@ -7360,18 +7356,6 @@ PrefabInstance:
     - target: {fileID: 3376571134350621910, guid: 5bc448496f35ded42b9baffb608621ff, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3913944500279018284, guid: 5bc448496f35ded42b9baffb608621ff, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3913944500279018284, guid: 5bc448496f35ded42b9baffb608621ff, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnClickInteract
-      objectReference: {fileID: 0}
-    - target: {fileID: 3913944500279018284, guid: 5bc448496f35ded42b9baffb608621ff, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8300075066621981930, guid: 5bc448496f35ded42b9baffb608621ff, type: 3}
       propertyPath: m_LocalPosition.x
