@@ -103,6 +103,22 @@ public class Customer : MonoBehaviour, IInteractable
             moodIcon.SetTrigger(mood.ToString());
         }
     }
+    public void OnClickInteract()
+    {
+        if (!isReadyToEat) return; // Ignore any interactions if customer is not ready to eat
+
+        if (customerDetail == null) return; // Can't interact with customers who doesn't have any customer detail
+
+        if (!isAsked) // Show the requested food if this customer hasn't been asked yet
+        {
+            if (customerDetail.FoodRequest != null)
+            {
+                if (foodIcon != null) foodIcon.sprite = customerDetail.FoodRequest.Icon;
+                if (foodRequestBoxBackground != null) foodRequestBoxBackground.SetTrigger(foodRequestBoxShowFoodTrigger);
+            }
+            isAsked = true;
+        }
+    }    
     public void OnInteract(GameObject obj)
     {
         if (!isReadyToEat) return; // Ignore any interactions if customer is not ready to eat
