@@ -3520,7 +3520,7 @@ MonoBehaviour:
   - {fileID: 1690754468}
   mainGameSceneName: MultiplayerGameplay
   minimumReadyPercentage: 0.5
-  startGameTime: 15
+  startGameTime: 1
 --- !u!114 &1326623491
 MonoBehaviour:
   m_ObjectHideFlags: 0

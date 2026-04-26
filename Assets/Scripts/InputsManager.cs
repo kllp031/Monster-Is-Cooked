@@ -40,8 +40,16 @@ public class InputsManager : MonoBehaviour
 public class PlayerInputsReceiver : MainInput.IPlayerActions
 {
     private Vector2 movementInput = new();
+    private Vector2 joystickInput = new();
+    private bool joystickActive = false;
 
-    public Vector2 MovementInput { get => movementInput; }
+    public Vector2 MovementInput { get => joystickActive ? joystickInput : movementInput; }
+
+    public void SetJoystickInput(Vector2 value, bool active)
+    {
+        joystickInput = value;
+        joystickActive = active;
+    }
 
 
     public void OnAttack(InputAction.CallbackContext context)

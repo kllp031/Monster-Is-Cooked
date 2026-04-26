@@ -119,6 +119,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &11807600 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8937204936088839294, guid: 7c661b4d40042dd4cb12911fb8def45f, type: 3}
+  m_PrefabInstance: {fileID: 2096063133}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &17564213 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4148927677689903238, guid: 2406277beacb95244ad4bf98067ad9ee, type: 3}
@@ -8013,6 +8024,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8135886326569738822, guid: 56fae09712773584fb63896d473a98ee, type: 3}
   m_PrefabInstance: {fileID: 1681704719}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1681704721 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8135886326569738823, guid: 56fae09712773584fb63896d473a98ee, type: 3}
+  m_PrefabInstance: {fileID: 1681704719}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba0d0e7a039f526499c356a3c5cd6d3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1717177771
 GameObject:
   m_ObjectHideFlags: 0
@@ -86337,6 +86359,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 743701951752408396, guid: 7c661b4d40042dd4cb12911fb8def45f, type: 3}
+      propertyPath: startBtn
+      value: 
+      objectReference: {fileID: 11807600}
+    - target: {fileID: 743701951752408396, guid: 7c661b4d40042dd4cb12911fb8def45f, type: 3}
       propertyPath: startUIDayText
       value: 
       objectReference: {fileID: 1817315911}
@@ -86994,7 +87020,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4649708585555094553, guid: 7c661b4d40042dd4cb12911fb8def45f, type: 3}
       propertyPath: m_Name
-      value: EndStart (1)
+      value: EndStart
       objectReference: {fileID: 0}
     - target: {fileID: 4649708585555094553, guid: 7c661b4d40042dd4cb12911fb8def45f, type: 3}
       propertyPath: m_IsActive
@@ -88119,7 +88145,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3906896368157354846}
   m_Layer: 5
-  m_Name: ControlUI2
+  m_Name: ControlUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -88270,6 +88296,7 @@ GameObject:
   - component: {fileID: 1625502982556828331}
   - component: {fileID: 914019671830436333}
   - component: {fileID: 2887369647601871039}
+  - component: {fileID: 2887369647601871040}
   m_Layer: 5
   m_Name: Interact
   m_TagString: Untagged
@@ -89060,19 +89087,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1625502982556828331}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6685605016216675380}
-        m_TargetAssemblyTypeName: InteractableDetector, Assembly-CSharp
-        m_MethodName: OnInteract
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &932387611085263807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91222,8 +91237,10 @@ GameObject:
   - component: {fileID: 7013710247075502847}
   - component: {fileID: 1130527245901864874}
   - component: {fileID: 5808093740255562972}
+  - component: {fileID: 7013710247075502848}
+  - component: {fileID: 7013710247075502849}
   m_Layer: 5
-  m_Name: FullCanvas_02
+  m_Name: LocalPlayerHUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91523,6 +91540,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ControlPath: <Keyboard>/e
+--- !u!114 &2887369647601871040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242161218979584048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9de957a3b71abd74f8af07db935d0ff6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 0}
+  onClickWithPlayer:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7013710247075502849}
+        m_TargetAssemblyTypeName: PlayerActionsProxy, Assembly-CSharp
+        m_MethodName: Interact
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &2889292948191210633
 RectTransform:
   m_ObjectHideFlags: 0
@@ -95526,6 +95571,7 @@ GameObject:
   - component: {fileID: 8429026107848219045}
   - component: {fileID: 5247839295503082132}
   - component: {fileID: 367636347206553681}
+  - component: {fileID: 8429026107848219046}
   m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
@@ -96109,17 +96155,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &6685605016216675380 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9004764240037169658, guid: ff6cc29f8e217654c9c9e524f28aa717, type: 3}
-  m_PrefabInstance: {fileID: 4041690722229789953}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84c019f4277f1274ba40346a91f22b2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!222 &6689068813408611258
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -96254,6 +96289,34 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &7013710247075502848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2553871614525675332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ef9684e996cf9e479e929f3883f4c62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joystick: {fileID: 1681704721}
+  dashCooldownEffect: {fileID: 1220593992}
+  spawnPosition: {fileID: 1255790195}
+  screenSpaceHealthBar: {fileID: 8429026107848219046}
+--- !u!114 &7013710247075502849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2553871614525675332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08e63a22c005d9f41b3b351ca61fada1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7027551867872068447
 GameObject:
   m_ObjectHideFlags: 0
@@ -97473,6 +97536,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 514.4237, y: 29.2139}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8429026107848219046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6154349961507960792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8ca6d4abfcebf549a38091819647eb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frontBar: {fileID: 2038093673}
+  delayedBar: {fileID: 3777539176954646478}
+  delayTime: 0.25
+  dropSpeed: 1.5
+  health: {fileID: 0}
 --- !u!224 &8444042160660878535
 RectTransform:
   m_ObjectHideFlags: 0

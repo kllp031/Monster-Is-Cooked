@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8693837277639760934}
   - component: {fileID: 2844713719107538884}
   - component: {fileID: 2512428499499970665}
-  - component: {fileID: 4684450688660029693}
   - component: {fileID: 5510626972659507158}
   - component: {fileID: 3333070036708335892}
   - component: {fileID: 9004764240037169658}
@@ -22,7 +21,7 @@ GameObject:
   - component: {fileID: 7955101150161046836}
   - component: {fileID: 7658318275080727409}
   - component: {fileID: 7118322417963154927}
-  - component: {fileID: 2118868030091189361}
+  - component: {fileID: 2617239783800030927}
   m_Layer: 8
   m_Name: OnlinePlayer
   m_TagString: Player
@@ -168,20 +167,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 8502819326897545693, guid: f8fb1d8a77aca114f9bef35459df02c0, type: 3}
   spawnPoint: {fileID: 3841218112404472704}
---- !u!114 &4684450688660029693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 55562736604931091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33ae5c5c45d48e54bb387269b8c1f4dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stoveUI: {fileID: 0}
-  actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!114 &5510626972659507158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,10 +314,7 @@ MonoBehaviour:
   dashSpeed: 10
   dashDuration: 0.05
   dashCooldown: 1
-  spawnPosition: {fileID: 0}
   hurtingTime: 0.5
-  dashCooldownEffect: {fileID: 0}
-  dynamicJoystick: {fileID: 0}
   deadZone: 0.05
   afterImagePrefab: {fileID: 0}
 --- !u!114 &7118322417963154927
@@ -353,9 +335,9 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 7658318275080727409}
-  - {fileID: 2118868030091189361}
+  - {fileID: 2617239783800030927}
   ForceRemoteRenderTimeframe: 0
---- !u!114 &2118868030091189361
+--- !u!114 &2617239783800030927
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -364,14 +346,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 55562736604931091}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Script: {fileID: 11500000, guid: c5e690b5fb1084f5ab1c86457af401d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _stateAuthorityChangeErrorCorrectionDelta: 0
-  SyncScale: 1
+  SyncScale: 0
   SyncParent: 1
-  _autoAOIOverride: 1
-  DisableSharedModeInterpolation: 0
+  _interpolationTarget: {fileID: 0}
+  UsePreciseRotation: 0
+  UseRenderSleepThresholds: 1
+  RenderThresholds:
+    UseEnergy: 1
+    Position: 0.01
+    Rotation: 0.01
+    Scale: 0.01
 --- !u!1 &3131607796444782362
 GameObject:
   m_ObjectHideFlags: 0

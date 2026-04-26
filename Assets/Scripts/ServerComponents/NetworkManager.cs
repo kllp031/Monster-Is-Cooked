@@ -52,6 +52,34 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
                                 SceneRef.FromIndex(lobbySceneIndex),
                                 null);
     }
+
+    /// <summary>
+    /// Cleanup sau khi StartGame fail hoặc khi player chủ động rời phòng.
+    /// Cần gọi để cho phép user thử join lại — nếu không, <see cref="NetworkRunner"/>
+    /// còn reference → <see cref="JoinRoom.OnJoinRoom"/> sẽ bỏ qua im lặng.
+    /// </summary>
+    public async Task CleanupNetworkRunnerAsync()
+    {
+        if (networkRunner == null) return;
+
+        try
+        {
+            if (networkRunner.IsRunning)
+            {
+                await networkRunner.Shutdown(destroyGameObject: true);
+            }
+            else if (networkRunner != null && networkRunner.gameObject != null)
+            {
+                Destroy(networkRunner.gameObject);
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning($"NetworkManager.CleanupNetworkRunnerAsync: {e.Message}");
+        }
+
+        networkRunner = null;
+    }
     private Task<StartGameResult> InitializeNetworkRunner(GameMode gameMode, string roomId, NetAddress address, SceneRef sceneRef, Action<NetworkRunner> initialized)
     {
         networkRunner = FindAnyObjectByType<NetworkRunner>();

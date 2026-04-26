@@ -59,6 +59,8 @@ public class HotbarSlotUI : MonoBehaviour, IPointerClickHandler
     // This detects BOTH Left and Right clicks
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (HotbarManager.Instance == null) return;
+
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             // Left Click = Select
@@ -76,6 +78,7 @@ public class HotbarSlotUI : MonoBehaviour, IPointerClickHandler
 
     public void OnHotbarSlotClicked()
     {
+        if (HotbarManager.Instance == null) return;
         HotbarManager.Instance.SelectSlot(slotIndex);
         print("clicked hotbar slot " + slotIndex + ": " + (recipe != null ? recipe.name : "Empty"));
     }

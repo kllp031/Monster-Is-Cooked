@@ -1,4 +1,5 @@
 ﻿using Fusion;
+using Fusion.Addons.Physics;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,7 +15,12 @@ public class KnightControllerOnline : NetworkBehaviour
     [SerializeField] private float dashSpeed = 10f;
     [SerializeField] private float dashDuration = 0.05f;
     [SerializeField] private float dashCooldown = 1f;
-    [SerializeField] private Transform spawnPosition;
+
+    // Scene references — bind runtime qua LocalPlayerHUD.Bind(this). KHÔNG gán
+    // trực tiếp trên prefab vì prefab không thể tham chiếu scene object.
+    private Transform spawnPosition;
+    private Image dashCooldownEffect;
+    private Joystick dynamicJoystick; // Joystick Pack
 
     private bool isDashing = false;
     private bool isHurting = false;
@@ -26,12 +32,20 @@ public class KnightControllerOnline : NetworkBehaviour
     private Animator animator;
     private Health health;
 
-    [SerializeField] private Image dashCooldownEffect;
-
-    [SerializeField] private Joystick dynamicJoystick; // Joystick Pack
     [SerializeField] private float deadZone = 0.05f;
     private Vector2 inputFromJoystick;
     private bool isUsingJoystick = false;
+
+    /// <summary>
+    /// Gọi bởi LocalPlayerHUD để đẩy các reference UI/scene vào player local.
+    /// Chỉ player có InputAuthority (player của máy này) mới nên nhận binding.
+    /// </summary>
+    public void ConfigureLocalHUD(Joystick joystick, Image dashCooldownImage, Transform spawnPoint)
+    {
+        dynamicJoystick = joystick;
+        dashCooldownEffect = dashCooldownImage;
+        spawnPosition = spawnPoint;
+    }
 
     private void Awake()
     {
@@ -45,10 +59,22 @@ public class KnightControllerOnline : NetworkBehaviour
 
         if (Object.HasInputAuthority)
         {
+            // Camera
             if (Camera.main != null)
             {
                 CameraFollow camFollow = Camera.main.GetComponent<CameraFollow>();
                 if (camFollow != null) camFollow.PlayerTransform = transform;
+            }
+
+            // Scene-local HUD (joystick, dash cooldown image, spawn point).
+            if (LocalPlayerHUD.Instance != null)
+            {
+                LocalPlayerHUD.Instance.Bind(this);
+            }
+            else
+            {
+                Debug.LogWarning(
+                    $"{nameof(LocalPlayerHUD)} not found in scene. Local player UI/refs will be null.");
             }
         }
     }
@@ -59,9 +85,8 @@ public class KnightControllerOnline : NetworkBehaviour
         {
             moveInput = inputData.MovementInput;
         }
-        else moveInput = Vector2.zero;
 
-        if (health.isDeath)
+        if (health != null && health.isDeath)
             return;
 
         if (isDashing) return;
@@ -80,9 +105,8 @@ public class KnightControllerOnline : NetworkBehaviour
             }
         }
 
-        Vector2 move = moveInput * PlayerDataManager.Instance.CurrentSpeed * Runner.DeltaTime;
-        //rb.MovePosition(rb.position + move);
-        transform.position = (Vector2)transform.position + move;
+        Vector2 move = moveInput * 5.0f * Runner.DeltaTime;
+        rb.MovePosition(rb.position + move);
     }
 
     // -------------------------
@@ -94,19 +118,20 @@ public class KnightControllerOnline : NetworkBehaviour
     // -------------------------
     public void OnDash(InputAction.CallbackContext context)
     {
-        if (health.isDeath)
+        if (health == null || health.isDeath)
             return;
 
         if (context.started && canDash && moveInput != Vector2.zero)
         {
-            SoundManager.Instance.PlaySFX(SoundManager.Instance.playerDash);
+            if (SoundManager.Instance != null)
+                SoundManager.Instance.PlaySFX(SoundManager.Instance.playerDash);
             StartCoroutine(DashRoutine());
         }
     }
 
     public void OnDashButton()
     {
-        if (health.isDeath)
+        if (health == null || health.isDeath)
             return;
 
         if (canDash && moveInput != Vector2.zero)
@@ -123,8 +148,8 @@ public class KnightControllerOnline : NetworkBehaviour
         isDashing = true;
         canDash = false;
 
-        // Set dash cooldown UI
-        dashCooldownEffect.fillAmount = 1;
+        // Set dash cooldown UI (local player only)
+        if (dashCooldownEffect != null) dashCooldownEffect.fillAmount = 1;
 
         Vector2 dashDir = moveInput.normalized;
         float timer = 0f;
@@ -148,77 +173,53 @@ public class KnightControllerOnline : NetworkBehaviour
         canDash = true;
     }
 
-    // -------------------------
-    // FIXED UPDATE MOVEMENT
-    // -------------------------
-    //private void FixedUpdate()
-    //{
-    //    if (health.isDeath)
-    //        return;
-
-    //    if (isDashing) return;
-
-    //    if (isHurting)
-    //    {
-    //        hurtingTimer += Time.deltaTime;
-    //        if (hurtingTimer >= hurtingTime)
-    //        {
-    //            isHurting = false;
-    //            hurtingTimer = 0f;
-    //        }
-    //        else
-    //        {
-    //            return;
-    //        }
-    //    }
-
-    //    Vector2 move = moveInput * PlayerDataManager.Instance.CurrentSpeed * Time.fixedDeltaTime;
-    //    rb.MovePosition(rb.position + move);
-    //}
-
     private void Update()
     {
-        //Update dash cooldown UI
-        if (!canDash)
+        // UI + input chỉ chạy trên local player (có InputAuthority). Remote
+        // player không có HUD và cũng không được ghi [Networked] moveInput.
+        bool isLocal = Object != null && Object.HasInputAuthority;
+
+        // Update dash cooldown UI (local only)
+        if (isLocal && !canDash && dashCooldownEffect != null)
         {
             dashCooldownEffect.fillAmount -= 1f / dashCooldown * Time.deltaTime;
             if (dashCooldownEffect.fillAmount < 0)
                 dashCooldownEffect.fillAmount = 0;
         }
 
-        // Input từ joystick UI
-        if (dynamicJoystick != null)
+        // Input từ joystick UI (local only). Đẩy vào InputsManager để
+        // OnInput poll thống nhất một nguồn → InputData → GetInput trong FUN.
+        if (isLocal && dynamicJoystick != null && InputsManager.Instance != null)
         {
             inputFromJoystick = new Vector2(
                 dynamicJoystick.Horizontal,
                 dynamicJoystick.Vertical
             ).normalized;
 
-            if (inputFromJoystick.magnitude > deadZone)
+            bool active = inputFromJoystick.magnitude > deadZone;
+            if (active)
             {
                 isUsingJoystick = true;
-                moveInput = inputFromJoystick;
+                InputsManager.Instance.PlayerInputs.SetJoystickInput(inputFromJoystick, true);
             }
             else if (isUsingJoystick)
             {
-                // vừa thả joystick
                 isUsingJoystick = false;
-                moveInput = Vector2.zero;
+                InputsManager.Instance.PlayerInputs.SetJoystickInput(Vector2.zero, false);
             }
-
         }
 
+        // Animator + flip (chạy trên tất cả clients để remote proxy cũng
+        // animate đúng theo [Networked] moveInput được đồng bộ).
+        if (animator != null)
+        {
+            animator.SetBool("isRunning", moveInput != Vector2.zero);
+        }
 
-
-        // Animator
-        animator.SetBool("isRunning", moveInput != Vector2.zero);
-
-        // Flip
         if (moveInput.x > 0)
             transform.localScale = new Vector3(-1, 1, 1);
         else if (moveInput.x < 0)
             transform.localScale = new Vector3(1, 1, 1);
-
     }
 
     public Vector2 GetMoveInput()
@@ -241,13 +242,36 @@ public class KnightControllerOnline : NetworkBehaviour
 
     public void Respawn()
     {
-        health.isDeath = false;
-        health.ReceiveHealing(1000000);
-        transform.position = spawnPosition.position;
-        animator.SetTrigger("Revive");
-        Camera.main.GetComponent<CameraFollow>().BackHome();
+        if (health != null)
+        {
+            health.isDeath = false;
+            health.ReceiveHealing(1000000);
+        }
+
+        if (spawnPosition != null)
+        {
+            // Dùng NetworkRigidbody2D.Teleport để Fusion cập nhật state buffer,
+            // tránh resimulation đè lại vị trí cũ.
+            var netRb = GetComponent<NetworkRigidbody2D>();
+            if (netRb != null)
+                netRb.Teleport(spawnPosition.position);
+            else if (rb != null)
+                rb.position = spawnPosition.position;
+            else
+                transform.position = spawnPosition.position;
+        }
+
+        if (animator != null) animator.SetTrigger("Revive");
+
+        if (Object != null && Object.HasInputAuthority && Camera.main != null)
+        {
+            var camFollow = Camera.main.GetComponent<CameraFollow>();
+            if (camFollow != null) camFollow.BackHome();
+        }
 
         moveInput = Vector2.zero;
-        SoundManager.Instance.PlayMusic(SoundManager.Instance.cookingMusic);
+
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.PlayMusic(SoundManager.Instance.cookingMusic);
     }
 }

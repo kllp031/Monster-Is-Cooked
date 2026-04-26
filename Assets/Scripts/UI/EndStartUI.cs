@@ -14,6 +14,15 @@ public class EndStartUI : MonoBehaviour
     [SerializeField] RectTransform retryBtn;
     [SerializeField] RectTransform nextBtn;
 
+    [Header("Buttons (auto-wired in Start)")]
+    [Tooltip("Nút Start trong Start panel. Gán Button component vào đây; " +
+             "script sẽ tự AddListener(OnStartClicked).")]
+    [SerializeField] Button startBtn;
+
+    [Header("Multiplayer")]
+    [Tooltip("(Optional) Text hiện 'Chờ host...' cho client không phải MasterClient.")]
+    [SerializeField] TMP_Text waitingForHostText;
+
     [SerializeField] TMP_Text startUICustomersText;
     [SerializeField] TMP_Text startUIGoalText;
     [SerializeField] TMP_Text startUIDayText;
@@ -39,33 +48,144 @@ public class EndStartUI : MonoBehaviour
 
     private void Start()
     {
-        if (GameManager.Instance == null)
+        // Luôn cache origin + ẩn panel ban đầu, ngay cả khi thiếu manager.
+        // Điều này đảm bảo ToggleStartScreen(true) phía dưới vẫn hoạt động
+        // nếu manager chưa sẵn sàng.
+        if (startUI != null) _startUiOrigin = startUI.anchoredPosition;
+        if (endUI != null) _endUiOrigin = endUI.anchoredPosition;
+
+        if (endUI != null) endUI.anchoredPosition = _endUiOrigin + offScreenOffset;
+        if (startUI != null) startUI.anchoredPosition = _startUiOrigin + offScreenOffset;
+
+        // Subscribe sự kiện nếu manager có; nếu không, UI vẫn show được
+        // (nhưng một số thông tin text có thể trống).
+        if (GameManager.Instance != null)
         {
-            Debug.LogError("EndStartUI: GameManager instance not found!");
-            return;
+            GameManager.Instance.OnLevelEnd.AddListener(OnLevelEnd);
+        }
+        else
+        {
+            Debug.LogWarning("EndStartUI: GameManager.Instance chưa có khi Start(). Level-end events sẽ không hoạt động.");
         }
 
-        if (PlayerDataManager.Instance == null)
+        if (PlayerDataManager.Instance != null)
         {
-            Debug.LogError("EndStartUI: PlayerDataManager instance not found!");
-            return;
+            PlayerDataManager.Instance.onMoneyChanged.AddListener(OnUpdateCoinChange);
+        }
+        else
+        {
+            Debug.LogWarning("EndStartUI: PlayerDataManager.Instance chưa có khi Start(). Coin events sẽ không hoạt động.");
         }
 
-        GameManager.Instance.OnLevelEnd.AddListener(OnLevelEnd);
-        PlayerDataManager.Instance.onMoneyChanged.AddListener(OnUpdateCoinChange);
+        WireButtons();
 
-        if (startUI) _startUiOrigin = startUI.anchoredPosition;
-        if (endUI) _endUiOrigin = endUI.anchoredPosition;
-
-        // Initialize positions
-        endUI.anchoredPosition = _endUiOrigin + offScreenOffset;
-        startUI.anchoredPosition = _startUiOrigin + offScreenOffset;
+        // Nhận broadcast "level started" từ MasterClient để ẩn start screen đồng bộ.
+        GameManagerOnline.OnLevelStarted += HandleLevelStartedRemote;
 
         ToggleStartScreen(true);
     }
 
+    private void Update()
+    {
+        // Trong multiplayer, chỉ MasterClient mới được bấm Start.
+        // Poll interactable mỗi frame (rẻ, và bắt kịp khi host migrate).
+        if (startBtn == null) return;
+
+        if (IsMultiplayerActive())
+        {
+            bool isMaster = IsLocalMasterClient();
+            startBtn.interactable = isMaster;
+            if (waitingForHostText != null)
+            {
+                waitingForHostText.gameObject.SetActive(!isMaster);
+            }
+        }
+        else
+        {
+            startBtn.interactable = true;
+            if (waitingForHostText != null)
+            {
+                waitingForHostText.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private static bool IsMultiplayerActive()
+    {
+        return NetworkManager.Instance != null
+            && NetworkManager.Instance.NetworkRunner != null
+            && NetworkManager.Instance.NetworkRunner.IsRunning;
+    }
+
+    private static bool IsLocalMasterClient()
+    {
+        return NetworkManager.Instance != null
+            && NetworkManager.Instance.NetworkRunner != null
+            && NetworkManager.Instance.NetworkRunner.IsSharedModeMasterClient;
+    }
+
+    private void HandleLevelStartedRemote()
+    {
+        // Mọi client đều nhận: ẩn start screen.
+        ToggleStartScreen(false);
+    }
+
+    // Auto-wire button clicks bằng code (không phụ thuộc Inspector OnClick).
+    // - startBtn: serialize trực tiếp vào field -> AddListener(OnStartClicked).
+    // - retryBtn / nextBtn: đang là RectTransform, thử GetComponent<Button>()
+    //   trên cùng GameObject; nếu có thì tự nối.
+    private void WireButtons()
+    {
+        if (startBtn != null)
+        {
+            startBtn.onClick.RemoveListener(OnStartClicked);
+            startBtn.onClick.AddListener(OnStartClicked);
+        }
+        else
+        {
+            Debug.LogWarning("[EndStartUI] startBtn chưa được gán trong Inspector. " +
+                             "Kéo Button 'Start' (trong startUI) vào field 'startBtn' để script tự wire OnStartClicked.");
+        }
+
+        if (retryBtn != null)
+        {
+            var btn = retryBtn.GetComponent<Button>();
+            if (btn != null)
+            {
+                btn.onClick.RemoveListener(OnRetryClicked);
+                btn.onClick.AddListener(OnRetryClicked);
+            }
+        }
+
+        if (nextBtn != null)
+        {
+            var btn = nextBtn.GetComponent<Button>();
+            if (btn != null)
+            {
+                btn.onClick.RemoveListener(OnNextClicked);
+                btn.onClick.AddListener(OnNextClicked);
+            }
+        }
+    }
+
     private void OnDisable()
     {
+        // Cleanup event.
+        GameManagerOnline.OnLevelStarted -= HandleLevelStartedRemote;
+
+        // Cleanup button listeners.
+        if (startBtn != null) startBtn.onClick.RemoveListener(OnStartClicked);
+        if (retryBtn != null)
+        {
+            var btn = retryBtn.GetComponent<Button>();
+            if (btn != null) btn.onClick.RemoveListener(OnRetryClicked);
+        }
+        if (nextBtn != null)
+        {
+            var btn = nextBtn.GetComponent<Button>();
+            if (btn != null) btn.onClick.RemoveListener(OnNextClicked);
+        }
+
         if (GameManager.Instance == null) return;
 
         GameManager.Instance.OnLevelEnd.RemoveListener(OnLevelEnd);
@@ -163,8 +283,50 @@ public class EndStartUI : MonoBehaviour
 
     public void OnStartClicked()
     {
-        // Immediate toggle for starting the game
+        Debug.Log("[EndStartUI] OnStartClicked");
+
+        // --- Multiplayer path ---
+        if (IsMultiplayerActive())
+        {
+            if (!IsLocalMasterClient())
+            {
+                // Client thường không được start — chỉ MasterClient.
+                Debug.Log("[EndStartUI] Chỉ MasterClient được start. Đang chờ host...");
+                return;
+            }
+
+            if (GameManagerOnline.Instance == null)
+            {
+                Debug.LogError("[EndStartUI] Multiplayer: thiếu GameManagerOnline trong scene. " +
+                               "Đảm bảo MultiplayerGameplay có 1 NetworkObject chứa GameManagerOnline.");
+                return;
+            }
+
+            // Master: broadcast tới mọi client. RPC targets All -> master cũng nhận
+            // và tự ẩn UI + call StartCurrentLevel qua handler.
+            GameManagerOnline.Instance.RPC_StartLevel();
+            return;
+        }
+
+        // --- Single-player path ---
         ToggleStartScreen(false);
+
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("[EndStartUI] Không thể bắt đầu level: GameManager.Instance null. " +
+                           "Thêm một GameObject có component GameManager vào scene.");
+            return;
+        }
+
+        if (!GameManager.Instance.GameStarted)
+        {
+            Debug.LogError("[EndStartUI] Không thể bắt đầu level: GameManager.GameStarted == false. " +
+                           "Kiểm tra GameManager: (1) levelDesign đã gán chưa, " +
+                           "(2) PlayerDataManager có trong scene chưa, " +
+                           "(3) saved level number có hợp lệ trong level design không.");
+            return;
+        }
+
         GameManager.Instance.StartCurrentLevel();
     }
 
@@ -249,15 +411,15 @@ public class EndStartUI : MonoBehaviour
 
     private IEnumerator AnimateUI(RectTransform targetUI, Vector2 originalPos, bool show, bool animateBG = true)
     {
+        if (targetUI == null) yield break;
+
         float time = 0;
         Vector2 posStart = targetUI.anchoredPosition;
         Vector2 posEnd = show ? originalPos : originalPos + offScreenOffset;
 
-        // Determine BG target alpha
-        Color bgStartColor = BGImage.color;
-        Color bgEndColor = BGImage.color;
-
-        // If showing UI -> Max Alpha. If hiding UI -> 0 Alpha.
+        // Determine BG target alpha (BGImage có thể null)
+        Color bgStartColor = BGImage != null ? BGImage.color : Color.clear;
+        Color bgEndColor = bgStartColor;
         bgEndColor.a = show ? bgMaxAlpha : 0f;
 
         while (time < animationDuration)
