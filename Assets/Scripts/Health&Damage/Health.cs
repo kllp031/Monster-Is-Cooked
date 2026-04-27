@@ -79,7 +79,7 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(int damageAmount)
     {
-        if (isInvincible || currentHealth <= 0)
+        if (isInvincible || currentHealth <= 0 || isDeath)
         {
             return;
         }
@@ -90,6 +90,7 @@ public class Health : MonoBehaviour
 
             if (gameObject.tag == "Player")
             {
+                //Debug.Log("player still hurt, isdead " + isDeath);
                 SoundManager.Instance.PlaySFX(SoundManager.Instance.playerHurt);
                 animator.SetTrigger("Hurt");
             }    
@@ -178,6 +179,7 @@ public class Health : MonoBehaviour
 
             isDeath = true;
             animator.SetTrigger("Death");
+            animator.SetBool("isDead", true);
             GameOver();
         }
 

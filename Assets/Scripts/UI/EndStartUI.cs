@@ -13,6 +13,9 @@ public class EndStartUI : MonoBehaviour
 
     [SerializeField] RectTransform retryBtn;
     [SerializeField] RectTransform nextBtn;
+    [SerializeField] RectTransform menuBtn;
+    [Tooltip("EndWinPanel (or equivalent): all TMP under this gets theme text color.")]
+    [SerializeField] RectTransform endWinPanel;
 
     [Header("Buttons (auto-wired in Start)")]
     [Tooltip("Nút Start trong Start panel. Gán Button component vào đây; " +
@@ -32,6 +35,10 @@ public class EndStartUI : MonoBehaviour
 
     [SerializeField] Image BGImage;
 
+    [Header("End panel theme")]
+    [SerializeField] Image endPanelBackgroundImage;
+    [SerializeField] Image endTitleBackgroundImage;
+
     [Header("Settings")]
     [SerializeField] float animationDuration = 0.5f;
     [Tooltip("Where the UI moves to when hidden (relative to its center)")]
@@ -45,6 +52,11 @@ public class EndStartUI : MonoBehaviour
 
     // We add a specific coroutine to handle the sequence
     private Coroutine _sequenceRoutine;
+
+    private static readonly Color32 EndThemeWoodText = new Color32(0x84, 0x34, 0x05, 255);
+    private static readonly Color32 EndThemeStoneText = new Color32(0x25, 0x2B, 0x34, 255);
+    /// <summary>Level / total coin lines — lighter than body text (same accent for wood and stone themes).</summary>
+    private static readonly Color32 EndThemeCoinText = new Color32(0xC5, 0xCD, 0xD4, 255);
 
     private void Start()
     {
@@ -273,6 +285,8 @@ public class EndStartUI : MonoBehaviour
             ToggleFailUI();
         }
 
+        ApplyEndPanelTheme(isWin);
+
         // 2. Show the end screen
         ToggleEndScreen(true);
 
@@ -452,6 +466,65 @@ public class EndStartUI : MonoBehaviour
     {
         nextBtn.gameObject.SetActive(false);
         retryBtn.gameObject.SetActive(true);
+    }
+
+    private void ApplyEndPanelTheme(bool isWin)
+    {
+        Color32 primaryText = isWin ? EndThemeWoodText : EndThemeStoneText;
+        Color32 coinText = EndThemeCoinText;
+
+        if (endWinPanel != null)
+        {
+            foreach (TMP_Text tmp in endWinPanel.GetComponentsInChildren<TMP_Text>(true))
+            {
+                if (tmp == endUITargetText || tmp == endUICoinTxt)
+                    tmp.color = coinText;
+                else
+                    tmp.color = primaryText;
+            }
+        }
+        else
+        {
+            if (endUITargetText != null) endUITargetText.color = coinText;
+            if (endUICoinTxt != null) endUICoinTxt.color = coinText;
+            SetButtonLabelColor(nextBtn, primaryText);
+            SetButtonLabelColor(retryBtn, primaryText);
+            SetButtonLabelColor(menuBtn, primaryText);
+        }
+
+        if (GameAssets.Instance == null)
+            return;
+
+        GameAssets ga = GameAssets.Instance;
+        Sprite panelSprite = isWin ? ga.PanelWoodBG : ga.PanelStoneBG;
+        Sprite titleSprite = isWin ? ga.TitleWoodBG : ga.TitleStoneBG;
+        Sprite buttonSprite = isWin ? ga.ButtonWoodBG : ga.ButtonStoneBG;
+
+        if (endPanelBackgroundImage != null && panelSprite != null)
+            endPanelBackgroundImage.sprite = panelSprite;
+        if (endTitleBackgroundImage != null && titleSprite != null)
+            endTitleBackgroundImage.sprite = titleSprite;
+
+        SetButtonBackgroundSprite(nextBtn, buttonSprite);
+        SetButtonBackgroundSprite(retryBtn, buttonSprite);
+        SetButtonBackgroundSprite(menuBtn, buttonSprite);
+    }
+
+    private static void SetButtonLabelColor(RectTransform buttonRoot, Color32 color)
+    {
+        if (buttonRoot == null) return;
+        TMP_Text tmp = buttonRoot.GetComponentInChildren<TMP_Text>(true);
+        if (tmp != null)
+            tmp.color = color;
+    }
+
+    private static void SetButtonBackgroundSprite(RectTransform buttonRoot, Sprite sprite)
+    {
+        if (buttonRoot == null || sprite == null)
+            return;
+        Image img = buttonRoot.GetComponent<Image>();
+        if (img != null)
+            img.sprite = sprite;
     }
 
     public void UpdateEndUICoins(int coinCount)

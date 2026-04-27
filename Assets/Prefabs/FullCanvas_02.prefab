@@ -13976,11 +13976,15 @@ MonoBehaviour:
   endUI: {fileID: 6295003779559898596}
   retryBtn: {fileID: 1649096801693255433}
   nextBtn: {fileID: 457505245563416191}
+  menuBtn: {fileID: 8073120719035569177}
+  endWinPanel: {fileID: 255444717120339489}
   startUICustomersText: {fileID: 1535928246284057260}
   startUIGoalText: {fileID: 1489700097385437506}
   endUICustomerText: {fileID: 4386393342734278553}
   endUICoinTxt: {fileID: 6811705321146637994}
   BGImage: {fileID: 7696704078602178895}
+  endPanelBackgroundImage: {fileID: 4110763553877440362}
+  endTitleBackgroundImage: {fileID: 3937278600062611310}
   animationDuration: 2
   offScreenOffset: {x: 0, y: 1000}
   bgMaxAlpha: 0.6

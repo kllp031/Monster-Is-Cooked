@@ -102,6 +102,8 @@ public class CookingManager : MonoBehaviour
         if (result)
         {
             SpawnFood(currentRecipe);
+            if (CookingUIManager.Instance != null && currentRecipe != null)
+                CookingUIManager.Instance.PlayFoodFlyout(currentRecipe);
         }
 
         CookingUIManager.Instance.UpdateCookButtonState(false);
