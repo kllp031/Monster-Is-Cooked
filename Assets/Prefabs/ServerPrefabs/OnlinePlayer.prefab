@@ -12,16 +12,16 @@ GameObject:
   - component: {fileID: 3275480498408031465}
   - component: {fileID: 8693837277639760934}
   - component: {fileID: 2844713719107538884}
-  - component: {fileID: 2512428499499970665}
   - component: {fileID: 5510626972659507158}
   - component: {fileID: 3333070036708335892}
   - component: {fileID: 9004764240037169658}
-  - component: {fileID: 1615201324728325026}
   - component: {fileID: 8408382165426945068}
   - component: {fileID: 7955101150161046836}
   - component: {fileID: 7658318275080727409}
   - component: {fileID: 7118322417963154927}
   - component: {fileID: 2617239783800030927}
+  - component: {fileID: 6650778136868209337}
+  - component: {fileID: 7916854460255602163}
   m_Layer: 8
   m_Name: OnlinePlayer
   m_TagString: Player
@@ -42,11 +42,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3236993065307086209}
   - {fileID: 989789003267214340}
   - {fileID: 2725099613291800833}
   - {fileID: 6999771736610007521}
   - {fileID: 1131054814537321002}
+  - {fileID: 3236993065307086209}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3275480498408031465
@@ -153,20 +153,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &2512428499499970665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 55562736604931091}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f122ce34ac8f08944a11e37c0fc40d20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 8502819326897545693, guid: f8fb1d8a77aca114f9bef35459df02c0, type: 3}
-  spawnPoint: {fileID: 3841218112404472704}
 --- !u!114 &5510626972659507158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,35 +222,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c019f4277f1274ba40346a91f22b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1615201324728325026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 55562736604931091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b035b0167d2f76842add1ef2fbca4c20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  foodPivot: {fileID: 3236993065307086209}
-  foodPlaceHolder: {fileID: 6944257978964468040}
-  dropFoodButton: {fileID: 0}
-  throwButton: {fileID: 0}
-  targetCircle: {fileID: 7578382258194639127}
-  targetCircleMovingTime: 1
-  playerGroundPosition: {fileID: 1131054814537321002}
-  throwDirection: {x: 1, y: 0}
-  throwStartDistance: 1
-  throwEndDistance: 10
-  throwAngle: 45
-  throwHeightOffset: 1
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 2049
-  startHoldingFoodTrigger: 
-  stopHoldingFoodTrigger: 
 --- !u!114 &8408382165426945068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,11 +269,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashSpeed: 10
-  dashDuration: 0.05
+  dashDuration: 0.1
   dashCooldown: 1
   hurtingTime: 0.5
   deadZone: 0.05
-  afterImagePrefab: {fileID: 0}
+  afterImagePrefab: {fileID: 7569130793517090787, guid: c16da61d86253ad4e8b82545569331c0, type: 3}
+  afterImageInterval: 0.05
 --- !u!114 &7118322417963154927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,6 +294,8 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 7658318275080727409}
   - {fileID: 2617239783800030927}
+  - {fileID: 6650778136868209337}
+  - {fileID: 7916854460255602163}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &2617239783800030927
 MonoBehaviour:
@@ -360,6 +320,57 @@ MonoBehaviour:
     Position: 0.01
     Rotation: 0.01
     Scale: 0.01
+--- !u!114 &6650778136868209337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55562736604931091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f19f570ca9e0f8e40b70c6b6741e80b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackEffect: {fileID: 4366590673589885202}
+  coolDownTime: 0.5
+  lockAttackRange: 10
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  distanceAttack: 0.5
+--- !u!114 &7916854460255602163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55562736604931091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 258295839a8cfc34cace5182caaceca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recipeRegistry: {fileID: 11400000, guid: cc7bed2e36f577d4684eadb7aa126fc0, type: 2}
+  holdLocalPosition: {x: 0, y: 1, z: 0}
+  iconSortingOrder: 10
+  iconSortingLayer: 2
+  foodOnlinePrefab:
+    RawGuidValue: 8b455743b46e42046b448d3003460a65
+  localFoodTemplate: {fileID: 0}
+  playerGroundPosition: {fileID: 1131054814537321002}
+  targetCircle: {fileID: 7578382258194639127}
+  holdToThrowTime: 0.3
+  targetCircleMovingTime: 1
+  throwDirection: {x: 1, y: 0}
+  throwStartDistance: 2
+  throwEndDistance: 10
+  throwAngle: 45
+  throwHeightOffset: 1
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  _HeldRecipeId: 0
 --- !u!1 &3131607796444782362
 GameObject:
   m_ObjectHideFlags: 0
@@ -794,7 +805,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2725099613291800833
 Transform:
   m_ObjectHideFlags: 0

@@ -24,21 +24,39 @@ public class PlayerActionsProxy : MonoBehaviour
         if (player == null) return;
         var detector = player.GetComponent<InteractableDetector>();
         if (detector != null) detector.OnInteract();
+        print($"PlayerActionsProxy: Interact called on player {player.name}");
     }
 
-    // Thêm các action khác ở đây khi cần, ví dụ:
-    //
-    // public void DropFood(GameObject player)
-    // {
-    //     if (player == null) return;
-    //     var holder = player.GetComponent<FoodHolder>();
-    //     if (holder != null) holder.DropFood();
-    // }
-    //
-    // public void ThrowFood(GameObject player)
-    // {
-    //     if (player == null) return;
-    //     var holder = player.GetComponent<FoodHolder>();
-    //     if (holder != null) holder.ThrowFood();
-    // }
+    public void Dash(GameObject player)
+    {
+        if (player == null) return;
+        var knight = player.GetComponent<KnightControllerOnline>();
+        if (knight != null) knight.StartDash();
+    }
+
+    public void Attack(GameObject player)
+    {
+        if (player == null) return;
+        var attack = player.GetComponent<KnightAttackOnline>();
+        if (attack != null) attack.OnButtonAttack();
+    }
+
+    /// <summary>
+    /// Single-button drop/throw: gọi từ PointerDown event của button. Holder
+    /// quyết định drop (tap) hay throw (hold) dựa trên thời gian giữ.
+    /// </summary>
+    public void OnFoodActionPress(GameObject player)
+    {
+        if (player == null) return;
+        var holder = player.GetComponent<FoodHolderOnline>();
+        if (holder != null) holder.OnFoodActionPressed();
+    }
+
+    /// <summary>Gọi từ PointerUp event của button (nhả tay).</summary>
+    public void OnFoodActionRelease(GameObject player)
+    {
+        if (player == null) return;
+        var holder = player.GetComponent<FoodHolderOnline>();
+        if (holder != null) holder.OnFoodActionReleased();
+    }
 }

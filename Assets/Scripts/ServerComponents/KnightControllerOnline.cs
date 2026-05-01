@@ -13,7 +13,7 @@ public class KnightControllerOnline : NetworkBehaviour
 
     [Header("Dash Settings")]
     [SerializeField] private float dashSpeed = 10f;
-    [SerializeField] private float dashDuration = 0.05f;
+    [SerializeField] private float dashDuration = 5.0f;
     [SerializeField] private float dashCooldown = 1f;
 
     // Scene references — bind runtime qua LocalPlayerHUD.Bind(this). KHÔNG gán
@@ -22,7 +22,7 @@ public class KnightControllerOnline : NetworkBehaviour
     private Image dashCooldownEffect;
     private Joystick dynamicJoystick; // Joystick Pack
 
-    private bool isDashing = false;
+    [Networked] private NetworkBool isDashing { get; set; }
     private bool isHurting = false;
     [SerializeField] private float hurtingTime = 0.5f;
     private float hurtingTimer = 0f;
@@ -109,33 +109,15 @@ public class KnightControllerOnline : NetworkBehaviour
         rb.MovePosition(rb.position + move);
     }
 
-    // -------------------------
-    // MOVEMENT INPUT
-    // -------------------------
-
-    // -------------------------
-    // DASH INPUT
-    // -------------------------
-    public void OnDash(InputAction.CallbackContext context)
-    {
-        if (health == null || health.isDeath)
-            return;
-
-        if (context.started && canDash && moveInput != Vector2.zero)
-        {
-            if (SoundManager.Instance != null)
-                SoundManager.Instance.PlaySFX(SoundManager.Instance.playerDash);
-            StartCoroutine(DashRoutine());
-        }
-    }
-
-    public void OnDashButton()
+    public void StartDash()
     {
         if (health == null || health.isDeath)
             return;
 
         if (canDash && moveInput != Vector2.zero)
         {
+            if (SoundManager.Instance != null)
+                SoundManager.Instance.PlaySFX(SoundManager.Instance.playerDash);
             StartCoroutine(DashRoutine());
         }
     }
@@ -158,9 +140,6 @@ public class KnightControllerOnline : NetworkBehaviour
         {
             Vector2 newPos = rb.position + dashDir * dashSpeed * Time.fixedDeltaTime;
             rb.MovePosition(newPos);
-
-            //Dash effect
-            CreateAfterImage();
 
             timer += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
@@ -211,15 +190,20 @@ public class KnightControllerOnline : NetworkBehaviour
 
         // Animator + flip (chạy trên tất cả clients để remote proxy cũng
         // animate đúng theo [Networked] moveInput được đồng bộ).
+        // Trong lúc dash, dashDir đã frozen — bỏ qua flip/anim theo moveInput
+        // để sprite không quay ngược hướng dash khi joystick tilt khác chiều.
         if (animator != null)
         {
-            animator.SetBool("isRunning", moveInput != Vector2.zero);
+            animator.SetBool("isRunning", isDashing || moveInput != Vector2.zero);
         }
 
-        if (moveInput.x > 0)
-            transform.localScale = new Vector3(-1, 1, 1);
-        else if (moveInput.x < 0)
-            transform.localScale = new Vector3(1, 1, 1);
+        if (!isDashing)
+        {
+            if (moveInput.x > 0)
+                transform.localScale = new Vector3(-1, 1, 1);
+            else if (moveInput.x < 0)
+                transform.localScale = new Vector3(1, 1, 1);
+        }
     }
 
     public Vector2 GetMoveInput()
@@ -229,6 +213,30 @@ public class KnightControllerOnline : NetworkBehaviour
 
     //Dash effect
     [SerializeField] GameObject afterImagePrefab;
+    [SerializeField] private float afterImageInterval = 0.05f;
+    private float afterImageTimer = 0f;
+
+    public override void Render()
+    {
+        // Afterimage VFX phải chạy trên mọi client (kể cả remote) nên không
+        // thể spawn trong DashRoutine — coroutine chỉ chạy ở client của
+        // dasher. Render() chạy mỗi frame ở mọi client; gate theo [Networked]
+        // isDashing để các client khác cũng thấy effect.
+        if (isDashing && afterImagePrefab != null)
+        {
+            afterImageTimer += Time.deltaTime;
+            if (afterImageTimer >= afterImageInterval)
+            {
+                afterImageTimer = 0f;
+                CreateAfterImage();
+            }
+        }
+        else
+        {
+            afterImageTimer = 0f;
+        }
+    }
+
     private void CreateAfterImage()
     {
         GameObject img = Instantiate(afterImagePrefab, transform.position, Quaternion.identity);
