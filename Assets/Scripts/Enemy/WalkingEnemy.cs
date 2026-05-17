@@ -1,29 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fusion; 
 
 /// <summary>
-/// EnemyBase-derived enemy class which walks in a direction until it hits a wall
+/// EnemyBase-derived enemy class which walks in a direction until it hits a wall (Networked)
 /// </summary>
 public class WalkingEnemy : EnemyBase
 {
     [Header("Settings")]
     public float chaseRange = 5f;
     public float attackRange = 1.2f;
-    public float timeToIdle; //time to change state
+    public float timeToIdle; 
 
     [Header("Attack")]
     public EnemyAttackBase enemyAttack;
-    public float timeToAttack; 
+    public float timeToAttack;
 
     [Header("Patrol Settings")]
     [SerializeField] private float _patrolSpeed = 2f;
     [SerializeField] private float _minMoveTime = 2f;
     [SerializeField] private float _maxMoveTime = 5f;
     [SerializeField] private float _waitStayTime = 1.5f;
-    [SerializeField] private LayerMask _obstacleLayer; 
-    [SerializeField] private float _wallCheckDistance = 1f; 
-    private float _patrolTimer;       
+    [SerializeField] private LayerMask _obstacleLayer;
+    [SerializeField] private float _wallCheckDistance = 1f;
+
+    [Networked] private int _networkFacingDirection { get; set; } = 1;
+
+    private float _patrolTimer;
     private bool _isPatrolWaiting;
     private Vector2 _moveDirection;
     private float idleTimer = 0f;
@@ -39,24 +43,48 @@ public class WalkingEnemy : EnemyBase
     protected override void Setup()
     {
         base.Setup();
-        rb = GetComponent<Rigidbody2D>();
-        dropItem = GetComponent<DropItem>();
+        // rb và dropItem đã được xử lý ở base.Spawned() trong EnemyBase
+        if (Object.HasStateAuthority)
+        {
+            _networkFacingDirection = 1;
+        }
     }
 
-    protected override void Update()
+    // KHÔNG dùng Update() cho logic mạng. Đưa toàn bộ vào FixedUpdateNetwork của EnemyBase.
+    // Hàm này sẽ được base.FixedUpdateNetwork() gọi NẾU máy có StateAuthority
+    public override void FixedUpdateNetwork()
     {
-        base.Update();
-        UpdateState();
+        // 1. Chạy AI và cập nhật trạng thái FSM (Chỉ chạy trên máy có StateAuthority)
+        if (Object.HasStateAuthority)
+        {
+            // Kiểm tra xem mục tiêu (Player) có hợp lệ không trước khi tính khoảng cách
+            if (target != null)
+            {
+                UpdateStateAndTimers();
+            }
+        }
+
+        // 2. Gọi base để thực hiện di chuyển quái qua mạng (MoveEnemy)
+        base.FixedUpdateNetwork();
     }
 
-    void UpdateState()
+    // Hàm Render chạy liên tục mỗi frame trên TẤT CẢ các máy để xử lý đồ họa mượt mà (UI, Flip, Animation)
+    public override void Render()
+    {
+        base.Render();
+        // Áp dụng hướng quay mặt nhận được từ mạng lên Sprite cục bộ
+        ApplySpriteFlip(_networkFacingDirection);
+    }
+
+    void UpdateStateAndTimers()
     {
         float distance = Vector2.Distance(transform.position, target.position);
+        float dt = Runner.DeltaTime; // Dùng DeltaTime của Fusion thay cho Time.deltaTime
 
         switch (currentEnemyState)
         {
             case EnemyState.Idle:
-                if (idleTimer >= timeToIdle )
+                if (idleTimer >= timeToIdle)
                 {
                     if (distance < chaseRange) currentEnemyState = EnemyState.Chase;
                     else currentEnemyState = EnemyState.Patrol;
@@ -65,85 +93,88 @@ public class WalkingEnemy : EnemyBase
                 }
                 else
                 {
-                    idleTimer += Time.deltaTime;
+                    idleTimer += dt;
                 }
                 break;
 
             case EnemyState.Patrol:
-                HandlePatrol();
-                if (distance < chaseRange) currentEnemyState = EnemyState.Idle;
+                HandlePatrol(dt);
+                if (distance < chaseRange)
+                {
+                    currentEnemyState = EnemyState.Idle;
+                    idleTimer = 0;
+                }
                 break;
 
             case EnemyState.Chase:
-                if (distance >= chaseRange) currentEnemyState = EnemyState.Idle;
+                if (distance >= chaseRange)
+                {
+                    currentEnemyState = EnemyState.Idle;
+                    idleTimer = 0;
+                }
                 if (distance <= attackRange)
                 {
                     currentEnemyState = EnemyState.Attack;
-                    if (target.transform.position.x > transform.position.x)
-                    {
-                        Flip(1);
-                    }
-                    else
-                        Flip(-1);
+                    attackTimer = 0;
+                    NetworkFlip(target.transform.position.x > transform.position.x ? 1 : -1);
                 }
                 break;
 
             case EnemyState.Attack:
-                //enemyAttack.PerformAttack();
-                //enemy will call attack in animation event
-
                 if (attackTimer >= timeToAttack)
                 {
                     currentEnemyState = EnemyState.Idle;
-                    Debug.Log("attack over: " + currentEnemyState);
+                    idleTimer = 0;
                     attackTimer = 0;
                 }
                 else
                 {
-                    attackTimer += Time.deltaTime;
+                    attackTimer += dt;
                 }
                 break;
 
             case EnemyState.Hurt:
-                //hurt, health handle
                 if (hurtTimer >= _hurtTime)
                 {
                     currentEnemyState = EnemyState.Idle;
+                    idleTimer = 0;
                     hurtTimer = 0;
                 }
                 else
                 {
-                    hurtTimer += Time.deltaTime;
+                    hurtTimer += dt;
                 }
                 break;
+
             case EnemyState.Dead:
-                //dead, health handle
                 break;
         }
     }
 
     protected override Vector3 GetMovement()
     {
-        if (currentEnemyState == EnemyState.Chase)
+        // Hàm này chỉ được base gọi khi có StateAuthority, an toàn để tính toán vị trí
+        float dt = Runner.DeltaTime;
+
+        if (currentEnemyState == EnemyState.Chase && target != null)
         {
             Vector2 dir = (target.position - transform.position).normalized;
-            Flip((target.position - transform.position).x > 0 ? 1 : -1);
-            return dir * moveSpeed * Time.deltaTime;
+            NetworkFlip((target.position - transform.position).x > 0 ? 1 : -1);
+            return dir * moveSpeed * dt;
         }
 
-        //patrol
         if (currentEnemyState == EnemyState.Patrol && !_isPatrolWaiting)
         {
-            Flip(_moveDirection.x > 0 ? 1 : -1);
-            return _moveDirection * _patrolSpeed * Time.deltaTime;
+            NetworkFlip(_moveDirection.x > 0 ? 1 : -1);
+            return _moveDirection * _patrolSpeed * dt;
         }
 
         return Vector3.zero;
     }
 
-    private void HandlePatrol()
+    private void HandlePatrol(float dt)
     {
-        _patrolTimer -= Time.deltaTime;
+        _patrolTimer -= dt;
         if (_patrolTimer <= 0)
         {
             if (_isPatrolWaiting)
@@ -166,37 +197,51 @@ public class WalkingEnemy : EnemyBase
             SetRandomPatrolTime();
         }
     }
+
     private void SetRandomPatrolTime()
     {
         _patrolTimer = Random.Range(_minMoveTime, _maxMoveTime);
     }
+
     private void PickRandomDirection()
     {
         _moveDirection = Random.insideUnitCircle.normalized;
-
         if (_moveDirection.x != 0)
         {
-            Flip(_moveDirection.x > 0 ? 1 : -1);
+            NetworkFlip(_moveDirection.x > 0 ? 1 : -1);
         }
     }
+
     private bool CheckWallOrLedge()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, _moveDirection, _wallCheckDistance, _obstacleLayer);
-        if (hit.collider != null) Debug.Log("var");
         return hit.collider != null;
     }
-    private void Flip(int direction)
+
+    // Chỉ cập nhật biến Networked, không chỉnh localScale trực tiếp ở luồng AI
+    private void NetworkFlip(int direction)
+    {
+        _networkFacingDirection = direction;
+    }
+
+    // Hàm thực thi đổi scale thật (Chỉ chạy trong Render() để đồng bộ mượt mà đồ họa)
+    private void ApplySpriteFlip(int direction)
     {
         Vector3 scale = transform.localScale;
-        if(isFlip)
+        if (isFlip)
             scale.x = Mathf.Abs(scale.x) * -direction;
         else
             scale.x = Mathf.Abs(scale.x) * direction;
         transform.localScale = scale;
     }
 
-    public void OnDestroy()
+    // Photon Fusion tự động quản lý vòng đời hủy đối tượng qua mạng,
+    // Tuyệt đối KHÔNG dùng Destroy(gameObject) của Unity thường.
+    public void OnNetworkDespawn()
     {
-        Destroy(gameObject);
+        if (Object != null && Object.HasStateAuthority)
+        {
+            Runner.Despawn(Object);
+        }
     }
 }

@@ -167,10 +167,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamId: 0
   maximumHealth: 10
-  currentHealth: 10
+  _currentHealth: 0
   invincibilityTime: 0
-  isDeath: 0
-  isInvincible: 1
+  _isDeath:
+    _value: 0
   deathEffect: {fileID: 0}
   hitEffect: {fileID: 0}
 --- !u!70 &3333070036708335892
@@ -236,10 +236,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamId: 0
   maximumHealth: 5
-  currentHealth: 5
+  _currentHealth: 0
   invincibilityTime: 3
-  isDeath: 0
-  isInvincible: 0
+  _isDeath:
+    _value: 0
   deathEffect: {fileID: 0}
   hitEffect: {fileID: 0}
 --- !u!114 &7955101150161046836
@@ -292,6 +292,8 @@ MonoBehaviour:
   Flags: 262145
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 5510626972659507158}
+  - {fileID: 8408382165426945068}
   - {fileID: 7658318275080727409}
   - {fileID: 2617239783800030927}
   - {fileID: 6650778136868209337}
@@ -357,7 +359,7 @@ MonoBehaviour:
   iconSortingLayer: 2
   foodOnlinePrefab:
     RawGuidValue: 8b455743b46e42046b448d3003460a65
-  localFoodTemplate: {fileID: 0}
+  foodGravityScale: 1
   playerGroundPosition: {fileID: 1131054814537321002}
   targetCircle: {fileID: 7578382258194639127}
   holdToThrowTime: 0.3
