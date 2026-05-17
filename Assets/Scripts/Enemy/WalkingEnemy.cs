@@ -37,6 +37,11 @@ public class WalkingEnemy : EnemyBase
     [SerializeField] private float _hurtTime = 2f;
     private float hurtTimer;
 
+    [Header("Multiplayer AI Settings")]
+    [SerializeField] private LayerMask _playerLayer; // Gán layer "Player" trong Inspector
+    [SerializeField] private float _targetScanInterval = 0.5f; // Quét lại mục tiêu mỗi 0.5 giây
+    private float _scanTimer = 0f;
+
     [Header("Sprite settings")]
     [SerializeField] private bool isFlip = false;
 
@@ -54,17 +59,36 @@ public class WalkingEnemy : EnemyBase
     // Hàm này sẽ được base.FixedUpdateNetwork() gọi NẾU máy có StateAuthority
     public override void FixedUpdateNetwork()
     {
-        // 1. Chạy AI và cập nhật trạng thái FSM (Chỉ chạy trên máy có StateAuthority)
         if (Object.HasStateAuthority)
         {
-            // Kiểm tra xem mục tiêu (Player) có hợp lệ không trước khi tính khoảng cách
+            // Bộ đếm thời gian quét mục tiêu (Tránh việc quét mỗi frame gây sụt giảm hiệu năng - CPU spike)
+            _scanTimer += Runner.DeltaTime;
+            if (_scanTimer >= _targetScanInterval || target == null)
+            {
+                FindClosestPlayerNetworked();
+                _scanTimer = 0f;
+            }
+
+            // Nếu đã tìm thấy người chơi, cho phép chạy FSM để quái di chuyển/tấn công
             if (target != null)
             {
                 UpdateStateAndTimers();
             }
+            else
+            {
+                // Nếu không có ai trong vùng, ép quái về trạng thái Idle hoặc Patrol
+                if (currentEnemyState == EnemyState.Chase || currentEnemyState == EnemyState.Attack)
+                {
+                    currentEnemyState = EnemyState.Idle;
+                    idleTimer = 0f;
+                }
+
+                // Chạy tuần tra tự động nếu không có người chơi xung quanh
+                UpdateStateAndTimers();
+            }
         }
 
-        // 2. Gọi base để thực hiện di chuyển quái qua mạng (MoveEnemy)
+        // Gọi base để thực thi di chuyển vị trí (MoveEnemy) lên mạng
         base.FixedUpdateNetwork();
     }
 
@@ -78,7 +102,7 @@ public class WalkingEnemy : EnemyBase
 
     void UpdateStateAndTimers()
     {
-        float distance = Vector2.Distance(transform.position, target.position);
+        float distance = (target != null) ? Vector2.Distance(transform.position, target.position) : float.MaxValue;
         float dt = Runner.DeltaTime; // Dùng DeltaTime của Fusion thay cho Time.deltaTime
 
         switch (currentEnemyState)
@@ -170,6 +194,35 @@ public class WalkingEnemy : EnemyBase
         }
 
         return Vector3.zero;
+    }
+
+    void FindClosestPlayerNetworked()
+    {
+        // Quét toàn bộ Collider thuộc layer Player trong bán kính đuổi theo (chaseRange)
+        Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(transform.position, chaseRange, _playerLayer);
+
+        Transform closestPlayer = null;
+        float minDistance = float.MaxValue;
+
+        foreach (var hit in hitPlayers)
+        {
+            if (hit.CompareTag("Player"))
+            {
+                // Kiểm tra xem Player đó còn sống không (gắn với script Health mạng)
+                if (hit.TryGetComponent(out Health playerHealth) && playerHealth.isDeath)
+                    continue;
+
+                float dist = Vector2.Distance(transform.position, hit.transform.position);
+                if (dist < minDistance)
+                {
+                    minDistance = dist;
+                    closestPlayer = hit.transform;
+                }
+            }
+        }
+
+        // Gán mục tiêu tìm được cho quái
+        target = closestPlayer;
     }
 
     private void HandlePatrol(float dt)

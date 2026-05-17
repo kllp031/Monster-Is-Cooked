@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 7864563635384869444}
   - component: {fileID: 3784823798872056719}
   - component: {fileID: 2305631284077129435}
+  - component: {fileID: -5208915085114966142}
+  - component: {fileID: -9075557575652579528}
   m_Layer: 0
   m_Name: PigBullet
   m_TagString: Untagged
@@ -140,7 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  direction: {x: 1, y: 0}
+  _direction: {x: 1, y: 0}
 --- !u!114 &3784823798872056719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,3 +176,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifetime: 3
   destroyChildrenOnDeath: 1
+--- !u!114 &-5208915085114966142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6506497644204188378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 261605919
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 7864563635384869444}
+  - {fileID: 3784823798872056719}
+  - {fileID: 2305631284077129435}
+  - {fileID: -9075557575652579528}
+  ForceRemoteRenderTimeframe: 0
+--- !u!114 &-9075557575652579528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6506497644204188378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stateAuthorityChangeErrorCorrectionDelta: 0
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0

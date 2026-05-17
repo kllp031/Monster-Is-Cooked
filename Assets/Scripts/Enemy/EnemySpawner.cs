@@ -66,43 +66,12 @@ public class EnemySpawner : NetworkBehaviour
 
         if (newEnemyObj != null)
         {
-            // 2. Tự động tìm kiếm Player thực tế gần con quái này nhất trong Multiplayer
-            Transform closestPlayer = FindClosestPlayer(spawnPos);
-
-            if (newEnemyObj.TryGetComponent(out EnemyBase enemyScript))
-            {
-                enemyScript.SetTarget(closestPlayer);
-            }
-
             if (newEnemyObj.TryGetComponent(out Health healthScript))
             {
                 healthScript.SetupSpawner(this);
                 _currentCount++; 
             }
         }
-    }
-
-    // Thuật toán quét tìm mục tiêu trong Multiplayer
-    private Transform FindClosestPlayer(Vector2 spawnPos)
-    {
-        // Quét tất cả Collider thuộc lớp người chơi trong bán kính lớn
-        Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(spawnPos, 30f, _playerLayer);
-        Transform closest = null;
-        float minDistance = float.MaxValue;
-
-        foreach (var hit in hitPlayers)
-        {
-            if (hit.CompareTag("Player"))
-            {
-                float dist = Vector2.Distance(spawnPos, hit.transform.position);
-                if (dist < minDistance)
-                {
-                    minDistance = dist;
-                    closest = hit.transform;
-                }
-            }
-        }
-        return closest;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

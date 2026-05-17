@@ -172,6 +172,10 @@ MonoBehaviour:
     m_Bits: 16
   _wallCheckDistance: 1
   _hurtTime: 1
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  _targetScanInterval: 0.5
   isFlip: 1
 --- !u!114 &8687485351612802646
 MonoBehaviour:
@@ -316,6 +320,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 185037289216935537}
+  - {fileID: 8687485351612802646}
   - {fileID: 3441307476891121901}
   - {fileID: 506174088931862145}
   ForceRemoteRenderTimeframe: 0
