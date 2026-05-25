@@ -174,7 +174,7 @@ MonoBehaviour:
   _hurtTime: 0.3
   _playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   _targetScanInterval: 0.5
   isFlip: 0
 --- !u!114 &2732949147617335508
