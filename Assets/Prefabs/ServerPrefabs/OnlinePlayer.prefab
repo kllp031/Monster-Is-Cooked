@@ -12,16 +12,16 @@ GameObject:
   - component: {fileID: 3275480498408031465}
   - component: {fileID: 8693837277639760934}
   - component: {fileID: 2844713719107538884}
-  - component: {fileID: 5510626972659507158}
   - component: {fileID: 3333070036708335892}
   - component: {fileID: 9004764240037169658}
-  - component: {fileID: 8408382165426945068}
   - component: {fileID: 7955101150161046836}
   - component: {fileID: 7658318275080727409}
   - component: {fileID: 7118322417963154927}
   - component: {fileID: 2617239783800030927}
   - component: {fileID: 6650778136868209337}
   - component: {fileID: 7916854460255602163}
+  - component: {fileID: 6288227475440743213}
+  - component: {fileID: -804404763868193634}
   m_Layer: 8
   m_Name: OnlinePlayer
   m_TagString: Player
@@ -153,26 +153,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5510626972659507158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 55562736604931091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfd127b36b1c82f4da6b98d59c6f16f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  teamId: 0
-  maximumHealth: 10
-  currentHealth: 10
-  invincibilityTime: 0
-  isDeath: 0
-  isInvincible: 1
-  deathEffect: {fileID: 0}
-  hitEffect: {fileID: 0}
 --- !u!70 &3333070036708335892
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -222,26 +202,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c019f4277f1274ba40346a91f22b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8408382165426945068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 55562736604931091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfd127b36b1c82f4da6b98d59c6f16f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  teamId: 0
-  maximumHealth: 5
-  currentHealth: 5
-  invincibilityTime: 3
-  isDeath: 0
-  isInvincible: 0
-  deathEffect: {fileID: 0}
-  hitEffect: {fileID: 0}
 --- !u!114 &7955101150161046836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,6 +256,8 @@ MonoBehaviour:
   - {fileID: 2617239783800030927}
   - {fileID: 6650778136868209337}
   - {fileID: 7916854460255602163}
+  - {fileID: 6288227475440743213}
+  - {fileID: -804404763868193634}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &2617239783800030927
 MonoBehaviour:
@@ -357,7 +319,7 @@ MonoBehaviour:
   iconSortingLayer: 2
   foodOnlinePrefab:
     RawGuidValue: 8b455743b46e42046b448d3003460a65
-  localFoodTemplate: {fileID: 0}
+  foodGravityScale: 1
   playerGroundPosition: {fileID: 1131054814537321002}
   targetCircle: {fileID: 7578382258194639127}
   holdToThrowTime: 0.3
@@ -371,6 +333,59 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   _HeldRecipeId: 0
+--- !u!114 &6288227475440743213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55562736604931091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d53867b4fafee1448b71a651f4d74aac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamId: 0
+  maximumHealth: 100
+  invincibilityTime: 3
+  _CurrentHealth: 100
+  _IsDeath:
+    _value: 0
+  deathEffect: {fileID: 0}
+  hitEffect: {fileID: 0}
+--- !u!114 &-804404763868193634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55562736604931091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 687996db4e7f417439c8ebe2d91fe98c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statsConfig: {fileID: 11400000, guid: bc423cbd399c1c84ba5cd70d7da206a4, type: 2}
+  onHealthUpgrade:
+    m_PersistentCalls:
+      m_Calls: []
+  onSpeedUpgrade:
+    m_PersistentCalls:
+      m_Calls: []
+  onAttackUpgrade:
+    m_PersistentCalls:
+      m_Calls: []
+  onMoneyBonusUpgrade:
+    m_PersistentCalls:
+      m_Calls: []
+  onMoneyChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  _HealthLevel: 0
+  _SpeedLevel: 0
+  _AttackLevel: 0
+  _BonusMoneyLevel: 0
+  _TotalMoney: 0
 --- !u!1 &3131607796444782362
 GameObject:
   m_ObjectHideFlags: 0
