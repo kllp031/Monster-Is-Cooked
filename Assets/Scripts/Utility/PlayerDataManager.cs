@@ -55,7 +55,6 @@ public class PlayerDataManager : MonoBehaviour
     }
 
     // ==================== UPGRADE LOGIC ====================
-
     public bool TryUpgradeStat(StatType type)
     {
         int currentLevel = GetCurrentLevel(type);
@@ -97,7 +96,6 @@ public class PlayerDataManager : MonoBehaviour
     }
 
     // ==================== MONEY LOGIC ====================
-
     public void EarnMoney(int baseAmount)
     {
         //int finalAmount = Mathf.RoundToInt(baseAmount * CurrentMoneyMul);
@@ -120,7 +118,6 @@ public class PlayerDataManager : MonoBehaviour
     }
 
     // ==================== INTERNAL UPDATES ====================
-
     private void LoadAll()
     {
         HealthLevel = PlayerPrefs.GetInt("Level_Health", 1);

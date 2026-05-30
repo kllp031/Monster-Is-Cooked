@@ -63,9 +63,9 @@ public class CookingManager : MonoBehaviour
         // If we are NOT cooking, try to start
         if (!minigame.IsCooking)
         {
-            if (HotbarManager.Instance == null || HotbarManager.Instance.IsHotbarFull())
+            if (IsActiveHotbarFull())
             {
-                print("Cannot start cooking: Hotbar is full or HotbarManager missing.");
+                print("Cannot start cooking: Hotbar is full.");
                 return;
             }
 
@@ -120,6 +120,15 @@ public class CookingManager : MonoBehaviour
             foodComponent.SetUp(recipe);
             OnFoodSpawned?.Invoke(foodComponent);
         }
+    }
+
+    private bool IsActiveHotbarFull()
+    {
+        if (HotbarManager.Instance != null)
+            return HotbarManager.Instance.IsHotbarFull();
+        if (HotbarManagerOnline.Instance != null)
+            return HotbarManagerOnline.Instance.IsHotbarFull();
+        return false;
     }
 
     private void OnDisable()

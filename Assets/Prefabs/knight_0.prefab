@@ -47,7 +47,6 @@ GameObject:
   - component: {fileID: 655225157361588048}
   - component: {fileID: 4470273858900987813}
   - component: {fileID: 9049991607705208772}
-  - component: {fileID: 7246481824930776523}
   - component: {fileID: 5893742004296064385}
   - component: {fileID: 2298137193725248117}
   - component: {fileID: 386672308268687603}
@@ -205,6 +204,8 @@ MonoBehaviour:
   spawnPosition: {fileID: 0}
   hurtingTime: 0.5
   dashCooldownEffect: {fileID: 0}
+  dynamicJoystick: {fileID: 0}
+  deadZone: 0.05
   afterImagePrefab: {fileID: 7569130793517090787, guid: c16da61d86253ad4e8b82545569331c0, type: 3}
 --- !u!114 &655225157361588048
 MonoBehaviour:
@@ -252,20 +253,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 8502819326897545693, guid: f8fb1d8a77aca114f9bef35459df02c0, type: 3}
   spawnPoint: {fileID: 5593272464289720099}
---- !u!114 &7246481824930776523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3794178639290902241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33ae5c5c45d48e54bb387269b8c1f4dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stoveUI: {fileID: 0}
-  actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!114 &5893742004296064385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,10 +364,6 @@ MonoBehaviour:
     m_ActionId: 351f2ccd-1f9f-44bf-9bec-d62ac5c5f408
     m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 6b444451-8a00-4d00-a97e-f47457f736a8
-    m_ActionName: 'Player/Look[/Mouse/delta,/Device Simulator Touchscreen/delta]'
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4470273858900987813}
         m_TargetAssemblyTypeName: KnightAttack, Assembly-CSharp
@@ -412,26 +395,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 852140f2-7766-474d-8707-702459ba45f3
     m_ActionName: 'Player/Interact[/Keyboard/e]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 27c5f898-bc57-4ee1-8800-db469aca5fe3
-    m_ActionName: 'Player/Crouch[/Keyboard/c]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f1ba0d36-48eb-4cd5-b651-1c94a6531f70
-    m_ActionName: 'Player/Jump[/Keyboard/space]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 2776c80d-3c14-4091-8c56-d04ced07a2b0
-    m_ActionName: 'Player/Previous[/Keyboard/1]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b7230bb6-fc9b-4f52-8b25-f5e19cb2c2ba
-    m_ActionName: 'Player/Next[/Keyboard/2]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 641cd816-40e6-41b4-8c3d-04687c349290
-    m_ActionName: 'Player/Sprint[/Keyboard/leftShift]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: c95b2375-e6d9-4b88-9c4c-c5e76515df4b
@@ -552,6 +515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foodPivot: {fileID: 5515881201385432936}
+  foodPlaceHolder: {fileID: 0}
   dropFoodButton: {fileID: 0}
   throwButton: {fileID: 0}
   targetCircle: {fileID: 7669236819588941031}
@@ -600,6 +564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryData: {fileID: 11400000, guid: 843c37a28d03efc458eb82274c251073, type: 2}
+  inventoryUITransform: {fileID: 0}
 --- !u!114 &5714232434281894070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -616,6 +581,7 @@ MonoBehaviour:
   delayedBar: {fileID: 0}
   delayTime: 0.25
   dropSpeed: 1.5
+  health: {fileID: 0}
 --- !u!1 &6085208797745266348
 GameObject:
   m_ObjectHideFlags: 0

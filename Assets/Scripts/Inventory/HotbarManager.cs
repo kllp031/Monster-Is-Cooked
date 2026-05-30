@@ -12,8 +12,6 @@ public class HotbarManager : MonoBehaviour
     [Header("Settings")]
     public int maxSlots = 5;
 
-    // Data
-    //private Recipe[] hotbarSlots;
     private List<Food> hotbarSlots;
 
     private int selectedSlotIndex = 0;
@@ -22,15 +20,6 @@ public class HotbarManager : MonoBehaviour
     public event Action OnHotbarUpdated;
     public event Action<int> OnSelectionChanged;
 
-    //public Recipe CurrentRecipe
-    //{
-    //    get
-    //    {
-    //        if (IsValidIndex(selectedSlotIndex))
-    //            return hotbarSlots[selectedSlotIndex];
-    //        return null;
-    //    }
-    //}
     public Food CurrentFood
     {
         get
@@ -45,7 +34,7 @@ public class HotbarManager : MonoBehaviour
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
-        //hotbarSlots = new Recipe[maxSlots];
+
         hotbarSlots = (new Food[maxSlots]).ToList(); //List<Food>(maxSlots);
         selectedSlotIndex = 0; // There will always be a selected slot
     }
@@ -99,53 +88,14 @@ public class HotbarManager : MonoBehaviour
         }
         // Activate the selected slot
         selectedSlotIndex = index;
-        //if (hotbarSlots[selectedSlotIndex] != null)
-        //    hotbarSlots[selectedSlotIndex].gameObject.SetActive(true);
+
         OnSelectionChanged?.Invoke(selectedSlotIndex);
 
-        //Recipe r = hotbarSlots[index];
-        //if (r != null)
-        //{
-        //    if (CookingManager.Instance != null)
-        //        CookingManager.Instance.SelectRecipe(r);
-
-        //    Debug.Log($"Selected Slot {index}: {r.name}");
-        //}
-        //else
-        //{
-        //    // If we select an empty slot, maybe we tell CookingManager to hold nothing?
-        //    // CookingManager.Instance.SelectRecipe(null); 
-        //    Debug.Log($"Selected Slot {index}: Empty");
-        //}
     }
 
-    // ---------------------------------------------------------
-    //  Add / Remove Logic
-    // ---------------------------------------------------------
-
-    //public bool AddRecipeToHotbar(Recipe recipe)
-    //{
-    //    //for (int i = 0; i < maxSlots; i++)
-    //    //    if (hotbarSlots[i] == recipe) return false;
-
-    //    for (int i = 0; i < maxSlots; i++)
-    //    {
-    //        if (hotbarSlots[i] == null)
-    //        {
-    //            hotbarSlots[i] = recipe;
-    //            OnHotbarUpdated?.Invoke();
-
-    //            if (selectedSlotIndex == -1) SelectSlot(i);
-
-    //            return true;
-    //        }
-    //    }
-    //    return false;
-    //}
     public bool AddFoodToHotBar(Food food)
     {
-        //for (int i = 0; i < maxSlots; i++)
-        //    if (hotbarSlots[i] == recipe) return false;
+
         if (food == null) return false;
 
         for (int i = 0; i < maxSlots; i++)
@@ -164,36 +114,6 @@ public class HotbarManager : MonoBehaviour
         }
         return false;
     }
-
-    // Default value of -1 makes the parameter optional
-    //public void RemoveRecipe(int index = -1)
-    //{
-    //    // If no index passed (stays -1) or invalid index passed, 
-    //    // default to the currently selected slot.
-    //    if (!IsValidIndex(index))
-    //    {
-    //        index = selectedSlotIndex;
-    //    }
-
-    //    // Proceed only if we ended up with a valid index
-    //    if (IsValidIndex(index))
-    //    {
-    //        hotbarSlots[index] = null;
-    //        OnHotbarUpdated?.Invoke();
-
-    //        // If we removed the item we are currently holding, 
-    //        // re-trigger selection to update the rest of the game (clearing the hand)
-    //        if (index == selectedSlotIndex)
-    //        {
-    //            SelectSlot(index);
-    //        }
-    //    }
-
-    //    for (int i = 0; i < maxSlots; i++)
-    //    {
-    //        Debug.Log("hotbar slot " + i + ": " + (hotbarSlots[i] != null ? hotbarSlots[i].name : "Empty"));
-    //    }
-    //}
 
     public void RemoveFood(int index)
     {
@@ -244,13 +164,6 @@ public class HotbarManager : MonoBehaviour
     {
         RemoveFood(selectedSlotIndex);
     }
-
-    //public Recipe GetRecipeAt(int index)
-    //{
-    //    if (IsValidIndex(index))
-    //        return hotbarSlots[index];
-    //    return null;
-    //}
 
     public Food GetFoodAt(int index)
     {

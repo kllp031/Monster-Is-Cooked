@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/TestConnectToServer/JoinRoom.unity
+    guid: 887ce7174cd09b848ba61c86b6638e35
+  - enabled: 1
     path: Assets/Scenes/MenuWeb.unity
     guid: 03cf9a9acaccf75439eceda7c2d906c8
   - enabled: 1
@@ -15,7 +18,17 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: c14d204813dbf3d448df4e4a5eb3ec3e
   - enabled: 1
+    path: Assets/Scenes/TestConnectToServer/Lobby.unity
+    guid: e0d8a9589816282428903e1def585a7c
+  - enabled: 1
     path: Assets/Scenes/GamePlay.unity
     guid: 2cec825e659cd7c4eabb2edbdf36f495
-  m_configObjects: {}
+  - enabled: 1
+    path: Assets/Scenes/TestConnectToServer/MultiplayerGameplay.unity
+    guid: 7dac509d757442248a7148f29c16d8d4
+  - enabled: 1
+    path: Assets/Scenes/TestConnectToServer/QuickJoinLobby.unity
+    guid: a5f7bec4dff970f4e93232bb1f5c92f5
+  m_configObjects:
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -166,10 +166,16 @@ public class Food : MonoBehaviour
 
     public void OnInteract(GameObject player)
     {
-        if(player && player.GetComponent<FoodHolder>() && !isPickedUp)
-        {
-            player.GetComponent<FoodHolder>().PickUpFood(this);
-        }
+        if (player == null || isPickedUp) return;
+
+        var holder = player.GetComponent<FoodHolder>();
+        if (holder != null) { holder.PickUpFood(this); return; }
+
+        // Online prefab thay FoodHolder bằng FoodHolderOnline (NetworkBehaviour
+        // không inherit được FoodHolder). Fallback ở đây để giữ offline path
+        // không đổi mà online vẫn pickup được.
+        var holderOnline = player.GetComponent<FoodHolderOnline>();
+        if (holderOnline != null) holderOnline.PickUpFood(this);
     }
 
     private void OnDrawGizmos()

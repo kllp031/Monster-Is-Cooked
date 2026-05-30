@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
-using System.Threading;
-using Unity.VisualScripting;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]

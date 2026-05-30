@@ -10,9 +10,6 @@ public class FoodHolder : MonoBehaviour
 {
     //private Food heldFood;
     [SerializeField] Transform foodPivot;
-    [SerializeField] SpriteRenderer foodPlaceHolder;
-    [SerializeField] GameObject dropFoodButton;
-    [SerializeField] GameObject throwButton;
     [SerializeField] GameObject targetCircle;
     [Header("Throwing Settings")]
     [SerializeField] float targetCircleMovingTime = 1.0f;
@@ -50,32 +47,6 @@ public class FoodHolder : MonoBehaviour
     {
         if (targetCircle != null) targetCircle.SetActive(false);
         if (throwingCoroutine != null) { StopCoroutine(throwingCoroutine); throwingCoroutine = null; }
-    }
-
-    private void Update()
-    {
-        if (HeldFood != null)
-        {
-            if (dropFoodButton != null) dropFoodButton.SetActive(true);
-            if (throwButton != null) throwButton.SetActive(true);
-
-            //HeldFood.transform.position = foodPivot.position;
-            if (foodPlaceHolder != null)
-            {
-                foodPlaceHolder.gameObject.SetActive(true);
-                foodPlaceHolder.sprite = HeldFood.Recipe.Icon;
-            }
-        }
-        else
-        {
-            if (foodPlaceHolder != null)
-            {
-                foodPlaceHolder.gameObject.SetActive(false);
-            }
-
-            if (dropFoodButton != null) dropFoodButton?.SetActive(false);
-            if (throwButton != null) throwButton?.SetActive(false);
-        }
     }
 
     public void PickUpFood(Food food)
