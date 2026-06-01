@@ -206,35 +206,35 @@ public class EndStartUI : MonoBehaviour
 
     private void SetUpStartUI()
     {
-        if (GameManager.Instance == null)
-        {
-            Debug.LogError("EndStartUI: GameManager instance not found!");
-            return;
-        }
+        //if (GameManager.Instance == null)
+        //{
+        //    Debug.LogError("EndStartUI: GameManager instance not found!");
+        //    return;
+        //}
 
-        if (startUI == null)
-        {
-            Debug.LogError("EndStartUI: Start UI reference is missing!");
-            return;
-        }
+        //if (startUI == null)
+        //{
+        //    Debug.LogError("EndStartUI: Start UI reference is missing!");
+        //    return;
+        //}
 
-        LevelDetail currentLevel = GameManager.Instance.GetCurrentLevelDetail();
+        //LevelDetail currentLevel = GameManager.Instance.GetCurrentLevelDetail();
 
-        if (currentLevel == null)
-        {
-            Debug.LogError("EndStartUI: Current level detail is missing!");
-            return;
-        }
+        //if (currentLevel == null)
+        //{
+        //    Debug.LogError("EndStartUI: Current level detail is missing!");
+        //    return;
+        //}
 
-        int targetMoney = currentLevel.TargetMoney;
-        int customerCount = currentLevel != null && currentLevel.CustomerDetails != null
-            ? currentLevel.CustomerDetails.Count
-            : 0;
-        int currentDay = GameManager.Instance.LevelNumber + 1;
+        //int targetMoney = currentLevel.TargetMoney;
+        //int customerCount = currentLevel != null && currentLevel.CustomerDetails != null
+        //    ? currentLevel.CustomerDetails.Count
+        //    : 0;
+        //int currentDay = GameManager.Instance.LevelNumber + 1;
 
-        startUICustomersText.text = customerCount.ToString();
-        startUIGoalText.text = "0/" + targetMoney.ToString();
-        startUIDayText.text = "Day " + currentDay.ToString();
+        //startUICustomersText.text = customerCount.ToString();
+        //startUIGoalText.text = "0/" + targetMoney.ToString();
+        //startUIDayText.text = "Day " + currentDay.ToString();
     }
 
     private void SetUpEndUI()

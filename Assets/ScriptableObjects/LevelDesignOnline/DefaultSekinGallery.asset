@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aba0ada230ec0c84a8515399e573c33a, type: 3}
+  m_Name: DefaultSekinGallery
+  m_EditorClassIdentifier: 
+  skins:
+  - SkinId: Male1
+    SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 9f2da363edc872742845077fc915dac2, type: 3}
+  - SkinId: Male2
+    SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 01926dcd5beac0e40b7cb9558d0f6f3b, type: 3}
+  - SkinId: Male3
+    SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 16c4606e140328749b2e3820125ba5ae, type: 3}
+  - SkinId: Male4
+    SpriteLibraryAsset: {fileID: 7108339969198208228, guid: e11a9a187166ec548971fde08342bcb7, type: 3}
+  - SkinId: Male5
+    SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 76312ef53c7d3064c8b5a6c7bc9ad788, type: 3}
+  - SkinId: Male6
+    SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 9066bbc9e2ae2854b8a7962d26bfd2a7, type: 3}
+  - SkinId: Male7
+    SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 0e01d0c32f9e2bb48abcff98e236ee24, type: 3}
+  - SkinId: Male8
+    SpriteLibraryAsset: {fileID: 7108339969198208228, guid: b9034ab267793a54c96d527e8c43a3e8, type: 3}
+  - SkinId: Female1
+    SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 29e57a32801e06f41aa01a61a6ea310f, type: 3}
+  - SkinId: Female2
+    SpriteLibraryAsset: {fileID: 7108339969198208228, guid: ea19e94c3c499e1408386114a7bbaced, type: 3}
+  - SkinId: Female2
+    SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 29e57a32801e06f41aa01a61a6ea310f, type: 3}
