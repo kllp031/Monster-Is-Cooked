@@ -39,11 +39,4 @@ public class HotbarSlotUIOnline : MonoBehaviour, IPointerClickHandler
         if (eventData.button == PointerEventData.InputButton.Left)
             HotbarManagerOnline.Instance.SelectSlot(slotIndex);
     }
-
-    public void OnHotbarSlotClicked()
-    {
-        if (HotbarManagerOnline.Instance == null) return;
-        HotbarManagerOnline.Instance.SelectSlot(slotIndex);
-        print($"Hotbar slot {slotIndex} clicked. Recipe: {(recipe != null ? recipe.name : "None")}");
-    }
 }

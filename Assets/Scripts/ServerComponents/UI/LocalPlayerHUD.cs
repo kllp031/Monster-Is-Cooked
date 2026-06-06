@@ -35,12 +35,12 @@ public class LocalPlayerHUD : MonoBehaviour
 
     [Tooltip("Health bar UI dạng screen-space (không chung GameObject với player). " +
              "Để trống nếu health bar đã được gắn trực tiếp trên player prefab.")]
-    [SerializeField] private HealthBarUI screenSpaceHealthBar;
+    [SerializeField] private HealthBarUIOnline screenSpaceHealthBar;
 
     public Joystick Joystick => joystick;
     public Image DashCooldownEffect => dashCooldownEffect;
     public Transform SpawnPosition => spawnPosition;
-    public HealthBarUI ScreenSpaceHealthBar => screenSpaceHealthBar;
+    public HealthBarUIOnline ScreenSpaceHealthBar => screenSpaceHealthBar;
 
     /// <summary>Player đang được bind (local player của máy này). Null khi chưa spawn.</summary>
     public KnightControllerOnline BoundPlayer { get; private set; }
@@ -105,7 +105,8 @@ public class LocalPlayerHUD : MonoBehaviour
     public void Bind(KnightControllerOnline player)
     {
         if (player == null) return;
-
+        print($"Binding LocalPlayerHUD on '{gameObject.name}' to player '{player.gameObject.name}'");
+        
         // Nếu đang bind player khác, thông báo unbind trước để subscriber cleanup.
         if (BoundPlayer != null && BoundPlayer != player)
         {
@@ -118,7 +119,7 @@ public class LocalPlayerHUD : MonoBehaviour
         // Nếu có screen-space health bar, bind vào Health component của local player
         if (screenSpaceHealthBar != null)
         {
-            var health = player.GetComponent<Health>();
+            var health = player.GetComponent<HealthOnline>();
             if (health != null)
             {
                 screenSpaceHealthBar.SetTarget(health);
