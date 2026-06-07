@@ -7,10 +7,17 @@ using UnityEngine.Events;
 
 public class GameManagerOnline : NetworkBehaviour
 {
+    [SerializeField] LevelDesignOnline levelDesign;
     // Spawning Settings
     [SerializeField] GameObject playerPrefab;
     [SerializeField] List<Vector2> spawnPositions = new();
     [SerializeField] List<PlayerRef> spawnedPlayers = new();
+
+    [Networked] public int CollectedMoney { get; set; }
+    [Networked] public float LevelStartTime { get; set; }
+    [Networked] public bool LevelStarted { get; set; }
+    [Networked] public bool GameStarted { get; set; }
+    [Networked] public int LevelNumber { get; set; }
 
     // Scene-local singleton để UI dễ truy cập (không persistent, mỗi scene load lại).
     public static GameManagerOnline Instance { get; private set; }
@@ -18,6 +25,7 @@ public class GameManagerOnline : NetworkBehaviour
     // Global event broadcast khi level được bắt đầu qua RPC (mọi client đều nhận).
     // UI subscribe để ẩn start screen đồng bộ.
     public static event Action OnLevelStarted;
+    public static event Action<bool> OnLevelEnd;
 
     private void Awake()
     {
@@ -87,5 +95,16 @@ public class GameManagerOnline : NetworkBehaviour
     //    // Show announcement "Wait for Room Master to start the level"
     //    Debug.Log("Spawned successfully!");
     //}
+
+    public void EndLevel()
+    {
+
+    }
+
+    public LevelDetailOnline GetCurrentLevelDetail()
+    {
+        if (levelDesign == null) return null;
+        return levelDesign.GetLevelDetail(LevelNumber);
+    }
 
 }
