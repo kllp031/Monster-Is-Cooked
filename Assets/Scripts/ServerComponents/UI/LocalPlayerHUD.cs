@@ -119,7 +119,7 @@ public class LocalPlayerHUD : MonoBehaviour
         // Nếu có screen-space health bar, bind vào Health component của local player
         if (screenSpaceHealthBar != null)
         {
-            var health = player.GetComponent<HealthOnline>();
+            var health = player.GetComponent<Health>();
             if (health != null)
             {
                 screenSpaceHealthBar.SetTarget(health);

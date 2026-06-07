@@ -156,7 +156,8 @@ public class KnightControllerOnline : NetworkBehaviour
     {
         // UI + input chỉ chạy trên local player (có InputAuthority). Remote
         // player không có HUD và cũng không được ghi [Networked] moveInput.
-        bool isLocal = Object != null && Object.HasInputAuthority;
+        if (Object == null || !Object.IsValid) return;
+        bool isLocal = Object.HasInputAuthority;
 
         // Update dash cooldown UI (local only)
         if (isLocal && !canDash && dashCooldownEffect != null)
@@ -252,8 +253,7 @@ public class KnightControllerOnline : NetworkBehaviour
     {
         if (health != null)
         {
-            health.isDeath = false;
-            health.ReceiveHealing(1000000);
+            health.Respawn();
         }
 
         if (spawnPosition != null)

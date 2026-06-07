@@ -83,6 +83,7 @@ public class FoodHolderOnline : NetworkBehaviour
 
     private void Update()
     {
+        if (Object == null || !Object.IsValid) return;
         EnsureIconRenderer();
         UpdateVisual();
         TickHoldDetect();
