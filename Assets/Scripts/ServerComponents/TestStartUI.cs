@@ -189,6 +189,8 @@ public class TestStartUI : MonoBehaviour
     {
         if (isJoining || localPlayerJoined) return;
 
+        isJoining = true;
+
         if (NetworkManager.Instance == null)
         {
             SetStatus("Lỗi: thiếu NetworkManager.");
@@ -208,7 +210,6 @@ public class TestStartUI : MonoBehaviour
         string tempName = $"Player_{Guid.NewGuid().ToString("N").Substring(0, 6)}";
         NetworkManager.Instance.Username = tempName;
 
-        isJoining = true;
         SetStatus($"Joining as {tempName}...");
 
         TrySubscribeNetworkEvents();
@@ -218,6 +219,7 @@ public class TestStartUI : MonoBehaviour
         StartGameResult res;
         try
         {
+            //testRoomName += UnityEngine.Random.Range(0, 9999); // tránh trùng room khi test nhiều instance
             res = await NetworkManager.Instance.JoinRoom(gameMode, testRoomName, currentSceneIndex);
         }
         catch (Exception e)
