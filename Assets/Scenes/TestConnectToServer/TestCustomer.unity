@@ -93547,7 +93547,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7118322417963154927, guid: ff6cc29f8e217654c9c9e524f28aa717, type: 3}
       propertyPath: NetworkedBehaviours.Array.size
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7118322417963154927, guid: ff6cc29f8e217654c9c9e524f28aa717, type: 3}
       propertyPath: 'NetworkedBehaviours.Array.data[0]'
@@ -96497,7 +96497,7 @@ MonoBehaviour:
   joystick: {fileID: 1681704721}
   dashCooldownEffect: {fileID: 1220593992}
   spawnPosition: {fileID: 1255790195}
-  screenSpaceHealthBar: {fileID: 8429026107848219046}
+  screenSpaceHealthBar: {fileID: 0}
 --- !u!114 &7013710247075502849
 MonoBehaviour:
   m_ObjectHideFlags: 0

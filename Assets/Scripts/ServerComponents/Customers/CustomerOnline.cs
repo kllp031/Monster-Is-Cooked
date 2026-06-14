@@ -95,7 +95,7 @@ public class CustomerOnline : NetworkBehaviour, IInteractable
         }
     }
 
-    public override void FixedUpdateNetwork()
+    public override void Render()
     {
         CheckForPlayer();
     }
@@ -152,21 +152,21 @@ public class CustomerOnline : NetworkBehaviour, IInteractable
         Debug.Log("On interacted with: " + obj.name);
         if (!IsReadyToEat) return; // Ignore any interactions if customer is not ready to eat
 
-        if (obj.GetComponent<FoodHolder>() != null) //  Interact with player, PROBABLY USE FOOTHOLDER ONLINE 
+        if (obj.GetComponent<FoodHolderOnline>() != null) //  Interact with player, PROBABLY USE FOOTHOLDER ONLINE 
         {
             if (!isAsked) // Show the requested food if this customer hasn't been asked yet
             {
                 ShowRequestedFood();
                 isAsked = true;
             }
-            else
+            else if (obj.GetComponent<FoodHolderOnline>().HeldRecipe != null)
             {
-                Food receivedFood = obj.GetComponent<FoodHolder>().HeldFood;
-                if (receivedFood != null)
-                {
-                    RPC_AnnouncePlayerServeFood(receivedFood.Recipe.RecipeName); // Master client is responsible for processing the food and update coins
-                    obj.GetComponent<FoodHolder>().ServeFood();
-                }
+                //Food receivedFood = obj.GetComponent<FoodHolderOnline>().HeldFood;
+                //if (receivedFood != null)
+                //{
+                    RPC_AnnouncePlayerServeFood(/*receivedFood.Recipe.RecipeName*/obj.GetComponent<FoodHolderOnline>().HeldRecipe.RecipeName); // Master client is responsible for processing the food and update coins
+                    obj.GetComponent<FoodHolderOnline>().ServeFood();
+                //}
             }
         }
         else if (obj.GetComponent<Food>() != null && Runner != null && Runner.IsSharedModeMasterClient) // The collided object is a food, only check for collision on master client's side
@@ -219,7 +219,11 @@ public class CustomerOnline : NetworkBehaviour, IInteractable
     {
         if (coinParticle != null) coinParticle.Play();
     }
-
+    [Rpc(sources: RpcSources.All, targets: RpcTargets.All)]
+    public void RPC_NeutralizeCustomer()
+    {
+        if (foodRequestBox != null) foodRequestBox.SetBool(foodRequestBoxAnimatorBool, false);
+    }
 
     private void ShowRequestedFood()
     {
@@ -264,7 +268,6 @@ public class CustomerOnline : NetworkBehaviour, IInteractable
     {
         if (Runner == null || !Runner.IsSharedModeMasterClient) return true;
 
-        Debug.Log("Distance: " + Vector2.Distance(transform.position, target));
         if (Vector2.Distance(transform.position, target) <= distanceToTarget) return true;
         else
         {
@@ -277,16 +280,16 @@ public class CustomerOnline : NetworkBehaviour, IInteractable
     }
     public void OnLeave()
     {
-        // This function will be called by the timer when the timer runs out or when the customer receives the food
         Debug.Log("Customer leaves");
         IsReadyToEat = false;
-        if (foodRequestBox != null) foodRequestBox.SetBool(foodRequestBoxAnimatorBool, false);
         if (customerTimer != null)
         {
             customerTimer.StopTimer();
             customerTimer.gameObject.SetActive(false);
         }
         if (TablesManagerOnline.Instance != null) TablesManagerOnline.Instance.ReturnTable(Object.Id);
+
+        RPC_NeutralizeCustomer();
     }
     public float GetCoinEarnPercentage(Customer.Mood mood)
     {

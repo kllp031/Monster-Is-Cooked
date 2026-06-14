@@ -381,4 +381,9 @@ public class FoodHolderOnline : NetworkBehaviour
         }
         return Mathf.Sqrt(numerator / denominator);
     }
+
+    public void ServeFood()
+    {
+        Debug.Log("Serve food to FoodHolderOnline!");
+    }
 }
