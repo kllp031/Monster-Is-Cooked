@@ -110,7 +110,7 @@ public class CustomersSpawnerOnline : NetworkBehaviour
         if (TempAppearTime.Count == 0 || TempCustomerDetails.Count == 0)
         {
             // If there are no active customers left -> End Game
-            if (ActiveCustomers.Count == 0) GameManagerOnline.Instance.EndLevel();
+            if (ActiveCustomers.Count == 0 && GameManagerOnline.Instance.LevelStarted) GameManagerOnline.Instance.EndLevel();
             return;
         }
 
