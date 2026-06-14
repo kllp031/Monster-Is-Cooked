@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Fusion; 
+using Fusion;
+using System;
 
 public class Health : NetworkBehaviour 
 {
@@ -98,7 +99,7 @@ public class Health : NetworkBehaviour
     // Lệnh nhận sát thương cực kỳ quan trọng
     public void TakeDamage(int damageAmount)
     {
-        // TRỤ CỘT MẠNG: Dù ai chém trúng, lệnh trừ máu CHỈ được thực thi trên máy có State Authority
+        if (Object == null || !Object.IsValid) return;
         if (!Object.HasStateAuthority)
         {
             // Nếu Client chém trúng quái, gửi RPC báo Master Client trừ máu hộ
@@ -119,6 +120,7 @@ public class Health : NetworkBehaviour
         invincibilityTimer = TickTimer.CreateFromSeconds(Runner, invincibilityTime);
 
         currentHealth -= damageAmount;
+        Debug.Log($"[Health] {gameObject.name} took {damageAmount} damage. CurrentHealth: {currentHealth}");
         CheckDeath();
     }
 
@@ -131,6 +133,7 @@ public class Health : NetworkBehaviour
 
     public void Knockback(Vector2 dir, float knockbackForce)
     {
+        if (Object == null || !Object.IsValid) return;
         if (isDeath) return;
 
         // Tác động vật lý mạng trực tiếp trên máy giữ quyền

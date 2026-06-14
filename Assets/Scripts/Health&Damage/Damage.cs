@@ -25,7 +25,7 @@ public class Damage : NetworkBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (Object != null && !Object.HasStateAuthority) return;
+        if (Object == null || !Object.HasStateAuthority) return;
 
         if (dealDamageOnTriggerEnter)
         {
@@ -36,7 +36,7 @@ public class Damage : NetworkBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (Object != null && !Object.HasStateAuthority) return;
+        if (Object == null || !Object.HasStateAuthority) return;
 
         if (dealDamageOnTriggerStay)
         {
@@ -46,7 +46,7 @@ public class Damage : NetworkBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (Object != null && !Object.HasStateAuthority) return;
+        if (Object == null || !Object.HasStateAuthority) return;
 
         if (dealDamageOnCollision)
         {
@@ -77,10 +77,11 @@ public class Damage : NetworkBehaviour
                     collidedHealth.TakeDamage(damageAmount);
                 }
 
-                if (destroyAfterDamage)
+                if (destroyAfterDamage && Runner != null && Object != null && Object.IsValid)
                 {
                     Debug.Log("despawn network bullet/vfx");
-                    // 2. Thay thế Destroy thường bằng Despawn mạng chuẩn của Fusion
+                    if (TryGetComponent(out ProjectileSplitter splitter))
+                        splitter.Split(Runner, Object);
                     Runner.Despawn(Object);
                 }
             }
