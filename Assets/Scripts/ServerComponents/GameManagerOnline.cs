@@ -130,6 +130,27 @@ public class GameManagerOnline : NetworkBehaviour
     }
 
     /// <summary>
+    /// Called by any player when they die. Routes to StateAuthority (MasterClient) which
+    /// checks if all players are dead and ends the level immediately if so.
+    /// deadPlayerId is passed explicitly to avoid race conditions where IsDeath may not
+    /// have replicated to MasterClient yet at the time this RPC arrives.
+    /// </summary>
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RPC_NotifyPlayerDied(NetworkId deadPlayerId)
+    {
+        if (!LevelStarted || !GameStarted) return;
+
+        foreach (var h in FindObjectsByType<HealthOnline>(FindObjectsSortMode.None))
+        {
+            if (h.Object.Id == deadPlayerId) continue;
+            if (!h.IsDeath) return;
+        }
+
+        Debug.Log("[GameManagerOnline] All players dead — ending level.");
+        EndLevel();
+    }
+
+    /// <summary>
     /// Called by MasterClient to advance LevelNumber.
     /// [Networked] LevelNumber replicates automatically — no RPC needed.
     /// </summary>
