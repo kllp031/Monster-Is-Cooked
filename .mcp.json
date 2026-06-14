@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "MCP_UNITY": {
+      "type": "sse",
+      "url": "http://localhost:6402/sse"
+    }
+  }
+}

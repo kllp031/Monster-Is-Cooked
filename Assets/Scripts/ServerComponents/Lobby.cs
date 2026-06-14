@@ -64,15 +64,23 @@ public class Lobby : NetworkBehaviour
         {
             if (startGameTimer.Expired(NetworkManager.Instance.NetworkRunner))
             {
-                // Reset timer ngay để Expired() không trả về true ở các tick sau,
-                // tránh việc LoadScene bị gọi lặp lại mỗi tick gây reload scene liên tục.
                 startGameTimer = TickTimer.None;
-
                 NetworkManager.Instance.NetworkRunner.SessionInfo.IsOpen = false;
                 NetworkManager.Instance.NetworkRunner.SessionInfo.IsVisible = false;
-                NetworkManager.Instance.NetworkRunner.LoadScene(mainGameSceneName);
+                // Shared Mode: runner.LoadScene() chỉ load cục bộ cho master.
+                // Phải dùng RPC để mỗi client tự gọi LoadScene() của mình.
+                RPC_LoadGameScene();
             }
         }
+    }
+
+    // StateAuthority (MasterClient) broadcast lệnh chuyển scene tới tất cả clients.
+    // Mỗi client gọi runner.LoadScene() của chính mình — đây là cách đúng trong Shared Mode.
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void RPC_LoadGameScene()
+    {
+        if (NetworkManager.Instance?.NetworkRunner != null)
+            NetworkManager.Instance.NetworkRunner.LoadScene(mainGameSceneName);
     }
 
     public override void Spawned()

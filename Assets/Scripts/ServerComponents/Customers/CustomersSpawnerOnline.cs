@@ -57,15 +57,18 @@ public class CustomersSpawnerOnline : NetworkBehaviour
         {
             CustomerStarted = false;
 
+            CustomersSkinIds.Clear();
             var rawCustomerSkinIds = GameManagerOnline.Instance.GetCurrentLevelDetail().CustomersSkinIds;
             foreach(var skinId in rawCustomerSkinIds) CustomersSkinIds.Add(skinId);
 
+            TempCustomerDetails.Clear();
             var rawCustomerDetails = GameManagerOnline.Instance.GetCurrentLevelDetail().CustomerDetails;
             foreach(var customerDetails in rawCustomerDetails)
             {
                 TempCustomerDetails.Add(customerDetails);
             }
 
+            TempAppearTime.Clear();
             var rawAppearTime = GameManagerOnline.Instance.GetCurrentLevelDetail().AppearTime;
             foreach(var appearTime in rawAppearTime) TempAppearTime.Add(appearTime);
 
@@ -84,10 +87,10 @@ public class CustomersSpawnerOnline : NetworkBehaviour
                 if (customer == null) continue;
                 Runner.Despawn(customer.Object);
             }
+            ActiveCustomers.Clear();
         }
 
         spawnedCustomer.Clear();
-        ActiveCustomers.Clear();
     }
 
     public override void FixedUpdateNetwork()

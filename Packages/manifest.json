@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.coplaydev.unity-mcp": "file:C:/Users/DELL/Downloads/unity-mcp-9.7.1/unity-mcp-9.7.1/MCPForUnity",
     "com.unity.2d.tilemap": "1.0.0",
     "com.unity.collab-proxy": "2.9.3",
     "com.unity.feature.2d": "2.0.1",
