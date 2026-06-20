@@ -23,6 +23,7 @@ public class PlayerDataManagerOnline : NetworkBehaviour
 
     // ==================== NETWORKED STATE ====================
 
+    [Networked] public NetworkString<_32> PlayerName { get; set; }
     [Networked] public int HealthLevel { get; set; }
     [Networked] public int SpeedLevel { get; set; }
     [Networked] public int AttackLevel { get; set; }
@@ -50,9 +51,11 @@ public class PlayerDataManagerOnline : NetworkBehaviour
             TotalMoney = 0;
         }
 
-        // Register so screen-space UI can reach local player's data without a direct reference
         if (Object.HasInputAuthority)
+        {
             LocalPlayerData.Register(this);
+            RPC_SetPlayerName(NetworkManager.Instance != null ? NetworkManager.Instance.Username : "Player");
+        }
     }
 
     // Fusion calls this on every client whenever a [Networked] value changes
@@ -109,6 +112,12 @@ public class PlayerDataManagerOnline : NetworkBehaviour
     }
 
     // ==================== RPC ====================
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    private void RPC_SetPlayerName(string name)
+    {
+        PlayerName = name;
+    }
 
     [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
     private void RPC_ApplyUpgrade(StatType type, int newLevel, int newMoney)

@@ -16,7 +16,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
     private NetworkRunner networkRunner;
 
     [SerializeField] private string username;
-    public string Username { get => username; set { Debug.Log(value); if (!username.IsNullOrEmpty()) username = value; } }
+    public string Username { get => username; set { Debug.Log(value); if (!value.IsNullOrEmpty()) username = value; } }
 
     public NetworkRunner NetworkRunner { get => networkRunner; }
 
