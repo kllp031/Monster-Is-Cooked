@@ -15,11 +15,11 @@ public class InteractableDetector : MonoBehaviour
     private IInteractable interactable;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log($"Detector trigger by {collision.name} layer={LayerMask.LayerToName(collision.gameObject.layer)}");
+        //Debug.Log($"Detector trigger by {collision.name} layer={LayerMask.LayerToName(collision.gameObject.layer)}");
         IInteractable obj = collision?.GetComponent<IInteractable>();
         if (obj != null)
         {
-            Debug.Log($"IInteractable found on {collision.name}");
+            //Debug.Log($"IInteractable found on {collision.name}");
             interactable = obj;
         }
     }

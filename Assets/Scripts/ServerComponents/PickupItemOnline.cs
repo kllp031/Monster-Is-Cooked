@@ -23,38 +23,38 @@ public class PickupItemOnline : NetworkBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (autoUpdateSprite && ingredient != null)
             spriteRenderer.sprite = ingredient.icon;
-        Debug.Log($"[Item] Spawned tại {transform.position}, ingredient = {(ingredient != null ? ingredient.name : "null")}, HasStateAuthority = {Object.HasStateAuthority}");
+        //Debug.Log($"[Item] Spawned tại {transform.position}, ingredient = {(ingredient != null ? ingredient.name : "null")}, HasStateAuthority = {Object.HasStateAuthority}");
     }
 
     public override void Despawned(NetworkRunner runner, bool hasState)
     {
         string reason = IsCollected ? "đã được collect (RPC_Collect)" : "KHÔNG rõ lý do — không qua RPC_Collect!";
-        Debug.Log($"[Item] Despawned → IsCollected = {IsCollected} → {reason}");
+        //Debug.Log($"[Item] Despawned → IsCollected = {IsCollected} → {reason}");
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log($"[Item] OnTriggerEnter2D với '{other.name}' (tag={other.tag})");
+        //Debug.Log($"[Item] OnTriggerEnter2D với '{other.name}' (tag={other.tag})");
 
         if (!other.CompareTag("Player"))
         {
-            Debug.Log($"[Item] Bỏ qua: không phải Player");
+            //Debug.Log($"[Item] Bỏ qua: không phải Player");
             return;
         }
         if (IsCollected)
         {
-            Debug.Log($"[Item] Bỏ qua: đã IsCollected = true");
+            //Debug.Log($"[Item] Bỏ qua: đã IsCollected = true");
             return;
         }
 
         var netObj = other.GetComponent<NetworkObject>();
         if (netObj == null || !netObj.HasInputAuthority)
         {
-            Debug.Log($"[Item] Bỏ qua: netObj={netObj != null}, HasInputAuthority={netObj?.HasInputAuthority}");
+            //Debug.Log($"[Item] Bỏ qua: netObj={netObj != null}, HasInputAuthority={netObj?.HasInputAuthority}");
             return;
         }
 
-        Debug.Log($"[Item] Player local nhặt item → thêm vào inventory và gửi RPC_Collect");
+        //Debug.Log($"[Item] Player local nhặt item → thêm vào inventory và gửi RPC_Collect");
 
         var playerBridge = other.GetComponent<PlayerInventory>();
         if (playerBridge != null && playerBridge.inventoryData != null)
@@ -69,7 +69,7 @@ public class PickupItemOnline : NetworkBehaviour
         }
         else
         {
-            Debug.LogWarning($"[Item] PlayerInventory hoặc inventoryData bị null trên player '{other.name}'");
+            //Debug.LogWarning($"[Item] PlayerInventory hoặc inventoryData bị null trên player '{other.name}'");
         }
 
         RPC_Collect();
@@ -78,29 +78,29 @@ public class PickupItemOnline : NetworkBehaviour
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     private void RPC_Collect()
     {
-        Debug.Log($"[Item][StateAuth] RPC_Collect nhận, IsCollected hiện tại = {IsCollected}");
+        //Debug.Log($"[Item][StateAuth] RPC_Collect nhận, IsCollected hiện tại = {IsCollected}");
 
         if (IsCollected)
         {
-            Debug.Log($"[Item][StateAuth] Bỏ qua: đã collect rồi (race condition)");
+            //Debug.Log($"[Item][StateAuth] Bỏ qua: đã collect rồi (race condition)");
             return;
         }
 
         IsCollected = true;
-        Debug.Log($"[Item][StateAuth] IsCollected = true, itemSpawner = {(itemSpawner != null ? itemSpawner.name : "NULL")}");
+        //Debug.Log($"[Item][StateAuth] IsCollected = true, itemSpawner = {(itemSpawner != null ? itemSpawner.name : "NULL")}");
 
         if (itemSpawner != null)
             itemSpawner.OnItemCollected();
         else
-            Debug.LogWarning("[Item][StateAuth] itemSpawner là NULL → CurrentCount sẽ không giảm!");
+            //Debug.LogWarning("[Item][StateAuth] itemSpawner là NULL → CurrentCount sẽ không giảm!");
 
-        Debug.Log($"[Item][StateAuth] Gọi Runner.Despawn...");
+        //Debug.Log($"[Item][StateAuth] Gọi Runner.Despawn...");
         Runner.Despawn(Object);
     }
 
     public void SetupItemSpawner(ItemsSpawnerOnline spawner)
     {
         itemSpawner = spawner;
-        Debug.Log($"[Item] SetupItemSpawner được gọi, spawner = {(spawner != null ? spawner.name : "null")}");
+        //Debug.Log($"[Item] SetupItemSpawner được gọi, spawner = {(spawner != null ? spawner.name : "null")}");
     }
 }

@@ -54,10 +54,8 @@ public class UpgradeBtnUIOnline : MonoBehaviour
     public void OnClick()
     {
         if (data == null) return;
-        if (data.TryUpgradeStat(statType))
-            Debug.Log($"{statType} upgraded!");
-        else
-            Debug.Log($"{statType} upgrade failed.");
+        data.TryUpgradeStat(statType);
+        //Debug.Log($"{statType} upgraded or failed");
     }
 
     private string ToRoman(int number)

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#pragma warning disable 0414
+using UnityEngine;
 using UnityEngine.Events;
 
 [DefaultExecutionOrder(-50)]
@@ -46,9 +47,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        if (levelDesign == null) { Debug.LogWarning("Game can't start without a level design assigned!");  return; }
-        if (!levelDesign.CheckValidLevel(levelNumber)) { Debug.LogWarning("Cannot load current level"); return; }
-        if (PlayerDataManager.Instance == null) { Debug.LogWarning("Game can't start without a PlayerDataManager in the scene!"); return; }
+        if (levelDesign == null) { /*Debug.LogWarning("Game can't start without a level design assigned!");*/ return; }
+        if (!levelDesign.CheckValidLevel(levelNumber)) { /*Debug.LogWarning("Cannot load current level");*/ return; }
+        if (PlayerDataManager.Instance == null) { /*Debug.LogWarning("Game can't start without a PlayerDataManager in the scene!");*/ return; }
         levelNumber = PlayerDataManager.Instance.Level;
 
         gameStarted = true;
@@ -57,15 +58,15 @@ public class GameManager : MonoBehaviour
 
     private void OnValidate()
     {
-        if (levelDesign == null) Debug.LogWarning("Please assign a level design!");
+        //if (levelDesign == null) Debug.LogWarning("Please assign a level design!");;
     }
 
     // Called when open the game or by the "Let's cook" button
     [ContextMenu("Start current level")]
     public void StartCurrentLevel()
     {
-        if (!gameStarted) { Debug.LogWarning("Can't start level because the game hasn't started!"); return; }
-        if (levelStarted) { Debug.LogWarning("Level has already started!"); return; }
+        if (!gameStarted) { /*Debug.LogWarning("Can't start level because the game hasn't started!");*/ return; }
+        if (levelStarted) { /*Debug.LogWarning("Level has already started!");*/ return; }
 
         //collectedMoney = 0;
         CollectedMoney = PlayerDataManager.Instance.CurrentBonusMoney;
@@ -78,7 +79,7 @@ public class GameManager : MonoBehaviour
     [ContextMenu("Next level")]
     public void NextLevel()
     {
-        if (levelStarted) { Debug.LogWarning("Level has already started!"); return; }
+        if (levelStarted) { /*Debug.LogWarning("Level has already started!");*/ return; }
         levelNumber++;
 
         PlayerDataManager.Instance.UpdateLevelProgress(levelNumber);
@@ -87,10 +88,10 @@ public class GameManager : MonoBehaviour
     [ContextMenu("End current level (testing)")]
     public void EndLevel()
     {
-        Debug.Log("Endlevel");
+        //Debug.Log("Endlevel");
         if (!levelStarted || !gameStarted)
         {
-            Debug.LogWarning("GameManager.EndLevel: no level in progress (game not started or day not started).");
+            //Debug.LogWarning("GameManager.EndLevel: no level in progress (game not started or day not started).");
             return;
         }
 
@@ -106,14 +107,14 @@ public class GameManager : MonoBehaviour
 
         bool win = collectedMoney >= GetCurrentLevelDetail().TargetMoney;
 
-        Debug.Log($"End level, win: {win}");
+        //Debug.Log($"End level, win: {win}");
 
         if (win) // If win -> Check if there are any levels left
         {
             if (!levelDesign.CheckValidLevel(levelNumber + 1))
             {
                 // End game
-                Debug.Log("EndGame");
+                //Debug.Log("EndGame");
                 onGameEnd.Invoke();
                 gameStarted = false;
                 levelStarted = false;

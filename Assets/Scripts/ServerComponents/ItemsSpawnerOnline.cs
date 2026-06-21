@@ -24,7 +24,7 @@ public class ItemsSpawnerOnline : NetworkBehaviour
     {
         if (!other.CompareTag("Player")) return;
         _localPlayersInTrigger++;
-        Debug.Log($"[Spawner] Player ENTERED zone → _localPlayersInTrigger = {_localPlayersInTrigger}, RequestStateAuthority");
+        //Debug.Log($"[Spawner] Player ENTERED zone → _localPlayersInTrigger = {_localPlayersInTrigger}, RequestStateAuthority");
         Object.RequestStateAuthority();
     }
 
@@ -32,7 +32,7 @@ public class ItemsSpawnerOnline : NetworkBehaviour
     {
         if (!other.CompareTag("Player")) return;
         _localPlayersInTrigger = Mathf.Max(0, _localPlayersInTrigger - 1);
-        Debug.Log($"[Spawner] Player EXITED zone → _localPlayersInTrigger = {_localPlayersInTrigger}, RequestStateAuthority");
+        //Debug.Log($"[Spawner] Player EXITED zone → _localPlayersInTrigger = {_localPlayersInTrigger}, RequestStateAuthority");
         Object.RequestStateAuthority();
     }
 
@@ -44,17 +44,17 @@ public class ItemsSpawnerOnline : NetworkBehaviour
 
         if (!_isActive)
         {
-            Debug.Log("[Spawner] Không spawn: _isActive = false");
+            //Debug.Log("[Spawner] Không spawn: _isActive = false");
             return;
         }
         if (CurrentCount >= _maxItems)
         {
-            Debug.Log($"[Spawner] Không spawn: CurrentCount ({CurrentCount}) >= _maxItems ({_maxItems})");
+            //Debug.Log($"[Spawner] Không spawn: CurrentCount ({CurrentCount}) >= _maxItems ({_maxItems})");
             return;
         }
         if (!SpawnTimer.ExpiredOrNotRunning(Runner))
         {
-            Debug.Log($"[Spawner] Không spawn: Timer chưa hết ({SpawnTimer.RemainingTime(Runner):F1}s còn lại)");
+            //Debug.Log($"[Spawner] Không spawn: Timer chưa hết ({SpawnTimer.RemainingTime(Runner):F1}s còn lại)");
             return;
         }
 
@@ -65,17 +65,17 @@ public class ItemsSpawnerOnline : NetworkBehaviour
     private void SpawnItem()
     {
         Vector2 pos = GetRandomPositionInBounds();
-        Debug.Log($"[Spawner] Đang spawn item tại {pos}...");
+        //Debug.Log($"[Spawner] Đang spawn item tại {pos}...");
         PickupItemOnline newItem = Runner.Spawn(_itemPrefab, pos, Quaternion.identity);
         if (newItem != null)
         {
             newItem.SetupItemSpawner(this);
             CurrentCount++;
-            Debug.Log($"[Spawner] Spawn thành công → CurrentCount = {CurrentCount}");
+            //Debug.Log($"[Spawner] Spawn thành công → CurrentCount = {CurrentCount}");
         }
         else
         {
-            Debug.LogWarning("[Spawner] Runner.Spawn trả về null!");
+            //Debug.LogWarning("[Spawner] Runner.Spawn trả về null!");
         }
     }
 
@@ -92,6 +92,6 @@ public class ItemsSpawnerOnline : NetworkBehaviour
     {
         if (!Object.HasStateAuthority) return;
         CurrentCount = Mathf.Max(0, CurrentCount - 1);
-        Debug.Log($"[Spawner][StateAuth] OnItemCollected → CurrentCount = {CurrentCount}");
+        //Debug.Log($"[Spawner][StateAuth] OnItemCollected → CurrentCount = {CurrentCount}");
     }
 }

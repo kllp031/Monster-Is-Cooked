@@ -51,9 +51,13 @@ public class Health : NetworkBehaviour
         {
             if (gameObject.CompareTag("Player"))
             {
-                // Giữ logic PlayerDataManager của nhóm bạn cho Player local
-                if (PlayerDataManager.Instance != null)
+                var pdmOnline = GetComponent<PlayerDataManagerOnline>();
+                if (pdmOnline != null)
+                    currentHealth = pdmOnline.CurrentMaxHealth;
+                else if (PlayerDataManager.Instance != null)
                     currentHealth = PlayerDataManager.Instance.CurrentMaxHealth;
+                else
+                    currentHealth = maximumHealth;
             }
             else
             {
@@ -91,7 +95,15 @@ public class Health : NetworkBehaviour
         isDeath = false;
 
         if (gameObject.CompareTag("Player"))
-            currentHealth = PlayerDataManager.Instance.CurrentMaxHealth;
+        {
+            var pdmOnline = GetComponent<PlayerDataManagerOnline>();
+            if (pdmOnline != null)
+                currentHealth = pdmOnline.CurrentMaxHealth;
+            else if (PlayerDataManager.Instance != null)
+                currentHealth = PlayerDataManager.Instance.CurrentMaxHealth;
+            else
+                currentHealth = maximumHealth;
+        }
         else
             currentHealth = maximumHealth;
     }
@@ -120,7 +132,7 @@ public class Health : NetworkBehaviour
         invincibilityTimer = TickTimer.CreateFromSeconds(Runner, invincibilityTime);
 
         currentHealth -= damageAmount;
-        Debug.Log($"[Health] {gameObject.name} took {damageAmount} damage. CurrentHealth: {currentHealth}");
+        //Debug.Log($"[Health] {gameObject.name} took {damageAmount} damage. CurrentHealth: {currentHealth}");
         CheckDeath();
     }
 
@@ -194,10 +206,13 @@ public class Health : NetworkBehaviour
 
     public void GameOver()
     {
-        if (GameManager.Instance != null && gameObject.CompareTag("Player"))
+        if (GameManagerOnline.Instance != null)
         {
-            GameManager.Instance.EndLevel();
+            GameManagerOnline.Instance.RPC_NotifyPlayerDied(Object.Id);
+            return;
         }
+        if (GameManager.Instance != null && gameObject.CompareTag("Player"))
+            GameManager.Instance.EndLevel();
     }
 
     public void SetupSpawner(EnemySpawner spawner)

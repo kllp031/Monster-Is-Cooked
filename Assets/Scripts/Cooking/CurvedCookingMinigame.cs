@@ -109,7 +109,7 @@ public class CurvedCookingMinigame : MonoBehaviour
         // Trigger Event (You can subscribe to this in your Stove script)
         OnCookFinished?.Invoke(success);
 
-        Debug.Log(success ? "COOK SUCCESS!" : "COOK FAILED!");
+        //Debug.Log(success ? "COOK SUCCESS!" : "COOK FAILED!");
     }
 
     // ---------------------------------------------------------
@@ -132,7 +132,7 @@ public class CurvedCookingMinigame : MonoBehaviour
         // Safety Check
         if (minStartAngle > maxStartAngle)
         {
-            Debug.LogError("Zone is too big for the bar limits!");
+            //Debug.LogError("Zone is too big for the bar limits!");
             return;
         }
 
@@ -157,8 +157,8 @@ public class CurvedCookingMinigame : MonoBehaviour
         float zoneWidth = successZoneImage.fillAmount * 360f;
         float zoneEnd = zoneStart - zoneWidth; // Because we fill Clockwise (decreasing angle)
 
-        // 3. Debug visuals
-        // Debug.Log($"Needle: {needleZ} | Zone: {zoneStart} to {zoneEnd}");
+        // 3. //Debug visuals
+        // //Debug.Log($"Needle: {needleZ} | Zone: {zoneStart} to {zoneEnd}");
 
         // 4. Check intersection with Tolerance
         // Since angles decrease going Right, "Start" is the Higher Value, "End" is Lower.

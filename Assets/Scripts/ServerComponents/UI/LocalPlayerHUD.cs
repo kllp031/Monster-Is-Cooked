@@ -63,8 +63,7 @@ public class LocalPlayerHUD : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Debug.LogWarning(
-                $"Duplicate {nameof(LocalPlayerHUD)} in scene on '{gameObject.name}'. Destroying the newer one.");
+            Debug.LogWarning($"Duplicate {nameof(LocalPlayerHUD)} in scene on '{gameObject.name}'. Destroying the newer one.");
             Destroy(gameObject);
             return;
         }
@@ -105,7 +104,7 @@ public class LocalPlayerHUD : MonoBehaviour
     public void Bind(KnightControllerOnline player)
     {
         if (player == null) return;
-        print($"Binding LocalPlayerHUD on '{gameObject.name}' to player '{player.gameObject.name}'");
+        // print($"Binding LocalPlayerHUD on '{gameObject.name}' to player '{player.gameObject.name}'");
         
         // Nếu đang bind player khác, thông báo unbind trước để subscriber cleanup.
         if (BoundPlayer != null && BoundPlayer != player)
@@ -121,9 +120,7 @@ public class LocalPlayerHUD : MonoBehaviour
         {
             var health = player.GetComponent<Health>();
             if (health != null)
-            {
                 screenSpaceHealthBar.SetTarget(health);
-            }
         }
 
         OnLocalPlayerBound?.Invoke(player);

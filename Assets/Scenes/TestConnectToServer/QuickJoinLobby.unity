@@ -926,7 +926,7 @@ MonoBehaviour:
   playersInRoomText: {fileID: 1686779616}
   localUsernameText: {fileID: 0}
   testRoomName: TEST_ROOM
-  mainGameSceneIndex: 8
+  mainGameSceneIndex: 6
   gameMode: 2
   statusText: {fileID: 43990371}
 --- !u!1 &990006002

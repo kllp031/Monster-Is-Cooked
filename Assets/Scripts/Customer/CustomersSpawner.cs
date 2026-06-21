@@ -56,10 +56,10 @@ public class CustomersSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance == null) { Debug.LogWarning("GameManager is not found in this scene!"); return; }
+        if (GameManager.Instance == null) { /*Debug.LogWarning("GameManager is not found in this scene!");*/ return; }
         else if (!GameManager.Instance.LevelStarted || !GameManager.Instance.GameStarted) return;
 
-        if (customersSkins.Count == 0) { Debug.LogWarning("Please assign some customerSkins to spawn Customer!"); }
+        if (customersSkins.Count == 0) { /*Debug.LogWarning("Please assign some customerSkins to spawn Customer!");*/ }
 
         float elapsedTime = Time.time - GameManager.Instance.LevelStartTime;
 

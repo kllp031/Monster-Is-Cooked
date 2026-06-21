@@ -73,8 +73,7 @@ public class KnightControllerOnline : NetworkBehaviour
             }
             else
             {
-                Debug.LogWarning(
-                    $"{nameof(LocalPlayerHUD)} not found in scene. Local player UI/refs will be null.");
+                //Debug.LogWarning($"{nameof(LocalPlayerHUD)} not found in scene. Local player UI/refs will be null.");
             }
         }
     }

@@ -14,10 +14,10 @@ public class MoveOut : CustomerState
     }
     protected override void OnEnter()
     {
-        Debug.Log("Customer enters MoveOut state");
+        //Debug.Log("Customer enters MoveOut state");
         finishedMovingOut = false;
         assignedPath = customer.TablePath;
-        if (assignedPath == null) Debug.LogWarning("Customer doesn't have any table path assigned!");
+        //if (assignedPath == null) Debug.LogWarning("Customer doesn't have any table path assigned!");
         currentPathPointIndex = assignedPath.Points.Count - 1;
     }
 

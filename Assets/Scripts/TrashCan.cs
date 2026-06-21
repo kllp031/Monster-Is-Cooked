@@ -16,7 +16,7 @@ public class TrashCan : MonoBehaviour, IInteractable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.gameObject);
+        //Debug.Log(collision.gameObject);
         if (collision.gameObject.GetComponent<Food>() != null)
         {
             Destroy(collision.gameObject);

@@ -53,7 +53,7 @@ public class HealthOnline : NetworkBehaviour
     // Called by DamageOnline (or any attacker) — only state authority processes this
     public void TakeDamage(int damageAmount)
     {
-        //Debug Log
+        ////Debug Log
         if (!Object.HasStateAuthority)
         {
             print($"[HealthOnline][{gameObject.name}] TakeDamage called on non-state authority. Ignored.");

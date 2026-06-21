@@ -21,7 +21,7 @@ public class KnightAttack : MonoBehaviour
         knightController = GetComponent<KnightController>();
         if (knightController == null)
         {
-            Debug.LogError("KnightController null");
+            //Debug.LogError("KnightController null");
         }
         animator = GetComponent<Animator>();
         health = GetComponent<Health>();
@@ -99,7 +99,7 @@ public class KnightAttack : MonoBehaviour
 
         foreach (Collider2D hit in hits)
         {
-            Debug.Log("hit");
+            //Debug.Log("hit");
             float dist = Vector3.Distance(transform.position, hit.transform.position);
             if (dist < minDist)
             {
@@ -111,7 +111,7 @@ public class KnightAttack : MonoBehaviour
         return closest;
     }
 
-    // Draw to debug
+    // Draw to //Debug
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

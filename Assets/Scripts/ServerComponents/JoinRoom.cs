@@ -23,13 +23,13 @@ public class JoinRoom : MonoBehaviour
     {
         if (isJoining)
         {
-            Debug.Log("[JoinRoom] Đang join, bỏ qua click lặp.");
+            //Debug.Log("[JoinRoom] Đang join, bỏ qua click lặp.");
             return;
         }
 
         if (NetworkManager.Instance == null)
         {
-            Debug.LogError("[JoinRoom] NetworkManager.Instance null — thiếu NetworkManager trong scene hoặc chưa được khởi tạo.");
+            //Debug.LogError("[JoinRoom] NetworkManager.Instance null — thiếu NetworkManager trong scene hoặc chưa được khởi tạo.");
             SetStatus("Lỗi: thiếu NetworkManager.");
             return;
         }
@@ -38,20 +38,20 @@ public class JoinRoom : MonoBehaviour
         {
             // Runner cũ còn sót (do lần join trước fail mà không cleanup).
             // Tự dọn để cho phép retry — không return im lặng như trước.
-            Debug.LogWarning("[JoinRoom] NetworkRunner cũ còn sót, đang cleanup trước khi join lại...");
+            //Debug.LogWarning("[JoinRoom] NetworkRunner cũ còn sót, đang cleanup trước khi join lại...");
             await NetworkManager.Instance.CleanupNetworkRunnerAsync();
         }
 
         if (roomIdInput == null)
         {
-            Debug.LogError("[JoinRoom] Room ID input field chưa assign.");
+            //Debug.LogError("[JoinRoom] Room ID input field chưa assign.");
             SetStatus("Lỗi: thiếu Room ID input.");
             return;
         }
 
         if (string.IsNullOrWhiteSpace(roomIdInput.text))
         {
-            Debug.LogWarning("[JoinRoom] Room ID trống.");
+            //Debug.LogWarning("[JoinRoom] Room ID trống.");
             SetStatus("Nhập Room ID trước khi join.");
             return;
         }
@@ -67,9 +67,9 @@ public class JoinRoom : MonoBehaviour
         {
             res = await NetworkManager.Instance.JoinRoom(gameMode, roomIdInput.text, lobbySceneIndex);
         }
-        catch (System.Exception e)
+        catch (System.Exception)
         {
-            Debug.LogError($"[JoinRoom] Exception khi StartGame: {e}");
+            //Debug.LogError($"[JoinRoom] Exception khi StartGame");
             SetStatus("Lỗi kết nối. Xem Console.");
             await NetworkManager.Instance.CleanupNetworkRunnerAsync();
             isJoining = false;
@@ -80,7 +80,7 @@ public class JoinRoom : MonoBehaviour
         if (res == null || !res.Ok)
         {
             string reason = res != null ? res.ShutdownReason.ToString() : "null result";
-            Debug.LogError($"[JoinRoom] Failed to join room: {reason}");
+            //Debug.LogError($"[JoinRoom] Failed to join room: {reason}");
             SetStatus($"Join failed: {reason}");
             // Dọn runner lỗi để user có thể bấm lại.
             await NetworkManager.Instance.CleanupNetworkRunnerAsync();

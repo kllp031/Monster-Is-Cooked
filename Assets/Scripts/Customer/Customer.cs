@@ -66,9 +66,9 @@ public class Customer : MonoBehaviour, IInteractable
 
     private void OnValidate()
     {
-        if (foodRequestBox == null) Debug.LogWarning("This customer has no food request box assigned!");
-        if (foodIcon == null) Debug.LogWarning("This customer has no food icon assigned!");
-        if (spriteLibrary == null) Debug.LogWarning("Please assign a sprite library to display different skins!");
+        //if (foodRequestBox == null) Debug.LogWarning("This customer has no food request box assigned!");
+        //if (foodIcon == null) Debug.LogWarning("This customer has no food icon assigned!");
+        //if (spriteLibrary == null) Debug.LogWarning("Please assign a sprite library to display different skins!");
     }
     private void OnEnable()
     {
@@ -166,12 +166,12 @@ public class Customer : MonoBehaviour, IInteractable
     }
     public void Activate()
     {
-        if (customerDetail == null) { Debug.LogWarning("This customer doesn't have any customer detail to be activated!"); return; }
+        if (customerDetail == null) { /*Debug.LogWarning("This customer doesn't have any customer detail to be activated!");*/ return; }
         isActivated = true;
     }
     public void ReadyToEat()
     {
-        if (customerDetail == null) { Debug.LogWarning("This customer doesn't havve any customer detail to get ready!"); return; }
+        if (customerDetail == null) { /*Debug.LogWarning("This customer doesn't havve any customer detail to get ready!");*/ return; }
         isReadyToEat = true;
         SetMood(Mood.Happy);
 
@@ -187,8 +187,8 @@ public class Customer : MonoBehaviour, IInteractable
     }
     public bool ProcessFood(Recipe food)
     {
-        if (customerDetail == null) { Debug.LogWarning("This customer has no detail assigned!"); return false; }
-        if (customerDetail.FoodRequest == null) { Debug.LogWarning("This customer's detail has invalid food request!"); return false; }
+        if (customerDetail == null) { /*Debug.LogWarning("This customer has no detail assigned!");*/ return false; }
+        if (customerDetail.FoodRequest == null) { /*Debug.LogWarning("This customer's detail has invalid food request!");*/ return false; }
 
         Recipe foodRequest = customerDetail.FoodRequest;
         if (food == foodRequest) return true;
