@@ -44,14 +44,14 @@ public class HotbarManager : MonoBehaviour
         SelectSlot(selectedSlotIndex);
         if (GameManager.Instance == null)
         {
-            Debug.LogError("HotbarManager: GameManager instance not found!");
+            //Debug.LogError("HotbarManager: GameManager instance not found!");
             return;
         }
         GameManager.Instance.OnLevelEnd.AddListener(DestroyAllFood);
 
         if (CookingManager.Instance == null)
         {
-            Debug.LogError("HotbarManager: CookingManager instance not found!");
+            //Debug.LogError("HotbarManager: CookingManager instance not found!");
             return;
         }
         CookingManager.Instance.OnFoodSpawned.AddListener(OnFoodSpawned);
@@ -120,14 +120,14 @@ public class HotbarManager : MonoBehaviour
         if (!IsValidIndex(index))
         {
             //index = selectedSlotIndex;
-            Debug.LogWarning("Invalid food index to remove!");
+            //Debug.LogWarning("Invalid food index to remove!");
             return;
         }
 
         // Drop the food -> Set the specified slot to empty -> Update hot bar
         if (hotbarSlots[index] == null)
         {
-            Debug.LogWarning("No food to remove at index: " + index);
+            //Debug.LogWarning("No food to remove at index: " + index);
             return;
         }
         
@@ -141,10 +141,10 @@ public class HotbarManager : MonoBehaviour
             SelectSlot(index);
         }
 
-        // Used for debugging
+        // Used for //Debugging
         for (int i = 0; i < maxSlots; i++)
         {
-            Debug.Log("hotbar slot " + i + ": " + (hotbarSlots[i] != null ? hotbarSlots[i].name : "Empty"));
+            //Debug.Log("hotbar slot " + i + ": " + (hotbarSlots[i] != null ? hotbarSlots[i].name : "Empty"));
         }
     }
 
@@ -185,26 +185,26 @@ public class HotbarManager : MonoBehaviour
     }
 
     // =========================================================
-    //  DEBUG / TESTING SECTION
+    //  //Debug / TESTING SECTION
     // =========================================================
 
-    [Header("Debug Testing")]
-    [Tooltip("Drag recipes here to use the Right-Click debug functions below")]
+    [Header("//Debug Testing")]
+    [Tooltip("Drag recipes here to use the Right-Click //Debug functions below")]
     //[SerializeField] private Recipe[] testRecipes;
     private List<Food> testFoods;
 
-    // Right-click the Script Component title in Inspector -> Select "Debug Add Random"
+    // Right-click the Script Component title in Inspector -> Select "//Debug Add Random"
     [ContextMenu("Debug Add Random")]
     public void DebugAddRandom()
     {
         //if (testRecipes == null || testRecipes.Length == 0)
         //{
-        //    Debug.LogWarning("Please assign 'Test Recipes' in the Inspector first!");
+        //    //Debug.LogWarning("Please assign 'Test Recipes' in the Inspector first!");
         //    return;
         //}
         if (testFoods == null || testFoods.Count == 0)
         {
-            Debug.LogWarning("Please assign 'Test Foods' in the Inspector first!");
+            //Debug.LogWarning("Please assign 'Test Foods' in the Inspector first!");
             return;
         }
 
@@ -213,12 +213,10 @@ public class HotbarManager : MonoBehaviour
         //bool success = AddRecipeToHotbar(randomRecipe);
         bool success = AddFoodToHotBar(randomFood);
 
-        Debug.Log(success
-            ? $"Debug Added: {randomFood.name}"
-            : "Debug Failed: Hotbar is full");
+        //Debug.Log(success ? $"Debug Added: {randomFood.name}" : "Debug Failed: Hotbar is full");
     }
 
-    // Right-click -> "Debug Fill All"
+    // Right-click -> "//Debug Fill All"
     [ContextMenu("Debug Fill All")]
     public void DebugFillAll()
     {
@@ -236,7 +234,7 @@ public class HotbarManager : MonoBehaviour
         }
     }
 
-    // Right-click -> "Debug Clear Hotbar"
+    // Right-click -> "//Debug Clear Hotbar"
     [ContextMenu("Debug Clear Hotbar")]
     public void DebugClear()
     {
@@ -245,6 +243,6 @@ public class HotbarManager : MonoBehaviour
             //RemoveRecipe(i);
             RemoveFood(i);
         }
-        Debug.Log("Debug: Hotbar Cleared");
+        //Debug.Log("//Debug: Hotbar Cleared");
     }
 }

@@ -42,14 +42,14 @@ public class NPCInteract : MonoBehaviour
     {
         if (interactableNPC != null)
         {
-            Debug.Log("Interacting with NPC: " + interactableNPC.name);
+            //Debug.Log("Interacting with NPC: " + interactableNPC.name);
             if (GetComponent<FoodInteract>() != null)
             {
                 GetComponent<FoodInteract>().ServeFood();
             }
             else
             {
-                Debug.LogWarning("Hello.");
+                //Debug.LogWarning("Hello.");
             }
         }
     }
@@ -59,7 +59,7 @@ public class NPCInteract : MonoBehaviour
         if (collision.TryGetComponent<NPC>(out _))
         {
             interactableNPC = collision.gameObject;
-            Debug.Log("Collided with NPC: " + interactableNPC.name);
+            //Debug.Log("Collided with NPC: " + interactableNPC.name);
         }
     }
 
@@ -70,7 +70,7 @@ public class NPCInteract : MonoBehaviour
         {
             if (interactableNPC == other.gameObject)
             {
-                Debug.Log("Exited collision with NPC: " + interactableNPC.name);
+                //Debug.Log("Exited collision with NPC: " + interactableNPC.name);
                 interactableNPC = null;
             }
         }

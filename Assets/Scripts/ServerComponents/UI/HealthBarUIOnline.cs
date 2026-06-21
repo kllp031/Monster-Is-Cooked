@@ -38,7 +38,6 @@ public class HealthBarUIOnline : MonoBehaviour
             lastHealth = health.currentHealth;
             UpdateInstant();
         }
-        print($"HealthBarUIOnline on '{gameObject.name}' bound to '{health.gameObject.name}'");
     }
 
     private void Update()

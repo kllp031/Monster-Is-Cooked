@@ -64,14 +64,13 @@ public class GameManagerOnline : NetworkBehaviour
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
     public void RPC_StartLevel()
     {
-        Debug.Log("[GameManagerOnline] RPC_StartLevel on " +
-                  (Runner != null ? Runner.LocalPlayer.ToString() : "unknown"));
+        //Debug.Log("[GameManagerOnline] RPC_StartLevel on " + (Runner != null ? Runner.LocalPlayer.ToString() : "unknown"));
 
         if (Object.HasStateAuthority)
         {
             if (!GameStarted)
             {
-                Debug.LogWarning("[GameManagerOnline] RPC_StartLevel: GameStarted == false.");
+                //Debug.LogWarning("[GameManagerOnline] RPC_StartLevel: GameStarted == false.");
                 return;
             }
 
@@ -97,7 +96,7 @@ public class GameManagerOnline : NetworkBehaviour
         if (!Object.HasStateAuthority) return;
         if (!LevelStarted || !GameStarted)
         {
-            Debug.LogWarning("[GameManagerOnline] EndLevel: no level in progress.");
+            //Debug.LogWarning("[GameManagerOnline] EndLevel: no level in progress.");
             return;
         }
 
@@ -110,7 +109,7 @@ public class GameManagerOnline : NetworkBehaviour
         if (win && isLastLevel)
             GameStarted = false;
 
-        Debug.Log($"[GameManagerOnline] EndLevel — win:{win} lastLevel:{isLastLevel}");
+        //Debug.Log($"[GameManagerOnline] EndLevel — win:{win} lastLevel:{isLastLevel}");
         RPC_BroadcastLevelEnd(win, win && isLastLevel);
     }
 
@@ -124,7 +123,7 @@ public class GameManagerOnline : NetworkBehaviour
         LocalPlayerData.Instance?.Data?.EarnMoney(CollectedMoney);
 
         if (gameOver)
-            Debug.Log("[GameManagerOnline] All levels complete.");
+            //Debug.Log("[GameManagerOnline] All levels complete.");
 
         OnLevelEnd?.Invoke(win);
     }
@@ -140,13 +139,14 @@ public class GameManagerOnline : NetworkBehaviour
     {
         if (!LevelStarted || !GameStarted) return;
 
-        foreach (var h in FindObjectsByType<HealthOnline>(FindObjectsSortMode.None))
+        foreach (var h in FindObjectsByType<Health>(FindObjectsSortMode.None))
         {
+            if (!h.CompareTag("Player")) continue;
             if (h.Object.Id == deadPlayerId) continue;
-            if (!h.IsDeath) return;
+            if (!h.isDeath) return;
         }
 
-        Debug.Log("[GameManagerOnline] All players dead — ending level.");
+        //Debug.Log("[GameManagerOnline] All players dead — ending level.");
         EndLevel();
     }
 

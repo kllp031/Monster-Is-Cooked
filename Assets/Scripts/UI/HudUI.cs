@@ -9,7 +9,7 @@ public class HudUI : MonoBehaviour
     {
         if (GameManager.Instance == null)
         {
-            Debug.LogWarning("HudUI: GameManager.Instance không có trong scene. Coin text sẽ không cập nhật.");
+            //Debug.LogWarning("HudUI: GameManager.Instance không có trong scene. Coin text sẽ không cập nhật.");
             return;
         }
 

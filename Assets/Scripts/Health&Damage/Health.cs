@@ -121,7 +121,7 @@ public class Health : NetworkBehaviour
         invincibilityTimer = TickTimer.CreateFromSeconds(Runner, invincibilityTime);
 
         currentHealth -= damageAmount;
-        Debug.Log($"[Health] {gameObject.name} took {damageAmount} damage. CurrentHealth: {currentHealth}");
+        //Debug.Log($"[Health] {gameObject.name} took {damageAmount} damage. CurrentHealth: {currentHealth}");
         CheckDeath();
     }
 

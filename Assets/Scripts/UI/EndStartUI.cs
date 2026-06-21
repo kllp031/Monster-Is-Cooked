@@ -77,7 +77,7 @@ public class EndStartUI : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("EndStartUI: GameManager.Instance chưa có khi Start(). Level-end events sẽ không hoạt động.");
+            //Debug.LogWarning("EndStartUI: GameManager.Instance chưa có khi Start(). Level-end events sẽ không hoạt động.");
         }
 
         if (PlayerDataManager.Instance != null)
@@ -86,7 +86,7 @@ public class EndStartUI : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("EndStartUI: PlayerDataManager.Instance chưa có khi Start(). Coin events sẽ không hoạt động.");
+            //Debug.LogWarning("EndStartUI: PlayerDataManager.Instance chưa có khi Start(). Coin events sẽ không hoạt động.");
         }
 
         WireButtons();
@@ -155,8 +155,7 @@ public class EndStartUI : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("[EndStartUI] startBtn chưa được gán trong Inspector. " +
-                             "Kéo Button 'Start' (trong startUI) vào field 'startBtn' để script tự wire OnStartClicked.");
+            //Debug.LogWarning("[EndStartUI] startBtn chưa được gán trong Inspector. Kéo Button 'Start' (trong startUI) vào field 'startBtn' để script tự wire OnStartClicked.");
         }
 
         if (retryBtn != null)
@@ -208,13 +207,13 @@ public class EndStartUI : MonoBehaviour
     {
         //if (GameManager.Instance == null)
         //{
-        //    Debug.LogError("EndStartUI: GameManager instance not found!");
+        //    //Debug.LogError("EndStartUI: GameManager instance not found!");
         //    return;
         //}
 
         //if (startUI == null)
         //{
-        //    Debug.LogError("EndStartUI: Start UI reference is missing!");
+        //    //Debug.LogError("EndStartUI: Start UI reference is missing!");
         //    return;
         //}
 
@@ -222,7 +221,7 @@ public class EndStartUI : MonoBehaviour
 
         //if (currentLevel == null)
         //{
-        //    Debug.LogError("EndStartUI: Current level detail is missing!");
+        //    //Debug.LogError("EndStartUI: Current level detail is missing!");
         //    return;
         //}
 
@@ -241,13 +240,13 @@ public class EndStartUI : MonoBehaviour
     {
         if (GameManager.Instance == null)
         {
-            Debug.LogError("EndStartUI: GameManager instance not found!");
+            //Debug.LogError("EndStartUI: GameManager instance not found!");
             return;
         }
 
         if (endUI == null)
         {
-            Debug.LogError("EndStartUI: Start UI reference is missing!");
+            //Debug.LogError("EndStartUI: Start UI reference is missing!");
             return;
         }
 
@@ -255,7 +254,7 @@ public class EndStartUI : MonoBehaviour
 
         if (currentLevel == null)
         {
-            Debug.LogError("EndStartUI: Current level detail is missing!");
+            //Debug.LogError("EndStartUI: Current level detail is missing!");
             return;
         }
 
@@ -297,7 +296,7 @@ public class EndStartUI : MonoBehaviour
 
     public void OnStartClicked()
     {
-        Debug.Log("[EndStartUI] OnStartClicked");
+        //Debug.Log("[EndStartUI] OnStartClicked");
 
         // --- Multiplayer path ---
         if (IsMultiplayerActive())
@@ -305,14 +304,13 @@ public class EndStartUI : MonoBehaviour
             if (!IsLocalMasterClient())
             {
                 // Client thường không được start — chỉ MasterClient.
-                Debug.Log("[EndStartUI] Chỉ MasterClient được start. Đang chờ host...");
+                //Debug.Log("[EndStartUI] Chỉ MasterClient được start. Đang chờ host...");
                 return;
             }
 
             if (GameManagerOnline.Instance == null)
             {
-                Debug.LogError("[EndStartUI] Multiplayer: thiếu GameManagerOnline trong scene. " +
-                               "Đảm bảo MultiplayerGameplay có 1 NetworkObject chứa GameManagerOnline.");
+                //Debug.LogError("[EndStartUI] Multiplayer: thiếu GameManagerOnline trong scene. Đảm bảo MultiplayerGameplay có 1 NetworkObject chứa GameManagerOnline.");
                 return;
             }
 
@@ -327,17 +325,14 @@ public class EndStartUI : MonoBehaviour
 
         if (GameManager.Instance == null)
         {
-            Debug.LogError("[EndStartUI] Không thể bắt đầu level: GameManager.Instance null. " +
-                           "Thêm một GameObject có component GameManager vào scene.");
+            //Debug.LogError("[EndStartUI] Không thể bắt đầu level: GameManager.Instance null. " +
+                        //    "Thêm một GameObject có component GameManager vào scene.");
             return;
         }
 
         if (!GameManager.Instance.GameStarted)
         {
-            Debug.LogError("[EndStartUI] Không thể bắt đầu level: GameManager.GameStarted == false. " +
-                           "Kiểm tra GameManager: (1) levelDesign đã gán chưa, " +
-                           "(2) PlayerDataManager có trong scene chưa, " +
-                           "(3) saved level number có hợp lệ trong level design không.");
+            //Debug.LogError("[EndStartUI] Không thể bắt đầu level: GameManager.GameStarted == false. Kiểm tra GameManager: (1) levelDesign đã gán chưa, (2) PlayerDataManager có trong scene chưa, (3) saved level number có hợp lệ trong level design không.");
             return;
         }
 
@@ -355,7 +350,7 @@ public class EndStartUI : MonoBehaviour
         //}
         //else
         //{
-        //    Debug.LogError("EndStartUI: GameManager instance not found!");
+        //    //Debug.LogError("EndStartUI: GameManager instance not found!");
         //}
     }
 
@@ -370,7 +365,7 @@ public class EndStartUI : MonoBehaviour
         }
         else
         {
-            Debug.LogError("EndStartUI: GameManager instance not found!");
+            //Debug.LogError("EndStartUI: GameManager instance not found!");
         }
     }
 

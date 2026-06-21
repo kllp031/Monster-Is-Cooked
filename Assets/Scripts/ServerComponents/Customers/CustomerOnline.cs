@@ -59,10 +59,10 @@ public class CustomerOnline : NetworkBehaviour, IInteractable
 
     private void OnValidate()
     {
-        if (foodRequestBox == null) Debug.LogWarning("This customer has no food request box assigned!");
-        if (foodIcon == null) Debug.LogWarning("This customer has no food icon assigned!");
-        if (spriteLibrary == null) Debug.LogWarning("Please assign a sprite library to display different skins!");
-        if (skinGallery == null) Debug.LogWarning("Please assign a skin gallery to display skins");
+        //if (foodRequestBox == null) Debug.LogWarning("This customer has no food request box assigned!");
+        //if (foodIcon == null) Debug.LogWarning("This customer has no food icon assigned!");
+        //if (spriteLibrary == null) Debug.LogWarning("Please assign a sprite library to display different skins!");
+        //if (skinGallery == null) Debug.LogWarning("Please assign a skin gallery to display skins");
     }
     private void OnEnable()
     {
@@ -95,7 +95,7 @@ public class CustomerOnline : NetworkBehaviour, IInteractable
         }
     }
 
-    public override void FixedUpdateNetwork()
+    public override void Render()
     {
         CheckForPlayer();
     }
@@ -149,24 +149,24 @@ public class CustomerOnline : NetworkBehaviour, IInteractable
     // Can be use by any client
     public void OnInteract(GameObject obj)
     {
-        Debug.Log("On interacted with: " + obj.name);
+        //Debug.Log("On interacted with: " + obj.name);
         if (!IsReadyToEat) return; // Ignore any interactions if customer is not ready to eat
 
-        if (obj.GetComponent<FoodHolder>() != null) //  Interact with player, PROBABLY USE FOOTHOLDER ONLINE 
+        if (obj.GetComponent<FoodHolderOnline>() != null) //  Interact with player, PROBABLY USE FOOTHOLDER ONLINE 
         {
             if (!isAsked) // Show the requested food if this customer hasn't been asked yet
             {
                 ShowRequestedFood();
                 isAsked = true;
             }
-            else
+            else if (obj.GetComponent<FoodHolderOnline>().HeldRecipe != null)
             {
-                Food receivedFood = obj.GetComponent<FoodHolder>().HeldFood;
-                if (receivedFood != null)
-                {
-                    RPC_AnnouncePlayerServeFood(receivedFood.Recipe.RecipeName); // Master client is responsible for processing the food and update coins
-                    obj.GetComponent<FoodHolder>().ServeFood();
-                }
+                //Food receivedFood = obj.GetComponent<FoodHolderOnline>().HeldFood;
+                //if (receivedFood != null)
+                //{
+                    RPC_AnnouncePlayerServeFood(/*receivedFood.Recipe.RecipeName*/obj.GetComponent<FoodHolderOnline>().HeldRecipe.RecipeName); // Master client is responsible for processing the food and update coins
+                    obj.GetComponent<FoodHolderOnline>().ServeFood();
+                //}
             }
         }
         else if (obj.GetComponent<Food>() != null && Runner != null && Runner.IsSharedModeMasterClient) // The collided object is a food, only check for collision on master client's side
@@ -201,7 +201,7 @@ public class CustomerOnline : NetworkBehaviour, IInteractable
     [Rpc(sources: RpcSources.All, targets: RpcTargets.StateAuthority)]
     public void RPC_AnnounceServed(string foodId, float percentage)
     {
-        Debug.Log("I receive served announcement, I'm master client: " + Runner.IsSharedModeMasterClient);
+        //Debug.Log("I receive served announcement, I'm master client: " + Runner.IsSharedModeMasterClient);
 
         if (GameManagerOnline.Instance != null && CustomersSpawnerOnline.Instance != null)
         {
@@ -219,7 +219,11 @@ public class CustomerOnline : NetworkBehaviour, IInteractable
     {
         if (coinParticle != null) coinParticle.Play();
     }
-
+    [Rpc(sources: RpcSources.All, targets: RpcTargets.All)]
+    public void RPC_NeutralizeCustomer()
+    {
+        if (foodRequestBox != null) foodRequestBox.SetBool(foodRequestBoxAnimatorBool, false);
+    }
 
     private void ShowRequestedFood()
     {
@@ -241,10 +245,10 @@ public class CustomerOnline : NetworkBehaviour, IInteractable
 
         if (customerTimer != null)
         {
-            Debug.Log("Timer before: " + customerTimer.gameObject.activeInHierarchy);
+            //Debug.Log("Timer before: " + customerTimer.gameObject.activeInHierarchy);
             customerTimer.gameObject.SetActive(true);
-            Debug.Log("Timer after: " + customerTimer.gameObject.activeInHierarchy);
-            Debug.Log("Customer details waiting time: " + CustomerDetail.WaitingTime);
+            //Debug.Log("Timer after: " + customerTimer.gameObject.activeInHierarchy);
+            //Debug.Log("Customer details waiting time: " + CustomerDetail.WaitingTime);
             customerTimer.SetTimer(CustomerDetail.WaitingTime);
             customerTimer.ResetTimer();
             customerTimer.StartTimer();
@@ -253,8 +257,8 @@ public class CustomerOnline : NetworkBehaviour, IInteractable
     public bool ProcessFood(string recipeName)
     {
         if (Runner == null || !Runner.IsSharedModeMasterClient) return false;
-        if (CustomersSpawnerOnline.Instance == null) { Debug.LogWarning("No customers spawner found in this scene!"); return false; }
-        if (CustomersSpawnerOnline.Instance.RecipeGallery == null) { Debug.LogWarning("No recipe gallery found!"); return false; }
+        if (CustomersSpawnerOnline.Instance == null) { /*Debug.LogWarning("No customers spawner found in this scene!");*/ return false; }
+        if (CustomersSpawnerOnline.Instance.RecipeGallery == null) { /*Debug.LogWarning("No recipe gallery found!");*/ return false; }
         Recipe foodRequest = CustomersSpawnerOnline.Instance.RecipeGallery.GetRecipe(CustomerDetail.FoodRequestId);
         if (recipeName == foodRequest.RecipeName) return true;
         return false;
@@ -264,7 +268,7 @@ public class CustomerOnline : NetworkBehaviour, IInteractable
     {
         if (Runner == null || !Runner.IsSharedModeMasterClient) return true;
 
-        Debug.Log("Distance: " + Vector2.Distance(transform.position, target));
+        // //Debug.Log("Distance: " + Vector2.Distance(transform.position, target));
         if (Vector2.Distance(transform.position, target) <= distanceToTarget) return true;
         else
         {
@@ -278,15 +282,16 @@ public class CustomerOnline : NetworkBehaviour, IInteractable
     public void OnLeave()
     {
         // This function will be called by the timer when the timer runs out or when the customer receives the food
-        Debug.Log("Customer leaves");
+        //Debug.Log("Customer leaves");
         IsReadyToEat = false;
-        if (foodRequestBox != null) foodRequestBox.SetBool(foodRequestBoxAnimatorBool, false);
         if (customerTimer != null)
         {
             customerTimer.StopTimer();
             customerTimer.gameObject.SetActive(false);
         }
         if (TablesManagerOnline.Instance != null) TablesManagerOnline.Instance.ReturnTable(Object.Id);
+
+        RPC_NeutralizeCustomer();
     }
     public float GetCoinEarnPercentage(Customer.Mood mood)
     {

@@ -16,7 +16,7 @@ public class DropItem : MonoBehaviour
         {
             GameObject prefab = pickupPrefabs[i];
 
-            Vector3 spawnPos = transform.position + new Vector3(Random.RandomRange(-0.5f,0.5f) , Random.RandomRange(-0.5f, 0.5f));
+            Vector3 spawnPos = transform.position + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
             GameObject item = Instantiate(prefab, spawnPos, Quaternion.identity);
 
             //effect

@@ -81,14 +81,14 @@ public class PlayerDataManagerOnline : NetworkBehaviour
         int currentLevel = GetCurrentLevel(type);
         if (currentLevel >= statsConfig.maxLevel)
         {
-            Debug.Log("Already at max level.");
+            //Debug.Log("Already at max level.");
             return false;
         }
 
         int cost = GetCostForLevel(type, currentLevel);
         if (TotalMoney < cost)
         {
-            Debug.Log($"Not enough money. Need {cost}, have {TotalMoney}");
+            //Debug.Log($"Not enough money. Need {cost}, have {TotalMoney}");
             return false;
         }
 

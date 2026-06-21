@@ -61,7 +61,7 @@ public class PlayerDataManager : MonoBehaviour
 
         if (currentLevel >= statsConfig.maxLevel)
         {
-            Debug.Log("Already at Max Level.");
+            //Debug.Log("Already at Max Level.");
             return false;
         }
 
@@ -69,7 +69,7 @@ public class PlayerDataManager : MonoBehaviour
 
         if (TotalMoney < cost)
         {
-            Debug.Log($"Not enough money! Need {cost}, have {TotalMoney}");
+            //Debug.Log($"Not enough money! Need {cost}, have {TotalMoney}");
             return false;
         }
 

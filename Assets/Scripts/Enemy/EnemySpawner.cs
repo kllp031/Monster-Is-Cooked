@@ -11,7 +11,7 @@ public class EnemySpawner : NetworkBehaviour
     [SerializeField] private float _spawnInterval = 2f;
     [SerializeField] private LayerMask _playerLayer;   
 
-    [Header("Debug Info Mạng")]
+    [Header("//Debug Info Mạng")]
     [Networked] private int _currentCount { get; set; }
     [Networked] private NetworkBool _isActive { get; set; }
     [Networked] private TickTimer _spawnTimer { get; set; }

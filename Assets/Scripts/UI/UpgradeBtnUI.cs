@@ -15,7 +15,7 @@ public class UpgradeBtnUI : MonoBehaviour
     {
         if (PlayerDataManager.Instance == null)
         {
-            Debug.LogError("PlayerDataManager instance not found!");
+            //Debug.LogError("PlayerDataManager instance not found!");
             return;
         }
 
@@ -68,11 +68,11 @@ public class UpgradeBtnUI : MonoBehaviour
         if (PlayerDataManager.Instance.TryUpgradeStat(statType))
         {
             UpdateBtnUI();
-            Debug.Log($"{statType} upgraded!");
+            //Debug.Log($"{statType} upgraded!");
         }
         else
         {
-            Debug.Log($"{statType} upgrade failed.");
+            //Debug.Log($"{statType} upgrade failed.");
         }
     }
 

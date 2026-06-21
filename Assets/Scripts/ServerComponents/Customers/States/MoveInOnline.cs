@@ -16,7 +16,7 @@ public class MoveInOnline : CustomerStateOnline
     public override void Init() { }
     protected override void OnEnter()
     {
-        Debug.Log("Customer enters MoveIn state");
+        //Debug.Log("Customer enters MoveIn state");
         AssignedPathDetails = customer.TablePathDetails;
         CurrentPathPointIndex = 0;
         if (AssignedPathDetails.Points.Length > 0)
@@ -52,11 +52,11 @@ public class MoveInOnline : CustomerStateOnline
 
     public void Move()
     {
-        if (CurrentPathPointIndex >= AssignedPathDetails.PointCount) { Debug.Log("End of points"); controller.ChangeState(CustomerStatesControllerOnline.CustomerStates.Waiting); return; }
-        Debug.Log("Is moving " + AssignedPathDetails.Points[CurrentPathPointIndex] + " index: " + CurrentPathPointIndex);
+        if (CurrentPathPointIndex >= AssignedPathDetails.PointCount) { /*Debug.Log("End of points");*/ controller.ChangeState(CustomerStatesControllerOnline.CustomerStates.Waiting); return; }
+        // //Debug.Log("Is moving " + AssignedPathDetails.Points[CurrentPathPointIndex] + " index: " + CurrentPathPointIndex);
         if (customer.MoveToTarget(AssignedPathDetails.Points[CurrentPathPointIndex]))
         {
-            Debug.Log("Increase index");
+            //Debug.Log("Increase index");
             CurrentPathPointIndex++;
         }
     }

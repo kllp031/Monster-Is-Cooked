@@ -34,7 +34,7 @@ public class Gate : MonoBehaviour
         {
             player.position = targetPos;
         }
-        Debug.Log("tele to" + targetPos);
+        //Debug.Log("tele to" + targetPos);
 
         // 2. Get Main Camera and update its boundaries
         CameraFollow cam = Camera.main.GetComponent<CameraFollow>();

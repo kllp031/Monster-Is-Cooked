@@ -48,7 +48,7 @@ public class PickupItem : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("Player detected, but PlayerInventory script (or the Asset reference) is missing!");
+                //Debug.LogWarning("Player detected, but PlayerInventory script (or the Asset reference) is missing!");
             }
         }
     }
@@ -58,7 +58,7 @@ public class PickupItem : MonoBehaviour
         // 4. Add to the ScriptableObject directly
         inventory.Add(ingredient, amount);
 
-        Debug.Log($"Picked up {amount} {ingredient.ingredientName}");
+        //Debug.Log($"Picked up {amount} {ingredient.ingredientName}");
         if(itemEffect != null)  Instantiate(itemEffect, transform.position, Quaternion.identity);
         // 5. (Optional) Play sound/particles here
 

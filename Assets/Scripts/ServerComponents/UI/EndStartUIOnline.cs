@@ -65,7 +65,7 @@ public class EndStartUIOnline : MonoBehaviour
         if (GameManager.Instance != null)
             GameManager.Instance.OnLevelEnd.AddListener(OnLevelEnd);
         else
-            Debug.LogWarning("EndStartUIOnline: GameManager.Instance not found. Level-end events won't fire.");
+            //Debug.LogWarning("EndStartUIOnline: GameManager.Instance not found. Level-end events won't fire.");
 
         GameManagerOnline.OnLevelEnd += OnLevelEnd;
 
@@ -231,14 +231,14 @@ public class EndStartUIOnline : MonoBehaviour
         if (IsMultiplayerActive())
         {
             if (!IsLocalMasterClient()) return;
-            if (GameManagerOnline.Instance == null) { Debug.LogError("[EndStartUIOnline] Missing GameManagerOnline."); return; }
+            if (GameManagerOnline.Instance == null) { /*Debug.LogError("[EndStartUIOnline] Missing GameManagerOnline.");*/ return; }
             GameManagerOnline.Instance.RPC_StartLevel();
             return;
         }
 
         ToggleStartScreen(false);
-        if (GameManager.Instance == null) { Debug.LogError("[EndStartUIOnline] GameManager.Instance null."); return; }
-        if (!GameManager.Instance.GameStarted) { Debug.LogError("[EndStartUIOnline] GameManager.GameStarted == false."); return; }
+        if (GameManager.Instance == null) { /*Debug.LogError("[EndStartUIOnline] GameManager.Instance null.");*/ return; }
+        if (!GameManager.Instance.GameStarted) { /*Debug.LogError("[EndStartUIOnline] GameManager.GameStarted == false.");*/ return; }
         GameManager.Instance.StartCurrentLevel();
     }
 

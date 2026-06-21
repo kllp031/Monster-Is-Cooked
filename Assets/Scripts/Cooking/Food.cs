@@ -35,10 +35,10 @@ public class Food : MonoBehaviour
     private void Awake()
     {
         if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer == null) Debug.LogWarning("Please assisn a sprite renderer or add SpriteRenderer component to the food object!");
+        //if (spriteRenderer == null) Debug.LogWarning("Please assisn a sprite renderer or add SpriteRenderer component to the food object!");
         rb = GetComponent<Rigidbody2D>();
-        if (rb == null) Debug.LogWarning("Please assign a Rigibody2D to handle Physics");
-        if (foodObject == null) Debug.LogWarning("Please assign a food object to handle physics!");
+        //if (rb == null) Debug.LogWarning("Please assign a Rigibody2D to handle Physics");
+        if (foodObject == null) { /*Debug.LogWarning("Please assign a food object to handle physics!");*/ }
         else { foodRb = foodObject.GetComponent<Rigidbody2D>(); }
     }
     private void OnEnable()
@@ -58,8 +58,8 @@ public class Food : MonoBehaviour
 
     public void SetUp(Recipe recipe)
     {
-        Debug.Log("Set up: " + recipe + "for " + spriteRenderer);
-        if (recipe == null) { Debug.LogWarning("This recipe is invalid!"); return; }
+        //Debug.Log("Set up: " + recipe + "for " + spriteRenderer);
+        if (recipe == null) { /*Debug.LogWarning("This recipe is invalid!");*/ return; }
         this.recipe = recipe;
         if (spriteRenderer != null) spriteRenderer.sprite = this.recipe.Icon;
     }
@@ -81,7 +81,7 @@ public class Food : MonoBehaviour
 
     private void HandleFallingPhysics()
     {
-        if (foodRb == null) { Debug.LogWarning("No food rigidbody assigned!"); return; }
+        if (foodRb == null) { /*Debug.LogWarning("No food rigidbody assigned!");*/ return; }
         if (isPickedUp) return; // Dont handle Physics if this food has been picked up
         foodRb.linearVelocityX = 0; // Make sure the food object only moves vertically
         if (foodPos.y <= transform.position.y + foodObjectPivot.y && foodRb.linearVelocityY <= 0) // If the food object is below the ground point and it's moving downward
@@ -158,7 +158,7 @@ public class Food : MonoBehaviour
         {
             if (isGrounded)
             {
-                Debug.Log(rb.linearVelocityY);
+                //Debug.Log(rb.linearVelocityY);
                 rb.linearVelocityY = riseUpSpeed;
             }
         }

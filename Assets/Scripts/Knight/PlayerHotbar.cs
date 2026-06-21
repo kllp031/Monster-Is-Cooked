@@ -16,7 +16,7 @@ public class PlayerHotbar : MonoBehaviour
     //    }
     //    else
     //    {
-    //        Debug.LogWarning("HotbarManager missing from scene!");
+    //        //Debug.LogWarning("HotbarManager missing from scene!");
     //    }
 
     //    // Optional: Auto-find FoodHolder if forgot to assign
@@ -45,7 +45,7 @@ public class PlayerHotbar : MonoBehaviour
     //    // Note: We instantiate it at the player's position so it doesn't fly in from zero
     //    if (GameAssets.Instance == null || GameAssets.Instance.pfFood == null)
     //    {
-    //        Debug.LogError("GameAssets or pfFood is not assigned!");
+    //        //Debug.LogError("GameAssets or pfFood is not assigned!");
     //        return;
     //    }
     //    Transform newFoodObj = Instantiate(GameAssets.Instance.pfFood, transform.position, Quaternion.identity);
@@ -61,7 +61,7 @@ public class PlayerHotbar : MonoBehaviour
     //    }
     //    else
     //    {
-    //        Debug.LogError("The Food Prefab assigned to PlayerHotbar is missing the 'Food' script!");
+    //        //Debug.LogError("The Food Prefab assigned to PlayerHotbar is missing the 'Food' script!");
     //        Destroy(newFoodObj);
     //    }
     //}

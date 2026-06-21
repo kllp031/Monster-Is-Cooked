@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
 
         if (itemToDrop == null)
         {
-            Debug.LogWarning($"{nameof(Enemy)} on '{name}' has no {nameof(itemToDrop)} assigned.", this);
+            //Debug.LogWarning($"{nameof(Enemy)} on '{name}' has no {nameof(itemToDrop)} assigned.", this);
         }
     }
 
@@ -75,7 +75,7 @@ public class Enemy : MonoBehaviour
     private IEnumerator Attack()
     {
         yield return new WaitForSeconds(attackDelay);
-        //Debug.Log($"{name} attacks {player.name}!");
+        ////Debug.Log($"{name} attacks {player.name}!");
     }
 
     public void Die()
@@ -88,7 +88,7 @@ public class Enemy : MonoBehaviour
     {
         if (itemToDrop == null)
         {
-            Debug.LogError("Enemy.itemToDrop is not assigned.", this);
+            //Debug.LogError("Enemy.itemToDrop is not assigned.", this);
             return;
         }
 

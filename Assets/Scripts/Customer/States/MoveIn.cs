@@ -11,9 +11,9 @@ public class MoveIn : CustomerState
     }
     protected override void OnEnter()
     {
-        Debug.Log("Customer enters MoveIn state");
+        //Debug.Log("Customer enters MoveIn state");
         assignedPath = customer.TablePath;
-        if (assignedPath == null) Debug.LogWarning("Customer doesn't have any table path assigned!");
+        //if (assignedPath == null) Debug.LogWarning("Customer doesn't have any table path assigned!");
         currentPathPointIndex = 0;
         if (assignedPath.Points.Count > 0)
         {
@@ -37,7 +37,7 @@ public class MoveIn : CustomerState
 
     public void Move()
     {
-        if (currentPathPointIndex >= assignedPath.Points.Count) { Debug.Log("End of points"); controller.ChangeState(CustomerStatesController.CustomerStates.Waiting); return; }
+        if (currentPathPointIndex >= assignedPath.Points.Count) { /*Debug.Log("End of points");*/ controller.ChangeState(CustomerStatesController.CustomerStates.Waiting); return; }
 
         if (customer.MoveToTarget(assignedPath.Points[currentPathPointIndex])) currentPathPointIndex++;
     }

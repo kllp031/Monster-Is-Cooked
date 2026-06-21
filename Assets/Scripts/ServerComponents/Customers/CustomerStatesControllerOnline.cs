@@ -90,7 +90,7 @@ public class CustomerStatesControllerOnline : NetworkBehaviour
     }
     public void ChangeState(CustomerStates newState)
     {
-        Debug.Log("Change state: " + newState);
+        //Debug.Log("Change state: " + newState);
         if (Runner == null || !Runner.IsSharedModeMasterClient) return;
         PreviousState = CurrentState;
         CurrentState = newState;
@@ -117,7 +117,7 @@ public class CustomerStatesControllerOnline : NetworkBehaviour
     private void AnnounceStateChanged()
     {
         if (Runner == null || !Runner.IsSharedModeMasterClient) return;
-        Debug.Log("Announce state changed: " + CurrentState + " prev: " + PreviousState);
+        //Debug.Log("Announce state changed: " + CurrentState + " prev: " + PreviousState);
         foreach (var state in customerStates)
         {
             if (state != null)

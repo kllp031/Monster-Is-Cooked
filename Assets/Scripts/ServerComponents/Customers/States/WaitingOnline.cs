@@ -13,7 +13,7 @@ public class WaitingOnline : CustomerStateOnline
     }
     protected override void OnEnter()
     {
-        Debug.Log("Customer enters Waiting state");
+        //Debug.Log("Customer enters Waiting state");
         customer.ReadyToEat();
     }
 

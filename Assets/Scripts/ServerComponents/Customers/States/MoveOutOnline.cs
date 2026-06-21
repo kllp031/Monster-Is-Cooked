@@ -23,7 +23,7 @@ public class MoveOutOnline : CustomerStateOnline
     }
     protected override void OnEnter()
     {
-        Debug.Log("Customer enters MoveOut state");
+        //Debug.Log("Customer enters MoveOut state");
         //FinishedMovingOut = false;
         AssignedPathDetails = customer.TablePathDetails;
         CurrentPathPointIndex = AssignedPathDetails.PointCount - 1;

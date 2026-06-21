@@ -98,6 +98,6 @@ public class InventorySO : ScriptableObject
     //public void TestClearInventory()
     //{
     //    ClearInventory();
-    //    Debug.Log("Inventory Cleared via Inspector!"); // Optional: visual confirmation
+    //    //Debug.Log("Inventory Cleared via Inspector!"); // Optional: visual confirmation
     //}
 }

@@ -61,16 +61,18 @@ public class Damage : NetworkBehaviour
         {
             if (collidedHealth.teamId != this.teamId)
             {
-                Debug.Log("take damage via network");
+                // //Debug.Log("take damage via network");
 
                 if (this.gameObject.CompareTag("PlayerAttack"))
                 {
                     if (SoundManager.Instance != null)
                         SoundManager.Instance.PlaySFX(SoundManager.Instance.metalHit);
 
-                    // Master Client gọi trừ máu, hàm này bên trong đã có sẵn cấu trúc RPC kết nối sang Health mạng
-                    if (PlayerDataManager.Instance != null)
-                        collidedHealth.TakeDamage(PlayerDataManager.Instance.CurrentAttack);
+                    var pdmOnline = GetComponentInParent<PlayerDataManagerOnline>();
+                    int atk = pdmOnline != null ? pdmOnline.CurrentAttack
+                            : PlayerDataManager.Instance != null ? PlayerDataManager.Instance.CurrentAttack
+                            : damageAmount;
+                    collidedHealth.TakeDamage(atk);
                 }
                 else
                 {
@@ -79,7 +81,7 @@ public class Damage : NetworkBehaviour
 
                 if (destroyAfterDamage && Runner != null && Object != null && Object.IsValid)
                 {
-                    Debug.Log("despawn network bullet/vfx");
+                    //Debug.Log("despawn network bullet/vfx");
                     if (TryGetComponent(out ProjectileSplitter splitter))
                         splitter.Split(Runner, Object);
                     Runner.Despawn(Object);

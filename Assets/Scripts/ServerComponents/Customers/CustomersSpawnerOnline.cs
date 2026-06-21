@@ -50,7 +50,7 @@ public class CustomersSpawnerOnline : NetworkBehaviour
 
     public void OnLevelStart()
     {
-        Debug.Log("Customer spawner on level start!");
+        //Debug.Log("Customer spawner on level start!");
         spawnedCustomer.Clear();
 
         if (Runner != null && Runner.IsSharedModeMasterClient)
@@ -95,17 +95,17 @@ public class CustomersSpawnerOnline : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
-        //Debug.Log("Update!");
+        ////Debug.Log("Update!");
         if (Runner == null || !Runner.IsSharedModeMasterClient) return;
-        //Debug.Log("Runner is master client!");
+        ////Debug.Log("Runner is master client!");
 
         // Use GameManagerOnline instead!!!!!!!!!
-        if (GameManagerOnline.Instance == null) { Debug.LogWarning("GameManager is not found in this scene!"); return; }
+        if (GameManagerOnline.Instance == null) { /*Debug.LogWarning("GameManager is not found in this scene!");*/ return; }
         //else if (!GameManagerOnline.Instance.LevelStarted || !GameManagerOnline.Instance.GameStarted) return;
 
-        if (TablesManagerOnline.Instance == null) { Debug.LogWarning("Tables Manager Online is not found in this scene!"); return; }
+        if (TablesManagerOnline.Instance == null) { /*Debug.LogWarning("Tables Manager Online is not found in this scene!");*/ return; }
 
-        if (CustomersSkinIds.Count == 0) { Debug.LogWarning("Please assign some customerSkins to spawn Customer!"); }
+        if (CustomersSkinIds.Count == 0) { /*Debug.LogWarning("Please assign some customerSkins to spawn Customer!");*/ }
 
         float elapsedTime = Runner.SimulationTime - GameManagerOnline.Instance.LevelStartTime; // Use GameManagerOnline to store LEVEL START TIME!!!
 
@@ -113,7 +113,7 @@ public class CustomersSpawnerOnline : NetworkBehaviour
         if (TempAppearTime.Count == 0 || TempCustomerDetails.Count == 0)
         {
             // If there are no active customers left -> End Game
-            if (ActiveCustomers.Count == 0) GameManagerOnline.Instance.EndLevel();
+            if (ActiveCustomers.Count == 0 && GameManagerOnline.Instance.LevelStarted) GameManagerOnline.Instance.EndLevel();
             return;
         }
 
@@ -165,7 +165,7 @@ public class CustomersSpawnerOnline : NetworkBehaviour
     private void InitCustomer(NetworkObject customerNetworkObj, CustomerDetailOnline newDetail, string newSkinId, TableDetailOnline availableTable)
     {
         if (customerNetworkObj == null) return;
-        Debug.Log("Init customer");
+        //Debug.Log("Init customer");
         TablesManagerOnline.Instance.AssignCustomer(availableTable.ID, customerNetworkObj.Id);
         if (customerNetworkObj.TryGetComponent<CustomerOnline>(out CustomerOnline newCustomer))
         {
@@ -193,7 +193,7 @@ public class CustomersSpawnerOnline : NetworkBehaviour
     // This function is called by the customer to remove itself from the active customers list
     public void OnCustomerLeft(CustomerOnline customer)
     {
-        Debug.Log("Customer left: " + customer);
+        //Debug.Log("Customer left: " + customer);
         if (Runner == null || !Runner.IsSharedModeMasterClient || customer == null) return;
         foreach (var activeCustomer in ActiveCustomers)
         {

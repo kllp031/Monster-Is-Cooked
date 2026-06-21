@@ -1,3 +1,4 @@
+#pragma warning disable 0414
 using Fusion;
 using System.Collections.Generic;
 using System.Linq;
@@ -112,7 +113,7 @@ public class Lobby : NetworkBehaviour
         }
         foreach (var player in playersInRoom)
         {
-            Debug.Log(player);
+            //Debug.Log(player);
             OnPlayerJoined(NetworkManager.Instance.NetworkRunner, player);
         }
 
@@ -123,7 +124,7 @@ public class Lobby : NetworkBehaviour
     {
         if (NetworkManager.Instance == null) return;
 
-        Debug.Log(NetworkManager.Instance.NetworkRunner + " is shutting down");
+        //Debug.Log(NetworkManager.Instance.NetworkRunner + " is shutting down");
 
         await NetworkManager.Instance.NetworkRunner.Shutdown();
 
@@ -146,7 +147,7 @@ public class Lobby : NetworkBehaviour
         if (NetworkManager.Instance == null) return;
         if (!NetworkManager.Instance.NetworkRunner.IsSharedModeMasterClient)
         {
-            Debug.LogWarning("You cannot perform this action!"); return;
+            //Debug.LogWarning("You cannot perform this action!"); return;
         }
         if (!startGameTimer.IsRunning)
         {
@@ -158,7 +159,7 @@ public class Lobby : NetworkBehaviour
 
     private void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
-        Debug.Log("Player joined: " + player);
+        //Debug.Log("Player joined: " + player);
         foreach (var playerInRoomButton in playerInRoomButtons)
         {
             if (playerInRoomButton.gameObject.activeInHierarchy && playerInRoomButton.ID == player.PlayerId) return;
@@ -176,7 +177,7 @@ public class Lobby : NetworkBehaviour
 
     private void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
-        Debug.Log(player.PlayerId + " left");
+        //Debug.Log(player.PlayerId + " left");
         foreach (var playerInRoomButton in playerInRoomButtons)
         {
             if (playerInRoomButton.gameObject.activeInHierarchy == false) continue;
@@ -205,7 +206,7 @@ public class Lobby : NetworkBehaviour
 
     //    if (readyPlayerCount >= Mathf.CeilToInt((float)NetworkManager.Instance.NetworkRunner.ActivePlayers.Count() * minimumReadyPercentage))
     //    {
-    //        Debug.Log("Enough player!");
+    //        //Debug.Log("Enough player!");
     //        if (!startGameTimer.IsRunning)
     //        {
     //            startGameTimer = TickTimer.CreateFromSeconds(NetworkManager.Instance.NetworkRunner, startGameTime);
@@ -213,7 +214,7 @@ public class Lobby : NetworkBehaviour
     //    }
     //    else if (startGameTimer.IsRunning)
     //    {
-    //        Debug.Log("Not enough player!");
+    //        //Debug.Log("Not enough player!");
     //        startGameTimer = TickTimer.None;
     //    }
     //}
@@ -222,14 +223,14 @@ public class Lobby : NetworkBehaviour
     private void RPC_AskForUsername([RpcTarget] PlayerRef target, PlayerRef requester)
     {
         if (NetworkManager.Instance == null) return;
-        Debug.Log(requester + " asked " + target + " receiver: " + NetworkManager.Instance.NetworkRunner.LocalPlayer);
+        //Debug.Log(requester + " asked " + target + " receiver: " + NetworkManager.Instance.NetworkRunner.LocalPlayer);
         RPC_AnswerUsername(requester, target, NetworkManager.Instance.Username);
     }
 
     [Rpc(RpcSources.All, RpcTargets.All)]
     private void RPC_AnswerUsername([RpcTarget] PlayerRef requester, PlayerRef responder, string username)
     {
-        Debug.Log(responder + " answered " + requester);
+        //Debug.Log(responder + " answered " + requester);
         foreach(var playerInRoomButton in playerInRoomButtons)
         {
             if (playerInRoomButton == null) continue;
@@ -246,7 +247,7 @@ public class Lobby : NetworkBehaviour
     //    if (NetworkManager.Instance == null) return;
     //    if (NetworkManager.Instance.NetworkRunner.IsSharedModeMasterClient)
     //    {
-    //        Debug.Log($"Player: {player.PlayerId} is ready!");
+    //        //Debug.Log($"Player: {player.PlayerId} is ready!");
     //        if (!readyPlayers.ContainsKey(player.PlayerId))
     //        {
     //            readyPlayers.Add(player.PlayerId, true);
