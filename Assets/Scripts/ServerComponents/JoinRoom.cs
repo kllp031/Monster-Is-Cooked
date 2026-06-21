@@ -13,19 +13,37 @@ public class JoinRoom : MonoBehaviour
     [Header("UI Feedback (optional)")]
     [Tooltip("(Optional) Nút Join — script tự disable khi đang kết nối để chặn double-click.")]
     [SerializeField] Button joinButton;
+    [Tooltip("(Optional) Nút Tạo phòng — cũng bị disable khi đang kết nối.")]
+    [SerializeField] Button createButton;
     [Tooltip("(Optional) Text hiển thị trạng thái/lỗi cho người chơi.")]
     [SerializeField] TMP_Text statusText;
+
+    private static readonly char[] RoomCodeChars = "0123456789".ToCharArray();
 
     // Guard local: tránh double-click trong lúc await StartGame.
     private bool isJoining;
 
+    public async void OnCreateRoom()
+    {
+        if (roomIdInput != null)
+            roomIdInput.text = GenerateRoomCode();
+        await StartJoin();
+    }
+
     public async void OnJoinRoom()
     {
-        if (isJoining)
+        if (roomIdInput == null || string.IsNullOrWhiteSpace(roomIdInput.text))
         {
-            //Debug.Log("[JoinRoom] Đang join, bỏ qua click lặp.");
+            SetStatus("Nhập mã phòng trước khi vào.");
             return;
         }
+        await StartJoin();
+    }
+
+    private async System.Threading.Tasks.Task StartJoin()
+    {
+        //Debug.Log("[JoinRoom] Đang join, bỏ qua click lặp.");
+        if (isJoining) return;
 
         if (NetworkManager.Instance == null)
         {
@@ -42,24 +60,17 @@ public class JoinRoom : MonoBehaviour
             await NetworkManager.Instance.CleanupNetworkRunnerAsync();
         }
 
-        if (roomIdInput == null)
-        {
-            //Debug.LogError("[JoinRoom] Room ID input field chưa assign.");
-            SetStatus("Lỗi: thiếu Room ID input.");
-            return;
-        }
-
         if (string.IsNullOrWhiteSpace(roomIdInput.text))
         {
             //Debug.LogWarning("[JoinRoom] Room ID trống.");
-            SetStatus("Nhập Room ID trước khi join.");
+            SetStatus("Nhập mã phòng trước khi vào.");
             return;
         }
 
         if (usernameInput != null) NetworkManager.Instance.Username = usernameInput.text;
 
         isJoining = true;
-        if (joinButton != null) joinButton.interactable = false;
+        SetButtonsInteractable(false);
         SetStatus("Đang kết nối...");
 
         StartGameResult res;
@@ -71,9 +82,10 @@ public class JoinRoom : MonoBehaviour
         {
             //Debug.LogError($"[JoinRoom] Exception khi StartGame");
             SetStatus("Lỗi kết nối. Xem Console.");
+            // Dọn runner lỗi để user có thể bấm lại.
             await NetworkManager.Instance.CleanupNetworkRunnerAsync();
             isJoining = false;
-            if (joinButton != null) joinButton.interactable = true;
+            SetButtonsInteractable(true);
             return;
         }
 
@@ -82,16 +94,29 @@ public class JoinRoom : MonoBehaviour
             string reason = res != null ? res.ShutdownReason.ToString() : "null result";
             //Debug.LogError($"[JoinRoom] Failed to join room: {reason}");
             SetStatus($"Join failed: {reason}");
-            // Dọn runner lỗi để user có thể bấm lại.
             await NetworkManager.Instance.CleanupNetworkRunnerAsync();
             isJoining = false;
-            if (joinButton != null) joinButton.interactable = true;
+            SetButtonsInteractable(true);
             return;
         }
 
         // Thành công: NetworkRunner sẽ tự load scene Lobby. Không reset isJoining
         // vì scene chuyển, object này bị destroy.
         SetStatus("Kết nối thành công, đang chuyển scene...");
+    }
+
+    private string GenerateRoomCode()
+    {
+        var sb = new System.Text.StringBuilder(5);
+        for (int i = 0; i < 5; i++)
+            sb.Append(RoomCodeChars[Random.Range(0, RoomCodeChars.Length)]);
+        return sb.ToString();
+    }
+
+    private void SetButtonsInteractable(bool value)
+    {
+        if (joinButton != null) joinButton.interactable = value;
+        if (createButton != null) createButton.interactable = value;
     }
 
     private void SetStatus(string msg)
