@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 208176053996510923}
   - component: {fileID: 1664553582697138008}
   - component: {fileID: 1189418846440946942}
-  - component: {fileID: 5580800252440484915}
+  - component: {fileID: 403165603726759558}
+  - component: {fileID: 7892156854735862992}
   m_Layer: 13
   m_Name: TrashCan
   m_TagString: Untagged
@@ -159,7 +160,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5580800252440484915
+--- !u!114 &403165603726759558
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,11 +169,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 4856667262678858170}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 260bd9b335c80c8418747ba823da12d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 1eb51b3d844307d4b9b916934ab74e98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   eatAnimationTrigger: Eat
   animator: {fileID: 1189418846440946942}
+--- !u!114 &7892156854735862992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4856667262678858170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 743778462
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 403165603726759558}
+  ForceRemoteRenderTimeframe: 0
 --- !u!1 &5563154459372344464
 GameObject:
   m_ObjectHideFlags: 0
