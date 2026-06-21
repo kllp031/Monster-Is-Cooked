@@ -384,6 +384,8 @@ public class FoodHolderOnline : NetworkBehaviour
 
     public void ServeFood()
     {
-        Debug.Log("Serve food to FoodHolderOnline!");
+        if (!IsLocalAuthority()) return;
+        if (HotbarManagerOnline.Instance != null)
+            HotbarManagerOnline.Instance.RemoveSelectedRecipe();
     }
 }

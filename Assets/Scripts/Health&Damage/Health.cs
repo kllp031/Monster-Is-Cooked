@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
@@ -95,6 +95,9 @@ public class Health : NetworkBehaviour
         invincibilityTimer = default;
         isDeath = false; // OnDeathChanged fires on all clients → plays Revive animation
         currentHealth = gameObject.CompareTag("Player") ? GetMaxHealth() : maximumHealth;
+
+        var col = GetComponent<Collider2D>();
+        if (col != null) col.enabled = true;
     }
 
     // Lệnh nhận sát thương cực kỳ quan trọng
@@ -230,24 +233,33 @@ public class Health : NetworkBehaviour
 
         if (isDeath)
         {
-            if (deathEffect != null)
-                Instantiate(deathEffect, transform.position, transform.rotation, null);
-            if (SoundManager.Instance != null)
-                SoundManager.Instance.PlaySFX(SoundManager.Instance.playerDie);
             if (animator != null)
             {
                 animator.SetTrigger("Death");
                 animator.SetBool("isDead", true);
             }
+
+            if (deathEffect != null)
+                Instantiate(deathEffect, transform.position, transform.rotation, null);
+            if (SoundManager.Instance != null)
+                SoundManager.Instance.PlaySFX(SoundManager.Instance.playerDie);
+
+            var col = GetComponent<Collider2D>();
+            if (col != null) col.enabled = false;
         }
         else
         {
+            // Revive: chạy trên mọi client khi isDeath flip false (networked).
+            // Clear isDead bool + Revive trigger để remote proxy thoát dead pose.
             if (animator != null)
             {
                 animator.ResetTrigger("Death");
                 animator.SetBool("isDead", false);
                 animator.SetTrigger("Revive");
             }
+
+            var col = GetComponent<Collider2D>();
+            if (col != null) col.enabled = true;
         }
     }
 
