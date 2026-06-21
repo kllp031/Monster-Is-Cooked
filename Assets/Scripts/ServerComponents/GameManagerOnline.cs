@@ -122,9 +122,6 @@ public class GameManagerOnline : NetworkBehaviour
     {
         LocalPlayerData.Instance?.Data?.EarnMoney(CollectedMoney);
 
-        if (gameOver)
-            //Debug.Log("[GameManagerOnline] All levels complete.");
-
         OnLevelEnd?.Invoke(win);
     }
 
@@ -146,7 +143,6 @@ public class GameManagerOnline : NetworkBehaviour
             if (!h.isDeath) return;
         }
 
-        //Debug.Log("[GameManagerOnline] All players dead — ending level.");
         EndLevel();
     }
 

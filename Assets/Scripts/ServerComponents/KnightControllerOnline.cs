@@ -76,10 +76,37 @@ public class KnightControllerOnline : NetworkBehaviour
                 //Debug.LogWarning($"{nameof(LocalPlayerHUD)} not found in scene. Local player UI/refs will be null.");
             }
         }
+
+        // Khi level (re)start, respawn player nếu đang chết. Mỗi client respawn
+        // player của mình (StateAuthority == InputAuthority trong shared mode);
+        // spawnPosition chỉ hợp lệ trên player local nên gate theo InputAuthority.
+        GameManagerOnline.OnLevelStarted += HandleLevelStarted;
+    }
+
+    public override void Despawned(NetworkRunner runner, bool hasState)
+    {
+        GameManagerOnline.OnLevelStarted -= HandleLevelStarted;
+    }
+
+    private bool _respawnPending;
+
+    private void HandleLevelStarted()
+    {
+        if (Object == null || !Object.HasInputAuthority) return;
+        // Respawn phải chạy trong sim context (FixedUpdateNetwork) — NetworkRigidbody
+        // .Teleport NRE nếu gọi ngoài tick (từ RPC/UI click). Defer bằng flag.
+        if (health != null && health.isDeath)
+            _respawnPending = true;
     }
 
     public override void FixedUpdateNetwork()
     {
+        if (_respawnPending)
+        {
+            _respawnPending = false;
+            Respawn();
+        }
+
         if (GetInput(out InputData inputData))
         {
             moveInput = inputData.MovementInput;

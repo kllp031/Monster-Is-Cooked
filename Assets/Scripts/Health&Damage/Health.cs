@@ -23,7 +23,8 @@ public class Health : NetworkBehaviour
     public float invincibilityTime = 3f;
 
     // 3. Trạng thái chết đồng bộ mạng
-    [Networked] public NetworkBool isDeath { get; set; }
+    [Networked, OnChangedRender(nameof(OnDeathChanged))]
+    public NetworkBool isDeath { get; set; }
 
     [Networked] public TickTimer knockbackTimer { get; set; }
 
@@ -93,6 +94,9 @@ public class Health : NetworkBehaviour
 
         transform.position = respawnPosition;
         isDeath = false;
+
+        var col = GetComponent<Collider2D>();
+        if (col != null) col.enabled = true;
 
         if (gameObject.CompareTag("Player"))
         {
@@ -198,8 +202,6 @@ public class Health : NetworkBehaviour
 
         if (gameObject.CompareTag("Player"))
         {
-            animator.SetTrigger("Death");
-            animator.SetBool("isDead", true);
             GameOver();
         }
     }
@@ -247,13 +249,37 @@ public class Health : NetworkBehaviour
 
     public void OnDeathChanged()
     {
-        if (isDeath && gameObject.CompareTag("Player"))
+        if (!gameObject.CompareTag("Player")) return;
+
+        if (isDeath)
         {
+            if (animator != null)
+            {
+                animator.SetTrigger("Death");
+                animator.SetBool("isDead", true);
+            }
+
             if (deathEffect != null)
                 Instantiate(deathEffect, transform.position, transform.rotation, null);
 
             if (SoundManager.Instance != null)
                 SoundManager.Instance.PlaySFX(SoundManager.Instance.playerDie);
+
+            var col = GetComponent<Collider2D>();
+            if (col != null) col.enabled = false;
+        }
+        else
+        {
+            // Revive: chạy trên mọi client khi isDeath flip false (networked).
+            // Clear isDead bool + Revive trigger để remote proxy thoát dead pose.
+            if (animator != null)
+            {
+                animator.SetBool("isDead", false);
+                animator.SetTrigger("Revive");
+            }
+
+            var col = GetComponent<Collider2D>();
+            if (col != null) col.enabled = true;
         }
     }
 
