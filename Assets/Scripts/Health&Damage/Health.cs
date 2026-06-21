@@ -79,7 +79,7 @@ public class Health : NetworkBehaviour
     }
 
     // Returns max HP supporting both offline (PlayerDataManager) and online (PlayerDataManagerOnline).
-    private int GetMaxHealth()
+    public int GetMaxHealth()
     {
         if (PlayerDataManager.Instance != null)
             return PlayerDataManager.Instance.CurrentMaxHealth;
@@ -121,7 +121,6 @@ public class Health : NetworkBehaviour
         invincibilityTimer = TickTimer.CreateFromSeconds(Runner, invincibilityTime);
 
         currentHealth -= damageAmount;
-        //Debug.Log($"[Health] {gameObject.name} took {damageAmount} damage. CurrentHealth: {currentHealth}");
         CheckDeath();
     }
 

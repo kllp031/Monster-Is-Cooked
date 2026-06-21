@@ -81,13 +81,6 @@ public class HealthBarUIOnline : MonoBehaviour
     private float GetMaxHealth()
     {
         if (health == null) return 0f;
-
-        if (health.CompareTag("Player"))
-        {
-            PlayerDataManagerOnline data = health.GetComponent<PlayerDataManagerOnline>();
-            if (data != null) return data.CurrentMaxHealth;
-        }
-
-        return health.maximumHealth;
+        return health.GetMaxHealth();
     }
 }
