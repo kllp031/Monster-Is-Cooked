@@ -203,6 +203,9 @@ public class CustomerOnline : NetworkBehaviour, IInteractable
     {
         //Debug.Log("I receive served announcement, I'm master client: " + Runner.IsSharedModeMasterClient);
 
+        if (!IsReadyToEat) return; // Already served/left — block double-serve race (two players serving same customer)
+        IsReadyToEat = false;      // Claim immediately; subsequent queued RPCs early-out above
+
         if (GameManagerOnline.Instance != null && CustomersSpawnerOnline.Instance != null)
         {
             var recipe = CustomersSpawnerOnline.Instance.RecipeGallery.GetRecipe(foodId);
