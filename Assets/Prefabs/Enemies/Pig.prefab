@@ -300,8 +300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupPrefabs:
-  - {fileID: 8502819326897545693, guid: 8e2e84af8b564e842b644a83281b939c, type: 3}
-  scatterForce: 3
+  - {fileID: 2103652444160161584, guid: 8e2e84af8b564e842b644a83281b939c, type: 3}
 --- !u!114 &7997978993290053931
 MonoBehaviour:
   m_ObjectHideFlags: 0

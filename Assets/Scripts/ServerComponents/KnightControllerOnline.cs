@@ -1,4 +1,4 @@
-﻿using Fusion;
+using Fusion;
 using Fusion.Addons.Physics;
 using System.Collections;
 using UnityEngine;
@@ -23,6 +23,7 @@ public class KnightControllerOnline : NetworkBehaviour
     private Joystick dynamicJoystick; // Joystick Pack
 
     [Networked] private NetworkBool isDashing { get; set; }
+    private bool _pendingRespawn = false;
     private bool isHurting = false;
     [SerializeField] private float hurtingTime = 0.5f;
     private float hurtingTimer = 0f;
@@ -57,6 +58,8 @@ public class KnightControllerOnline : NetworkBehaviour
         animator = GetComponent<Animator>();
         health = GetComponent<Health>();
 
+        GameManagerOnline.OnLevelStarted += HandleLevelStarted;
+
         if (Object.HasInputAuthority)
         {
             // Camera
@@ -76,11 +79,6 @@ public class KnightControllerOnline : NetworkBehaviour
                 //Debug.LogWarning($"{nameof(LocalPlayerHUD)} not found in scene. Local player UI/refs will be null.");
             }
         }
-
-        // Khi level (re)start, respawn player nếu đang chết. Mỗi client respawn
-        // player của mình (StateAuthority == InputAuthority trong shared mode);
-        // spawnPosition chỉ hợp lệ trên player local nên gate theo InputAuthority.
-        GameManagerOnline.OnLevelStarted += HandleLevelStarted;
     }
 
     public override void Despawned(NetworkRunner runner, bool hasState)
@@ -88,23 +86,20 @@ public class KnightControllerOnline : NetworkBehaviour
         GameManagerOnline.OnLevelStarted -= HandleLevelStarted;
     }
 
-    private bool _respawnPending;
-
     private void HandleLevelStarted()
     {
-        if (Object == null || !Object.HasInputAuthority) return;
-        // Respawn phải chạy trong sim context (FixedUpdateNetwork) — NetworkRigidbody
-        // .Teleport NRE nếu gọi ngoài tick (từ RPC/UI click). Defer bằng flag.
-        if (health != null && health.isDeath)
-            _respawnPending = true;
+        if (Object == null || !Object.IsValid || !Object.HasStateAuthority) return;
+        //Debug.Log($"[KnightControllerOnline] HandleLevelStarted on {gameObject.name}, spawnPosition={(spawnPosition != null ? spawnPosition.position.ToString() : "NULL")}");
+        health?.Respawn();
+        _pendingRespawn = true;
     }
 
     public override void FixedUpdateNetwork()
     {
-        if (_respawnPending)
+        if (_pendingRespawn && Object.HasStateAuthority && Runner.IsForward)
         {
-            _respawnPending = false;
-            Respawn();
+            _pendingRespawn = false;
+            DoRespawnMovement();
         }
 
         if (GetInput(out InputData inputData))
@@ -275,35 +270,50 @@ public class KnightControllerOnline : NetworkBehaviour
         this.isHurting = isHurting;
     }
 
+    // Called from FixedUpdateNetwork (Fusion-safe context) to teleport the player.
+    private void DoRespawnMovement()
+    {
+        isDashing = false;
+        moveInput = Vector2.zero;
+
+        if (spawnPosition == null)
+        {
+            Debug.LogWarning($"[KnightControllerOnline] DoRespawnMovement: spawnPosition is NULL on {gameObject.name}");
+            return;
+        }
+        //Debug.Log($"[KnightControllerOnline] DoRespawnMovement: teleporting {gameObject.name} to {spawnPosition.position}");
+
+        Vector2 targetPos = spawnPosition.position;
+
+        // Set rb.position directly — NetworkRigidbody2D reads this in its FixedUpdateNetwork
+        // and syncs it to all clients. Avoids Teleport() which requires _physicsSimulator to be ready.
+        if (rb != null)
+        {
+            rb.position = targetPos;
+            rb.linearVelocity = Vector2.zero;
+        }
+        else
+        {
+            transform.position = targetPos;
+        }
+    }
+
+    // Public entry point for manual respawn (e.g., called from UI or other scripts).
     public void Respawn()
     {
-        if (health != null)
-        {
-            health.Respawn();
-        }
+        if (!Object.HasStateAuthority) return;
+        health?.Respawn();
+        _pendingRespawn = true;
 
-        if (spawnPosition != null)
-        {
-            // Dùng NetworkRigidbody2D.Teleport để Fusion cập nhật state buffer,
-            // tránh resimulation đè lại vị trí cũ.
-            var netRb = GetComponent<NetworkRigidbody2D>();
-            if (netRb != null)
-                netRb.Teleport(spawnPosition.position);
-            else if (rb != null)
-                rb.position = spawnPosition.position;
-            else
-                transform.position = spawnPosition.position;
-        }
+        isHurting = false;
+        hurtingTimer = 0f;
+        canDash = true;
 
-        if (animator != null) animator.SetTrigger("Revive");
-
-        if (Object != null && Object.HasInputAuthority && Camera.main != null)
+        if (Object.HasInputAuthority && Camera.main != null)
         {
             var camFollow = Camera.main.GetComponent<CameraFollow>();
             if (camFollow != null) camFollow.BackHome();
         }
-
-        moveInput = Vector2.zero;
 
         if (SoundManager.Instance != null)
             SoundManager.Instance.PlayMusic(SoundManager.Instance.cookingMusic);

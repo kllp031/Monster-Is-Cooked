@@ -1,10 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
 using System;
 
-public class Health : NetworkBehaviour 
+public class Health : NetworkBehaviour
 {
     [Header("Team Settings")]
     public int teamId = 0;
@@ -51,19 +51,9 @@ public class Health : NetworkBehaviour
         if (Object.HasStateAuthority)
         {
             if (gameObject.CompareTag("Player"))
-            {
-                var pdmOnline = GetComponent<PlayerDataManagerOnline>();
-                if (pdmOnline != null)
-                    currentHealth = pdmOnline.CurrentMaxHealth;
-                else if (PlayerDataManager.Instance != null)
-                    currentHealth = PlayerDataManager.Instance.CurrentMaxHealth;
-                else
-                    currentHealth = maximumHealth;
-            }
+                currentHealth = GetMaxHealth();
             else
-            {
                 currentHealth = maximumHealth;
-            }
             isDeath = false;
         }
     }
@@ -88,28 +78,26 @@ public class Health : NetworkBehaviour
         respawnPosition = newRespawnPosition;
     }
 
+    // Returns max HP supporting both offline (PlayerDataManager) and online (PlayerDataManagerOnline).
+    public int GetMaxHealth()
+    {
+        if (PlayerDataManager.Instance != null)
+            return PlayerDataManager.Instance.CurrentMaxHealth;
+        var pdmOnline = GetComponent<PlayerDataManagerOnline>();
+        return pdmOnline != null ? pdmOnline.CurrentMaxHealth : maximumHealth;
+    }
+
     public void Respawn()
     {
         if (!Object.HasStateAuthority) return;
 
-        transform.position = respawnPosition;
-        isDeath = false;
+        // Position is handled by KnightControllerOnline.
+        invincibilityTimer = default;
+        isDeath = false; // OnDeathChanged fires on all clients → plays Revive animation
+        currentHealth = gameObject.CompareTag("Player") ? GetMaxHealth() : maximumHealth;
 
         var col = GetComponent<Collider2D>();
         if (col != null) col.enabled = true;
-
-        if (gameObject.CompareTag("Player"))
-        {
-            var pdmOnline = GetComponent<PlayerDataManagerOnline>();
-            if (pdmOnline != null)
-                currentHealth = pdmOnline.CurrentMaxHealth;
-            else if (PlayerDataManager.Instance != null)
-                currentHealth = PlayerDataManager.Instance.CurrentMaxHealth;
-            else
-                currentHealth = maximumHealth;
-        }
-        else
-            currentHealth = maximumHealth;
     }
 
     // Lệnh nhận sát thương cực kỳ quan trọng
@@ -136,7 +124,6 @@ public class Health : NetworkBehaviour
         invincibilityTimer = TickTimer.CreateFromSeconds(Runner, invincibilityTime);
 
         currentHealth -= damageAmount;
-        //Debug.Log($"[Health] {gameObject.name} took {damageAmount} damage. CurrentHealth: {currentHealth}");
         CheckDeath();
     }
 
@@ -162,17 +149,8 @@ public class Health : NetworkBehaviour
     {
         if (!Object.HasStateAuthority) return;
 
-        currentHealth += healingAmount;
-
-        if (gameObject.CompareTag("Player"))
-        {
-            if (currentHealth > PlayerDataManager.Instance.CurrentMaxHealth)
-                currentHealth = PlayerDataManager.Instance.CurrentMaxHealth;
-        }
-        else if (currentHealth > maximumHealth)
-        {
-            currentHealth = maximumHealth;
-        }
+        int maxHp = gameObject.CompareTag("Player") ? GetMaxHealth() : maximumHealth;
+        currentHealth = Mathf.Min(currentHealth + healingAmount, maxHp);
     }
 
     [Header("Effects & Polish")]
@@ -189,31 +167,33 @@ public class Health : NetworkBehaviour
 
     private void Die()
     {
-        isDeath = true;
+        isDeath = true; // OnDeathChanged fires on all clients → plays Death animation
 
         if (gameObject.CompareTag("Enemy"))
         {
             if (enemyBase != null) enemyBase.currentEnemyState = EnemyBase.EnemyState.Dead;
             if (mySpawner != null) mySpawner.OnEnemyDeath();
 
-            // Xóa quái vật trên mạng, tự động biến mất trên màn hình mọi người
+            // Spawn drop items trên mạng trước khi despawn (chỉ StateAuthority mới gọi được)
+            var dropItem = GetComponent<DropItem>();
+            Debug.Log($"[Health] Die → DropItem component = {(dropItem != null ? "tìm thấy" : "KHÔNG tìm thấy")} trên '{gameObject.name}'");
+            if (dropItem != null)
+                dropItem.DropNetworked(Runner, transform.position);
+
             Runner.Despawn(Object);
         }
 
         if (gameObject.CompareTag("Player"))
-        {
             GameOver();
-        }
     }
 
     public void GameOver()
     {
+        if (!gameObject.CompareTag("Player")) return;
+
         if (GameManagerOnline.Instance != null)
-        {
             GameManagerOnline.Instance.RPC_NotifyPlayerDied(Object.Id);
-            return;
-        }
-        if (GameManager.Instance != null && gameObject.CompareTag("Player"))
+        else if (GameManager.Instance != null)
             GameManager.Instance.EndLevel();
     }
 
@@ -261,7 +241,6 @@ public class Health : NetworkBehaviour
 
             if (deathEffect != null)
                 Instantiate(deathEffect, transform.position, transform.rotation, null);
-
             if (SoundManager.Instance != null)
                 SoundManager.Instance.PlaySFX(SoundManager.Instance.playerDie);
 
@@ -274,6 +253,7 @@ public class Health : NetworkBehaviour
             // Clear isDead bool + Revive trigger để remote proxy thoát dead pose.
             if (animator != null)
             {
+                animator.ResetTrigger("Death");
                 animator.SetBool("isDead", false);
                 animator.SetTrigger("Revive");
             }

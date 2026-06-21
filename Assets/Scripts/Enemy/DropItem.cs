@@ -1,27 +1,35 @@
 using UnityEngine;
+using Fusion;
 
 public class DropItem : MonoBehaviour
 {
-    [Header("Pickup Prefabs")]
-    public GameObject[] pickupPrefabs;
+    [Header("Pickup Prefabs (NetworkObject prefabs)")]
+    public NetworkObject[] pickupPrefabs;
 
-    [Header("Settings")]
-    public float scatterForce = 3f;    
-
-    public void Drop()
+    public void DropNetworked(NetworkRunner runner, Vector3 position)
     {
-        if (pickupPrefabs == null || pickupPrefabs.Length == 0) return;
+        Debug.Log($"[DropItem] DropNetworked gọi tại {position}, runner={runner != null}, prefab count={pickupPrefabs?.Length ?? 0}");
 
-        for( int i=0; i<pickupPrefabs.Length; i++)
+        if (pickupPrefabs == null || pickupPrefabs.Length == 0)
         {
-            GameObject prefab = pickupPrefabs[i];
-
-            Vector3 spawnPos = transform.position + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
-            GameObject item = Instantiate(prefab, spawnPos, Quaternion.identity);
-
-            //effect
+            Debug.LogWarning($"[DropItem] Không có prefab nào được gán trên '{gameObject.name}'!");
+            return;
         }
 
-        
+        foreach (var prefab in pickupPrefabs)
+        {
+            if (prefab == null)
+            {
+                Debug.LogWarning($"[DropItem] Một phần tử trong pickupPrefabs bị null trên '{gameObject.name}'!");
+                continue;
+            }
+            Vector3 spawnPos = position + new Vector3(
+                Random.Range(-0.5f, 0.5f),
+                Random.Range(-0.5f, 0.5f),
+                0f
+            );
+            Debug.Log($"[DropItem] Spawn '{prefab.name}' tại {spawnPos}");
+            runner.Spawn(prefab, spawnPos, Quaternion.identity);
+        }
     }
 }
