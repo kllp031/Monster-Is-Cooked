@@ -16,14 +16,19 @@ public class PickupItemOnline : NetworkBehaviour
     private SpriteRenderer spriteRenderer;
     private ItemsSpawnerOnline itemSpawner;
 
+    [Header("Pickup Delay")]
+    [SerializeField] private float pickupDelay = 0.3f;
+
     [Networked] private NetworkBool IsCollected { get; set; }
+    [Networked] private TickTimer PickupDelayTimer { get; set; }
 
     public override void Spawned()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (autoUpdateSprite && ingredient != null)
             spriteRenderer.sprite = ingredient.icon;
-        //Debug.Log($"[Item] Spawned tại {transform.position}, ingredient = {(ingredient != null ? ingredient.name : "null")}, HasStateAuthority = {Object.HasStateAuthority}");
+        if (Object.HasStateAuthority)
+            PickupDelayTimer = TickTimer.CreateFromSeconds(Runner, pickupDelay);
     }
 
     public override void Despawned(NetworkRunner runner, bool hasState)
@@ -44,6 +49,11 @@ public class PickupItemOnline : NetworkBehaviour
         if (IsCollected)
         {
             //Debug.Log($"[Item] Bỏ qua: đã IsCollected = true");
+            return;
+        }
+        if (!PickupDelayTimer.ExpiredOrNotRunning(Runner))
+        {
+            Debug.Log($"[Item] Bỏ qua: chưa hết delay ({PickupDelayTimer.RemainingTime(Runner):F2}s còn lại)");
             return;
         }
 
@@ -91,8 +101,6 @@ public class PickupItemOnline : NetworkBehaviour
 
         if (itemSpawner != null)
             itemSpawner.OnItemCollected();
-        else
-            //Debug.LogWarning("[Item][StateAuth] itemSpawner là NULL → CurrentCount sẽ không giảm!");
 
         //Debug.Log($"[Item][StateAuth] Gọi Runner.Despawn...");
         Runner.Despawn(Object);

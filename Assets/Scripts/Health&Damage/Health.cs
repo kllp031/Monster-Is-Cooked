@@ -171,6 +171,13 @@ public class Health : NetworkBehaviour
         {
             if (enemyBase != null) enemyBase.currentEnemyState = EnemyBase.EnemyState.Dead;
             if (mySpawner != null) mySpawner.OnEnemyDeath();
+
+            // Spawn drop items trên mạng trước khi despawn (chỉ StateAuthority mới gọi được)
+            var dropItem = GetComponent<DropItem>();
+            Debug.Log($"[Health] Die → DropItem component = {(dropItem != null ? "tìm thấy" : "KHÔNG tìm thấy")} trên '{gameObject.name}'");
+            if (dropItem != null)
+                dropItem.DropNetworked(Runner, transform.position);
+
             Runner.Despawn(Object);
         }
 
