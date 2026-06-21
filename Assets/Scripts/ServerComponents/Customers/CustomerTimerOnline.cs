@@ -56,6 +56,7 @@ public class CustomerTimerOnline : NetworkBehaviour
     }
     private void Update()
     {
+        if (Object == null || !Object.IsValid) return;
         if (!IsRunning || Runner == null || !Runner.IsSharedModeMasterClient) return;
 
         if (TickTimer.Expired(Runner))

@@ -23,6 +23,7 @@ public class KnightControllerOnline : NetworkBehaviour
     private Joystick dynamicJoystick; // Joystick Pack
 
     [Networked] private NetworkBool isDashing { get; set; }
+    private bool _pendingRespawn = false;
     private bool isHurting = false;
     [SerializeField] private float hurtingTime = 0.5f;
     private float hurtingTimer = 0f;
@@ -57,6 +58,8 @@ public class KnightControllerOnline : NetworkBehaviour
         animator = GetComponent<Animator>();
         health = GetComponent<Health>();
 
+        GameManagerOnline.OnLevelStarted += HandleLevelStarted;
+
         if (Object.HasInputAuthority)
         {
             // Camera
@@ -79,8 +82,27 @@ public class KnightControllerOnline : NetworkBehaviour
         }
     }
 
+    public override void Despawned(NetworkRunner runner, bool hasState)
+    {
+        GameManagerOnline.OnLevelStarted -= HandleLevelStarted;
+    }
+
+    private void HandleLevelStarted()
+    {
+        if (Object == null || !Object.IsValid || !Object.HasStateAuthority) return;
+        //Debug.Log($"[KnightControllerOnline] HandleLevelStarted on {gameObject.name}, spawnPosition={(spawnPosition != null ? spawnPosition.position.ToString() : "NULL")}");
+        health?.Respawn();
+        _pendingRespawn = true;
+    }
+
     public override void FixedUpdateNetwork()
     {
+        if (_pendingRespawn && Object.HasStateAuthority && Runner.IsForward)
+        {
+            _pendingRespawn = false;
+            DoRespawnMovement();
+        }
+
         if (GetInput(out InputData inputData))
         {
             moveInput = inputData.MovementInput;
@@ -249,35 +271,50 @@ public class KnightControllerOnline : NetworkBehaviour
         this.isHurting = isHurting;
     }
 
+    // Called from FixedUpdateNetwork (Fusion-safe context) to teleport the player.
+    private void DoRespawnMovement()
+    {
+        isDashing = false;
+        moveInput = Vector2.zero;
+
+        if (spawnPosition == null)
+        {
+            Debug.LogWarning($"[KnightControllerOnline] DoRespawnMovement: spawnPosition is NULL on {gameObject.name}");
+            return;
+        }
+        //Debug.Log($"[KnightControllerOnline] DoRespawnMovement: teleporting {gameObject.name} to {spawnPosition.position}");
+
+        Vector2 targetPos = spawnPosition.position;
+
+        // Set rb.position directly — NetworkRigidbody2D reads this in its FixedUpdateNetwork
+        // and syncs it to all clients. Avoids Teleport() which requires _physicsSimulator to be ready.
+        if (rb != null)
+        {
+            rb.position = targetPos;
+            rb.linearVelocity = Vector2.zero;
+        }
+        else
+        {
+            transform.position = targetPos;
+        }
+    }
+
+    // Public entry point for manual respawn (e.g., called from UI or other scripts).
     public void Respawn()
     {
-        if (health != null)
-        {
-            health.Respawn();
-        }
+        if (!Object.HasStateAuthority) return;
+        health?.Respawn();
+        _pendingRespawn = true;
 
-        if (spawnPosition != null)
-        {
-            // Dùng NetworkRigidbody2D.Teleport để Fusion cập nhật state buffer,
-            // tránh resimulation đè lại vị trí cũ.
-            var netRb = GetComponent<NetworkRigidbody2D>();
-            if (netRb != null)
-                netRb.Teleport(spawnPosition.position);
-            else if (rb != null)
-                rb.position = spawnPosition.position;
-            else
-                transform.position = spawnPosition.position;
-        }
+        isHurting = false;
+        hurtingTimer = 0f;
+        canDash = true;
 
-        if (animator != null) animator.SetTrigger("Revive");
-
-        if (Object != null && Object.HasInputAuthority && Camera.main != null)
+        if (Object.HasInputAuthority && Camera.main != null)
         {
             var camFollow = Camera.main.GetComponent<CameraFollow>();
             if (camFollow != null) camFollow.BackHome();
         }
-
-        moveInput = Vector2.zero;
 
         if (SoundManager.Instance != null)
             SoundManager.Instance.PlayMusic(SoundManager.Instance.cookingMusic);
