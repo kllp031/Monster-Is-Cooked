@@ -1,10 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Online variant of HealthBarUI. Reads from HealthOnline instead of Health.
-/// Attach to world-space canvas on OnlinePlayer prefab, or bind via SetTarget() at runtime.
-/// </summary>
 public class HealthBarUIOnline : MonoBehaviour
 {
     [Header("UI")]
@@ -15,8 +11,8 @@ public class HealthBarUIOnline : MonoBehaviour
     [SerializeField] private float delayTime = 0.25f;
     [SerializeField] private float dropSpeed = 1.5f;
 
-    [Tooltip("Leave empty to auto GetComponent<HealthOnline>() on this GameObject.")]
-    [SerializeField] private HealthOnline health;
+    [Tooltip("Leave empty to auto GetComponent<Health>() on this GameObject.")]
+    [SerializeField] private Health health;
 
     private float delayTimer;
     private int lastHealth;
@@ -24,25 +20,24 @@ public class HealthBarUIOnline : MonoBehaviour
     private void Awake()
     {
         if (health == null)
-            health = GetComponent<HealthOnline>();
+            health = GetComponent<Health>();
     }
 
     private void Start()
     {
         if (health == null) return;
-        lastHealth = health.CurrentHealth;
+        lastHealth = health.currentHealth;
         UpdateInstant();
     }
 
-    public void SetTarget(HealthOnline newHealth)
+    public void SetTarget(Health newHealth)
     {
         health = newHealth;
         if (health != null)
         {
-            lastHealth = health.CurrentHealth;
+            lastHealth = health.currentHealth;
             UpdateInstant();
         }
-        print($"HealthBarUIOnline on '{gameObject.name}' bound to '{health.gameObject.name}'");
     }
 
     private void Update()
@@ -52,13 +47,13 @@ public class HealthBarUIOnline : MonoBehaviour
         float maxHp = GetMaxHealth();
         if (maxHp <= 0f) return;
 
-        float targetFill = Mathf.Clamp01(health.CurrentHealth / maxHp);
+        float targetFill = Mathf.Clamp01(health.currentHealth / maxHp);
         frontBar.fillAmount = targetFill;
 
-        if (health.CurrentHealth < lastHealth)
+        if (health.currentHealth < lastHealth)
             delayTimer = delayTime;
 
-        lastHealth = health.CurrentHealth;
+        lastHealth = health.currentHealth;
 
         if (delayedBar.fillAmount > frontBar.fillAmount)
         {
@@ -78,7 +73,7 @@ public class HealthBarUIOnline : MonoBehaviour
         if (health == null || frontBar == null || delayedBar == null) return;
         float maxHp = GetMaxHealth();
         if (maxHp <= 0f) return;
-        float fill = Mathf.Clamp01(health.CurrentHealth / maxHp);
+        float fill = Mathf.Clamp01(health.currentHealth / maxHp);
         frontBar.fillAmount = fill;
         delayedBar.fillAmount = fill;
     }
@@ -87,7 +82,6 @@ public class HealthBarUIOnline : MonoBehaviour
     {
         if (health == null) return 0f;
 
-        // For player: read networked max health from their PlayerDataManagerOnline
         if (health.CompareTag("Player"))
         {
             PlayerDataManagerOnline data = health.GetComponent<PlayerDataManagerOnline>();

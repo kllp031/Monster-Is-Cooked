@@ -83,6 +83,7 @@ public class FoodHolderOnline : NetworkBehaviour
 
     private void Update()
     {
+        if (Object == null || !Object.IsValid) return;
         EnsureIconRenderer();
         UpdateVisual();
         TickHoldDetect();
@@ -179,11 +180,10 @@ public class FoodHolderOnline : NetworkBehaviour
 
     private void SpawnFoodOnlineAt(Vector3 position, float groundY, Recipe recipe, Vector2 groundVelocity, float verticalVelocity)
     {
-        if (Runner == null) { Debug.LogWarning("Runner null — không thể Spawn FoodOnline."); return; }
+        if (Runner == null) { /*Debug.LogWarning("Runner null — không thể Spawn FoodOnline.");*/ return; }
         if (foodOnlinePrefab == null || !foodOnlinePrefab.IsValid)
         {
-            Debug.LogWarning(
-                $"{nameof(FoodHolderOnline)}: foodOnlinePrefab chưa gán — drop/throw sẽ không tạo networked food.");
+            //Debug.LogWarning($"{nameof(FoodHolderOnline)}: foodOnlinePrefab chưa gán — drop/throw sẽ không tạo networked food.");
             return;
         }
         if (recipe == null) return;
@@ -376,7 +376,7 @@ public class FoodHolderOnline : NetworkBehaviour
         float denominator = 2f * (y - Mathf.Tan(angle) * x) * Mathf.Pow(Mathf.Cos(angle), 2);
         if (denominator >= 0)
         {
-            Debug.LogWarning("Invalid throw parameters. Cannot calculate throw speed.");
+            //Debug.LogWarning("Invalid throw parameters. Cannot calculate throw speed.");
             return -1f;
         }
         return Mathf.Sqrt(numerator / denominator);

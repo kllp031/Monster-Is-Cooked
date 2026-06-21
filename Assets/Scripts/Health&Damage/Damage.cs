@@ -1,11 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fusion; 
 
-/// <summary>
-/// This class handles the dealing of damage to health components.
-/// </summary>
-public class Damage : MonoBehaviour
+public class Damage : NetworkBehaviour 
 {
     [Header("Team Settings")]
     [Tooltip("The team associated with this damage")]
@@ -27,6 +25,8 @@ public class Damage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (Object == null || !Object.HasStateAuthority) return;
+
         if (dealDamageOnTriggerEnter)
         {
             DealDamage(collision.gameObject);
@@ -36,6 +36,8 @@ public class Damage : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (Object == null || !Object.HasStateAuthority) return;
+
         if (dealDamageOnTriggerStay)
         {
             DealDamage(collision.gameObject);
@@ -44,6 +46,8 @@ public class Damage : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (Object == null || !Object.HasStateAuthority) return;
+
         if (dealDamageOnCollision)
         {
             DealDamage(collision.gameObject);
@@ -57,20 +61,30 @@ public class Damage : MonoBehaviour
         {
             if (collidedHealth.teamId != this.teamId)
             {
-                Debug.Log("take damage");
+                // //Debug.Log("take damage via network");
 
                 if (this.gameObject.CompareTag("PlayerAttack"))
                 {
-                    SoundManager.Instance.PlaySFX(SoundManager.Instance.metalHit);
-                    collidedHealth.TakeDamage(PlayerDataManager.Instance.CurrentAttack);
-                }    
-                else
-                    collidedHealth.TakeDamage(damageAmount);
+                    if (SoundManager.Instance != null)
+                        SoundManager.Instance.PlaySFX(SoundManager.Instance.metalHit);
 
-                if (destroyAfterDamage)
+                    var pdmOnline = GetComponentInParent<PlayerDataManagerOnline>();
+                    int atk = pdmOnline != null ? pdmOnline.CurrentAttack
+                            : PlayerDataManager.Instance != null ? PlayerDataManager.Instance.CurrentAttack
+                            : damageAmount;
+                    collidedHealth.TakeDamage(atk);
+                }
+                else
                 {
-                    Debug.Log("destroy bullet");
-                    Destroy(this.gameObject);
+                    collidedHealth.TakeDamage(damageAmount);
+                }
+
+                if (destroyAfterDamage && Runner != null && Object != null && Object.IsValid)
+                {
+                    //Debug.Log("despawn network bullet/vfx");
+                    if (TryGetComponent(out ProjectileSplitter splitter))
+                        splitter.Split(Runner, Object);
+                    Runner.Despawn(Object);
                 }
             }
         }
@@ -84,14 +98,17 @@ public class Damage : MonoBehaviour
         {
             if (collidedHealth.teamId != this.teamId)
             {
-                KnightController knightController = null;
+                // Xử lý giật khựng trạng thái cho Player cục bộ qua mạng
                 if (collisionGameObject.CompareTag("Player"))
                 {
-                    knightController = collisionGameObject.GetComponent<KnightController>();
-                    knightController.SetIsHurting(true);
+                    var knightController = collisionGameObject.GetComponent<KnightController>();
+                    if (knightController != null)
+                    {
+                        knightController.SetIsHurting(true);
+                    }
                 }
                 collidedHealth.Knockback(dir, knockbackForce);
             }
         }
-    }    
+    }
 }

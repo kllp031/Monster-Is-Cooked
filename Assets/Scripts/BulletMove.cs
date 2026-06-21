@@ -1,17 +1,23 @@
-using UnityEngine;
+﻿using UnityEngine;
+using Fusion; 
 
-public class BulletMove : MonoBehaviour
+public class BulletMove : NetworkBehaviour 
 {
-    public float speed = 10f;  
-    public Vector2 direction = Vector2.right;
+    [Header("Settings")]
+    public float speed = 10f;
 
-    private void Update()
+    [Networked]
+    public Vector2 direction { get; set; } = Vector2.right;
+
+    public override void FixedUpdateNetwork()
     {
-        transform.Translate(direction * speed * Time.deltaTime);
-        //Debug.Log("direction x:" + direction.x + " , y:" + direction.y);
+        base.FixedUpdateNetwork();
+
+        transform.position += (Vector3)(direction * speed * Runner.DeltaTime);
     }
+
     public void SetDirection(Vector2 dir)
     {
         direction = dir.normalized;
-    }    
+    }
 }

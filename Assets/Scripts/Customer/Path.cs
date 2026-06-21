@@ -31,7 +31,7 @@ public class Path : MonoBehaviour
                 res += point.ToString();
             }
         }
-        Debug.Log("Path: " + res);
+        //Debug.Log("Path: " + res);
     }
 
     public void OnDrawGizmos()

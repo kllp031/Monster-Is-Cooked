@@ -173,7 +173,7 @@ public class TestStartUI : MonoBehaviour
             NetworkManager.Instance.Username = finalName;
 
             SetStatus($"Joined as {finalName}.");
-            Debug.Log($"[TestStartUI] LocalPlayer joined. Id={player.PlayerId}, IsMaster={runner.IsSharedModeMasterClient}");
+            //Debug.Log($"[TestStartUI] LocalPlayer joined. Id={player.PlayerId}, IsMaster={runner.IsSharedModeMasterClient}");
         }
     }
 
@@ -194,13 +194,13 @@ public class TestStartUI : MonoBehaviour
         if (NetworkManager.Instance == null)
         {
             SetStatus("Lỗi: thiếu NetworkManager.");
-            Debug.LogError("[TestStartUI] NetworkManager.Instance null.");
+            //Debug.LogError("[TestStartUI] NetworkManager.Instance null.");
             return;
         }
 
         if (NetworkManager.Instance.NetworkRunner != null)
         {
-            Debug.LogWarning("[TestStartUI] Runner cũ còn sót, cleanup.");
+            //Debug.LogWarning("[TestStartUI] Runner cũ còn sót, cleanup.");
             await NetworkManager.Instance.CleanupNetworkRunnerAsync();
         }
 
@@ -222,9 +222,9 @@ public class TestStartUI : MonoBehaviour
             //testRoomName += UnityEngine.Random.Range(0, 9999); // tránh trùng room khi test nhiều instance
             res = await NetworkManager.Instance.JoinRoom(gameMode, testRoomName, currentSceneIndex);
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            Debug.LogError($"[TestStartUI] Exception: {e}");
+            //Debug.LogError($"[TestStartUI] Exception");
             SetStatus("Lỗi kết nối. Xem Console.");
             await NetworkManager.Instance.CleanupNetworkRunnerAsync();
             isJoining = false;
@@ -234,7 +234,7 @@ public class TestStartUI : MonoBehaviour
         if (res == null || !res.Ok)
         {
             string reason = res != null ? res.ShutdownReason.ToString() : "null result";
-            Debug.LogError($"[TestStartUI] Join failed: {reason}");
+            //Debug.LogError($"[TestStartUI] Join failed: {reason}");
             SetStatus($"Join failed: {reason}");
             await NetworkManager.Instance.CleanupNetworkRunnerAsync();
             isJoining = false;
@@ -261,7 +261,7 @@ public class TestStartUI : MonoBehaviour
 
         if (mainGameSceneIndex < 0)
         {
-            Debug.LogError("[TestStartUI] mainGameSceneIndex chưa set.");
+            //Debug.LogError("[TestStartUI] mainGameSceneIndex chưa set.");
             SetStatus("mainGameSceneIndex chưa set.");
             return;
         }

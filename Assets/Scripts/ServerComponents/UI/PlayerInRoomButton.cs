@@ -18,7 +18,7 @@ public class PlayerInRoomButton : MonoBehaviour
 
     private void OnValidate()
     {
-        if (kickButton == null) Debug.LogWarning("A reference to the kick button is missing!");
+        //if (kickButton == null) Debug.LogWarning("A reference to the kick button is missing!");
     }
 
     private void OnEnable()
@@ -40,7 +40,7 @@ public class PlayerInRoomButton : MonoBehaviour
 
     public void SetUsername(/*int playerId, */string userName)
     {
-        //Debug.Log("Set: " + playerId + " " + userName);
+        ////Debug.Log("Set: " + playerId + " " + userName);
         /*if (playerId == id) */Username = userName;
     }
 
@@ -56,7 +56,7 @@ public class PlayerInRoomButton : MonoBehaviour
         if (NetworkManager.Instance == null || lobby == null) return;
         if (!NetworkManager.Instance.NetworkRunner.IsSharedModeMasterClient)
         {
-            Debug.Log("You don't have this permission!");
+            //Debug.Log("You don't have this permission!");
             return;
         }
         lobby.AskToLeaveRoom(id);

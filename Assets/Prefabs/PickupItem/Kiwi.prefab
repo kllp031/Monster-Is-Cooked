@@ -11,8 +11,10 @@ GameObject:
   - component: {fileID: 4181462223237920473}
   - component: {fileID: 3427258925122920179}
   - component: {fileID: 572288112708561496}
-  - component: {fileID: 909051274668725431}
   - component: {fileID: 740712456553281173}
+  - component: {fileID: 8472333525041325699}
+  - component: {fileID: 272029741602560346}
+  - component: {fileID: 6195410863180853798}
   m_Layer: 0
   m_Name: Kiwi
   m_TagString: Untagged
@@ -127,22 +129,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &909051274668725431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8502819326897545693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8390d52bd3de319468ceac112796813c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ingredient: {fileID: 11400000, guid: bd88917f0b7e6e847ae57212410ab123, type: 2}
-  amount: 1
-  autoUpdateSprite: 1
-  itemEffect: {fileID: 1257857300690399873, guid: 647b4b1208f6a334fb2fa0512baa6cae, type: 3}
 --- !u!50 &740712456553281173
 Rigidbody2D:
   serializedVersion: 5
@@ -170,6 +156,59 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &8472333525041325699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8502819326897545693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a57d843d8446ef2488525e54d090a424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredient: {fileID: 11400000, guid: bd88917f0b7e6e847ae57212410ab123, type: 2}
+  amount: 1
+  autoUpdateSprite: 1
+  itemEffect: {fileID: 1257857300690399873, guid: 647b4b1208f6a334fb2fa0512baa6cae, type: 3}
+--- !u!114 &272029741602560346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8502819326897545693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 3572197630
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 8472333525041325699}
+  - {fileID: 6195410863180853798}
+  ForceRemoteRenderTimeframe: 0
+--- !u!114 &6195410863180853798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8502819326897545693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stateAuthorityChangeErrorCorrectionDelta: 0
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0
 --- !u!1001 &3405979138506291793
 PrefabInstance:
   m_ObjectHideFlags: 0

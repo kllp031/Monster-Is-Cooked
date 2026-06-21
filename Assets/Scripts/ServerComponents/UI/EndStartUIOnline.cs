@@ -65,7 +65,9 @@ public class EndStartUIOnline : MonoBehaviour
         if (GameManager.Instance != null)
             GameManager.Instance.OnLevelEnd.AddListener(OnLevelEnd);
         else
-            Debug.LogWarning("EndStartUIOnline: GameManager.Instance not found. Level-end events won't fire.");
+            //Debug.LogWarning("EndStartUIOnline: GameManager.Instance not found. Level-end events won't fire.");
+
+        GameManagerOnline.OnLevelEnd += OnLevelEnd;
 
         // Coin events: subscribe when LocalPlayerData is ready, or poll in Update
         TrySubscribeCoinEvent();
@@ -119,7 +121,12 @@ public class EndStartUIOnline : MonoBehaviour
             && NetworkManager.Instance.NetworkRunner.IsSharedModeMasterClient;
     }
 
-    private void HandleLevelStartedRemote() => ToggleStartScreen(false);
+    private void HandleLevelStartedRemote()
+    {
+        // A client may be on the end screen when the next level starts (they didn't click Next yet).
+        ToggleEndScreen(false);
+        ToggleStartScreen(false);
+    }
 
     private void WireButtons()
     {
@@ -143,6 +150,7 @@ public class EndStartUIOnline : MonoBehaviour
     private void OnDisable()
     {
         GameManagerOnline.OnLevelStarted -= HandleLevelStartedRemote;
+        GameManagerOnline.OnLevelEnd -= OnLevelEnd;
         if (startBtn != null) startBtn.onClick.RemoveListener(OnStartClicked);
         if (retryBtn != null) { var btn = retryBtn.GetComponent<Button>(); if (btn != null) btn.onClick.RemoveListener(OnRetryClicked); }
         if (nextBtn != null)  { var btn = nextBtn.GetComponent<Button>();  if (btn != null) btn.onClick.RemoveListener(OnNextClicked); }
@@ -152,27 +160,54 @@ public class EndStartUIOnline : MonoBehaviour
 
     private void SetUpStartUI()
     {
+        if (IsMultiplayerActive())
+        {
+            if (GameManagerOnline.Instance == null || GameManagerOnline.Instance.Runner == null) return;
+            LevelDetailOnline currentLevel = GameManagerOnline.Instance.GetCurrentLevelDetail();
+            if (currentLevel == null) return;
+            int targetMoney   = currentLevel.TargetMoney;
+            int customerCount = currentLevel.CustomerDetails?.Count ?? 0;
+            int currentDay    = GameManagerOnline.Instance.LevelNumber + 1;
+            if (startUICustomersText != null) startUICustomersText.text = customerCount.ToString();
+            if (startUIGoalText != null)      startUIGoalText.text      = "0/" + targetMoney;
+            if (startUIDayText != null)       startUIDayText.text       = "Day " + currentDay;
+            return;
+        }
+
         if (GameManager.Instance == null) return;
-        LevelDetail currentLevel = GameManager.Instance.GetCurrentLevelDetail();
-        if (currentLevel == null) return;
-        int targetMoney   = currentLevel.TargetMoney;
-        int customerCount = currentLevel.CustomerDetails != null ? currentLevel.CustomerDetails.Count : 0;
-        int currentDay    = GameManager.Instance.LevelNumber + 1;
-        if (startUICustomersText != null) startUICustomersText.text = customerCount.ToString();
-        if (startUIGoalText != null)      startUIGoalText.text      = "0/" + targetMoney;
-        if (startUIDayText != null)       startUIDayText.text       = "Day " + currentDay;
+        LevelDetail currentLevelOffline = GameManager.Instance.GetCurrentLevelDetail();
+        if (currentLevelOffline == null) return;
+        int targetMoneyOffline   = currentLevelOffline.TargetMoney;
+        int customerCountOffline = currentLevelOffline.CustomerDetails != null ? currentLevelOffline.CustomerDetails.Count : 0;
+        int currentDayOffline    = GameManager.Instance.LevelNumber + 1;
+        if (startUICustomersText != null) startUICustomersText.text = customerCountOffline.ToString();
+        if (startUIGoalText != null)      startUIGoalText.text      = "0/" + targetMoneyOffline;
+        if (startUIDayText != null)       startUIDayText.text       = "Day " + currentDayOffline;
     }
 
     private void SetUpEndUI()
     {
+        if (IsMultiplayerActive())
+        {
+            if (GameManagerOnline.Instance == null) return;
+            LevelDetailOnline currentLevel = GameManagerOnline.Instance.GetCurrentLevelDetail();
+            if (currentLevel == null) return;
+            int collectedMoney = GameManagerOnline.Instance.CollectedMoney;
+            int targetMoney    = currentLevel.TargetMoney;
+            int totalMoney     = PlayerData?.TotalMoney ?? 0;
+            if (endUITargetText != null) endUITargetText.text = collectedMoney + "/" + targetMoney;
+            if (endUICoinTxt != null)    endUICoinTxt.text    = totalMoney.ToString();
+            return;
+        }
+
         if (GameManager.Instance == null) return;
-        LevelDetail currentLevel = GameManager.Instance.GetCurrentLevelDetail();
-        if (currentLevel == null) return;
-        int collectedMoney = GameManager.Instance.CollectedMoney;
-        int targetMoney    = currentLevel.TargetMoney;
-        int totalMoney     = PlayerData != null ? PlayerData.TotalMoney : 0;
-        if (endUITargetText != null) endUITargetText.text = collectedMoney + "/" + targetMoney;
-        if (endUICoinTxt != null)    endUICoinTxt.text    = totalMoney.ToString();
+        LevelDetail currentLevelOffline = GameManager.Instance.GetCurrentLevelDetail();
+        if (currentLevelOffline == null) return;
+        int collectedMoneyOffline = GameManager.Instance.CollectedMoney;
+        int targetMoneyOffline    = currentLevelOffline.TargetMoney;
+        int totalMoneyOffline     = PlayerData != null ? PlayerData.TotalMoney : 0;
+        if (endUITargetText != null) endUITargetText.text = collectedMoneyOffline + "/" + targetMoneyOffline;
+        if (endUICoinTxt != null)    endUICoinTxt.text    = totalMoneyOffline.ToString();
     }
 
     private void OnUpdateCoinChange()
@@ -196,14 +231,14 @@ public class EndStartUIOnline : MonoBehaviour
         if (IsMultiplayerActive())
         {
             if (!IsLocalMasterClient()) return;
-            if (GameManagerOnline.Instance == null) { Debug.LogError("[EndStartUIOnline] Missing GameManagerOnline."); return; }
+            if (GameManagerOnline.Instance == null) { /*Debug.LogError("[EndStartUIOnline] Missing GameManagerOnline.");*/ return; }
             GameManagerOnline.Instance.RPC_StartLevel();
             return;
         }
 
         ToggleStartScreen(false);
-        if (GameManager.Instance == null) { Debug.LogError("[EndStartUIOnline] GameManager.Instance null."); return; }
-        if (!GameManager.Instance.GameStarted) { Debug.LogError("[EndStartUIOnline] GameManager.GameStarted == false."); return; }
+        if (GameManager.Instance == null) { /*Debug.LogError("[EndStartUIOnline] GameManager.Instance null.");*/ return; }
+        if (!GameManager.Instance.GameStarted) { /*Debug.LogError("[EndStartUIOnline] GameManager.GameStarted == false.");*/ return; }
         GameManager.Instance.StartCurrentLevel();
     }
 
@@ -217,6 +252,15 @@ public class EndStartUIOnline : MonoBehaviour
     {
         if (_sequenceRoutine != null) StopCoroutine(_sequenceRoutine);
         _sequenceRoutine = StartCoroutine(ReturnToStartSequence());
+
+        if (IsMultiplayerActive())
+        {
+            // Only MasterClient advances the level number; other clients just animate locally.
+            if (IsLocalMasterClient() && GameManagerOnline.Instance != null)
+                GameManagerOnline.Instance.NextLevel();
+            return;
+        }
+
         if (GameManager.Instance != null) GameManager.Instance.NextLevel();
     }
 

@@ -16,7 +16,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
     private NetworkRunner networkRunner;
 
     [SerializeField] private string username;
-    public string Username { get => username; set { Debug.Log(value); if (!username.IsNullOrEmpty()) username = value; } }
+    public string Username { get => username; set { /*Debug.Log(value);*/ if (!value.IsNullOrEmpty()) username = value; } }
 
     public NetworkRunner NetworkRunner { get => networkRunner; }
 
@@ -73,9 +73,9 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
                 Destroy(networkRunner.gameObject);
             }
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            Debug.LogWarning($"NetworkManager.CleanupNetworkRunnerAsync: {e.Message}");
+            //Debug.LogWarning($"NetworkManager.CleanupNetworkRunnerAsync");
         }
 
         networkRunner = null;
@@ -106,7 +106,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
-        Debug.Log("Player joins manager: " + player.PlayerId);
+        //Debug.Log("Player joins manager: " + player.PlayerId);
 
         onPlayerJoined.Invoke(runner, player);
     }

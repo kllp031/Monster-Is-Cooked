@@ -130,7 +130,7 @@ public struct PathDetails : INetworkStruct
         for(int i = 0; i < ((path.Points.Count < 20) ? path.Points.Count : 20); i++)
         {
             Points.Set(i, path.Points[i]);
-            Debug.Log("Set point " + path.Points[i] + " to index " + i);
+            // //Debug.Log("Set point " + path.Points[i] + " to index " + i);
             PointCount++;
         }
     }

@@ -1,203 +1,276 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
+using Fusion;
+using System;
 
-/// <summary>
-/// This class handles the health state of a game object.
-/// 
-/// Implementation Notes: 2D Rigidbodies must be set to never sleep for this to interact with trigger stay damage
-/// </summary>
-public class Health : MonoBehaviour
+public class Health : NetworkBehaviour 
 {
     [Header("Team Settings")]
-    [Tooltip("The team associated with this damage")]
     public int teamId = 0;
 
     [Header("Health Settings")]
-    [Tooltip("The maximum health value")]
     public int maximumHealth = 1;
-    [Tooltip("The current in game health value")]
-    public int currentHealth = 1;
+
+    // 1. Biến mạng đồng bộ máu. Khi máu đổi, gọi hàm OnHealthChanged để bật hiệu ứng đồ họa
+    [Networked, OnChangedRender(nameof(OnHealthChanged))]
+    public int currentHealth { get; set; }
+    private int _lastHealth;
+
+    // 2. Đồng hồ bất tử mạng thay thế cho Time.time
+    [Networked] public TickTimer invincibilityTimer { get; set; }
     [Tooltip("Invulnerability duration, in seconds, after taking damage")]
     public float invincibilityTime = 3f;
-    public bool isDeath = false;
+
+    // 3. Trạng thái chết đồng bộ mạng
+    [Networked] public NetworkBool isDeath { get; set; }
+
+    [Networked] public TickTimer knockbackTimer { get; set; }
 
     private EnemyBase enemyBase;
-    private EnemySpawner mySpawner; //for enemies
+    private EnemySpawner mySpawner;
     private Rigidbody2D rb;
     private Animator animator;
-    void Start()
+
+    private Vector3 respawnPosition;
+
+    // Thay thế Start() bằng Spawned() để khởi tạo dữ liệu mạng an toàn
+    public override void Spawned()
     {
-        SetRespawnPoint(transform.position);
+        base.Spawned();
+
         rb = GetComponent<Rigidbody2D>();
         enemyBase = GetComponent<EnemyBase>();
         animator = GetComponent<Animator>();
 
-        if (gameObject.CompareTag("Player"))
-            currentHealth = PlayerDataManager.Instance.CurrentMaxHealth;
-        else
-            currentHealth = maximumHealth;
-    }
+        _lastHealth = currentHealth;
+        SetRespawnPoint(transform.position);
 
-    void Update()
-    {
-        InvincibilityCheck();
-    }
-
-    // The specific game time when the health can be damaged again
-    private float timeToBecomeDamagableAgain = 0;
-    // Whether or not the health is invincible
-    public bool isInvincible = false;
-
-    private void InvincibilityCheck()
-    {
-        if (timeToBecomeDamagableAgain <= Time.time)
+        // Chỉ máy giữ quyền (State Authority) mới có quyền thiết lập máu ban đầu
+        if (Object.HasStateAuthority)
         {
-            isInvincible = false;
+            if (gameObject.CompareTag("Player"))
+            {
+                var pdmOnline = GetComponent<PlayerDataManagerOnline>();
+                if (pdmOnline != null)
+                    currentHealth = pdmOnline.CurrentMaxHealth;
+                else if (PlayerDataManager.Instance != null)
+                    currentHealth = PlayerDataManager.Instance.CurrentMaxHealth;
+                else
+                    currentHealth = maximumHealth;
+            }
+            else
+            {
+                currentHealth = maximumHealth;
+            }
+            isDeath = false;
         }
     }
 
-    // The position that the health's gameobject will respawn at
-    private Vector3 respawnPosition;
+    // Logic tính toán mạng (FixedUpdateNetwork - FUN)
+    public override void FixedUpdateNetwork()
+    {
+        base.FixedUpdateNetwork();
+
+        if (!Object.HasStateAuthority) return;
+
+        // Xử lý hết lực Knockback đồng bộ qua mạng
+        if (knockbackTimer.IsRunning && knockbackTimer.Expired(Runner))
+        {
+            rb.linearVelocity = Vector2.zero;
+            knockbackTimer = TickTimer.None;
+        }
+    }
 
     public void SetRespawnPoint(Vector3 newRespawnPosition)
     {
         respawnPosition = newRespawnPosition;
     }
 
-    void Respawn()
+    public void Respawn()
     {
+        if (!Object.HasStateAuthority) return;
+
         transform.position = respawnPosition;
+        isDeath = false;
 
         if (gameObject.CompareTag("Player"))
-            currentHealth = PlayerDataManager.Instance.CurrentMaxHealth;
+        {
+            var pdmOnline = GetComponent<PlayerDataManagerOnline>();
+            if (pdmOnline != null)
+                currentHealth = pdmOnline.CurrentMaxHealth;
+            else if (PlayerDataManager.Instance != null)
+                currentHealth = PlayerDataManager.Instance.CurrentMaxHealth;
+            else
+                currentHealth = maximumHealth;
+        }
         else
             currentHealth = maximumHealth;
-        //GameManager.UpdateUIElements();
     }
 
+    // Lệnh nhận sát thương cực kỳ quan trọng
     public void TakeDamage(int damageAmount)
     {
-        if (isInvincible || currentHealth <= 0 || isDeath)
+        if (Object == null || !Object.IsValid) return;
+        if (!Object.HasStateAuthority)
         {
+            // Nếu Client chém trúng quái, gửi RPC báo Master Client trừ máu hộ
+            RPC_RequestDamage(damageAmount);
             return;
         }
-        else
-        {
-            if(gameObject.tag == "Enemy") 
-                enemyBase.currentEnemyState = EnemyBase.EnemyState.Hurt;
 
-            if (gameObject.tag == "Player")
-            {
-                //Debug.Log("player still hurt, isdead " + isDeath);
-                SoundManager.Instance.PlaySFX(SoundManager.Instance.playerHurt);
-                animator.SetTrigger("Hurt");
-            }    
+        // Kiểm tra bất tử bằng TickTimer
+        bool isInvincible = !invincibilityTimer.ExpiredOrNotRunning(Runner);
 
-            if (hitEffect != null)
-            {
-                Instantiate(hitEffect, transform.position, transform.rotation, null);
-            }
-            timeToBecomeDamagableAgain = Time.time + invincibilityTime;
-            isInvincible = true;
-            currentHealth -= damageAmount;
-            CheckDeath();
-        }
-        //GameManager.UpdateUIElements();
+        if (isInvincible || currentHealth <= 0 || isDeath) return;
+
+        // Master Client đổi trạng thái FSM của quái, Fusion tự đồng bộ State Machine
+        if (gameObject.CompareTag("Enemy") && enemyBase != null)
+            enemyBase.currentEnemyState = EnemyBase.EnemyState.Hurt;
+
+        // Kích hoạt thời gian bất tử mạng
+        invincibilityTimer = TickTimer.CreateFromSeconds(Runner, invincibilityTime);
+
+        currentHealth -= damageAmount;
+        //Debug.Log($"[Health] {gameObject.name} took {damageAmount} damage. CurrentHealth: {currentHealth}");
+        CheckDeath();
+    }
+
+    // Cầu nối RPC gửi từ máy chém quái lên máy chủ giữ quyền quái
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    private void RPC_RequestDamage(int amount)
+    {
+        TakeDamage(amount);
     }
 
     public void Knockback(Vector2 dir, float knockbackForce)
     {
-        if (isDeath)
-            return;
+        if (Object == null || !Object.IsValid) return;
+        if (isDeath) return;
 
+        // Tác động vật lý mạng trực tiếp trên máy giữ quyền
         rb.linearVelocity = dir * knockbackForce;
-        Debug.Log("dir knockback x: " + dir.x + "y: " + dir.y);
-        StartCoroutine(StopMoveAfterTime(0.1f));
-    }
-
-    IEnumerator StopMoveAfterTime(float time)
-    {
-        yield return new WaitForSeconds(time);
-        rb.linearVelocity = Vector2.zero;
-        Debug.Log("stop knockback");
+        // Đặt đồng hồ mạng 0.1 giây để dừng lực đẩy
+        knockbackTimer = TickTimer.CreateFromSeconds(Runner, 0.1f);
     }
 
     public void ReceiveHealing(int healingAmount)
     {
+        if (!Object.HasStateAuthority) return;
+
         currentHealth += healingAmount;
 
-        if (this.gameObject.CompareTag("Player"))
+        if (gameObject.CompareTag("Player"))
         {
             if (currentHealth > PlayerDataManager.Instance.CurrentMaxHealth)
-            {
                 currentHealth = PlayerDataManager.Instance.CurrentMaxHealth;
-            }
         }
         else if (currentHealth > maximumHealth)
         {
             currentHealth = maximumHealth;
         }
-        CheckDeath();
-        //GameManager.UpdateUIElements();
     }
 
     [Header("Effects & Polish")]
-    [Tooltip("The effect to create when this health dies")]
     public GameObject deathEffect;
-    [Tooltip("The effect to create when this health is damaged (but does not die)")]
     public GameObject hitEffect;
 
-    bool CheckDeath()
+    private void CheckDeath()
     {
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && !isDeath)
         {
             Die();
-            return true;
         }
-        return false;
     }
 
-    void Die()
+    private void Die()
     {
-        Debug.Log("Die");
-        if (gameObject.tag == "Enemy")
+        isDeath = true;
+
+        if (gameObject.CompareTag("Enemy"))
         {
-            enemyBase.currentEnemyState = EnemyBase.EnemyState.Dead;
+            if (enemyBase != null) enemyBase.currentEnemyState = EnemyBase.EnemyState.Dead;
             if (mySpawner != null) mySpawner.OnEnemyDeath();
+
+            // Xóa quái vật trên mạng, tự động biến mất trên màn hình mọi người
+            Runner.Despawn(Object);
         }
 
-        if (deathEffect != null)
+        if (gameObject.CompareTag("Player"))
         {
-            Instantiate(deathEffect, transform.position, transform.rotation, null);
-        }
-
-        if (gameObject.tag == "Player")
-        {
-            SoundManager.Instance.PlaySFX(SoundManager.Instance.playerDie);
-
-            isDeath = true;
             animator.SetTrigger("Death");
             animator.SetBool("isDead", true);
             GameOver();
         }
-
-        //GameManager.UpdateUIElements();
     }
 
     public void GameOver()
     {
-        Debug.Log("game over");
-        if (GameManager.Instance != null && gameObject.tag == "Player")
+        if (GameManagerOnline.Instance != null)
         {
-            GameManager.Instance.EndLevel();
+            GameManagerOnline.Instance.RPC_NotifyPlayerDied(Object.Id);
+            return;
         }
+        if (GameManager.Instance != null && gameObject.CompareTag("Player"))
+            GameManager.Instance.EndLevel();
     }
 
     public void SetupSpawner(EnemySpawner spawner)
     {
-        if (gameObject.tag == "Enemy")
-                mySpawner = spawner;
+        mySpawner = spawner;
+    }
+
+    // ==========================================
+    // KHU VỰC THỰC THI ĐỒ HỌA/ÂM THANH TRÊN TẤT CẢ CÁC MÁY (RENDER LOGIC)
+    // ==========================================
+
+    // Kích hoạt tự động khi biến currentHealth bị mạng thay đổi giá trị
+    public void OnHealthChanged()
+    {
+        if (currentHealth < _lastHealth)
+        {
+            if (hitEffect != null)
+            {
+                Instantiate(hitEffect, transform.position, transform.rotation, null);
+            }
+
+            if (gameObject.CompareTag("Player"))
+            {
+                if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(SoundManager.Instance.playerHurt);
+                if (animator != null) animator.SetTrigger("Hurt");
+            }
+        }
+
+        // Cập nhật lại mốc máu cũ để so sánh cho lần sau
+        _lastHealth = currentHealth;
+    }
+
+    public void OnDeathChanged()
+    {
+        if (isDeath && gameObject.CompareTag("Player"))
+        {
+            if (deathEffect != null)
+                Instantiate(deathEffect, transform.position, transform.rotation, null);
+
+            if (SoundManager.Instance != null)
+                SoundManager.Instance.PlaySFX(SoundManager.Instance.playerDie);
+        }
+    }
+
+    public override void Despawned(NetworkRunner runner, bool hasStateAuthority)
+    {
+        base.Despawned(runner, hasStateAuthority);
+
+        // CHỈ xử lý hiệu ứng tan biến cho ENEMY tại đây (Tránh việc nổ hiệu ứng 2 lần)
+        if (gameObject.CompareTag("Enemy"))
+        {
+            if (deathEffect != null)
+            {
+                Instantiate(deathEffect, transform.position, transform.rotation, null);
+            }
+
+            // Nếu quái vật có âm thanh chết riêng (enemyBase.PlayDieSound), bạn có thể gọi tại đây:
+            if (enemyBase != null) enemyBase.PlayDieSound();
+        }
     }
 }

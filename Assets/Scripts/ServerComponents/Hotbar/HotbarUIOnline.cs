@@ -34,8 +34,8 @@ public class HotbarUIOnline : MonoBehaviour
 
     private void Start()
     {
-        if (hotbarAnchor == null) { Debug.LogError($"{nameof(HotbarUIOnline)}: hotbarAnchor null."); return; }
-        if (HotbarManagerOnline.Instance == null) { Debug.LogError($"{nameof(HotbarUIOnline)}: HotbarManagerOnline.Instance null."); return; }
+        if (hotbarAnchor == null) { /*Debug.LogError($"{nameof(HotbarUIOnline)}: hotbarAnchor null.");*/ return; }
+        if (HotbarManagerOnline.Instance == null) { /*Debug.LogError($"{nameof(HotbarUIOnline)}: HotbarManagerOnline.Instance null.");*/ return; }
 
         uiSlots = hotbarPanel.GetComponentsInChildren<HotbarSlotUIOnline>().ToList();
 

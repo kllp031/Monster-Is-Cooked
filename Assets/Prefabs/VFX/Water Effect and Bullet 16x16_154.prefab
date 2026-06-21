@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2848843388610214631}
   - component: {fileID: 7651183339315855270}
   - component: {fileID: 4677804604324190681}
-  - component: {fileID: 4922885744134510594}
+  - component: {fileID: 1659664694086272789}
   m_Layer: 0
   m_Name: Water Effect and Bullet 16x16_154
   m_TagString: Untagged
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8187308918327922090}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.3199997, y: 0.059999943, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
@@ -111,7 +111,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4922885744134510594
+--- !u!114 &1659664694086272789
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,8 +120,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8187308918327922090}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b58ca2f55b8d54e44921b14b727bf610, type: 3}
+  m_Script: {fileID: 11500000, guid: c7c9385006935c84683966096fbdf94e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 0.3
-  destroyChildrenOnDeath: 1

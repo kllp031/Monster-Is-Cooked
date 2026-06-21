@@ -106,6 +106,8 @@ GameObject:
   - component: {fileID: 7508952235099122289}
   - component: {fileID: 3008123092494844816}
   - component: {fileID: 7478317011471170885}
+  - component: {fileID: 3499080165184150251}
+  - component: {fileID: 8173916019017753154}
   m_Layer: 6
   m_Name: Slime
   m_TagString: Enemy
@@ -239,7 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
-  currentEnemyState: 0
+  _currentEnemyState: 0
   lastEnemyState: 0
   target: {fileID: 0}
   attackSound: {fileID: 8300000, guid: a48e33821a76d4b4dbea89ba97595421, type: 3}
@@ -259,6 +261,10 @@ MonoBehaviour:
     m_Bits: 16
   _wallCheckDistance: 1
   _hurtTime: 0.5
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  _targetScanInterval: 0.5
   isFlip: 1
 --- !u!114 &3441307476891121901
 MonoBehaviour:
@@ -274,10 +280,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamId: 1
   maximumHealth: 17
-  currentHealth: 17
+  _currentHealth: 0
   invincibilityTime: 0
-  isDeath: 0
-  isInvincible: 0
+  _isDeath:
+    _value: 0
   deathEffect: {fileID: 0}
   hitEffect: {fileID: 0}
 --- !u!50 &989364987402034657
@@ -374,3 +380,43 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.4
+--- !u!114 &3499080165184150251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4386769147766901124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 649686269
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 185037289216935537}
+  - {fileID: 3441307476891121901}
+  - {fileID: 3008123092494844816}
+  - {fileID: 8173916019017753154}
+  - {fileID: 88411983736343849}
+  ForceRemoteRenderTimeframe: 0
+--- !u!114 &8173916019017753154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4386769147766901124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stateAuthorityChangeErrorCorrectionDelta: 0
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0

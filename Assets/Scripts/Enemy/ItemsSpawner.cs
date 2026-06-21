@@ -8,7 +8,7 @@ public class ItemsSpawner : MonoBehaviour
     [SerializeField] private int _maxItems = 5;      
     [SerializeField] private float _spawnInterval = 3f; 
 
-    [Header("Debug Info")]
+    [Header("//Debug Info")]
     [SerializeField] private int _currentCount = 0;
     [SerializeField] private bool _isActive = false;
 

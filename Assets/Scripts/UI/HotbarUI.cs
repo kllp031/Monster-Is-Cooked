@@ -36,13 +36,13 @@ public class HotbarUI : MonoBehaviour
     {
         if (hotbarAnchor == null)
         {
-            Debug.LogError("HotbarUI: hotbarAnchor is not assigned!");
+            //Debug.LogError("HotbarUI: hotbarAnchor is not assigned!");
             return;
         }
 
         if (HotbarManager.Instance == null)
         {
-            Debug.LogError("HotbarUI: HotbarManager instance not found!");
+            //Debug.LogError("HotbarUI: HotbarManager instance not found!");
             return;
         }
 
@@ -123,7 +123,7 @@ public class HotbarUI : MonoBehaviour
 
     private void RefreshVisuals()
     {
-        if (HotbarManager.Instance == null) { Debug.LogWarning("Hotbar Manager is not found!"); return; }
+        if (HotbarManager.Instance == null) { /*Debug.LogWarning("Hotbar Manager is not found!");*/ return; }
         for (int i = 0; i < uiSlots.Count; i++)
         {
             //Food food = HotbarManager.Instance.GetFoodAt(i); // Uncommented for context

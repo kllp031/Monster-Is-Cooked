@@ -51,7 +51,7 @@ public class HotbarManagerOnline : MonoBehaviour
         if (CookingManager.Instance != null)
             CookingManager.Instance.OnFoodSpawned.AddListener(HandleCookedFood);
         else
-            Debug.LogWarning($"{nameof(HotbarManagerOnline)}: CookingManager.Instance null tại Start.");
+            //Debug.LogWarning($"{nameof(HotbarManagerOnline)}: CookingManager.Instance null tại Start.");
 
         if (GameManager.Instance != null)
             GameManager.Instance.OnLevelEnd.AddListener(HandleLevelEnd);
@@ -72,7 +72,7 @@ public class HotbarManagerOnline : MonoBehaviour
         // Local Food gameobject xong việc — trích recipe rồi destroy luôn.
         // Online không dùng Food gameobject để giữ inventory state.
         Destroy(food.gameObject);
-        if (!added) Debug.Log($"{nameof(HotbarManagerOnline)}: hotbar đầy, recipe bị bỏ.");
+        //if (!added) Debug.Log($"{nameof(HotbarManagerOnline)}: hotbar đầy, recipe bị bỏ.");
     }
 
     private void HandleLevelEnd(bool _)

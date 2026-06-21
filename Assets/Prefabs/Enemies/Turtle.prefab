@@ -18,6 +18,8 @@ GameObject:
   - component: {fileID: 8031024437997283880}
   - component: {fileID: 8258047156857433848}
   - component: {fileID: 3070312616819003423}
+  - component: {fileID: -8041986073384125262}
+  - component: {fileID: -8747611026559534628}
   m_Layer: 6
   m_Name: Turtle
   m_TagString: Enemy
@@ -167,7 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
-  currentEnemyState: 0
+  _currentEnemyState: 0
   lastEnemyState: 0
   target: {fileID: 0}
   attackSound: {fileID: 8300000, guid: 9e95918a76ecf6e43adeac910b829253, type: 3}
@@ -187,6 +189,10 @@ MonoBehaviour:
     m_Bits: 0
   _wallCheckDistance: 1
   _hurtTime: 1
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  _targetScanInterval: 0.5
   isFlip: 1
 --- !u!114 &5464024470980497880
 MonoBehaviour:
@@ -202,10 +208,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamId: 1
   maximumHealth: 20
-  currentHealth: 20
+  _currentHealth: 0
   invincibilityTime: 0
-  isDeath: 0
-  isInvincible: 0
+  _isDeath:
+    _value: 0
   deathEffect: {fileID: 0}
   hitEffect: {fileID: 0}
 --- !u!61 &8031024437997283880
@@ -296,3 +302,42 @@ MonoBehaviour:
   pickupPrefabs:
   - {fileID: 8502819326897545693, guid: c2d5a6f2d5c8ac645986883247fd164d, type: 3}
   scatterForce: 3
+--- !u!114 &-8041986073384125262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483601699737180059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 2369562401
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 8929811139552048039}
+  - {fileID: 3862904088699458552}
+  - {fileID: 5464024470980497880}
+  - {fileID: -8747611026559534628}
+  ForceRemoteRenderTimeframe: 0
+--- !u!114 &-8747611026559534628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483601699737180059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stateAuthorityChangeErrorCorrectionDelta: 0
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0

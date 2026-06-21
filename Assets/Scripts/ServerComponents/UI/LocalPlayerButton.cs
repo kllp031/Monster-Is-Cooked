@@ -76,7 +76,7 @@ public class LocalPlayerButton : MonoBehaviour, IPointerDownHandler, IPointerUpH
         var player = hud != null ? hud.BoundPlayer : null;
         if (player == null)
         {
-            Debug.Log($"{nameof(LocalPlayerButton)} on '{name}' fired but local player is not bound yet.");
+            //Debug.Log($"{nameof(LocalPlayerButton)} on '{name}' fired but local player is not bound yet.");
             return null;
         }
         return player.gameObject;

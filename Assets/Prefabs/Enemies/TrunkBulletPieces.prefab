@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 3233430298830033934}
   - component: {fileID: 9121816538563244313}
   - component: {fileID: 2363711338880117059}
+  - component: {fileID: -1037626530604891865}
+  - component: {fileID: -5204658032037050600}
   m_Layer: 0
   m_Name: TrunkBulletPieces
   m_TagString: Untagged
@@ -140,7 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  direction: {x: 1, y: 0}
+  _direction: {x: 1, y: 0}
 --- !u!114 &9121816538563244313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,3 +176,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifetime: 3
   destroyChildrenOnDeath: 1
+--- !u!114 &-1037626530604891865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7373913551603219779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 2368002963
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 3233430298830033934}
+  - {fileID: 9121816538563244313}
+  - {fileID: 2363711338880117059}
+  - {fileID: -5204658032037050600}
+  ForceRemoteRenderTimeframe: 0
+--- !u!114 &-5204658032037050600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7373913551603219779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stateAuthorityChangeErrorCorrectionDelta: 0
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0

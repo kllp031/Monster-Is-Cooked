@@ -53,7 +53,7 @@ public class HealthOnline : NetworkBehaviour
     // Called by DamageOnline (or any attacker) — only state authority processes this
     public void TakeDamage(int damageAmount)
     {
-        //Debug Log
+        ////Debug Log
         if (!Object.HasStateAuthority)
         {
             print($"[HealthOnline][{gameObject.name}] TakeDamage called on non-state authority. Ignored.");
@@ -155,8 +155,8 @@ public class HealthOnline : NetworkBehaviour
 
     private void GameOver()
     {
-        if (GameManager.Instance != null)
-            GameManager.Instance.EndLevel();
+        if (GameManagerOnline.Instance != null)
+            GameManagerOnline.Instance.RPC_NotifyPlayerDied(Object.Id);
     }
 
     [ContextMenu("Test Take Damage")]

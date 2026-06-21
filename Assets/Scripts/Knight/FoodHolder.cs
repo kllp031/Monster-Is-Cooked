@@ -1,3 +1,4 @@
+#pragma warning disable 0414
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
@@ -39,9 +40,9 @@ public class FoodHolder : MonoBehaviour
 
     private void OnEnable()
     {
-        if (targetCircle == null) Debug.LogWarning("Throw Food Circle is not assigned!");
+        if (targetCircle == null) { /*Debug.LogWarning("Throw Food Circle is not assigned!");*/ }
         else targetCircle.SetActive(false);
-        if (playerGroundPosition == null) Debug.LogWarning("Player Ground Position is not assigned!");
+        //if (playerGroundPosition == null) Debug.LogWarning("Player Ground Position is not assigned!");
     }
     private void OnDisable()
     {
@@ -111,8 +112,8 @@ public class FoodHolder : MonoBehaviour
     //    float denominator = 2 * (y - Mathf.Tan(angle) * x) * Mathf.Pow(Mathf.Cos(angle), 2);
     //    if (denominator >= 0)
     //    {
-    //        Debug.LogWarning("Invalid throw parameters. Cannot calculate throw speed.");
-    //        Debug.Log($" startPos: {startPos}, endPos: {targetPos}, g: {g}, x: {x}, y: {y}, denominator: {denominator}");
+    //        //Debug.LogWarning("Invalid throw parameters. Cannot calculate throw speed.");
+    //        //Debug.Log($" startPos: {startPos}, endPos: {targetPos}, g: {g}, x: {x}, y: {y}, denominator: {denominator}");
     //        return -1;
     //    }
     //    return Mathf.Sqrt(numerator / denominator);
@@ -155,7 +156,7 @@ public class FoodHolder : MonoBehaviour
         
         if (SoundManager.Instance == null)
         {
-            Debug.LogWarning("Sound Manager is not found!");
+            //Debug.LogWarning("Sound Manager is not found!");
             return;
         }
         SoundManager.Instance.PlaySFX(SoundManager.Instance.playerThrow);
@@ -170,8 +171,8 @@ public class FoodHolder : MonoBehaviour
         float denominator = 2 * (y - Mathf.Tan(angle) * x) * Mathf.Pow(Mathf.Cos(angle), 2);
         if (denominator >= 0)
         {
-            Debug.LogWarning("Invalid throw parameters. Cannot calculate throw speed.");
-            Debug.Log($" horizontalDistance {horizontalDistance}, vverticalDistance: {verticalDistance}, g: {g}, x: {x}, y: {y}, denominator: {denominator}");
+            //Debug.LogWarning("Invalid throw parameters. Cannot calculate throw speed.");
+            //Debug.Log($" horizontalDistance {horizontalDistance}, vverticalDistance: {verticalDistance}, g: {g}, x: {x}, y: {y}, denominator: {denominator}");
             return -1;
         }
         return Mathf.Sqrt(numerator / denominator);
@@ -213,7 +214,7 @@ public class FoodHolder : MonoBehaviour
             // Recalculate the start and end positions each loop in case the throwing direction changed
             startPosition = (Vector2)playerGroundPosition.position + throwDirection.normalized * throwStartDistance;
             endPosition = (Vector2)playerGroundPosition.position + throwDirection.normalized * throwEndDistance;
-            Debug.Log($"Direction: {throwDirection}, start position: {startPosition}, end position: {endPosition}");
+            //Debug.Log($"Direction: {throwDirection}, start position: {startPosition}, end position: {endPosition}");
 
             timeElapsed += Time.deltaTime;
             if (timeElapsed >= targetCircleMovingTime)

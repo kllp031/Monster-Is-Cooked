@@ -12,7 +12,7 @@ public class StatInfoPanelUI : MonoBehaviour
     {
         if (PlayerDataManager.Instance == null)
         {
-            Debug.LogError("PlayerDataManager instance not found!");
+            //Debug.LogError("PlayerDataManager instance not found!");
             return;
         }
         PlayerDataManager.Instance.onHealthUpgrade.AddListener(UpdateStatInfo);

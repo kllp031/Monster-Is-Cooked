@@ -3,21 +3,18 @@ using UnityEngine;
 public class AttackManager : MonoBehaviour
 {
     [Header("Configuration")]
-    private Transform _target; 
     [SerializeField] private EnemyAttackBase _melee_attack;
     [SerializeField] private EnemyAttackBase _ranged_attack;
     [SerializeField] private float rangedMeleeAttack;
 
-    private void Start()
-    {
-        _target = GetComponent<WalkingEnemy>().target;
-    }
+    private Transform Target => GetComponent<WalkingEnemy>().target;
 
     public void PerformBestAttack()
     {
-        if (_target == null) return;
+        Transform target = Target;
+        if (target == null) return;
 
-        float distanceToTarget = Vector2.Distance(transform.position, _target.position);
+        float distanceToTarget = Vector2.Distance(transform.position, target.position);
 
         EnemyAttackBase bestAttack = SelectBestAttack(distanceToTarget);
 

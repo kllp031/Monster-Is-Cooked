@@ -1,80 +1,126 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fusion; 
 
-/// <summary>
-/// A class which destroys it's gameobject after a certain amount of time
-/// </summary>
-public class TimedObjectDestroyer : MonoBehaviour
+public class TimedObjectDestroyer : NetworkBehaviour
 {
     [Header("Settings:")]
-    [Tooltip("The lifetime of this gameobject")]
+    [Tooltip("The lifetime of this gameobject in seconds")]
     public float lifetime = 5.0f;
-
-    // The amount of time this gameobject has already existed in play mode
-    private float timeAlive = 0.0f;
 
     [Tooltip("Whether or not to destroy child gameobjects when this gameobject is destroyed")]
     public bool destroyChildrenOnDeath = true;
 
-    /// <summary>
-    /// Description:
-    /// Standard Unity function called once every frame
-    /// Input: 
-    /// none
-    /// Returns: 
-    /// void (no return)
-    /// </summary>
+    // Sử dụng TickTimer để đồng bộ thời gian hủy tuyệt đối chính xác qua internet
+    [Networked] private TickTimer _lifetimeTimer { get; set; }
+
+    // Dùng cho trường hợp đồ họa local không có kết nối mạng (Bọc mỏ neo an toàn)
+    private float _localTimeAlive = 0f;
+
+    // Thay thế Start() bằng Spawned() để kích hoạt bộ đếm thời gian mạng ngay khi xuất hiện
+    public override void Spawned()
+    {
+        base.Spawned();
+
+        // Chỉ máy nắm quyền điều khiển đối tượng (Master Client) mới được đặt giờ hủy mạng
+        if (Object != null && Object.HasStateAuthority)
+        {
+            _lifetimeTimer = TickTimer.CreateFromSeconds(Runner, lifetime);
+        }
+
+        _localTimeAlive = 0f;
+    }
+
+    // Logic kiểm tra hủy mạng đặt trong FixedUpdateNetwork (FUN)
+    public override void FixedUpdateNetwork()
+    {
+        base.FixedUpdateNetwork();
+
+        // TRƯỜNG HỢP 1: Đây là một đối tượng kết nối mạng (NetworkObject)
+        if (Object != null)
+        {
+            // Chỉ Trọng tài (State Authority) mới có quyền ra lệnh xóa đối tượng khỏi phòng chơi
+            if (Object.HasStateAuthority)
+            {
+                if (_lifetimeTimer.Expired(Runner))
+                {
+                    DoDeathContext();
+                }
+            }
+        }
+    }
+
+    // Luồng Update thường chỉ phục vụ cho các hiệu ứng hạt local (VFX chớp đỏ, khói bếp dải local)
     void Update()
     {
-        // Every frame, increment the amount of time that this gameobject has been alive,
-        // or if it has exceeded it's maximum lifetime, destroy it
-        if (timeAlive > lifetime)
+        // TRƯỜNG HỢP 2: Đây là đối tượng đồ họa local thuần túy (Instantiate thủ công, Object mạng bằng null)
+        if (Object == null)
+        {
+            _localTimeAlive += Time.deltaTime;
+            if (_localTimeAlive >= lifetime)
+            {
+                DoDeathContext();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Xử lý dọn dẹp vòng đời đối tượng thích ứng theo môi trường mạng/cục bộ
+    /// </summary>
+    private void DoDeathContext()
+    {
+        // Nếu là đối tượng mạng, thực hiện Despawn truyền tin toàn phòng
+        if (Object != null && Object.HasStateAuthority)
+        {
+            Runner.Despawn(Object);
+        }
+        // Nếu là đối tượng local, dùng Destroy thường để giải phóng RAM máy local
+        else if (Object == null)
         {
             Destroy(this.gameObject);
         }
-        else
-        {
-            timeAlive += Time.deltaTime;
-        }
     }
 
-    // Flag which tells whether the application is shutting down (helps avoid errors)
+    // Cờ báo ngắt ứng dụng hỗ trợ tránh lỗi Null khi tắt Engine
     public static bool quitting = false;
 
-    /// <summary>
-    /// Description:
-    /// Ensures that the quitting flag gets set correctly to avoid work as the application quits
-    /// Input: 
-    /// none
-    /// Return: 
-    /// void (no return)
-    /// </summary>
     private void OnApplicationQuit()
     {
         quitting = true;
-        DestroyImmediate(this.gameObject);
+    }
+
+    // Tận dụng hàm kết thúc vòng đời tích hợp sẵn của Fusion 2
+    public override void Despawned(NetworkRunner runner, bool hasStateAuthority)
+    {
+        base.Despawned(runner, hasStateAuthority);
+        HandleChildrenCleanup();
+    }
+
+    private void OnDestroy()
+    {
+        HandleChildrenCleanup();
     }
 
     /// <summary>
-    /// Description:
-    /// Behavior which triggers when this component is destroyed
-    /// Input: 
-    /// none
-    /// Returns:
-    /// void (no return)
+    /// Logic dọn dẹp các GameObject con đính kèm từ đồ án cũ
     /// </summary>
-    private void OnDestroy()
+    private void HandleChildrenCleanup()
     {
         if (destroyChildrenOnDeath && !quitting && Application.isPlaying)
         {
             int childCount = transform.childCount;
             for (int i = childCount - 1; i >= 0; i--)
             {
-                GameObject childObject = transform.GetChild(i).gameObject;
-                if (childObject != null)
+                if (transform.GetChild(i) != null)
                 {
-                    Destroy(childObject);
+                    GameObject childObject = transform.GetChild(i).gameObject;
+                    if (childObject != null)
+                    {
+                        // Nếu con là đối tượng vật lý mạng thường, để Runner tự quản lý,
+                        // Ở đây chỉ Destroy các thành phần Sprite/UI con local đính kèm
+                        Destroy(childObject);
+                    }
                 }
             }
         }

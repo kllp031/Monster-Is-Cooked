@@ -29,7 +29,7 @@ public class CustomerTimerOnline : NetworkBehaviour
     {
         if (time < 0) return;
         CountingTime = time;
-        Debug.Log("Set timer: " + CountingTime + " seconds");
+        //Debug.Log("Set timer: " + CountingTime + " seconds");
     }
     public void StopTimer()
     {
@@ -51,8 +51,8 @@ public class CustomerTimerOnline : NetworkBehaviour
         IsRunning = true;
         PreviousCounterValue = CountingTime;
         TickTimer = TickTimer.CreateFromSeconds(Runner, CountingTime);
-        Debug.Log("Start counting: " + CountingTime + " seconds");
-        Debug.Log("Start timer: " + TickTimer.RemainingTime(Runner) + " seconds remaining");
+        //Debug.Log("Start counting: " + CountingTime + " seconds");
+        //Debug.Log("Start timer: " + TickTimer.RemainingTime(Runner) + " seconds remaining");
     }
     private void Update()
     {
@@ -60,7 +60,7 @@ public class CustomerTimerOnline : NetworkBehaviour
 
         if (TickTimer.Expired(Runner))
         {
-            Debug.Log("Timer expired!");
+            //Debug.Log("Timer expired!");
             TickTimer = TickTimer.None;
             receiveTimeUpStatus?.Invoke();
             StopTimer();

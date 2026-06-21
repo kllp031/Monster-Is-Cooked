@@ -18,6 +18,8 @@ GameObject:
   - component: {fileID: 123529094380018272}
   - component: {fileID: 1063999194062447462}
   - component: {fileID: 5563019302600892232}
+  - component: {fileID: 317949891578148127}
+  - component: {fileID: 1932425552667719765}
   m_Layer: 6
   m_Name: Skull
   m_TagString: Enemy
@@ -151,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
-  currentEnemyState: 0
+  _currentEnemyState: 0
   lastEnemyState: 0
   target: {fileID: 0}
   attackSound: {fileID: 8300000, guid: 197e7423d8aaf72469083b2e7349d050, type: 3}
@@ -171,6 +173,10 @@ MonoBehaviour:
     m_Bits: 16
   _wallCheckDistance: 1
   _hurtTime: 0.3
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  _targetScanInterval: 0.5
   isFlip: 0
 --- !u!114 &2732949147617335508
 MonoBehaviour:
@@ -202,10 +208,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamId: 1
   maximumHealth: 12
-  currentHealth: 12
+  _currentHealth: 0
   invincibilityTime: 0.2
-  isDeath: 0
-  isInvincible: 0
+  _isDeath:
+    _value: 0
   deathEffect: {fileID: 0}
   hitEffect: {fileID: 0}
 --- !u!61 &123529094380018272
@@ -296,6 +302,46 @@ MonoBehaviour:
   pickupPrefabs:
   - {fileID: 8502819326897545693, guid: 8310f902fbd67064a985c3b3d809594c, type: 3}
   scatterForce: 3
+--- !u!114 &317949891578148127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414997399478777626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 3886049529
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 5677990099098042202}
+  - {fileID: 2732949147617335508}
+  - {fileID: 3512796365227055692}
+  - {fileID: 1932425552667719765}
+  - {fileID: 4864203283963411376}
+  ForceRemoteRenderTimeframe: 0
+--- !u!114 &1932425552667719765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414997399478777626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stateAuthorityChangeErrorCorrectionDelta: 0
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0
 --- !u!1 &8291685978871655545
 GameObject:
   m_ObjectHideFlags: 0

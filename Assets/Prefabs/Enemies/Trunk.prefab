@@ -20,6 +20,8 @@ GameObject:
   - component: {fileID: 3070312616819003423}
   - component: {fileID: 3295086131417113482}
   - component: {fileID: 8395950838598475222}
+  - component: {fileID: 6738262693925642114}
+  - component: {fileID: 5438926723936614001}
   m_Layer: 6
   m_Name: Trunk
   m_TagString: Enemy
@@ -171,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
-  currentEnemyState: 0
+  _currentEnemyState: 0
   lastEnemyState: 0
   target: {fileID: 0}
   attackSound: {fileID: 8300000, guid: cc32f35297dc72d4790e9896cbd2bdfc, type: 3}
@@ -191,6 +193,10 @@ MonoBehaviour:
     m_Bits: 0
   _wallCheckDistance: 1
   _hurtTime: 2
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  _targetScanInterval: 0.5
   isFlip: 1
 --- !u!114 &5464024470980497880
 MonoBehaviour:
@@ -206,10 +212,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamId: 1
   maximumHealth: 30
-  currentHealth: 30
+  _currentHealth: 0
   invincibilityTime: 0
-  isDeath: 0
-  isInvincible: 0
+  _isDeath:
+    _value: 0
   deathEffect: {fileID: 0}
   hitEffect: {fileID: 0}
 --- !u!61 &8031024437997283880
@@ -331,6 +337,47 @@ MonoBehaviour:
   _damageObject: {fileID: 7091885112481985104}
   _hitboxActiveTime: 0.2
   _startDelay: 0.1
+--- !u!114 &6738262693925642114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483601699737180059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 2932148917
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 8929811139552048039}
+  - {fileID: 3862904088699458552}
+  - {fileID: 5464024470980497880}
+  - {fileID: 8395950838598475222}
+  - {fileID: 5438926723936614001}
+  - {fileID: 919468918220682214}
+  ForceRemoteRenderTimeframe: 0
+--- !u!114 &5438926723936614001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483601699737180059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stateAuthorityChangeErrorCorrectionDelta: 0
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0
 --- !u!1 &1384017618412455027
 GameObject:
   m_ObjectHideFlags: 0

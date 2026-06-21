@@ -21,7 +21,7 @@ public class PlayerInventory : MonoBehaviour
     public void TestClearInventory()
     {
         inventoryData.ClearInventory();
-        Debug.Log("Inventory Cleared via Inspector!"); // Optional: visual confirmation
+        //Debug.Log("Inventory Cleared via Inspector!"); // Optional: visual confirmation
     }
 
     public void OnInventory(InputAction.CallbackContext context)

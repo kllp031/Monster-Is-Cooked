@@ -12,7 +12,7 @@ public class EmptyState : CustomerState
 
     protected override void OnEnter()
     {
-        Debug.Log("Customer enters an empty state!");
+        //Debug.Log("Customer enters an empty state!");
     }
 
     protected override void OnExit()

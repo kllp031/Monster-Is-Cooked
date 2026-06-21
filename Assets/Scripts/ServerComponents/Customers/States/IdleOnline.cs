@@ -11,10 +11,10 @@ public class IdleOnline : CustomerStateOnline
     }
     protected override void OnEnter()
     {
-        Debug.Log("Idle enter: " + customer.TablePathDetails.PointCount);
+        //Debug.Log("Idle enter: " + customer.TablePathDetails.PointCount);
         if (customer.TablePathDetails.PointCount > 0)
         {
-            Debug.Log("Idle enter: " + customer.TablePathDetails.Points[0]);
+            //Debug.Log("Idle enter: " + customer.TablePathDetails.Points[0]);
             if (customer.TryGetComponent(out NetworkTransform networkTransform))
             {
                 networkTransform.Teleport(customer.TablePathDetails.Points[0], Quaternion.identity);

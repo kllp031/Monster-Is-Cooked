@@ -68,15 +68,15 @@ public abstract class CustomerStateOnline : NetworkBehaviour
     protected void RPC_SetAnimator()
     {
         customerAnimator = customer.CustomerAnimator;
-        if (customerAnimator == null) Debug.LogWarning("Customer doesn't have any animator assigned!");
+        //if (customerAnimator == null) Debug.LogWarning("Customer doesn't have any animator assigned!");
         //else customerAnimator.SetTrigger(animatorTrigger);
-        else if (!string.IsNullOrEmpty(animatorBool)) customerAnimator.SetBool(animatorBool, true);
+        if (customerAnimator != null && !string.IsNullOrEmpty(animatorBool)) customerAnimator.SetBool(animatorBool, true);
     }
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
     protected void RPC_UnsetAnimator()
     {
         customerAnimator = customer.CustomerAnimator;
-        if (customerAnimator == null) Debug.LogWarning("Customer doesn't have any animator assigned!");
-        else if (!string.IsNullOrEmpty(animatorBool)) customerAnimator.SetBool(animatorBool, false);
+        //if (customerAnimator == null) Debug.LogWarning("Customer doesn't have any animator assigned!");
+        if (customerAnimator != null && !string.IsNullOrEmpty(animatorBool)) customerAnimator.SetBool(animatorBool, false);
     }
 }
