@@ -95,6 +95,16 @@ public class CustomerOnline : NetworkBehaviour, IInteractable
         }
     }
 
+    //public override void Despawned(NetworkRunner runner, bool hasState)
+    //{
+    //    Debug.LogWarning($"[CustomerDebug] Despawned! hasState: {hasState}. Current Authority: {Object.StateAuthority}");
+    //    Debug.LogWarning($"[CustomerDebug] Despawn StackTrace:\n{System.Environment.StackTrace}");
+    //}
+    //private void OnDestroy()
+    //{
+    //    Debug.LogWarning($"[CustomerDebug] OnDestroy! StackTrace:\n{System.Environment.StackTrace}");
+    //}
+
     public override void Render()
     {
         CheckForPlayer();
@@ -227,6 +237,11 @@ public class CustomerOnline : NetworkBehaviour, IInteractable
     {
         if (foodRequestBox != null) foodRequestBox.SetBool(foodRequestBoxAnimatorBool, false);
     }
+    [Rpc(sources: RpcSources.StateAuthority, targets: RpcTargets.All)]
+    public void RPC_ActivateTimer(bool active)
+    {
+        if (customerTimer != null) customerTimer.gameObject.SetActive(active);
+    }
 
     private void ShowRequestedFood()
     {
@@ -249,12 +264,12 @@ public class CustomerOnline : NetworkBehaviour, IInteractable
         if (customerTimer != null)
         {
             //Debug.Log("Timer before: " + customerTimer.gameObject.activeInHierarchy);
-            customerTimer.gameObject.SetActive(true);
             //Debug.Log("Timer after: " + customerTimer.gameObject.activeInHierarchy);
             //Debug.Log("Customer details waiting time: " + CustomerDetail.WaitingTime);
             customerTimer.SetTimer(CustomerDetail.WaitingTime);
             customerTimer.ResetTimer();
             customerTimer.StartTimer();
+            RPC_ActivateTimer(true);
         }
     }
     public bool ProcessFood(string recipeName)
@@ -290,7 +305,7 @@ public class CustomerOnline : NetworkBehaviour, IInteractable
         if (customerTimer != null)
         {
             customerTimer.StopTimer();
-            customerTimer.gameObject.SetActive(false);
+            RPC_ActivateTimer(false);
         }
         if (TablesManagerOnline.Instance != null) TablesManagerOnline.Instance.ReturnTable(Object.Id);
 

@@ -54,12 +54,12 @@ public class CustomerTimerOnline : NetworkBehaviour
         //Debug.Log("Start counting: " + CountingTime + " seconds");
         //Debug.Log("Start timer: " + TickTimer.RemainingTime(Runner) + " seconds remaining");
     }
-    private void Update()
-    {
-        if (Object == null || !Object.IsValid) return;
-        if (!IsRunning || Runner == null || !Runner.IsSharedModeMasterClient) return;
 
-        if (TickTimer.Expired(Runner))
+    public override void Render()
+    {
+        if (!IsRunning) return;
+
+        if (TickTimer.Expired(Runner) && Runner != null && Runner.IsSharedModeMasterClient)
         {
             //Debug.Log("Timer expired!");
             TickTimer = TickTimer.None;
@@ -75,18 +75,56 @@ public class CustomerTimerOnline : NetworkBehaviour
                 timerSlider.value = (float)TickTimer.RemainingTime(Runner) / CountingTime;
             }
 
-            // Check if timer has exceeded any mood change points -> announce all listeners
-            foreach (var point in timerPoints)
+            if (Runner != null && Runner.IsSharedModeMasterClient)
             {
-                if (PreviousCounterValue / CountingTime >= point.TimePoint && (float)TickTimer.RemainingTime(Runner) / CountingTime < point.TimePoint)
+                // Check if timer has exceeded any mood change points -> announce all listeners
+                foreach (var point in timerPoints)
                 {
-                    receiveMoodStatus?.Invoke(point.Mood);
-                    break;
+                    if (PreviousCounterValue / CountingTime >= point.TimePoint && (float)TickTimer.RemainingTime(Runner) / CountingTime < point.TimePoint)
+                    {
+                        receiveMoodStatus?.Invoke(point.Mood);
+                        break;
+                    }
                 }
-            }
 
-            PreviousCounterValue = (float)TickTimer.RemainingTime(Runner);
+                PreviousCounterValue = (float)TickTimer.RemainingTime(Runner);
+            }
         }
+    }
+
+    private void Update()
+    {
+        //if (Object == null || !Object.IsValid) return;
+        //if (!IsRunning || Runner == null || !Runner.IsSharedModeMasterClient) return;
+
+        //if (TickTimer.Expired(Runner))
+        //{
+        //    //Debug.Log("Timer expired!");
+        //    TickTimer = TickTimer.None;
+        //    receiveTimeUpStatus?.Invoke();
+        //    StopTimer();
+        //    return;
+        //}
+
+        //if (TickTimer.IsRunning)
+        //{
+        //    if (timerSlider != null)
+        //    {
+        //        timerSlider.value = (float)TickTimer.RemainingTime(Runner) / CountingTime;
+        //    }
+
+        //    // Check if timer has exceeded any mood change points -> announce all listeners
+        //    foreach (var point in timerPoints)
+        //    {
+        //        if (PreviousCounterValue / CountingTime >= point.TimePoint && (float)TickTimer.RemainingTime(Runner) / CountingTime < point.TimePoint)
+        //        {
+        //            receiveMoodStatus?.Invoke(point.Mood);
+        //            break;
+        //        }
+        //    }
+
+        //    PreviousCounterValue = (float)TickTimer.RemainingTime(Runner);
+        //}
     }
 
     [Serializable]
