@@ -53,6 +53,15 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
                                 null);
     }
 
+    public Task<StartGameResult> JoinRoomOnly(GameMode gameMode, string roomId)
+    {
+        return InitializeNetworkRunner(gameMode,
+                                roomId,
+                                NetAddress.Any(),
+                                SceneRef.None,
+                                null);
+    }
+
     /// <summary>
     /// Cleanup sau khi StartGame fail hoặc khi player chủ động rời phòng.
     /// Cần gọi để cho phép user thử join lại — nếu không, <see cref="NetworkRunner"/>
