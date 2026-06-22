@@ -172,6 +172,7 @@ MonoBehaviour:
   amount: 1
   autoUpdateSprite: 1
   itemEffect: {fileID: 1257857300690399873, guid: 647b4b1208f6a334fb2fa0512baa6cae, type: 3}
+  pickupDelay: 0.3
 --- !u!114 &-741426467054418598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,7 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SortKey: 1330641533
   ObjectInterest: 1
-  Flags: 262145
+  Flags: 131073
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 5400263096294057279}
