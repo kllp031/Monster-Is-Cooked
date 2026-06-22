@@ -37,10 +37,10 @@ public class JoinRoom : MonoBehaviour
             SetStatus("Nhập mã phòng trước khi vào.");
             return;
         }
-        await StartJoin();
+        await StartJoin(joinOnly: true);
     }
 
-    private async System.Threading.Tasks.Task StartJoin()
+    private async System.Threading.Tasks.Task StartJoin(bool joinOnly = false)
     {
         //Debug.Log("[JoinRoom] Đang join, bỏ qua click lặp.");
         if (isJoining) return;
@@ -76,7 +76,9 @@ public class JoinRoom : MonoBehaviour
         StartGameResult res;
         try
         {
-            res = await NetworkManager.Instance.JoinRoom(gameMode, roomIdInput.text, lobbySceneIndex);
+            res = joinOnly
+                ? await NetworkManager.Instance.JoinRoomOnly(gameMode, roomIdInput.text)
+                : await NetworkManager.Instance.JoinRoom(gameMode, roomIdInput.text, lobbySceneIndex);
         }
         catch (System.Exception)
         {
@@ -98,6 +100,22 @@ public class JoinRoom : MonoBehaviour
             isJoining = false;
             SetButtonsInteractable(true);
             return;
+        }
+
+        if (joinOnly)
+        {
+            // Nếu chỉ có mình ta trong phòng → ta vừa tạo phòng mới (phòng chưa tồn tại).
+            var runner = NetworkManager.Instance.NetworkRunner;
+            if (runner == null || runner.SessionInfo.PlayerCount <= 1)
+            {
+                await NetworkManager.Instance.CleanupNetworkRunnerAsync();
+                SetStatus("Phòng không tồn tại.");
+                isJoining = false;
+                SetButtonsInteractable(true);
+                return;
+            }
+            // Phòng tồn tại → load scene lobby thủ công.
+            runner.LoadScene(SceneRef.FromIndex(lobbySceneIndex));
         }
 
         // Thành công: NetworkRunner sẽ tự load scene Lobby. Không reset isJoining
