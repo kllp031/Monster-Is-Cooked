@@ -9,8 +9,7 @@
 - Member: Quách Bùi Song Đăng - 23520235 - [Github](https://github.com/SongDang)
 
 **Supervisors**:
-
-- Quan Chí Khánh An - anqck@uit.edu.vn
+- Đặng Việt Dũng - dungdv@uit.edu.vn
 
 **Description**: Monster is Cooked is a fast-paced management game where you play as a combat chef. Your mission is to serve hungry diners and meet a daily profit quota to advance. When your pantry runs dry, you must venture into wild zones to hunt monsters for fresh ingredients. But be careful-falling in battle ends your workday instantly, jeopardizing your chances of hitting the required quota. You must balance chaotic kitchen management with dangerous dungeon crawling. Between shifts, use your earnings to upgrade your damage and speed, eventually unlocking complex recipes and new hunting grounds.
 
@@ -26,9 +25,9 @@
 3. **Press Play in the Unity Editor to run the game.**
 
 **Additional information**:
-* **Course**:  SE115.Q1 - Semester 1, 2025-2026.
+* **Course**:  SE315.Q21 - Semester 2, 2025-2026.
 * **Duration**: 1 months (From November 2025 to Dec 2025).
-* **Scope**: A 2D Topdown fighting, Cooking, Action-Survival game combining combat and resource management mechanics.
+* **Scope**: Multiplayer Co-op, 2D Topdown fighting, Cooking, Action-Survival game combining combat and resource management mechanics.
 * **Target Platform**: Mobile.
 
 **Code of conducting**:
