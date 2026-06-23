@@ -119,8 +119,7 @@ public struct TableDetailOnline : INetworkStruct
 [Serializable]
 public struct PathDetails : INetworkStruct
 {
-    [Networked]
-    public int PointCount { get; set; }
+    [Networked] public int PointCount { get; set; }
     [Networked, Capacity(20)]
     public NetworkArray<Vector2> Points => default;
     public PathDetails(Path path)

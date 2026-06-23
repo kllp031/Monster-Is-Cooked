@@ -114,8 +114,8 @@ public class JoinRoom : MonoBehaviour
                 SetButtonsInteractable(true);
                 return;
             }
-            // Phòng tồn tại → load scene lobby thủ công.
-            runner.LoadScene(SceneRef.FromIndex(lobbySceneIndex));
+            // Không cần load scene, vì join room thành công thì client sẽ tự join room mà MasterClient đã load
+            // runner.LoadScene(SceneRef.FromIndex(lobbySceneIndex));
         }
 
         // Thành công: NetworkRunner sẽ tự load scene Lobby. Không reset isJoining
