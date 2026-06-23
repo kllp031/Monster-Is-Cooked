@@ -5323,6 +5323,7 @@ MonoBehaviour:
   roomNameField: {fileID: 753139754}
   readyPlayerCountText: {fileID: 462578749}
   startGameTimerText: {fileID: 2035164428}
+  startButton: {fileID: 638444851}
   playerInRoomButtons:
   - {fileID: 1667925365}
   - {fileID: 840364847}
