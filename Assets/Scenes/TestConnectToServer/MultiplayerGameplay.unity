@@ -7825,7 +7825,7 @@ Transform:
   m_GameObject: {fileID: 1255790194}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.77, y: 1.04, z: 0}
+  m_LocalPosition: {x: -3.76, y: 1.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -97332,7 +97332,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joystick: {fileID: 1681704721}
   dashCooldownEffect: {fileID: 1220593992}
-  spawnPosition: {fileID: 1255790195}
+  spawnPosition: {fileID: 0}
   screenSpaceHealthBar: {fileID: 8429026107848219046}
 --- !u!114 &7013710247075502849
 MonoBehaviour:
