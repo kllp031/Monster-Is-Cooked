@@ -1,6 +1,7 @@
 using Fusion;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManagerOnline : NetworkBehaviour
@@ -15,6 +16,8 @@ public class GameManagerOnline : NetworkBehaviour
     [Networked] public bool LevelStarted { get; set; }
     [Networked] public bool GameStarted { get; set; }
     [Networked] public int LevelNumber { get; set; }
+    [Networked] public int RetryReadyCount { get; set; }
+    [Networked] public bool IsWaitingForRetry { get; set; }
 
     public static GameManagerOnline Instance { get; private set; }
 
@@ -82,6 +85,8 @@ public class GameManagerOnline : NetworkBehaviour
             CollectedMoney = bonusMoney;
             LevelStartTime = Runner.SimulationTime;
             LevelStarted = true;
+            RetryReadyCount = 0;
+            IsWaitingForRetry = false;
         }
 
         OnLevelStarted?.Invoke();
@@ -120,9 +125,21 @@ public class GameManagerOnline : NetworkBehaviour
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
     private void RPC_BroadcastLevelEnd(bool win, bool gameOver)
     {
+        if (Object.HasStateAuthority)
+        {
+            RetryReadyCount = 0;
+            IsWaitingForRetry = !win;
+        }
+
         LocalPlayerData.Instance?.Data?.EarnMoney(CollectedMoney);
 
         OnLevelEnd?.Invoke(win);
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RPC_PlayerPressedRetry()
+    {
+        RetryReadyCount++;
     }
 
     /// <summary>

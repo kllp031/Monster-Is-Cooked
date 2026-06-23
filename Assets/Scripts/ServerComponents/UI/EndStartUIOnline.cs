@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Linq;
 using TMPro;
 
 /// <summary>
@@ -23,6 +24,8 @@ public class EndStartUIOnline : MonoBehaviour
 
     [Header("Multiplayer")]
     [SerializeField] TMP_Text waitingForHostText;
+
+    private bool _hasClickedRetry;
 
     [SerializeField] TMP_Text startUICustomersText;
     [SerializeField] TMP_Text startUIGoalText;
@@ -87,9 +90,25 @@ public class EndStartUIOnline : MonoBehaviour
         if (IsMultiplayerActive())
         {
             bool isMaster = IsLocalMasterClient();
-            startBtn.interactable = isMaster;
+            bool allRetried = AllPlayersRetried();
+            startBtn.interactable = isMaster && allRetried;
             if (waitingForHostText != null)
-                waitingForHostText.gameObject.SetActive(!isMaster);
+            {
+                if (!isMaster)
+                {
+                    waitingForHostText.gameObject.SetActive(true);
+                    waitingForHostText.text = "Chờ host bắt đầu...";
+                }
+                else if (!allRetried)
+                {
+                    waitingForHostText.gameObject.SetActive(true);
+                    waitingForHostText.text = "Chờ người chơi khác...";
+                }
+                else
+                {
+                    waitingForHostText.gameObject.SetActive(false);
+                }
+            }
         }
         else
         {
@@ -119,6 +138,15 @@ public class EndStartUIOnline : MonoBehaviour
         return NetworkManager.Instance != null
             && NetworkManager.Instance.NetworkRunner != null
             && NetworkManager.Instance.NetworkRunner.IsSharedModeMasterClient;
+    }
+
+    private static bool AllPlayersRetried()
+    {
+        var gmo = GameManagerOnline.Instance;
+        var runner = NetworkManager.Instance?.NetworkRunner;
+        if (gmo == null || runner == null || gmo.Object == null || !gmo.Object.IsValid) return true;
+        if (!gmo.IsWaitingForRetry) return true;
+        return gmo.RetryReadyCount >= runner.ActivePlayers.Count();
     }
 
     private void HandleLevelStartedRemote()
@@ -218,6 +246,7 @@ public class EndStartUIOnline : MonoBehaviour
 
     private void OnLevelEnd(bool isWin)
     {
+        _hasClickedRetry = false;
         if (isWin) ToggleWinUI(); else ToggleFailUI();
         ApplyEndPanelTheme(isWin);
         ToggleEndScreen(true);
@@ -244,6 +273,11 @@ public class EndStartUIOnline : MonoBehaviour
 
     public void OnRetryClicked()
     {
+        if (!_hasClickedRetry && IsMultiplayerActive() && GameManagerOnline.Instance != null)
+        {
+            _hasClickedRetry = true;
+            GameManagerOnline.Instance.RPC_PlayerPressedRetry();
+        }
         if (_sequenceRoutine != null) StopCoroutine(_sequenceRoutine);
         _sequenceRoutine = StartCoroutine(ReturnToStartSequence());
     }
