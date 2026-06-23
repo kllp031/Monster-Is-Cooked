@@ -36,16 +36,17 @@ public class CustomersSpawnerOnline : NetworkBehaviour
 
     private void Start()
     {
-        if (GameManagerOnline.Instance != null)
-        {
-            GameManagerOnline.OnLevelStarted += OnLevelStart;
-            GameManagerOnline.OnLevelEnd += OnLevelEnd;
-        }
     }
 
     public override void Spawned()
     {
         base.Spawned();
+
+        if (GameManagerOnline.Instance != null)
+        {
+            GameManagerOnline.OnLevelStarted += OnLevelStart;
+            GameManagerOnline.OnLevelEnd += OnLevelEnd;
+        }
     }
 
     public void OnLevelStart()
