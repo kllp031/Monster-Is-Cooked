@@ -81,10 +81,13 @@ public class Health : NetworkBehaviour
     // Returns max HP supporting both offline (PlayerDataManager) and online (PlayerDataManagerOnline).
     public int GetMaxHealth()
     {
+        // Online manager on this player is authoritative in multiplayer; check it first.
+        var pdmOnline = GetComponent<PlayerDataManagerOnline>();
+        if (pdmOnline != null)
+            return pdmOnline.CurrentMaxHealth;
         if (PlayerDataManager.Instance != null)
             return PlayerDataManager.Instance.CurrentMaxHealth;
-        var pdmOnline = GetComponent<PlayerDataManagerOnline>();
-        return pdmOnline != null ? pdmOnline.CurrentMaxHealth : maximumHealth;
+        return maximumHealth;
     }
 
     public void Respawn()

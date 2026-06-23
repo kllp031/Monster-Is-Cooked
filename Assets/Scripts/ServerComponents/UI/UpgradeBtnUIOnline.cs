@@ -1,6 +1,7 @@
 using System.Text;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Online variant of UpgradeBtnUI. Reads/writes PlayerDataManagerOnline via LocalPlayerData.
@@ -14,6 +15,12 @@ public class UpgradeBtnUIOnline : MonoBehaviour
     [SerializeField] TMP_Text costText;
 
     private PlayerDataManagerOnline data => LocalPlayerData.Instance?.Data;
+
+    private void Awake()
+    {
+        var button = GetComponent<Button>();
+        if (button != null) button.onClick.AddListener(OnClick);
+    }
 
     private void OnEnable() => UpdateBtnUI();
 

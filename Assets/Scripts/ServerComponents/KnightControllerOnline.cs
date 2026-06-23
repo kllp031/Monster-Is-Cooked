@@ -32,6 +32,7 @@ public class KnightControllerOnline : NetworkBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private Health health;
+    private PlayerDataManagerOnline data;
 
     [SerializeField] private float deadZone = 0.05f;
     private Vector2 inputFromJoystick;
@@ -57,6 +58,7 @@ public class KnightControllerOnline : NetworkBehaviour
     {
         animator = GetComponent<Animator>();
         health = GetComponent<Health>();
+        data = GetComponent<PlayerDataManagerOnline>();
 
         GameManagerOnline.OnLevelStarted += HandleLevelStarted;
 
@@ -126,7 +128,8 @@ public class KnightControllerOnline : NetworkBehaviour
             }
         }
 
-        Vector2 move = moveInput * 5.0f * Runner.DeltaTime;
+        float speed = data != null ? data.CurrentSpeed : 5.0f;
+        Vector2 move = moveInput * speed * Runner.DeltaTime;
         rb.MovePosition(rb.position + move);
     }
 
