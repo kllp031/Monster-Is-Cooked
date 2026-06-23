@@ -24,6 +24,7 @@ public class GameManagerOnline : NetworkBehaviour
     public static event Action OnLevelStarted;
     public static event Action<bool> OnLevelEnd;
     public static event Action OnCollectedMoneyChanged;
+    public static event Action OnNextLevelReady;
 
     private void Awake()
     {
@@ -171,6 +172,13 @@ public class GameManagerOnline : NetworkBehaviour
     {
         if (!Object.HasStateAuthority) return;
         LevelNumber++;
+        RPC_BroadcastNextLevel();
+    }
+
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void RPC_BroadcastNextLevel()
+    {
+        OnNextLevelReady?.Invoke();
     }
 
     public LevelDetailOnline GetCurrentLevelDetail()
