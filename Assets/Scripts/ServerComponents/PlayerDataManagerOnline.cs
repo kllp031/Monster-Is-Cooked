@@ -125,11 +125,18 @@ public class PlayerDataManagerOnline : NetworkBehaviour
         TotalMoney = newMoney;
         switch (type)
         {
-            case StatType.Health:      HealthLevel = newLevel;      break;
+            case StatType.Health:      HealthLevel = newLevel;      RefreshHealthToMax(); break;
             case StatType.Speed:       SpeedLevel = newLevel;       break;
             case StatType.Attack:      AttackLevel = newLevel;      break;
             case StatType.BonusMoney:  BonusMoneyLevel = newLevel;  break;
         }
+    }
+
+    // State authority only: heal to new max when Health level rises.
+    private void RefreshHealthToMax()
+    {
+        var health = GetComponent<Health>();
+        if (health != null) health.currentHealth = CurrentMaxHealth;
     }
 
     // ==================== HELPERS ====================
