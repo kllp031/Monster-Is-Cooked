@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: -804404763868193634}
   - component: {fileID: 183747811866773305}
   - component: {fileID: 5403899802358144788}
+  - component: {fileID: 2958296332651150195}
   m_Layer: 8
   m_Name: OnlinePlayer
   m_TagString: Player
@@ -261,6 +262,7 @@ MonoBehaviour:
   - {fileID: -804404763868193634}
   - {fileID: 183747811866773305}
   - {fileID: 5403899802358144788}
+  - {fileID: 2958296332651150195}
   - {fileID: 7460412276656462401}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &2617239783800030927
@@ -407,6 +409,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: {fileID: 8970829363556102429}
+--- !u!114 &2958296332651150195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55562736604931091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3de24facff765e144b62bafef599c29f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3131607796444782362
 GameObject:
   m_ObjectHideFlags: 0

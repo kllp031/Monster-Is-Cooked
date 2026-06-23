@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Lobby : NetworkBehaviour
 {
@@ -13,6 +14,7 @@ public class Lobby : NetworkBehaviour
     [SerializeField] TextMeshProUGUI roomNameField;
     [SerializeField] TextMeshProUGUI readyPlayerCountText;
     [SerializeField] TextMeshProUGUI startGameTimerText;
+    [SerializeField] Button startButton;
     [SerializeField] List<PlayerInRoomButton> playerInRoomButtons = new();
     [SerializeField] string mainGameSceneName = "";
     [Range(0f, 1f)]
@@ -51,9 +53,12 @@ public class Lobby : NetworkBehaviour
                 int minutes = Mathf.FloorToInt(totalSeconds / 60);
                 int seconds = Mathf.FloorToInt(totalSeconds % 60);
 
-                startGameTimerText.text = $"Game starts in: {minutes : 00} : {seconds : 00}";
+                startGameTimerText.text = $"Game starts in: {minutes: 00} : {seconds: 00}";
             }
         }
+
+        if (startButton != null && NetworkManager.Instance?.NetworkRunner != null)
+            startButton.interactable = NetworkManager.Instance.NetworkRunner.IsSharedModeMasterClient;
 
         base.Render();
     }
@@ -108,7 +113,7 @@ public class Lobby : NetworkBehaviour
         }
 
         var playersInRoom = NetworkManager.Instance.NetworkRunner.ActivePlayers;
-        foreach(var playerInRoomButton in playerInRoomButtons)
+        foreach (var playerInRoomButton in playerInRoomButtons)
         {
             playerInRoomButton.gameObject.SetActive(false);
         }
@@ -146,10 +151,7 @@ public class Lobby : NetworkBehaviour
     public void StartGame()
     {
         if (NetworkManager.Instance == null) return;
-        if (!NetworkManager.Instance.NetworkRunner.IsSharedModeMasterClient)
-        {
-            //Debug.LogWarning("You cannot perform this action!"); return;
-        }
+        if (!NetworkManager.Instance.NetworkRunner.IsSharedModeMasterClient) return;
         if (!startGameTimer.IsRunning)
         {
             startGameTimer = TickTimer.CreateFromSeconds(NetworkManager.Instance.NetworkRunner, startGameTime);
@@ -219,7 +221,7 @@ public class Lobby : NetworkBehaviour
     //        startGameTimer = TickTimer.None;
     //    }
     //}
-    
+
     [Rpc(RpcSources.All, RpcTargets.All)]
     private void RPC_AskForUsername([RpcTarget] PlayerRef target, PlayerRef requester)
     {
@@ -232,7 +234,7 @@ public class Lobby : NetworkBehaviour
     private void RPC_AnswerUsername([RpcTarget] PlayerRef requester, PlayerRef responder, string username)
     {
         //Debug.Log(responder + " answered " + requester);
-        foreach(var playerInRoomButton in playerInRoomButtons)
+        foreach (var playerInRoomButton in playerInRoomButtons)
         {
             if (playerInRoomButton == null) continue;
             if (playerInRoomButton.gameObject.activeInHierarchy == true && playerInRoomButton.ID == responder.PlayerId)

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Linq;
 using TMPro;
 
 /// <summary>
@@ -23,6 +24,9 @@ public class EndStartUIOnline : MonoBehaviour
 
     [Header("Multiplayer")]
     [SerializeField] TMP_Text waitingForHostText;
+    [SerializeField] TMP_Text waitingForNextText;
+
+    private bool _hasClickedRetry;
 
     [SerializeField] TMP_Text startUICustomersText;
     [SerializeField] TMP_Text startUIGoalText;
@@ -74,6 +78,7 @@ public class EndStartUIOnline : MonoBehaviour
 
         WireButtons();
         GameManagerOnline.OnLevelStarted += HandleLevelStartedRemote;
+        GameManagerOnline.OnNextLevelReady += HandleNextLevelReady;
         ToggleStartScreen(true);
     }
 
@@ -87,9 +92,25 @@ public class EndStartUIOnline : MonoBehaviour
         if (IsMultiplayerActive())
         {
             bool isMaster = IsLocalMasterClient();
-            startBtn.interactable = isMaster;
+            bool allRetried = AllPlayersRetried();
+            startBtn.interactable = isMaster && allRetried;
             if (waitingForHostText != null)
-                waitingForHostText.gameObject.SetActive(!isMaster);
+            {
+                if (!isMaster)
+                {
+                    waitingForHostText.gameObject.SetActive(true);
+                    waitingForHostText.text = "Chờ host bắt đầu...";
+                }
+                else if (!allRetried)
+                {
+                    waitingForHostText.gameObject.SetActive(true);
+                    waitingForHostText.text = "Chờ người chơi khác...";
+                }
+                else
+                {
+                    waitingForHostText.gameObject.SetActive(false);
+                }
+            }
         }
         else
         {
@@ -119,6 +140,15 @@ public class EndStartUIOnline : MonoBehaviour
         return NetworkManager.Instance != null
             && NetworkManager.Instance.NetworkRunner != null
             && NetworkManager.Instance.NetworkRunner.IsSharedModeMasterClient;
+    }
+
+    private static bool AllPlayersRetried()
+    {
+        var gmo = GameManagerOnline.Instance;
+        var runner = NetworkManager.Instance?.NetworkRunner;
+        if (gmo == null || runner == null || gmo.Object == null || !gmo.Object.IsValid) return true;
+        if (!gmo.IsWaitingForRetry) return true;
+        return gmo.RetryReadyCount >= runner.ActivePlayers.Count();
     }
 
     private void HandleLevelStartedRemote()
@@ -151,6 +181,7 @@ public class EndStartUIOnline : MonoBehaviour
     {
         GameManagerOnline.OnLevelStarted -= HandleLevelStartedRemote;
         GameManagerOnline.OnLevelEnd -= OnLevelEnd;
+        GameManagerOnline.OnNextLevelReady -= HandleNextLevelReady;
         if (startBtn != null) startBtn.onClick.RemoveListener(OnStartClicked);
         if (retryBtn != null) { var btn = retryBtn.GetComponent<Button>(); if (btn != null) btn.onClick.RemoveListener(OnRetryClicked); }
         if (nextBtn != null)  { var btn = nextBtn.GetComponent<Button>();  if (btn != null) btn.onClick.RemoveListener(OnNextClicked); }
@@ -218,6 +249,8 @@ public class EndStartUIOnline : MonoBehaviour
 
     private void OnLevelEnd(bool isWin)
     {
+        _hasClickedRetry = false;
+        SetEndPanelWaiting(false);
         if (isWin) ToggleWinUI(); else ToggleFailUI();
         ApplyEndPanelTheme(isWin);
         ToggleEndScreen(true);
@@ -244,24 +277,47 @@ public class EndStartUIOnline : MonoBehaviour
 
     public void OnRetryClicked()
     {
+        if (!_hasClickedRetry && IsMultiplayerActive() && GameManagerOnline.Instance != null)
+        {
+            _hasClickedRetry = true;
+            GameManagerOnline.Instance.RPC_PlayerPressedRetry();
+        }
         if (_sequenceRoutine != null) StopCoroutine(_sequenceRoutine);
         _sequenceRoutine = StartCoroutine(ReturnToStartSequence());
     }
 
     public void OnNextClicked()
     {
-        if (_sequenceRoutine != null) StopCoroutine(_sequenceRoutine);
-        _sequenceRoutine = StartCoroutine(ReturnToStartSequence());
-
         if (IsMultiplayerActive())
         {
-            // Only MasterClient advances the level number; other clients just animate locally.
             if (IsLocalMasterClient() && GameManagerOnline.Instance != null)
-                GameManagerOnline.Instance.NextLevel();
+                GameManagerOnline.Instance.NextLevel(); // RPC sẽ trigger HandleNextLevelReady cho tất cả
+            else
+                SetEndPanelWaiting(true); // client: chờ host
             return;
         }
 
+        if (_sequenceRoutine != null) StopCoroutine(_sequenceRoutine);
+        _sequenceRoutine = StartCoroutine(ReturnToStartSequence());
         if (GameManager.Instance != null) GameManager.Instance.NextLevel();
+    }
+
+    private void HandleNextLevelReady()
+    {
+        SetEndPanelWaiting(false);
+        if (_sequenceRoutine != null) StopCoroutine(_sequenceRoutine);
+        _sequenceRoutine = StartCoroutine(ReturnToStartSequence());
+    }
+
+    private void SetEndPanelWaiting(bool waiting)
+    {
+        if (nextBtn != null)
+        {
+            var btn = nextBtn.GetComponent<Button>();
+            if (btn != null) btn.interactable = !waiting;
+        }
+        if (waitingForNextText != null)
+            waitingForNextText.gameObject.SetActive(waiting);
     }
 
     private IEnumerator ReturnToStartSequence()
@@ -324,7 +380,10 @@ public class EndStartUIOnline : MonoBehaviour
         if (endWinPanel != null)
         {
             foreach (TMP_Text tmp in endWinPanel.GetComponentsInChildren<TMP_Text>(true))
+            {
+                if (tmp == waitingForNextText) continue;
                 tmp.color = (tmp == endUITargetText || tmp == endUICoinTxt) ? coinText : primaryText;
+            }
         }
         else
         {

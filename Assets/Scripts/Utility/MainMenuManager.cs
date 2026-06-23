@@ -15,6 +15,11 @@ public class MainMenuManager : MonoBehaviour
     {
         SceneManager.LoadScene(gameSceneName);
     }
+    public void GoToMultiplayer()
+    {
+        SceneManager.LoadScene("JoinRoom");
+    }
+
     public void QuitGame()
     {
         Application.Quit();
