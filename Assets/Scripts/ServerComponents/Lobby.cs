@@ -70,7 +70,8 @@ public class Lobby : NetworkBehaviour
                 NetworkManager.Instance.NetworkRunner.SessionInfo.IsVisible = false;
                 // Shared Mode: runner.LoadScene() chỉ load cục bộ cho master.
                 // Phải dùng RPC để mỗi client tự gọi LoadScene() của mình.
-                RPC_LoadGameScene();
+                NetworkManager.Instance.NetworkRunner.LoadScene(mainGameSceneName);
+                //RPC_LoadGameScene();
             }
         }
     }
