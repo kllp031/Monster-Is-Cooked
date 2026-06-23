@@ -20,11 +20,14 @@ public class GameManagerOnline : NetworkBehaviour
     [Networked] public bool IsWaitingForRetry { get; set; }
 
     public static GameManagerOnline Instance { get; private set; }
+    public bool IsReady { get; private set; }
 
     public static event Action OnLevelStarted;
     public static event Action<bool> OnLevelEnd;
     public static event Action OnCollectedMoneyChanged;
     public static event Action OnNextLevelReady;
+    // Fires when the networked GameManagerOnline finishes spawning — level detail is now available.
+    public static event Action OnReady;
 
     private void Awake()
     {
@@ -43,6 +46,9 @@ public class GameManagerOnline : NetworkBehaviour
             GameStarted = true;
             LevelNumber = 0;
         }
+
+        IsReady = true;
+        OnReady?.Invoke();
 
         if (NetworkManager.Instance == null) return;
         if (playerPrefab == null || spawnPositions.Count == 0) return;

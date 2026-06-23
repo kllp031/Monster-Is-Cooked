@@ -79,7 +79,12 @@ public class EndStartUIOnline : MonoBehaviour
         WireButtons();
         GameManagerOnline.OnLevelStarted += HandleLevelStartedRemote;
         GameManagerOnline.OnNextLevelReady += HandleNextLevelReady;
+        // Refresh start panel values once GameManagerOnline spawns (level detail not ready at scene open).
+        GameManagerOnline.OnReady += SetUpStartUI;
         ToggleStartScreen(true);
+        // GameManagerOnline may have spawned before this UI's Start() ran — populate now if so.
+        if (GameManagerOnline.Instance != null && GameManagerOnline.Instance.IsReady)
+            SetUpStartUI();
     }
 
     private void Update()
@@ -182,6 +187,7 @@ public class EndStartUIOnline : MonoBehaviour
         GameManagerOnline.OnLevelStarted -= HandleLevelStartedRemote;
         GameManagerOnline.OnLevelEnd -= OnLevelEnd;
         GameManagerOnline.OnNextLevelReady -= HandleNextLevelReady;
+        GameManagerOnline.OnReady -= SetUpStartUI;
         if (startBtn != null) startBtn.onClick.RemoveListener(OnStartClicked);
         if (retryBtn != null) { var btn = retryBtn.GetComponent<Button>(); if (btn != null) btn.onClick.RemoveListener(OnRetryClicked); }
         if (nextBtn != null)  { var btn = nextBtn.GetComponent<Button>();  if (btn != null) btn.onClick.RemoveListener(OnNextClicked); }
