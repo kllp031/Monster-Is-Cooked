@@ -32,6 +32,13 @@ public class Health : NetworkBehaviour
     private EnemySpawner mySpawner;
     private Rigidbody2D rb;
     private Animator animator;
+    private SpriteRenderer spriteRenderer;
+
+    [Header("Invincibility Blink")]
+    [SerializeField] private float blinkInterval = 0.1f;
+    [SerializeField] [Range(0f, 1f)] private float blinkMinAlpha = 0.2f;
+    private float _blinkTimer;
+    private bool _blinkVisible = true;
 
     private Vector3 respawnPosition;
 
@@ -43,6 +50,7 @@ public class Health : NetworkBehaviour
         rb = GetComponent<Rigidbody2D>();
         enemyBase = GetComponent<EnemyBase>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         _lastHealth = currentHealth;
         SetRespawnPoint(transform.position);
@@ -208,6 +216,36 @@ public class Health : NetworkBehaviour
     // ==========================================
     // KHU VỰC THỰC THI ĐỒ HỌA/ÂM THANH TRÊN TẤT CẢ CÁC MÁY (RENDER LOGIC)
     // ==========================================
+
+    public override void Render()
+    {
+        base.Render();
+
+        if (spriteRenderer == null || !gameObject.CompareTag("Player")) return;
+
+        bool isInvincible = !invincibilityTimer.ExpiredOrNotRunning(Runner);
+
+        if (isInvincible)
+        {
+            _blinkTimer += Time.deltaTime;
+            if (_blinkTimer >= blinkInterval)
+            {
+                _blinkTimer = 0f;
+                _blinkVisible = !_blinkVisible;
+                var c = spriteRenderer.color;
+                c.a = _blinkVisible ? 1f : blinkMinAlpha;
+                spriteRenderer.color = c;
+            }
+        }
+        else
+        {
+            _blinkTimer = 0f;
+            _blinkVisible = true;
+            var c = spriteRenderer.color;
+            c.a = 1f;
+            spriteRenderer.color = c;
+        }
+    }
 
     // Kích hoạt tự động khi biến currentHealth bị mạng thay đổi giá trị
     public void OnHealthChanged()
