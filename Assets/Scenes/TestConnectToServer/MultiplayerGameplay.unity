@@ -97332,8 +97332,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joystick: {fileID: 1681704721}
   dashCooldownEffect: {fileID: 1220593992}
-  spawnPosition: {fileID: 0}
+  spawnPosition: {fileID: 1255790195}
   screenSpaceHealthBar: {fileID: 8429026107848219046}
+  controlsPanel: {fileID: 41608805257476371}
 --- !u!114 &7013710247075502849
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -37,10 +37,19 @@ public class LocalPlayerHUD : MonoBehaviour
              "Để trống nếu health bar đã được gắn trực tiếp trên player prefab.")]
     [SerializeField] private HealthBarUIOnline screenSpaceHealthBar;
 
+    [Tooltip("Root chứa các control UI (joystick, button dash/attack). Ẩn khi local player chết, hiện lại khi respawn.")]
+    [SerializeField] private GameObject controlsPanel;
+
     public Joystick Joystick => joystick;
     public Image DashCooldownEffect => dashCooldownEffect;
     public Transform SpawnPosition => spawnPosition;
     public HealthBarUIOnline ScreenSpaceHealthBar => screenSpaceHealthBar;
+
+    public void SetControlsVisible(bool visible)
+    {
+        if (controlsPanel != null)
+            controlsPanel.SetActive(visible);
+    }
 
     /// <summary>Player đang được bind (local player của máy này). Null khi chưa spawn.</summary>
     public KnightControllerOnline BoundPlayer { get; private set; }

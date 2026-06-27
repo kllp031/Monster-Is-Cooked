@@ -12,6 +12,8 @@ public class CameraFollow : MonoBehaviour
     private float heightCamera, widthCamera;
 
     public Transform PlayerTransform { get => playerTransform; set => playerTransform = value; }
+    public Vector2 TopLeft => topLeft;
+    public Vector2 BottomRight => bottomRight;
 
     private void Start()
     {

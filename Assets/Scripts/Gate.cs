@@ -51,6 +51,14 @@ public class Gate : MonoBehaviour
             );
         }
 
+        // 3. Sync new boundaries to networked state so spectating players can read them.
+        var controller = other.GetComponent<KnightControllerOnline>();
+        if (controller != null)
+        {
+            controller.CamTopLeft = targetArea.getTopLeft();
+            controller.CamBottomRight = targetArea.getBottomRight();
+        }
+
         onTeleport.Invoke();
     }
 }

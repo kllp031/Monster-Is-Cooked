@@ -287,6 +287,9 @@ public class Health : NetworkBehaviour
 
             var col = GetComponent<Collider2D>();
             if (col != null) col.enabled = false;
+
+            if (Object.HasInputAuthority)
+                GetComponent<KnightControllerOnline>()?.OnLocalPlayerDied();
         }
         else
         {
@@ -301,6 +304,9 @@ public class Health : NetworkBehaviour
 
             var col = GetComponent<Collider2D>();
             if (col != null) col.enabled = true;
+
+            if (Object.HasInputAuthority)
+                GetComponent<KnightControllerOnline>()?.OnLocalPlayerRevived();
         }
     }
 

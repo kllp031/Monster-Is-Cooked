@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class KnightControllerOnline : NetworkBehaviour
 {
     [Networked] private Vector2 moveInput { get; set; }
+    [Networked, OnChangedRender(nameof(OnCamBoundsChanged))] public Vector2 CamTopLeft { get; set; }
+    [Networked, OnChangedRender(nameof(OnCamBoundsChanged))] public Vector2 CamBottomRight { get; set; }
 
     [Header("Movement")]
 
@@ -68,7 +70,12 @@ public class KnightControllerOnline : NetworkBehaviour
             if (Camera.main != null)
             {
                 CameraFollow camFollow = Camera.main.GetComponent<CameraFollow>();
-                if (camFollow != null) camFollow.PlayerTransform = transform;
+                if (camFollow != null)
+                {
+                    camFollow.PlayerTransform = transform;
+                    CamTopLeft = camFollow.TopLeft;
+                    CamBottomRight = camFollow.BottomRight;
+                }
             }
 
             // Scene-local HUD (joystick, dash cooldown image, spawn point).
@@ -91,9 +98,65 @@ public class KnightControllerOnline : NetworkBehaviour
     private void HandleLevelStarted()
     {
         if (Object == null || !Object.IsValid || !Object.HasStateAuthority) return;
-        //Debug.Log($"[KnightControllerOnline] HandleLevelStarted on {gameObject.name}, spawnPosition={(spawnPosition != null ? spawnPosition.position.ToString() : "NULL")}");
         health?.Respawn();
         _pendingRespawn = true;
+    }
+
+    // Gọi từ Health.OnDeathChanged khi local player chết.
+    public void OnLocalPlayerDied()
+    {
+        if (Camera.main != null)
+        {
+            CameraFollow camFollow = Camera.main.GetComponent<CameraFollow>();
+            if (camFollow != null)
+            {
+                Transform aliveTarget = FindAlivePlayerTransform();
+                if (aliveTarget != null)
+                {
+                    camFollow.PlayerTransform = aliveTarget;
+                    var aliveController = aliveTarget.GetComponent<KnightControllerOnline>();
+                    if (aliveController != null)
+                        camFollow.SetBoundaries(aliveController.CamTopLeft, aliveController.CamBottomRight);
+                    else
+                        camFollow.BackHome();
+                }
+            }
+        }
+        LocalPlayerHUD.Instance?.SetControlsVisible(false);
+    }
+
+    // Gọi từ Health.OnDeathChanged khi local player hồi sinh.
+    public void OnLocalPlayerRevived()
+    {
+        if (Camera.main != null)
+        {
+            CameraFollow camFollow = Camera.main.GetComponent<CameraFollow>();
+            if (camFollow != null)
+            {
+                camFollow.PlayerTransform = transform;
+                camFollow.BackHome(); // respawn luôn về home area
+            }
+        }
+        LocalPlayerHUD.Instance?.SetControlsVisible(true);
+    }
+
+    private void OnCamBoundsChanged()
+    {
+        if (Camera.main == null) return;
+        var camFollow = Camera.main.GetComponent<CameraFollow>();
+        if (camFollow != null && camFollow.PlayerTransform == transform)
+            camFollow.SetBoundaries(CamTopLeft, CamBottomRight);
+    }
+
+    private Transform FindAlivePlayerTransform()
+    {
+        foreach (var h in FindObjectsByType<Health>(FindObjectsSortMode.None))
+        {
+            if (!h.gameObject.CompareTag("Player")) continue;
+            if (h.Object.HasInputAuthority) continue; // bỏ qua bản thân
+            if (!h.isDeath) return h.transform;
+        }
+        return null;
     }
 
     public override void FixedUpdateNetwork()
