@@ -24,8 +24,11 @@ public class KnightControllerOnline : NetworkBehaviour
     private Image dashCooldownEffect;
     private Joystick dynamicJoystick; // Joystick Pack
 
+    [Networked] public Vector3 DeathPosition { get; set; }
     [Networked] private NetworkBool isDashing { get; set; }
     private bool _pendingRespawn = false;
+    private float _rescueTimer = 0f;
+    private KnightControllerOnline _rescueTarget = null;
     private bool isHurting = false;
     [SerializeField] private float hurtingTime = 0.5f;
     private float hurtingTimer = 0f;
@@ -105,6 +108,7 @@ public class KnightControllerOnline : NetworkBehaviour
     // Gọi từ Health.OnDeathChanged khi local player chết.
     public void OnLocalPlayerDied()
     {
+        DeathPosition = transform.position;
         if (Camera.main != null)
         {
             CameraFollow camFollow = Camera.main.GetComponent<CameraFollow>();
@@ -134,7 +138,7 @@ public class KnightControllerOnline : NetworkBehaviour
             if (camFollow != null)
             {
                 camFollow.PlayerTransform = transform;
-                camFollow.BackHome(); // respawn luôn về home area
+                camFollow.BackHome();
             }
         }
         LocalPlayerHUD.Instance?.SetControlsVisible(true);
@@ -157,6 +161,61 @@ public class KnightControllerOnline : NetworkBehaviour
             if (!h.isDeath) return h.transform;
         }
         return null;
+    }
+
+    private void UpdateRescue()
+    {
+        KnightControllerOnline nearestDead = null;
+        float nearestDist = float.MaxValue;
+
+        foreach (var ctrl in FindObjectsByType<KnightControllerOnline>(FindObjectsSortMode.None))
+        {
+            if (ctrl == this) continue;
+            var h = ctrl.GetComponent<Health>();
+            if (h == null || !h.isDeath) continue;
+            float dist = Vector2.Distance(transform.position, ctrl.DeathPosition);
+            if (dist <= 2f && dist < nearestDist)
+            {
+                nearestDead = ctrl;
+                nearestDist = dist;
+            }
+        }
+
+        if (nearestDead != _rescueTarget)
+        {
+            _rescueTimer = 0f;
+            _rescueTarget = nearestDead;
+        }
+
+        if (_rescueTarget == null)
+        {
+            LocalPlayerHUD.Instance?.SetRescueCountdown(0);
+            return;
+        }
+
+        _rescueTimer += Time.deltaTime;
+        int secondsLeft = Mathf.CeilToInt(5f - _rescueTimer);
+        LocalPlayerHUD.Instance?.SetRescueCountdown(Mathf.Max(secondsLeft, 0));
+
+        if (_rescueTimer >= 5f)
+        {
+            _rescueTarget.RPC_RescueRevive();
+            ClearRescue();
+        }
+    }
+
+    private void ClearRescue()
+    {
+        _rescueTimer = 0f;
+        _rescueTarget = null;
+        LocalPlayerHUD.Instance?.SetRescueCountdown(0);
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RPC_RescueRevive()
+    {
+        health?.Respawn();
+        _pendingRespawn = true;
     }
 
     public override void FixedUpdateNetwork()
@@ -245,6 +304,14 @@ public class KnightControllerOnline : NetworkBehaviour
         // player không có HUD và cũng không được ghi [Networked] moveInput.
         if (Object == null || !Object.IsValid) return;
         bool isLocal = Object.HasInputAuthority;
+
+        // Rescue (local + alive only)
+        if (isLocal)
+        {
+            bool alive = health == null || !health.isDeath;
+            if (alive) UpdateRescue();
+            else       ClearRescue();
+        }
 
         // Update dash cooldown UI (local only)
         if (isLocal && !canDash && dashCooldownEffect != null)

@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -40,6 +41,9 @@ public class LocalPlayerHUD : MonoBehaviour
     [Tooltip("Root chứa các control UI (joystick, button dash/attack). Ẩn khi local player chết, hiện lại khi respawn.")]
     [SerializeField] private GameObject controlsPanel;
 
+    [Tooltip("Text hiển thị đếm ngược khi đang hồi sinh đồng đội.")]
+    [SerializeField] private TMP_Text rescueCountdownText;
+
     public Joystick Joystick => joystick;
     public Image DashCooldownEffect => dashCooldownEffect;
     public Transform SpawnPosition => spawnPosition;
@@ -49,6 +53,14 @@ public class LocalPlayerHUD : MonoBehaviour
     {
         if (controlsPanel != null)
             controlsPanel.SetActive(visible);
+    }
+
+    public void SetRescueCountdown(int seconds)
+    {
+        if (rescueCountdownText == null) return;
+        bool show = seconds > 0;
+        rescueCountdownText.gameObject.SetActive(show);
+        if (show) rescueCountdownText.text = seconds.ToString();
     }
 
     /// <summary>Player đang được bind (local player của máy này). Null khi chưa spawn.</summary>
