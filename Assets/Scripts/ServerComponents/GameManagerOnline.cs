@@ -118,9 +118,6 @@ public class GameManagerOnline : NetworkBehaviour
         bool win = levelDetail != null && CollectedMoney >= levelDetail.TargetMoney;
         bool isLastLevel = !levelDesign.CheckValidLevel(LevelNumber + 1);
 
-        if (win && isLastLevel)
-            GameStarted = false;
-
         //Debug.Log($"[GameManagerOnline] EndLevel — win:{win} lastLevel:{isLastLevel}");
         RPC_BroadcastLevelEnd(win, win && isLastLevel);
     }
@@ -177,7 +174,8 @@ public class GameManagerOnline : NetworkBehaviour
     public void NextLevel()
     {
         if (!Object.HasStateAuthority) return;
-        LevelNumber++;
+        if (levelDesign.CheckValidLevel(LevelNumber + 1))
+            LevelNumber++;
         RPC_BroadcastNextLevel();
     }
 
