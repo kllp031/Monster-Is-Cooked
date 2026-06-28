@@ -37,3 +37,5 @@ MonoBehaviour:
     Recipe: {fileID: 11400000, guid: 2bfdc6fb920eb194490c4f2d7593659d, type: 2}
   - RecipeId: SoupSlime
     Recipe: {fileID: 11400000, guid: 2bfdc6fb920eb194490c4f2d7593659d, type: 2}
+  - RecipeId: StrawberryIceCream
+    Recipe: {fileID: 11400000, guid: 85774cfdafbe05244a6dde7e483e7853, type: 2}
