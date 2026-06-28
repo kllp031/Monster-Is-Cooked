@@ -38,7 +38,12 @@ public class ItemsSpawnerOnline : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
-        if (!Object.HasStateAuthority) return;
+        if (!Object.HasStateAuthority)
+        {
+            if (Runner != null && Runner.IsSharedModeMasterClient)
+                Object.RequestStateAuthority();
+            return;
+        }
 
         _isActive = _localPlayersInTrigger > 0;
 
@@ -90,7 +95,12 @@ public class ItemsSpawnerOnline : NetworkBehaviour
 
     public void OnItemCollected()
     {
-        if (!Object.HasStateAuthority) return;
+        if (!Object.HasStateAuthority)
+        {
+            if (Runner != null && Runner.IsSharedModeMasterClient)
+                Object.RequestStateAuthority();
+            return;
+        }
         CurrentCount = Mathf.Max(0, CurrentCount - 1);
         //Debug.Log($"[Spawner][StateAuth] OnItemCollected → CurrentCount = {CurrentCount}");
     }

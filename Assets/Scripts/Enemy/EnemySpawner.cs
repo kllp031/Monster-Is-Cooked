@@ -42,8 +42,13 @@ public class EnemySpawner : NetworkBehaviour
     {
         base.FixedUpdateNetwork();
 
-        // CHỈ host mới xử lý logic sinh quái
-        if (!Object.HasStateAuthority) return;
+        if (!Object.HasStateAuthority)
+        {
+            // Khi host cũ thoát, master client mới tự tiếp quản authority
+            if (Runner != null && Runner.IsSharedModeMasterClient)
+                Object.RequestStateAuthority();
+            return;
+        }
 
         if (_isActive && _currentCount < _maxEnemies)
         {
