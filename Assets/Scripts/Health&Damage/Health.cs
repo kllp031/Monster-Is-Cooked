@@ -71,7 +71,13 @@ public class Health : NetworkBehaviour
     {
         base.FixedUpdateNetwork();
 
-        if (!Object.HasStateAuthority) return;
+        if (!Object.HasStateAuthority)
+        {
+            // Enemy không có chủ sau khi host thoát → master client tiếp quản
+            if (gameObject.CompareTag("Enemy") && Runner != null && Runner.IsSharedModeMasterClient)
+                Object.RequestStateAuthority();
+            return;
+        }
 
         // Xử lý hết lực Knockback đồng bộ qua mạng
         if (knockbackTimer.IsRunning && knockbackTimer.Expired(Runner))

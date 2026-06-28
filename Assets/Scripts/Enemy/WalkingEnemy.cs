@@ -59,6 +59,12 @@ public class WalkingEnemy : EnemyBase
     // Hàm này sẽ được base.FixedUpdateNetwork() gọi NẾU máy có StateAuthority
     public override void FixedUpdateNetwork()
     {
+        if (!Object.HasStateAuthority)
+        {
+            if (Runner != null && Runner.IsSharedModeMasterClient)
+                Object.RequestStateAuthority();
+        }
+
         if (Object.HasStateAuthority)
         {
             // Bộ đếm thời gian quét mục tiêu (Tránh việc quét mỗi frame gây sụt giảm hiệu năng - CPU spike)

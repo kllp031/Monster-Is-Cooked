@@ -65,6 +65,12 @@ public abstract class EnemyBase : NetworkBehaviour
     {
         base.FixedUpdateNetwork();
 
+        if (!Object.HasStateAuthority)
+        {
+            if (Runner != null && Runner.IsSharedModeMasterClient)
+                Object.RequestStateAuthority();
+        }
+
         // CỰC KỲ QUAN TRỌNG: Chỉ máy có quyền (Master Client/Spawner) mới được di chuyển quái
         if (Object.HasStateAuthority)
         {
