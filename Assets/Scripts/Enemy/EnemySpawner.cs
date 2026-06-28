@@ -50,15 +50,20 @@ public class EnemySpawner : NetworkBehaviour
             return;
         }
 
-        if (_isActive && _currentCount < _maxEnemies)
+        // Tính _isActive từ local trigger count SAU KHI có authority
+        // (Không gán trong OnTriggerEnter vì RequestStateAuthority() là async)
+        _isActive = _localPlayersInTrigger > 0;
+
+        if (!_isActive)
         {
-            // Kiểm tra xem đồng hồ đếm ngược hết hạn hoặc chưa chạy không
-            if (_spawnTimer.ExpiredOrNotRunning(Runner))
-            {
-                SpawnEnemyNetworked();
-                // Khởi tạo lại đồng hồ đếm ngược cho lượt đẻ quái tiếp theo
-                _spawnTimer = TickTimer.CreateFromSeconds(Runner, _spawnInterval);
-            }
+            _spawnTimer = TickTimer.None;
+            return;
+        }
+
+        if (_currentCount < _maxEnemies && _spawnTimer.ExpiredOrNotRunning(Runner))
+        {
+            SpawnEnemyNetworked();
+            _spawnTimer = TickTimer.CreateFromSeconds(Runner, _spawnInterval);
         }
     }
 
@@ -82,34 +87,13 @@ public class EnemySpawner : NetworkBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
-        {
             _localPlayersInTrigger++;
-
-            // Nếu có ít nhất 1 người chơi bước vào, chuyển trạng thái mạng sang Active
-            if (_localPlayersInTrigger > 0)
-            {
-                // Yêu cầu chiếm quyền điều khiển Spawner để sửa dữ liệu nếu máy local chưa có quyền
-                Object.RequestStateAuthority();
-                _isActive = true;
-            }
-        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
-        {
-            _localPlayersInTrigger--;
-            if (_localPlayersInTrigger < 0) _localPlayersInTrigger = 0;
-
-            // Khi không còn bất kỳ người chơi nào đứng trong vùng, tắt Spawner mạng
-            if (_localPlayersInTrigger == 0)
-            {
-                Object.RequestStateAuthority();
-                _isActive = false;
-                _spawnTimer = TickTimer.None; // Reset timer mạng
-            }
-        }
+            _localPlayersInTrigger = Mathf.Max(0, _localPlayersInTrigger - 1);
     }
 
     // Hàm nhận tin nhắn từ Health.cs khi quái bị hạ gục
